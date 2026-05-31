@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { ScrollReveal } from "@/components/motion-primitives/scroll-reveal";
+import { TextReveal } from "@/components/motion-primitives/text-reveal";
+import { HoverLift } from "@/components/motion-primitives/hover-lift";
 
 export const metadata: Metadata = {
   title: "Styleguide — designbyalex.dev",
@@ -152,6 +155,76 @@ export default function StyleguidePage() {
                 <p className="font-mono text-xs text-muted-foreground">{r.label}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section>
+          <SectionHeading>Motion primitives · S2</SectionHeading>
+          <p className="mb-8 max-w-prose text-[1.125rem] leading-[1.4] text-muted-foreground">
+            All three route through the pure reduced-motion selector. Enable{" "}
+            <span className="font-mono text-foreground">prefers-reduced-motion</span> at the OS level
+            and every one below degrades to a static, non-animated fallback — the decision logic is
+            unit-tested.
+          </p>
+
+          <div className="space-y-12">
+            <div className="space-y-4">
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                TextReveal
+              </h3>
+              <TextReveal
+                as="p"
+                per="word"
+                className="text-[1.875rem] leading-[1.2] tracking-[-0.02em]"
+              >
+                Human-centred product design, revealed word by word.
+              </TextReveal>
+              <TextReveal
+                as="p"
+                per="char"
+                className="font-mono text-[1.125rem] tracking-[-0.02em] text-muted-foreground"
+              >
+                ...and character by character.
+              </TextReveal>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                ScrollReveal · scroll this section in and out of view to replay
+              </h3>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {[0, 1, 2].map((i) => (
+                  <ScrollReveal
+                    key={i}
+                    once={false}
+                    delay={i * 0.08}
+                    className="rounded-lg border border-border bg-card p-6"
+                  >
+                    <p className="font-mono text-xs text-muted-foreground">card {i + 1}</p>
+                    <p className="mt-2 text-[1.125rem] leading-[1.4]">
+                      Fades and rises into view as it enters the viewport.
+                    </p>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                HoverLift · hover / press
+              </h3>
+              <div className="flex flex-wrap items-center gap-6">
+                <HoverLift className="w-60 rounded-lg border border-border bg-card p-6">
+                  <p className="font-mono text-xs text-muted-foreground">card</p>
+                  <p className="mt-2 text-[1.125rem] leading-[1.4]">
+                    Lifts and scales on hover, presses on tap.
+                  </p>
+                </HoverLift>
+                <HoverLift className="inline-flex">
+                  <Button>Hover me</Button>
+                </HoverLift>
+              </div>
+            </div>
           </div>
         </section>
       </Container>

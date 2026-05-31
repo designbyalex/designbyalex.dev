@@ -7,6 +7,9 @@
 # testing
 /coverage
 
+# typescript
+*.tsbuildinfo
+
 # next.js
 /.next/
 /out/
