@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation';
 import client from '@/tina/__generated__/client';
 import Layout from '@/components/layout/layout';
 import { Section } from '@/components/layout/section';
-import ClientPage from './client-page';
+import PageClientPage from './client-page';
+import ProjectClientPage from './project-page';
 
 export const revalidate = 300;
 
@@ -15,50 +16,68 @@ export default async function Page({
   const resolvedParams = await params;
   const filepath = resolvedParams.urlSegments.join('/');
 
+  // Projects own the root slug (e.g. /acacia), so resolve a project first and
+  // fall back to a marketing page (e.g. /about).
+  try {
+    const data = await client.queries.project({
+      relativePath: `${filepath}.mdx`,
+    });
+    return (
+      <Layout rawPageData={data}>
+        <ProjectClientPage {...data} />
+      </Layout>
+    );
+  } catch {
+    // Not a project — try a page below.
+  }
+
   let data;
   try {
     data = await client.queries.page({
       relativePath: `${filepath}.mdx`,
     });
-  } catch (error) {
+  } catch {
     notFound();
   }
 
   return (
     <Layout rawPageData={data}>
       <Section>
-        <ClientPage {...data} />
+        <PageClientPage {...data} />
       </Section>
     </Layout>
   );
 }
 
-export async function generateStaticParams() {
-  let pages = await client.queries.pageConnection();
-  const allPages = pages;
-
-  if (!allPages.data.pageConnection.edges) {
-    return [];
-  }
-
-  while (pages.data.pageConnection.pageInfo.hasNextPage) {
-    pages = await client.queries.pageConnection({
-      after: pages.data.pageConnection.pageInfo.endCursor,
-    });
-
-    if (!pages.data.pageConnection.edges) {
-      break;
+async function collectBreadcrumbs<T extends { pageInfo: { hasNextPage: boolean; endCursor: string | null }; edges?: ({ node?: { _sys: { breadcrumbs: string[] } } | null } | null)[] | null }>(
+  fetchPage: (after?: string) => Promise<T>
+): Promise<string[][]> {
+  const out: string[][] = [];
+  let connection = await fetchPage();
+  while (true) {
+    for (const edge of connection.edges ?? []) {
+      const crumbs = edge?.node?._sys.breadcrumbs;
+      if (crumbs) out.push(crumbs);
     }
-
-    allPages.data.pageConnection.edges.push(...pages.data.pageConnection.edges);
+    if (!connection.pageInfo.hasNextPage || !connection.pageInfo.endCursor) break;
+    connection = await fetchPage(connection.pageInfo.endCursor);
   }
+  return out;
+}
 
-  const params = allPages.data?.pageConnection.edges
-    .map((edge) => ({
-      urlSegments: edge?.node?._sys.breadcrumbs || [],
-    }))
+export async function generateStaticParams() {
+  const pageCrumbs = await collectBreadcrumbs(async (after) => {
+    const res = await client.queries.pageConnection({ after });
+    return res.data.pageConnection;
+  });
+
+  const projectCrumbs = await collectBreadcrumbs(async (after) => {
+    const res = await client.queries.projectConnection({ after });
+    return res.data.projectConnection;
+  });
+
+  return [...pageCrumbs, ...projectCrumbs]
+    .map((urlSegments) => ({ urlSegments }))
     .filter((x) => x.urlSegments.length >= 1)
-    .filter((x) => !x.urlSegments.every((x) => x === 'home')); // exclude the home page
-
-  return params;
+    .filter((x) => !x.urlSegments.every((segment) => segment === 'home')); // exclude the home page
 }

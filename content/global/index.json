@@ -5,20 +5,16 @@
       "color": "orange",
       "style": "float"
     },
-    "name": "Tina Starter",
+    "name": "designbyalex",
     "color": "default",
     "nav": [
       {
         "href": "/",
-        "label": "Home"
+        "label": "Work"
       },
       {
         "href": "/about",
         "label": "About"
-      },
-      {
-        "href": "/posts",
-        "label": "Blog"
       }
     ]
   },
@@ -51,8 +47,8 @@
     ]
   },
   "theme": {
-    "color": "blue",
+    "color": "green",
     "font": "sans",
-    "darkMode": "light"
+    "darkMode": "dark"
   }
 }
