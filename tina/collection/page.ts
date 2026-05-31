@@ -24,6 +24,14 @@ const Page: Collection = {
   },
   fields: [
     {
+      type: 'string',
+      label: 'Title',
+      name: 'title',
+      isTitle: true,
+      required: true,
+      description: 'Used for the editor list and document metadata.',
+    },
+    {
       type: 'object',
       list: true,
       name: 'blocks',
