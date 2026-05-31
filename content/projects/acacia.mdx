@@ -1,6 +1,7 @@
 ---
 status: shipped
 title: Acacia
+order: 1
 tagline: A design system that gave a fragmented product suite one coherent voice.
 typology:
   - Design Systems
@@ -15,26 +16,36 @@ collaborators:
   - name: Priya Nair
     role: Product Design
 metrics:
-  - value: 40+
+  - value: 40
+    kind: count
+    suffix: "+"
     label: Teams onboarded
-  - value: 6 → 1
+  - value: 6
+    kind: transition
+    to: 1
     label: Libraries unified
-  - value: -32%
+  - value: -32
+    kind: delta
     label: UI bug reports
 blocks:
   - _template: hero
     headline: Acacia
     tagline: One system, every surface.
-  - _template: content
+  - _template: text
     body: "## The brief\n\nAcacia began as six divergent component libraries — one per product team — with no shared tokens, no shared language, and a steady drift in look and feel. The mandate was to unify them into a single, themeable system without freezing product teams mid-flight.\n\n## Approach\n\nWe started from tokens, not components: a small, audited set of colour, type, spacing, and radius primitives that every surface could adopt incrementally. Components were rebuilt on top, shipped behind a migration codemod so teams could move at their own pace.\n\n## Outcome\n\nWithin a year Acacia underpinned every shipping surface, cut UI bug reports by a third, and turned \"which button do I use?\" into a non-question."
-  - _template: stats
+  - _template: metrics
     title: Impact
     description: A year after rollout, Acacia underpinned every shipping surface in the suite.
-    stats:
-      - stat: 40+
-        type: Teams onboarded
-      - stat: 200+
-        type: Components shipped
-      - stat: 99%
-        type: Token coverage
+    metrics:
+      - value: 40
+        kind: count
+        suffix: "+"
+        label: Teams onboarded
+      - value: 200
+        kind: count
+        suffix: "+"
+        label: Components shipped
+      - value: 99
+        kind: percentage
+        label: Token coverage
 ---

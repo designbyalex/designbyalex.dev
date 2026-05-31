@@ -4,31 +4,34 @@ import React from 'react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { components } from '../mdx-components';
 import type { Template } from 'tinacms';
-import { PageBlocksContent } from '../../tina/__generated__/types';
+import { PageBlocksText } from '../../tina/__generated__/types';
 import { tinaField } from 'tinacms/dist/react';
 import { Section } from '../layout/section';
 import { Mermaid } from './mermaid';
 import { sectionBlockSchemaField } from '../layout/section';
 import { scriptCopyBlockSchema, ScriptCopyBtn } from '../magicui/script-copy-btn';
+import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
-export const Content = ({ data }: { data: PageBlocksContent }) => {
+export const Text = ({ data }: { data: PageBlocksText }) => {
   return (
-    <Section background={data.background!} className='prose prose-lg' data-tina-field={tinaField(data, 'body')}>
-      <TinaMarkdown
-        content={data.body}
-        components={{
-          ...components,
-          mermaid: (props: any) => <Mermaid {...props} />,
-          scriptCopyBlock: (props: any) => <ScriptCopyBtn {...props} />,
-        }}
-      />
+    <Section background={data.background!} className="prose prose-lg dark:prose-invert" data-tina-field={tinaField(data, 'body')}>
+      <ScrollReveal>
+        <TinaMarkdown
+          content={data.body}
+          components={{
+            ...components,
+            mermaid: (props: any) => <Mermaid {...props} />,
+            scriptCopyBlock: (props: any) => <ScriptCopyBtn {...props} />,
+          }}
+        />
+      </ScrollReveal>
     </Section>
   );
 };
 
-export const contentBlockSchema: Template = {
-  name: 'content',
-  label: 'Content',
+export const textBlockSchema: Template = {
+  name: 'text',
+  label: 'Text',
   ui: {
     previewSrc: '/blocks/content.png',
     defaultItem: {
