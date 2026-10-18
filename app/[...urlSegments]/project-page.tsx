@@ -1,9 +1,12 @@
 "use client";
+import Link from "next/link";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Blocks } from "@/components/blocks";
 import { Section } from "@/components/layout/section";
 import { ProjectQuery } from "@/tina/__generated__/types";
 import ErrorBoundary from "@/components/error-boundary";
+import { formatMetric, type MetricKind } from "@/lib/case-study/format";
+import { resolveAdjacentProjects, type ProjectRef } from "@/lib/case-study/next-project";
 
 export interface ProjectClientPageProps {
   data: {
@@ -13,6 +16,8 @@ export interface ProjectClientPageProps {
     relativePath: string;
   };
   query: string;
+  /** Minimal list of all projects, used to resolve next/previous navigation. */
+  allProjects?: ProjectRef[];
 }
 
 const statusLabels: Record<string, string> = {
@@ -22,9 +27,13 @@ const statusLabels: Record<string, string> = {
 };
 
 export default function ProjectClientPage(props: ProjectClientPageProps) {
-  const { data } = useTina({ ...props });
+  const { allProjects, ...tinaProps } = props;
+  const { data } = useTina(tinaProps);
   const project = data?.project;
   if (!project) return null;
+
+  const currentSlug = props.variables.relativePath.replace(/\.mdx$/, "");
+  const { next, prev } = resolveAdjacentProjects(allProjects ?? [], currentSlug);
 
   const meta: { key: string; label: string; value: string }[] = [];
   if (project.role?.length) meta.push({ key: "role", label: "Role", value: project.role.filter(Boolean).join(", ") });
@@ -80,7 +89,14 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
             <ul className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
               {project.metrics.filter(Boolean).map((metric, i) => (
                 <li key={i} data-tina-field={tinaField(metric!)}>
-                  <span className="block text-4xl font-medium tracking-tight">{metric!.value}</span>
+                  <span className="block text-4xl font-medium tracking-tight">
+                    {formatMetric({
+                      value: metric!.value ?? Number.NaN,
+                      kind: metric!.kind as MetricKind | null,
+                      to: metric!.to,
+                      suffix: metric!.suffix,
+                    })}
+                  </span>
                   <span className="mt-1 block text-sm text-muted-foreground">{metric!.label}</span>
                 </li>
               ))}
@@ -89,6 +105,33 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
         </Section>
 
         <Blocks blocks={project.blocks} />
+
+        {(next || prev) && (
+          <Section className="prose-none">
+            <nav className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:justify-between">
+              {prev ? (
+                <Link href={`/${prev.slug}`} className="group">
+                  <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                    Previous
+                  </span>
+                  <span className="mt-1 block text-lg font-medium group-hover:text-primary">{prev.title}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
+              {next ? (
+                <Link href={`/${next.slug}`} className="group sm:text-right">
+                  <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                    Next project
+                  </span>
+                  <span className="mt-1 block text-lg font-medium group-hover:text-primary">{next.title}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
+            </nav>
+          </Section>
+        )}
       </article>
     </ErrorBoundary>
   );

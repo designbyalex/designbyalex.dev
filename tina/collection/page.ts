@@ -1,11 +1,12 @@
 import type { Collection } from 'tinacms';
 import { heroBlockSchema } from '@/components/blocks/hero';
-import { contentBlockSchema } from '@/components/blocks/content';
-import { testimonialBlockSchema } from '@/components/blocks/testimonial';
-import { featureBlockSchema } from '@/components/blocks/features';
+import { textBlockSchema } from '@/components/blocks/text';
+import { imageBlockSchema } from '@/components/blocks/image';
+import { galleryBlockSchema } from '@/components/blocks/gallery';
 import { videoBlockSchema } from '@/components/blocks/video';
-import { calloutBlockSchema } from '@/components/blocks/callout';
-import { statsBlockSchema } from '@/components/blocks/stats';
+import { featureDeepDiveBlockSchema } from '@/components/blocks/feature-deep-dive';
+import { metricsBlockSchema } from '@/components/blocks/metrics';
+import { quoteBlockSchema } from '@/components/blocks/quote';
 import { ctaBlockSchema } from '@/components/blocks/call-to-action';
 
 const Page: Collection = {
@@ -41,13 +42,14 @@ const Page: Collection = {
       },
       templates: [
         heroBlockSchema,
-        calloutBlockSchema,
-        featureBlockSchema,
-        statsBlockSchema,
-        ctaBlockSchema,
-        contentBlockSchema,
-        testimonialBlockSchema,
+        textBlockSchema,
+        imageBlockSchema,
+        galleryBlockSchema,
         videoBlockSchema,
+        featureDeepDiveBlockSchema,
+        metricsBlockSchema,
+        quoteBlockSchema,
+        ctaBlockSchema,
       ],
     },
   ],

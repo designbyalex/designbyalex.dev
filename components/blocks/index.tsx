@@ -1,12 +1,13 @@
 import type { ComponentType } from "react";
 import { tinaField } from "tinacms/dist/react";
 import { Hero } from "./hero";
-import { Content } from "./content";
-import { Features } from "./features";
-import { Testimonial } from "./testimonial";
+import { Text } from "./text";
+import { ImageBlock } from "./image";
+import { Gallery } from "./gallery";
 import { Video } from "./video";
-import { Callout } from "./callout";
-import { Stats } from "./stats";
+import { FeatureDeepDive } from "./feature-deep-dive";
+import { Metrics } from "./metrics";
+import { Quote } from "./quote";
 import { CallToAction } from "./call-to-action";
 import { resolveBlockComponent } from "./resolve";
 
@@ -17,12 +18,13 @@ import { resolveBlockComponent } from "./resolve";
  */
 export const blockComponents: Record<string, ComponentType<{ data: any }>> = {
   Hero,
-  Content,
-  Features,
-  Testimonial,
+  Text,
+  Image: ImageBlock,
+  Gallery,
   Video,
-  Callout,
-  Stats,
+  FeatureDeepDive,
+  Metrics,
+  Quote,
   Cta: CallToAction,
 };
 

@@ -1,12 +1,14 @@
 import type { Collection } from 'tinacms';
 import { heroBlockSchema } from '@/components/blocks/hero';
-import { contentBlockSchema } from '@/components/blocks/content';
-import { testimonialBlockSchema } from '@/components/blocks/testimonial';
-import { featureBlockSchema } from '@/components/blocks/features';
+import { textBlockSchema } from '@/components/blocks/text';
+import { imageBlockSchema } from '@/components/blocks/image';
+import { galleryBlockSchema } from '@/components/blocks/gallery';
 import { videoBlockSchema } from '@/components/blocks/video';
-import { calloutBlockSchema } from '@/components/blocks/callout';
-import { statsBlockSchema } from '@/components/blocks/stats';
+import { featureDeepDiveBlockSchema } from '@/components/blocks/feature-deep-dive';
+import { metricsBlockSchema } from '@/components/blocks/metrics';
+import { quoteBlockSchema } from '@/components/blocks/quote';
 import { ctaBlockSchema } from '@/components/blocks/call-to-action';
+import { metricFields } from '@/tina/fields/metric';
 
 const Project: Collection = {
   label: 'Projects',
@@ -35,6 +37,12 @@ const Project: Collection = {
       name: 'title',
       isTitle: true,
       required: true,
+    },
+    {
+      type: 'number',
+      label: 'Order',
+      name: 'order',
+      description: 'Sort position for next/previous project navigation (lower shows first).',
     },
     {
       type: 'string',
@@ -81,16 +89,13 @@ const Project: Collection = {
       type: 'object',
       label: 'Metrics',
       name: 'metrics',
-      description: 'Headline outcomes (e.g. "+40% adoption").',
+      description: 'Headline outcomes. The display string is derived from the value + kind.',
       list: true,
       ui: {
         itemProps: (item) => ({ label: `${item?.value ?? ''} ${item?.label ?? ''}`.trim() }),
-        defaultItem: { label: 'Adoption', value: '+40%' },
+        defaultItem: { value: 40, kind: 'delta', label: 'Adoption' },
       },
-      fields: [
-        { type: 'string', label: 'Value', name: 'value' },
-        { type: 'string', label: 'Label', name: 'label' },
-      ],
+      fields: metricFields,
     },
     {
       type: 'image',
@@ -109,13 +114,14 @@ const Project: Collection = {
       },
       templates: [
         heroBlockSchema,
-        calloutBlockSchema,
-        featureBlockSchema,
-        statsBlockSchema,
-        ctaBlockSchema,
-        contentBlockSchema,
-        testimonialBlockSchema,
+        textBlockSchema,
+        imageBlockSchema,
+        galleryBlockSchema,
         videoBlockSchema,
+        featureDeepDiveBlockSchema,
+        metricsBlockSchema,
+        quoteBlockSchema,
+        ctaBlockSchema,
       ],
     },
   ],
