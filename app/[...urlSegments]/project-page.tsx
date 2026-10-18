@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useTina, tinaField } from "tinacms/dist/react";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { Blocks } from "@/components/blocks";
+import { components } from "@/components/mdx-components";
 import { Section } from "@/components/layout/section";
 import { ProjectQuery } from "@/tina/__generated__/types";
 import ErrorBoundary from "@/components/error-boundary";
@@ -35,15 +37,22 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
   const currentSlug = props.variables.relativePath.replace(/\.mdx$/, "");
   const { next, prev } = resolveAdjacentProjects(allProjects ?? [], currentSlug);
 
-  const meta: { key: string; label: string; value: string }[] = [];
-  if (project.role?.length) meta.push({ key: "role", label: "Role", value: project.role.filter(Boolean).join(", ") });
+  // Overview order mirrors the live case study: typology, role, timeline, collaborators.
+  const meta: { key: string; label: string; value: string; note?: string | null }[] = [];
   if (project.typology?.length) meta.push({ key: "typology", label: "Typology", value: project.typology.filter(Boolean).join(", ") });
+  if (project.role?.length) {
+    meta.push({ key: "role", label: "Role", value: project.role.filter(Boolean).join(", "), note: project.roleDescription });
+  }
   if (project.timeline) meta.push({ key: "timeline", label: "Timeline", value: project.timeline });
   if (project.collaborators?.length) {
     meta.push({
       key: "collaborators",
-      label: "With",
-      value: project.collaborators.filter(Boolean).map((c) => c!.name).filter(Boolean).join(", "),
+      label: "Collaborators",
+      value: project.collaborators
+        .filter(Boolean)
+        .map((c) => (c!.role ? `${c!.name} (${c!.role})` : c!.name))
+        .filter(Boolean)
+        .join("\n"),
     });
   }
 
@@ -74,12 +83,29 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
             </p>
           )}
 
+          {project.intro && (
+            <div
+              className="prose prose-lg dark:prose-invert mt-10 max-w-3xl text-muted-foreground"
+              data-tina-field={tinaField(project, "intro")}
+            >
+              <TinaMarkdown content={project.intro} components={components} />
+            </div>
+          )}
+
           {meta.length > 0 && (
             <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-border pt-8 sm:grid-cols-4">
               {meta.map((m) => (
                 <div key={m.key} data-tina-field={tinaField(project, m.key as any)}>
                   <dt className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{m.label}</dt>
-                  <dd className="mt-2 text-base">{m.value}</dd>
+                  <dd className="mt-2 whitespace-pre-line text-base">{m.value}</dd>
+                  {m.note && (
+                    <dd
+                      className="mt-2 text-sm text-muted-foreground"
+                      data-tina-field={tinaField(project, "roleDescription")}
+                    >
+                      {m.note}
+                    </dd>
+                  )}
                 </div>
               ))}
             </dl>

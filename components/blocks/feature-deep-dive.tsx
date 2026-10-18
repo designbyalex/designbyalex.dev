@@ -12,11 +12,19 @@ import { cn } from '@/lib/utils';
 
 export const FeatureDeepDive = ({ data }: { data: PageBlocksFeatureDeepDive }) => {
   const mediaRight = data.mediaSide !== 'left';
+  const hasImage = Boolean(data.image?.src);
 
   return (
     <Section background={data.background!}>
       <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-16">
-        <ScrollReveal className={cn('space-y-5', mediaRight ? 'md:order-1' : 'md:order-2')}>
+        <ScrollReveal
+          className={cn(
+            'space-y-5',
+            mediaRight ? 'md:order-1' : 'md:order-2',
+            // Text-only deep-dives span the row instead of leaving an empty column.
+            !hasImage && 'max-w-3xl md:col-span-2'
+          )}
+        >
           {data.eyebrow && (
             <p
               className="font-mono text-xs uppercase tracking-widest text-primary"
@@ -40,7 +48,7 @@ export const FeatureDeepDive = ({ data }: { data: PageBlocksFeatureDeepDive }) =
           )}
         </ScrollReveal>
 
-        {data.image?.src && (
+        {hasImage && data.image?.src && (
           <ScrollReveal
             className={cn(mediaRight ? 'md:order-2' : 'md:order-1')}
             delay={0.1}

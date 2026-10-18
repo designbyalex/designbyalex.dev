@@ -51,6 +51,12 @@ const Project: Collection = {
       description: 'One-line summary shown beneath the title.',
     },
     {
+      type: 'rich-text',
+      label: 'Intro',
+      name: 'intro',
+      description: 'Lead paragraphs shown under the tagline, before the overview.',
+    },
+    {
       type: 'string',
       label: 'Typology',
       name: 'typology',
@@ -63,6 +69,13 @@ const Project: Collection = {
       name: 'role',
       description: 'Your role(s) on the project.',
       list: true,
+    },
+    {
+      type: 'string',
+      label: 'Role description',
+      name: 'roleDescription',
+      description: 'One or two sentences on what the role involved, shown under the role.',
+      ui: { component: 'textarea' },
     },
     {
       type: 'string',
