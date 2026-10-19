@@ -99,6 +99,20 @@ const Project: Collection = {
       ],
     },
     {
+      type: 'string',
+      label: 'Tools',
+      name: 'tools',
+      description: 'Tools and platforms used (e.g. Figma, Webflow CMS).',
+      list: true,
+    },
+    {
+      type: 'string',
+      label: 'Deliverables',
+      name: 'deliverables',
+      description: 'What was delivered, one item per entry.',
+      list: true,
+    },
+    {
       type: 'object',
       label: 'Metrics',
       name: 'metrics',

@@ -27,6 +27,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-status-in-development: var(--status-in-development);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -72,6 +73,8 @@
   --border: oklch(0 0 0 / 12%);
   --input: oklch(0 0 0 / 12%);
   --ring: #3cda64;
+  /* Case-study status accent (live: orange #ff731c); darkened here for AA on white */
+  --status-in-development: #b94a00;
   --chart-1: #3cda64;
   --chart-2: #0099ff;
   --chart-3: #fdb52a;
@@ -107,6 +110,7 @@
   --border: oklch(1 0 0 / 15%);
   --input: oklch(1 0 0 / 15%);
   --ring: #3cda64;
+  --status-in-development: #ff731c;
   --chart-1: #3cda64;
   --chart-2: #0099ff;
   --chart-3: #fdb52a;

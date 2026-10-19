@@ -24,3 +24,27 @@ Written by the unattended loop (`scripts/afk-loop.sh`): one section per ticket, 
   - [ ] Metrics grid with four items wraps to 2×2 at `md` (grid is `md:grid-cols-3`).
   - [ ] CTA button opens Calendly in the same tab (matches live).
   - [ ] Reduced motion: all reveals are `ScrollReveal` → `scrollRevealMotion`, so content renders at rest with `prefers-reduced-motion: reduce`; confirm nothing is left at opacity 0.
+
+## #10 S6: Migrate MOS Urban case study
+- Built: `content/projects/mosurban.mdx` (status `in-development`, `order: 2`, live at `/mosurban`) with the verbatim copy from designbyalex.dev/mosurban (fetched with curl into `.afk/cache/mosurban.html`, which is gitignored). Header = frontmatter (title "MOS evolution", tagline, 3-paragraph intro, typology, role + role description, timeline, tools ×4, deliverables ×8, `coverImage`). Body = 24 blocks, in live order: `image` hero → `featureDeepDive` "Where it all started" (pitch illustration, media right) → `quote` → `text` Defining the vision (+ 3 business considerations) → `text` Establishing user assumptions (+ 3 user considerations) → `text` Building stakeholder confidence (+ collaboration list) → `image` wireframes → `text` UX design and low-code development → `quote` → `text` key features list → `quote` → `video` (website walkthrough) → `text` Executing the rebrand → `quote` → `text` brand deliverables list → `image` factory illustration → `featureDeepDive` ×3 (brand strategy, brand assets, 10-year anniversary; text-only) each followed by its media (`video`, 2-up `gallery` of typography pages, `video`) → `text` Outcome / What's next ("Coming Soon…", as live) → `cta` Calendly. Six images downloaded to `public/uploads/projects/mosurban/` with alt text written from the actual pictures. The three Framer-hosted `.mp4`s are embedded via the `video` block from `framerusercontent.com`, per the PRD (no video in git). With two projects, `project-page.tsx` now renders the next/previous link on both case studies.
+- Decisions made without a human:
+  - Added `tools` and `deliverables` (string lists) to the `project` collection; the live overview has both columns. Rendered after Collaborators in `project-page.tsx`; Deliverables spans two grid columns and lists one item per line. `tina-lock.json` regenerated and committed.
+  - Status accent: the live pills are green (shipped) and orange `#ff731c` (in-development). Added `--status-in-development` to `styles.css` (dark: `#ff731c`, faithful; light: `#b94a00` for AA contrast on white) and mapped it in `project-page.tsx`; shipped/concept keep `text-primary`. The pill background itself is not reproduced — the eyebrow label is coloured, matching how #9 rendered Acacia's status.
+  - Hero and factory PNGs re-fetched with Framer's `?scale-down-to=2048` (3840px → 2048px) to keep the repo at ~1.8MB for this page instead of ~4.9MB.
+  - The live "01" feature slide is a blank monitor-frame PNG with the walkthrough video playing inside it. Authored as `quote` (the slide's caption) + `video`; the frame PNG was discarded.
+  - The live videos are muted autoplay loops. The `video` block has no `muted` option, so autoplay would be blocked by browsers (and would ignore reduced motion); set `autoPlay: false`, `loop: true`, with controls. Visitors click to play.
+  - Framer `h5` pull-statements and the "01" `h4` caption use the `quote` block without attribution, as in #9.
+  - Timeline uses an en dash ("Q3 2024 – Q4 2025"), consistent with Acacia.
+  - Outcome metrics: the live counters are hidden (`opacity:0`) behind "Coming Soon…", so no `metrics` block — the text block says "Coming Soon…" for Outcome and What's next.
+  - Homepage (`content/pages/home.mdx`) is still starter content; not touched (homepage ticket).
+- Stubbed: none. (Open risk: the three videos stream from `framerusercontent.com`; if the Framer project is deleted after cutover they 404. Re-host on the chosen video host before DNS cutover.)
+- Verify visually:
+  - [ ] `/mosurban` renders end to end in dark (faithful) and light.
+  - [ ] Header: orange "In development" eyebrow in both themes (contrast OK on white), title, tagline, 3 intro paragraphs; overview = Typology, Role (+ description), Timeline, Tools, Deliverables (2-col span, 8 lines).
+  - [ ] Hero `image` block (phone mockup, 4:3) and the two wide `image` blocks fit `max-w-5xl` with the rounded border; dark illustrations don't look odd on the light theme.
+  - [ ] `featureDeepDive` "Where it all started": pitch illustration on the right, three paragraphs on the left.
+  - [ ] The three `video` blocks play the Framer mp4s with controls (direct-file playback through react-player); aspect-video wrapper has no letterbox gap in either theme.
+  - [ ] 2-up `gallery` of the typography pages (16:9 each).
+  - [ ] Next project / Previous links appear on both `/mosurban` and `/acacia` and point at each other.
+  - [ ] CTA opens Calendly in the same tab.
+  - [ ] Reduced motion: all reveals go through `ScrollReveal` → `scrollRevealMotion`; videos don't autoplay, so nothing moves with `prefers-reduced-motion: reduce`. Confirm nothing is stuck at opacity 0.

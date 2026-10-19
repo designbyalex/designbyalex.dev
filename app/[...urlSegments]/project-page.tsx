@@ -28,6 +28,11 @@ const statusLabels: Record<string, string> = {
   concept: "Concept",
 };
 
+// Status accent: the live site tags shipped work green and in-development work orange.
+const statusClasses: Record<string, string> = {
+  "in-development": "text-status-in-development",
+};
+
 export default function ProjectClientPage(props: ProjectClientPageProps) {
   const { allProjects, ...tinaProps } = props;
   const { data } = useTina(tinaProps);
@@ -37,8 +42,8 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
   const currentSlug = props.variables.relativePath.replace(/\.mdx$/, "");
   const { next, prev } = resolveAdjacentProjects(allProjects ?? [], currentSlug);
 
-  // Overview order mirrors the live case study: typology, role, timeline, collaborators.
-  const meta: { key: string; label: string; value: string; note?: string | null }[] = [];
+  // Overview order mirrors the live case studies: typology, role, timeline, collaborators, tools, deliverables.
+  const meta: { key: string; label: string; value: string; note?: string | null; wide?: boolean }[] = [];
   if (project.typology?.length) meta.push({ key: "typology", label: "Typology", value: project.typology.filter(Boolean).join(", ") });
   if (project.role?.length) {
     meta.push({ key: "role", label: "Role", value: project.role.filter(Boolean).join(", "), note: project.roleDescription });
@@ -55,6 +60,15 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
         .join("\n"),
     });
   }
+  if (project.tools?.length) meta.push({ key: "tools", label: "Tools", value: project.tools.filter(Boolean).join(", ") });
+  if (project.deliverables?.length) {
+    meta.push({
+      key: "deliverables",
+      label: "Deliverables",
+      value: project.deliverables.filter(Boolean).join("\n"),
+      wide: true,
+    });
+  }
 
   return (
     <ErrorBoundary>
@@ -62,7 +76,7 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
         <Section className="prose-none">
           {project.status && (
             <p
-              className="font-mono text-xs uppercase tracking-widest text-primary"
+              className={`font-mono text-xs uppercase tracking-widest ${statusClasses[project.status] ?? "text-primary"}`}
               data-tina-field={tinaField(project, "status")}
             >
               {statusLabels[project.status] ?? project.status}
@@ -95,7 +109,7 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
           {meta.length > 0 && (
             <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-border pt-8 sm:grid-cols-4">
               {meta.map((m) => (
-                <div key={m.key} data-tina-field={tinaField(project, m.key as any)}>
+                <div key={m.key} className={m.wide ? "col-span-2" : undefined} data-tina-field={tinaField(project, m.key as any)}>
                   <dt className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{m.label}</dt>
                   <dd className="mt-2 whitespace-pre-line text-base">{m.value}</dd>
                   {m.note && (
