@@ -19,7 +19,7 @@ import { Button } from '../ui/button';
  */
 export const Hero = ({ data }: { data: PageBlocksHero }) => {
   return (
-    <Section background={data.background!} className='pt-4 md:pt-8'>
+    <Section sectionId="hero" background={data.background!} className='pt-4 md:pt-8'>
       <div className='mx-auto max-w-6xl'>
         {data.image?.src && (
           <div

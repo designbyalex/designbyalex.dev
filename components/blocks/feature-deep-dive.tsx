@@ -15,7 +15,7 @@ export const FeatureDeepDive = ({ data }: { data: PageBlocksFeatureDeepDive }) =
   const hasImage = Boolean(data.image?.src);
 
   return (
-    <Section background={data.background!}>
+    <Section sectionId="feature-deep-dive" background={data.background!}>
       <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-16">
         <ScrollReveal
           className={cn(

@@ -20,7 +20,7 @@ export const Contact = ({ data }: { data: PageBlocksContact }) => {
   const isExternal = (href: string) => /^https?:\/\//.test(href);
 
   return (
-    <Section background={data.background!} className='py-20 md:py-28'>
+    <Section sectionId="contact" background={data.background!} className='py-20 md:py-28'>
       <div className='mx-auto max-w-6xl'>
         {data.heading && (
           <div data-tina-field={tinaField(data, 'heading')}>

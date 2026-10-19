@@ -1,0 +1,550 @@
+{
+  "format": 1,
+  "counts": {
+    "/": {
+      "page": "home",
+      "sections": {
+        "Header": {
+          "390": { "Copy": 2, "Media": 0, "Layout": 2, "Type": 5 },
+          "768": { "Copy": 2, "Media": 0, "Layout": 2, "Type": 5 },
+          "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 4 }
+        },
+        "Hero Content": {
+          "390": { "Copy": 1, "Media": 5, "Layout": 5, "Type": 8 },
+          "768": { "Copy": 1, "Media": 5, "Layout": 3, "Type": 9 },
+          "1440": { "Copy": 0, "Media": 5, "Layout": 6, "Type": 11 }
+        },
+        "Works Header": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 3, "Type": 9 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 3, "Type": 7 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 3, "Type": 9 }
+        },
+        "Project Row": {
+          "390": { "Copy": 0, "Media": 3, "Layout": 7, "Type": 9 },
+          "768": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 9 },
+          "1440": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 9 }
+        },
+        "Project Row 2": {
+          "390": { "Copy": 0, "Media": 3, "Layout": 5, "Type": 9 },
+          "768": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 9 },
+          "1440": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 9 }
+        },
+        "Project Overview": {
+          "390": { "Copy": 5, "Media": 3, "Layout": 34, "Type": 92 },
+          "768": { "Copy": 5, "Media": 2, "Layout": 40, "Type": 99 },
+          "1440": { "Copy": 2, "Media": 2, "Layout": 33, "Type": 92 }
+        },
+        "Footer": {
+          "390": { "Copy": 8, "Media": 0, "Layout": 4, "Type": 16 },
+          "768": { "Copy": 8, "Media": 0, "Layout": 4, "Type": 16 },
+          "1440": { "Copy": 6, "Media": 0, "Layout": 5, "Type": 21 }
+        },
+        "(page)": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "experience": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "contact": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "(none)": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        }
+      }
+    },
+    "/acacia": {
+      "page": "acacia",
+      "sections": {
+        "Header": {
+          "390": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 4 }
+        },
+        "Project Hero": {
+          "390": { "Copy": 3, "Media": 1, "Layout": 5, "Type": 11 },
+          "768": { "Copy": 3, "Media": 1, "Layout": 5, "Type": 12 },
+          "1440": { "Copy": 3, "Media": 1, "Layout": 5, "Type": 13 }
+        },
+        "Back": {
+          "390": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "Section Overview": {
+          "390": { "Copy": 9, "Media": 0, "Layout": 1, "Type": 86 },
+          "768": { "Copy": 9, "Media": 0, "Layout": 1, "Type": 86 },
+          "1440": { "Copy": 9, "Media": 0, "Layout": 1, "Type": 86 }
+        },
+        "Section Mission": {
+          "390": { "Copy": 1, "Media": 2, "Layout": 1, "Type": 25 },
+          "768": { "Copy": 1, "Media": 2, "Layout": 1, "Type": 25 },
+          "1440": { "Copy": 1, "Media": 2, "Layout": 1, "Type": 27 }
+        },
+        "Section Credibility": {
+          "390": { "Copy": 4, "Media": 0, "Layout": 1, "Type": 48 },
+          "768": { "Copy": 4, "Media": 0, "Layout": 1, "Type": 48 },
+          "1440": { "Copy": 4, "Media": 0, "Layout": 1, "Type": 49 }
+        },
+        "Section Trust": {
+          "390": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 25 },
+          "768": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 25 },
+          "1440": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 26 }
+        },
+        "Section Engagement": {
+          "390": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 20 },
+          "768": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 20 },
+          "1440": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 21 }
+        },
+        "Section Solution": {
+          "390": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 46 },
+          "768": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 46 },
+          "1440": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 47 }
+        },
+        "Section Onboarding": {
+          "390": { "Copy": 3, "Media": 6, "Layout": 1, "Type": 16 },
+          "768": { "Copy": 3, "Media": 6, "Layout": 1, "Type": 16 },
+          "1440": { "Copy": 3, "Media": 6, "Layout": 1, "Type": 15 }
+        },
+        "Section Consent": {
+          "390": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 16 },
+          "768": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 16 },
+          "1440": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 15 }
+        },
+        "Section Modules": {
+          "390": { "Copy": 4, "Media": 3, "Layout": 1, "Type": 16 },
+          "768": { "Copy": 4, "Media": 3, "Layout": 1, "Type": 16 },
+          "1440": { "Copy": 4, "Media": 2, "Layout": 1, "Type": 15 }
+        },
+        "Section Profile": {
+          "390": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 16 },
+          "768": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 16 },
+          "1440": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 15 }
+        },
+        "Section Outcome": {
+          "390": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 52 },
+          "768": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 48 },
+          "1440": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 49 }
+        },
+        "Section Next": {
+          "390": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 22 },
+          "768": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 22 },
+          "1440": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 20 }
+        },
+        "Section CTA": {
+          "390": { "Copy": 4, "Media": 1, "Layout": 5, "Type": 22 },
+          "768": { "Copy": 4, "Media": 1, "Layout": 5, "Type": 22 },
+          "1440": { "Copy": 4, "Media": 1, "Layout": 8, "Type": 21 }
+        },
+        "Footer": {
+          "390": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "(page)": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "image": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 4": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 5": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote 4": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 6": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "image 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "gallery": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive 4": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 7": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote 5": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "metrics": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 8": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote 6": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "image 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "project-nav": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "(none)": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        }
+      }
+    },
+    "/mosurban": {
+      "page": "mosurban",
+      "sections": {
+        "Header": {
+          "390": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 4 }
+        },
+        "Project Hero": {
+          "390": { "Copy": 2, "Media": 1, "Layout": 5, "Type": 11 },
+          "768": { "Copy": 2, "Media": 1, "Layout": 4, "Type": 12 },
+          "1440": { "Copy": 2, "Media": 1, "Layout": 5, "Type": 13 }
+        },
+        "Back": {
+          "390": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "Section Overview": {
+          "390": { "Copy": 7, "Media": 0, "Layout": 1, "Type": 125 },
+          "768": { "Copy": 7, "Media": 0, "Layout": 1, "Type": 125 },
+          "1440": { "Copy": 7, "Media": 0, "Layout": 1, "Type": 125 }
+        },
+        "Section Pitch": {
+          "390": { "Copy": 3, "Media": 2, "Layout": 1, "Type": 25 },
+          "768": { "Copy": 3, "Media": 2, "Layout": 1, "Type": 27 },
+          "1440": { "Copy": 3, "Media": 2, "Layout": 1, "Type": 27 }
+        },
+        "Section Vision": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 48 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 48 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 49 }
+        },
+        "Section Users": {
+          "390": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 48 },
+          "768": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 48 },
+          "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 49 }
+        },
+        "Section Clients": {
+          "390": { "Copy": 0, "Media": 3, "Layout": 1, "Type": 40 },
+          "768": { "Copy": 0, "Media": 3, "Layout": 1, "Type": 40 },
+          "1440": { "Copy": 0, "Media": 3, "Layout": 1, "Type": 41 }
+        },
+        "Section UX": {
+          "390": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 51 },
+          "768": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 51 },
+          "1440": { "Copy": 4, "Media": 6, "Layout": 1, "Type": 57 }
+        },
+        "Section Brand": {
+          "390": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 36 },
+          "768": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 36 },
+          "1440": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 37 }
+        },
+        "Section Identity": {
+          "390": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 16 },
+          "768": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 16 },
+          "1440": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 15 }
+        },
+        "Section Assets": {
+          "390": { "Copy": 1, "Media": 6, "Layout": 1, "Type": 26 },
+          "768": { "Copy": 1, "Media": 6, "Layout": 1, "Type": 26 },
+          "1440": { "Copy": 1, "Media": 6, "Layout": 1, "Type": 25 }
+        },
+        "Section Years": {
+          "390": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 16 },
+          "768": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 16 },
+          "1440": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 15 }
+        },
+        "Section Outcome": {
+          "390": { "Copy": 8, "Media": 0, "Layout": 1, "Type": 4 },
+          "768": { "Copy": 8, "Media": 0, "Layout": 1, "Type": 4 },
+          "1440": { "Copy": 8, "Media": 0, "Layout": 1, "Type": 5 }
+        },
+        "Section Next": {
+          "390": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 10 },
+          "768": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 10 },
+          "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 9 }
+        },
+        "Section CTA": {
+          "390": { "Copy": 4, "Media": 1, "Layout": 5, "Type": 22 },
+          "768": { "Copy": 4, "Media": 1, "Layout": 5, "Type": 22 },
+          "1440": { "Copy": 4, "Media": 1, "Layout": 8, "Type": 21 }
+        },
+        "Footer": {
+          "390": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "(page)": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "image": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "image 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 4": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 5": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "video": {
+          "390": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 }
+        },
+        "text 6": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "quote 4": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "text 7": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "image 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "video 2": {
+          "390": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "gallery": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive 4": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "video 3": {
+          "390": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 }
+        },
+        "text 8": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "project-nav": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "(none)": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        }
+      }
+    },
+    "/parity-reference-missing-page": {
+      "page": "not-found",
+      "sections": {
+        "(page)": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "(none)": {
+          "390": { "Copy": 4, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 4, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 4, "Media": 0, "Layout": 0, "Type": 0 }
+        }
+      }
+    },
+    "/about": {
+      "page": "not-found",
+      "sections": {
+        "(page)": {
+          "390": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "(none)": {
+          "390": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 }
+        }
+      }
+    },
+    "/styleguide": {
+      "page": "not-found",
+      "sections": {
+        "(page)": {
+          "390": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "(none)": {
+          "390": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 }
+        }
+      }
+    }
+  }
+}

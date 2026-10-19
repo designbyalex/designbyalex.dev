@@ -1,12 +1,27 @@
 # Parity: the Fidelity gate's inputs
 
-Everything here is owned by the site owner (ADR 0002). Agents read these files and never edit them: the loop fails any unattended commit that touches them.
+The first three are owned by the site owner (ADR 0002). Agents read them and never edit them: the loop fails any unattended commit that touches them. The Baseline is the one file here the loop commits.
 
 | Path | What |
 |---|---|
 | `reference/` | The frozen Reference snapshot of the Framer site (see its README). Never re-captured. |
 | `gate-config.json` | Tolerances, matching thresholds, font aliases, forbidden media hosts, the Section map and extra routes |
 | `deviations.json` | The Deviation list: the differences the owner has approved, which stop counting as Gaps |
+| `baseline.json` | The Baseline: open Gaps per page, Section, width and Dimension, which may only go down. Rewritten by a passing gate run and committed with the change |
+
+## The Fidelity gate
+
+```bash
+pnpm parity:gate                               # build-local → next start → every page × width → ratchet
+pnpm parity:gate --ticket body.md              # also hold the ticket's `## Parity scope` to 0 Gaps
+pnpm parity:gate --page acacia --width 1440    # partial: report and ratchet what it compared; never writes the Baseline
+```
+
+`scripts/parity/gate.ts` builds the site for production with offline Tina, serves it with `next start` on a free port (Tina's local GraphQL stays up beside it, on free ports too), extracts every page × Checkpoint width, runs the comparator and then the **Baseline ratchet** (`scripts/parity/ratchet.ts`, pure). The ratchet fails when a Section in the ticket's Parity scope still has Gaps, or when any other count rose above the Baseline. A Section the Baseline has never seen starts at its first count. On a full passing run the gate rewrites `baseline.json` if the counts moved. It exits 1 on a failure, and its last lines are the failures with their Gap messages. In the AFK loop it runs inside `scripts/afk/check.sh --ticket N`, not in CI.
+
+A ticket's Parity scope is its `## Parity scope` list of `page · Section · Dimensions` lines. A page is a Build path (`/acacia`), a Reference page key or `404` (every route compared with the 404). A Section is a Reference Section name (`Mission` for `Section Mission`, `Project Row` for every row, `Hero` for `Hero Content`). Dimensions are Copy, Media, Layout and Type. `all` works for each part.
+
+Each run replaces the gitignored run folder `.afk/parity/`: `report.txt` (every Gap and the verdict), `gaps.json`, `counts.json`, `ratchet.json`, `sheets/<page>-<width>.jpg` (whole-page contact sheets, Reference left, Build right), `sections/<page>-<width>--<section>.jpg` (the same per Section), `shots/` (the screenshot pairs), `build/` (the Build snapshots) and `server.log`.
 
 ## Comparing a Build
 
@@ -15,7 +30,7 @@ pnpm parity:diff http://localhost:3000            # every page × Checkpoint wid
 pnpm parity:diff https://designbyalexdev.vercel.app --page acacia --width 1440 --json gaps.json
 ```
 
-It extracts the Build with the same browser and settings as the Reference (`scripts/parity/extract.ts`), runs the comparator (`scripts/parity/compare.ts`, pure) and prints the Gaps grouped by page, Section, width and Dimension, with punctuation-only differences listed apart. It always exits 0. Pass or fail is the gate's decision (#50), made against the Baseline.
+It extracts the Build with the same browser and settings as the Reference (`scripts/parity/extract.ts`), runs the comparator (`scripts/parity/compare.ts`, pure) and prints the Gaps grouped by page, Section, width and Dimension, with punctuation-only differences listed apart. It always exits 0. Pass or fail is the gate's decision, made against the Baseline (above).
 
 A Gap message names the page, Section, width and element text, then gives actual against expected:
 
@@ -35,6 +50,8 @@ Text runs are matched by their rendered text (after CSS `text-transform`), first
 ## Section map
 
 `sectionMap` pairs each Reference Section id (Framer's layer name, e.g. `Section Mission`, `Project Row 2`) with the Build Section id that marks the same region with `data-section` on its block root. A repeated name gets ` 2`, ` 3`… on both sites (`project-row`, `project-row 2`). `(none)` stands for text in no Section: on the Reference that is only Framer's 404 page.
+
+Every block root and the header and footer carry `data-section` (the `sectionId` prop of `Section` and `ScrollReveal`). A block that has no Reference Section of its own yet carries its block type (`text`, `quote`, `image`, `gallery`, `video`, `feature-deep-dive`, `metrics`, `experience`, `contact`; `project-nav` for the case-study previous/next links) and counts once per page and width as `section-extra`. Its text is still matched page-wide, as below.
 
 While a Build Section is missing, the comparator reports it once and still matches the Section's text anywhere on the page, so Copy and Type are checked before the Section exists.
 

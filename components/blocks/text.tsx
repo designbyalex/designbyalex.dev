@@ -14,7 +14,7 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 export const Text = ({ data }: { data: PageBlocksText }) => {
   return (
-    <Section background={data.background!} className="prose prose-lg dark:prose-invert" data-tina-field={tinaField(data, 'body')}>
+    <Section sectionId="text" background={data.background!} className="prose prose-lg dark:prose-invert" data-tina-field={tinaField(data, 'body')}>
       <ScrollReveal>
         <TinaMarkdown
           content={data.body}

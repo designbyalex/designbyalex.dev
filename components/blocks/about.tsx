@@ -17,7 +17,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
   const hasImage = Boolean(data.image?.src);
 
   return (
-    <Section background={data.background!}>
+    <Section sectionId="about" background={data.background!}>
       <div className='mx-auto grid max-w-6xl gap-10 md:grid-cols-2 md:gap-16'>
         <div className='space-y-8 md:sticky md:top-28 md:self-start'>
           {data.heading && (

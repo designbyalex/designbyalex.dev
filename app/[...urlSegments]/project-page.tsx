@@ -72,7 +72,7 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
   return (
     <ErrorBoundary>
       <article>
-        <Section className="prose-none">
+        <Section sectionId="project-hero" className="prose-none">
           {project.status && (
             <p
               className={`font-mono text-xs uppercase tracking-widest ${statusClasses[project.status] ?? "text-emphasis"}`}
@@ -146,7 +146,7 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
         <Blocks blocks={project.blocks} />
 
         {(next || prev) && (
-          <Section className="prose-none">
+          <Section sectionId="project-nav" className="prose-none">
             <nav className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:justify-between">
               {prev ? (
                 <Link href={`/${prev.slug}`} className="group rounded-md">

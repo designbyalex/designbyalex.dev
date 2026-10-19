@@ -18,7 +18,7 @@ export const Experience = ({ data }: { data: PageBlocksExperience }) => {
   const isExternal = (href: string) => /^https?:\/\//.test(href);
 
   return (
-    <Section background={data.background!}>
+    <Section sectionId="experience" background={data.background!}>
       <div className='mx-auto max-w-5xl'>
         {data.heading && (
           <ScrollReveal>

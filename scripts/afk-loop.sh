@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # afk-loop.sh: work the migration's unattended tickets with no one at the keyboard.
 #
-# Each ticket gets a fresh `claude -p` run with clean context, built for speed:
-# only the ~20s type check (scripts/afk/check.sh), no `next build`, no tests.
-# After the last ticket, one deferred testing pass runs build-local + vitest +
-# review. Then the branch is pushed once and opened as a draft PR, which is the
-# only Vercel build of the whole run.
+# Each ticket gets a fresh `claude -p` run with clean context. Its gate (scripts/afk/check.sh
+# --ticket N) is the type/schema/lint check plus the Fidelity gate (scripts/parity/gate.ts): a local
+# production build, extracted at 390/768/1440 and compared with the frozen Reference snapshot, then
+# ratcheted against parity/baseline.json. The ticket's `## Parity scope` must reach 0 Gaps; no other
+# count may rise. On a failure the gate's messages are the retry's feedback. No tests per ticket.
+# After the last ticket, one deferred testing pass runs build-local + vitest + review. Then the
+# branch is pushed once and opened as a draft PR, which is the only Vercel build of the whole run.
+#
+# Verification fails any run whose commits touch the owner-only parity files ($PROTECTED): the
+# Deviation list, the gate config and the Reference snapshot. Agents propose Deviations in the notes.
 #
 # Run from a checkout of branch afk/migration with a clean working tree:
 #   scripts/afk-loop.sh
@@ -27,7 +32,8 @@
 # then `AFK_SMOKE=1 scripts/afk-loop.sh`.
 #
 # Safe to re-run after a stop: finished work is detected by `afk(#N):` / `afk(final):` commits.
-# Logs: .afk/logs/*.jsonl (full agent transcripts), .afk/verify.log (last gate output).
+# Logs: .afk/logs/*.jsonl (full agent transcripts), .afk/verify.log (last gate output),
+# .afk/parity/ (last Fidelity gate run: report, screenshot pairs, contact sheets).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
@@ -38,6 +44,8 @@ PUSH=${AFK_PUSH:-1}
 DRY=${AFK_DRY_RUN:-0}
 DIR=scripts/afk
 LOGS=.afk/logs
+# Owner-only (ADR 0002): an unattended commit that touches these fails verification.
+PROTECTED=(parity/deviations.json parity/gate-config.json parity/reference)
 
 say() { printf '[afk %s] %s\n' "$(date +%H:%M:%S)" "$*"; }
 notify() { osascript -e "display notification \"$1\" with title \"AFK loop\"" >/dev/null 2>&1 || true; }
@@ -67,7 +75,7 @@ else
   die "$BRANCH has diverged from origin/main and can't fast-forward. Merge or rebase it by hand, then re-run"
 fi
 [[ -d node_modules && $deps_changed == 0 ]] || { say "installing dependencies"; pnpm install --frozen-lockfile; }
-mkdir -p "$LOGS" .afk/cache
+mkdir -p "$LOGS" .afk/cache .afk/tickets
 
 # A commit on this branch (since main) whose subject starts with $1.
 has_commit() { git log --format=%s "$(git merge-base origin/main HEAD)..HEAD" | grep "^$1" >/dev/null; }
@@ -98,9 +106,13 @@ run_claude() {
     "$log" 2>/dev/null | tail -1 || true
 }
 
-# Did the run finish properly? Marker commit, clean tree, gate green. Reason → .afk/verify.log.
+# Owner-only parity files changed by this branch's commits since main, one per line.
+protected_changes() { git diff --name-only "$(git merge-base origin/main HEAD)" HEAD -- "${PROTECTED[@]}"; }
+
+# Did the run finish properly? Marker commit, clean tree, owner-only files untouched, gate green.
+# Reason → .afk/verify.log.
 verify() {
-  local marker=$1 out=.afk/verify.log
+  local marker=$1 out=.afk/verify.log touched
   shift
   if ! has_commit "$marker"; then
     echo "No commit with a subject starting '$marker' was made." >"$out"
@@ -110,9 +122,19 @@ verify() {
     { echo "Working tree not clean after your commit:"; git status --short; } >"$out"
     return 1
   fi
+  touched=$(protected_changes)
+  if [[ -n $touched ]]; then
+    {
+      echo "Your commits modify owner-only Fidelity gate files, which an unattended run must never change:"
+      sed 's/^/  /' <<<"$touched"
+      echo "Restore them with \`git restore --source=origin/main -- <path>\` and commit that with the same subject prefix."
+      echo "To propose a Deviation, add it under \"## Proposed deviations\" in docs/afk/NOTES.md instead."
+    } >"$out"
+    return 1
+  fi
   "$DIR/check.sh" "$@" >"$out" 2>&1 || return 1
   if [[ -n $(git status --porcelain) ]]; then
-    { echo "check.sh left uncommitted changes (likely tina/tina-lock.json); commit them:"; git status --short; } >"$out"
+    { echo "check.sh left uncommitted changes (tina/tina-lock.json, or parity/baseline.json after a passing Fidelity gate); commit them:"; git status --short; } >"$out"
     return 1
   fi
 }
@@ -135,13 +157,13 @@ attempt_unit() {
     log="$LOGS/$label-$(date +%Y%m%d-%H%M%S)-a$attempt.jsonl"
     say "▶ $label: attempt $attempt/$MAX_ATTEMPTS (transcript: $log)"
     run_claude "$prompt" "$log" "$@"
-    # shellcheck disable=SC2086 # vargs is empty or a single flag
+    # shellcheck disable=SC2086 # vargs is empty, a flag, or a flag and its value
     if verify "$marker" $vargs; then
       say "✓ $label: $(git log -1 --format=%s)"
       notify "$label done"
       return 0
     fi
-    say "  verification failed: $(head -1 .afk/verify.log)"
+    say "  verification failed: $(grep -m1 '✗' .afk/verify.log || head -1 .afk/verify.log)"
     fb=$(feedback)
   done
   die "$label failed after $MAX_ATTEMPTS attempts. See $LOGS and .afk/verify.log; the working tree is left as-is"
@@ -149,20 +171,26 @@ attempt_unit() {
 
 # ── optional: prove the allowlist works headlessly, then exit ────────────────
 if [[ ${AFK_SMOKE:-0} == 1 ]]; then
-  say "permission smoke test (haiku). Expected: 1-6 RAN, 7-10 DENIED"
+  say "permission smoke test (haiku). Expected: 1-8 RAN, 9-13 DENIED"
   # 3-4 fetch a real page and image: a bare-host fetch can pass while every /<path> fetch is denied.
   # 5 quotes its URL (as a query string forces), 6 resizes the image from 4.
-  claude -p 'Permission smoke test. Run each command below exactly as written, one Bash call each, in order, even if one fails. Do nothing else. Then reply with one line per command: "<n>. RAN" or "<n>. DENIED".
+  # 7 drives Playwright's system Chrome; 8 is the Fidelity gate (a local production build, served by
+  # next start on a free port, extracted, compared and ratcheted) on one page and width. It takes a few
+  # minutes. 13 must stay denied: the Reference snapshot is never re-captured.
+  claude -p 'Permission smoke test. Run each command below exactly as written, one Bash call each, in order, with a Bash timeout of 600000, even if one fails. Do nothing else. Then reply with one line per command: "<n>. RAN" or "<n>. DENIED".
 1. git status --short
 2. gh issue view 9 --json title -q .title
 3. curl -fsSL https://designbyalex.dev/acacia -o .afk/cache/smoke.html
 4. curl -fsSL https://framerusercontent.com/images/2aTwCHUSykoESjmoANhjXk4uY2o.png -o .afk/cache/smoke.png
 5. curl -fsSL "https://framerusercontent.com/images/2aTwCHUSykoESjmoANhjXk4uY2o.png?scale-down-to=512" -o .afk/cache/smoke-quoted.png
 6. sips -Z 256 .afk/cache/smoke.png --out .afk/cache/smoke-256.png
-7. git push --dry-run origin afk/migration
-8. gh issue comment 9 --body smoke-test
-9. pnpm build-local
-10. git checkout main' \
+7. pnpm parity:extract https://designbyalex.dev/parity-reference-missing-page --width 390 --out .afk/cache/smoke-extract.json
+8. pnpm parity:gate --page not-found --width 390
+9. git push --dry-run origin afk/migration
+10. gh issue comment 9 --body smoke-test
+11. pnpm build-local
+12. git checkout main
+13. pnpm parity:capture-reference' \
     --settings "$DIR/settings.json" --permission-mode acceptEdits --strict-mcp-config --model haiku \
     --disallowedTools "Bash(scripts/afk/check.sh --full:*)" "Bash(pnpm build-local:*)" "Bash(pnpm test:*)"
   exit 0
@@ -191,7 +219,9 @@ for n in $TICKETS; do
 
   tpl=${ticket_tpl//\{\{N\}\}/$n}
   tpl=${tpl//\{\{ISSUE\}\}/$issue}
-  attempt_unit "ticket-$n" "$marker" "$tpl" "" \
+  # The gate reads the ticket's `## Parity scope` from here (scripts/afk/check.sh --ticket N).
+  jq -r .body <<<"$issue_json" >".afk/tickets/$n.md"
+  attempt_unit "ticket-$n" "$marker" "$tpl" "--ticket $n" \
     --disallowedTools "Bash(scripts/afk/check.sh --full:*)" "Bash(pnpm build-local:*)" "Bash(pnpm test:*)"
   finished+=" $n"
 done
@@ -217,6 +247,7 @@ else
 fi
 
 say "▶ independent full check before pushing"
+[[ -z $(protected_changes) ]] || die "commits on $BRANCH modify owner-only parity files: $(protected_changes | tr '\n' ' ')"
 "$DIR/check.sh" --full >.afk/final-check.log 2>&1 || die "full check failed. See .afk/final-check.log"
 [[ -z $(git status --porcelain) ]] || die "full check left uncommitted changes"
 

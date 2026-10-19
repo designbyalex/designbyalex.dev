@@ -14,6 +14,7 @@
     "parity:extract": "node scripts/parity/extract.ts",
     "parity:capture-reference": "node scripts/parity/capture-reference.ts",
     "parity:diff": "node scripts/parity/diff.ts",
+    "parity:gate": "node scripts/parity/gate.ts",
     "dev:build": "next build"
   },
   "devDependencies": {
