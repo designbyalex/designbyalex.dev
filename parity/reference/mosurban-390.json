@@ -1,0 +1,5397 @@
+{
+  "format": 1,
+  "url": "https://designbyalex.dev/mosurban",
+  "finalUrl": "https://designbyalex.dev/mosurban",
+  "origin": "https://designbyalex.dev",
+  "path": "/mosurban",
+  "width": 390,
+  "viewport": {
+    "w": 390,
+    "h": 844
+  },
+  "clientWidth": 390,
+  "colorScheme": "dark",
+  "reducedMotion": "reduce",
+  "status": 200,
+  "title": "Alexander Blum | UX • Product Design",
+  "generator": "Framer 36277c8",
+  "pageHeight": 13716,
+  "fonts": [
+    "Inter",
+    "Inter Display",
+    "Inter Display Placeholder",
+    "Inter Placeholder",
+    "Material Icons",
+    "Space Mono"
+  ],
+  "capturedAt": "2026-10-19T03:21:54.932Z",
+  "browser": "Google Chrome 155.0.8059.80",
+  "sections": [
+    {
+      "id": "Header",
+      "name": "Header",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 88
+      }
+    },
+    {
+      "id": "Project Hero",
+      "name": "Project Hero",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 885
+      }
+    },
+    {
+      "id": "Back",
+      "name": "Back",
+      "occurrence": 1,
+      "box": {
+        "x": 263,
+        "y": 86,
+        "w": 112,
+        "h": 49
+      }
+    },
+    {
+      "id": "Section Overview",
+      "name": "Section Overview",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 885,
+        "w": 390,
+        "h": 1462.5
+      }
+    },
+    {
+      "id": "Section Pitch",
+      "name": "Section Pitch",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 2347.5,
+        "w": 390,
+        "h": 1308.1
+      }
+    },
+    {
+      "id": "Section Vision",
+      "name": "Section Vision",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 3655.6,
+        "w": 390,
+        "h": 830.3
+      }
+    },
+    {
+      "id": "Section Users",
+      "name": "Section Users",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 4485.9,
+        "w": 390,
+        "h": 933.6
+      }
+    },
+    {
+      "id": "Section Clients",
+      "name": "Section Clients",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 5419.5,
+        "w": 390,
+        "h": 1214.6
+      }
+    },
+    {
+      "id": "Section UX",
+      "name": "Section UX",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 6634.1,
+        "w": 390,
+        "h": 985.9
+      }
+    },
+    {
+      "id": "Section Brand",
+      "name": "Section Brand",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 7620,
+        "w": 390,
+        "h": 969
+      }
+    },
+    {
+      "id": "Section Identity",
+      "name": "Section Identity",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 8589,
+        "w": 390,
+        "h": 659.4
+      }
+    },
+    {
+      "id": "Section Assets",
+      "name": "Section Assets",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 9248.5,
+        "w": 390,
+        "h": 881.4
+      }
+    },
+    {
+      "id": "Section Years",
+      "name": "Section Years",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 10129.9,
+        "w": 390,
+        "h": 637
+      }
+    },
+    {
+      "id": "Section Outcome",
+      "name": "Section Outcome",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 10766.9,
+        "w": 390,
+        "h": 950.6
+      }
+    },
+    {
+      "id": "Section Next",
+      "name": "Section Next",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 11717.5,
+        "w": 390,
+        "h": 605
+      }
+    },
+    {
+      "id": "Section CTA",
+      "name": "Section CTA",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 12322.5,
+        "w": 390,
+        "h": 879
+      }
+    },
+    {
+      "id": "Footer",
+      "name": "Footer",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 13201.5,
+        "w": 390,
+        "h": 515
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "text": "",
+      "tag": "body",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 13716.5
+      }
+    },
+    {
+      "text": "Let's talk",
+      "tag": "p",
+      "section": "Header",
+      "local": {
+        "x": 228.6,
+        "y": 34
+      },
+      "box": {
+        "x": 228.6,
+        "y": 34,
+        "w": 85.4,
+        "h": 28
+      }
+    },
+    {
+      "text": "arrow_back",
+      "tag": "p",
+      "section": "Back",
+      "local": {
+        "x": 20,
+        "y": 12.5
+      },
+      "box": {
+        "x": 283,
+        "y": 98.5,
+        "w": 20,
+        "h": 24
+      }
+    },
+    {
+      "text": "Back",
+      "tag": "p",
+      "section": "Back",
+      "local": {
+        "x": 50,
+        "y": 11.9
+      },
+      "box": {
+        "x": 313,
+        "y": 97.9,
+        "w": 42,
+        "h": 25.2
+      }
+    },
+    {
+      "text": "In-development",
+      "tag": "p",
+      "section": "Project Hero",
+      "local": {
+        "x": 54,
+        "y": 226.3
+      },
+      "box": {
+        "x": 54,
+        "y": 226.3,
+        "w": 95,
+        "h": 11
+      }
+    },
+    {
+      "text": "MOS evolution",
+      "tag": "h1",
+      "section": "Project Hero",
+      "local": {
+        "x": 24,
+        "y": 262.8
+      },
+      "box": {
+        "x": 24,
+        "y": 262.8,
+        "w": 294.4,
+        "h": 52.8
+      }
+    },
+    {
+      "text": "From manufacturing strength to brand strength. Leading an α→ω evolution.",
+      "tag": "h4",
+      "section": "Project Hero",
+      "local": {
+        "x": 24,
+        "y": 331.6
+      },
+      "box": {
+        "x": 24,
+        "y": 331.6,
+        "w": 342,
+        "h": 86.4
+      }
+    },
+    {
+      "text": "From brand identity to digital ecosystem, I led a complete evolution across strategy, design, and development. By pitching my vision directly to the directors, I won an exciting opportunity to take end-to-end ownership — from brand to build.",
+      "tag": "h5",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 80
+      },
+      "box": {
+        "x": 16,
+        "y": 965,
+        "w": 358,
+        "h": 215.6
+      }
+    },
+    {
+      "text": "Mos Urban had a strong reputation for high-quality street furniture, but their brand and digital presence hadn’t kept pace. This created friction for designers, contractors, and architects who struggled to find critical resources quickly, trust the brand’s credibility and navigate the website efficiently.",
+      "tag": "h5",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 315.6
+      },
+      "box": {
+        "x": 16,
+        "y": 1200.6,
+        "w": 358,
+        "h": 246.4
+      }
+    },
+    {
+      "text": "For the business, this meant missed opportunities to win projects and a brand experience that did little justice to their market-leading products.",
+      "tag": "h5",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 582
+      },
+      "box": {
+        "x": 16,
+        "y": 1467,
+        "w": 358,
+        "h": 123.2
+      }
+    },
+    {
+      "text": "Typology",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 779.1
+      },
+      "box": {
+        "x": 16,
+        "y": 1664.1,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Furniture Manufacturing",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 805.5
+      },
+      "box": {
+        "x": 16,
+        "y": 1690.5,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Role",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 848
+      },
+      "box": {
+        "x": 16,
+        "y": 1733,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Full-Stack Designer. Leading end-to-end strategy, design, development, and stakeholder management. Including management of a freelance Junior Graphic Designer.",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 874.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1759.4,
+        "w": 358,
+        "h": 89.6
+      }
+    },
+    {
+      "text": "Timeline",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 988
+      },
+      "box": {
+        "x": 16,
+        "y": 1873,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Q3 2024 - Q4 2025",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1014.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1899.4,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Tools",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1056.8
+      },
+      "box": {
+        "x": 16,
+        "y": 1941.8,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Figma, Webflow CMS, Adobe Suite, Airtable & AI-workflows",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1083.2
+      },
+      "box": {
+        "x": 16,
+        "y": 1968.2,
+        "w": 358,
+        "h": 44.8
+      }
+    },
+    {
+      "text": "Deliverables",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1148
+      },
+      "box": {
+        "x": 16,
+        "y": 2033,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Brand strategy platform (purpose, values, tone of voice)Visual identity system (typography, palette, imagery direction)Information architecture & user flowsWireframes & high-fidelity UI designsInteractive prototypes (for stakeholder/user testing)Responsive website design (desktop, tablet, mobile)Full Webflow CMS build (multi-reference collection, dynamic filters)SEO and accessibility implementation (WCAG AA)",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1174.4
+      },
+      "box": {
+        "x": 16,
+        "y": 2059.4,
+        "w": 358,
+        "h": 224.1
+      }
+    },
+    {
+      "text": "Where it all startedPitching for and winning an agency-scale project",
+      "tag": "h3",
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 16,
+        "y": 2395.5,
+        "w": 358,
+        "h": 108
+      }
+    },
+    {
+      "text": "I previously worked at Mos Urban for 5 years as a carpenter, I knew their products like the palm of my hand. Seeing an opportunity to help them, I reached out and presented my pitch to the three directors — complete with a timeline and a fee proposal. The directors were confident I could help them establish a new vision. One that recognises their past success, and sets a bold new benchmark for tomorrow.",
+      "tag": "p",
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 888
+      },
+      "box": {
+        "x": 16,
+        "y": 3235.5,
+        "w": 358,
+        "h": 201.7
+      }
+    },
+    {
+      "text": "The project was exciting not only because I worked with a company I cared about, but because it gave me experience in end-to-end ownership: from running workshops and defining brand strategy, through to delivering a fully functional CMS-driven website in Webflow.",
+      "tag": "p",
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 1109.6
+      },
+      "box": {
+        "x": 16,
+        "y": 3457.1,
+        "w": 358,
+        "h": 134.4
+      }
+    },
+    {
+      "text": "I turned my past role as a carpenter into a career-defining design opportunity — winning the trust of Mos Urban’s founders with an ambitious pitch.",
+      "tag": "h5",
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 674
+      },
+      "box": {
+        "x": 16,
+        "y": 3021.5,
+        "w": 358,
+        "h": 154
+      }
+    },
+    {
+      "text": "Defining the vision",
+      "tag": "h3",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 16,
+        "y": 3703.6,
+        "w": 358,
+        "h": 36
+      }
+    },
+    {
+      "text": "I approached every design choice through two lenses: would this help Mos Urban achieve their business goals, and would this make the experience clearer and easier for users? The right solution would be a happy compromise.",
+      "tag": "p",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 117
+      },
+      "box": {
+        "x": 16,
+        "y": 3772.6,
+        "w": 358,
+        "h": 112
+      }
+    },
+    {
+      "text": "Some business considerations",
+      "tag": "p",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 253
+      },
+      "box": {
+        "x": 16,
+        "y": 3908.6,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Identifying platform conventions",
+      "tag": "p",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 295.4
+      },
+      "box": {
+        "x": 16,
+        "y": 3951,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "In analysing competitors, I found platform conventions Mos Urban would need to match — customisation features that gave users ownership and flexibility, efficient navigation features to streamline user's time to value, and more.",
+      "tag": "p",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 325.8
+      },
+      "box": {
+        "x": 16,
+        "y": 3981.4,
+        "w": 358,
+        "h": 112
+      }
+    },
+    {
+      "text": "Uncovering opportunities to shake the market",
+      "tag": "p",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 463.8
+      },
+      "box": {
+        "x": 16,
+        "y": 4119.4,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "I uncovered gaps in the Australian market. Few brands positioned their products as design-focused or leaned into visual storytelling in the way successful European manufacturers did.",
+      "tag": "p",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 494.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4149.8,
+        "w": 358,
+        "h": 89.6
+      }
+    },
+    {
+      "text": "Aligning stakeholders in a mess of ideas",
+      "tag": "p",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 609.9
+      },
+      "box": {
+        "x": 16,
+        "y": 4265.5,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "With multiple cooks in the kitchen, low-fi prototypes became the backbone for iterative workshops with stakeholders. Helping me test website architecture before investing in high-fidelity and building stakeholder confidence in the process.",
+      "tag": "p",
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 640.3
+      },
+      "box": {
+        "x": 16,
+        "y": 4295.9,
+        "w": 358,
+        "h": 112
+      }
+    },
+    {
+      "text": "Establishing user assumptions",
+      "tag": "h3",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 16,
+        "y": 4533.9,
+        "w": 358,
+        "h": 72
+      }
+    },
+    {
+      "text": "In the early stages, I needed to understand who Mos Urban’s most critical users were and what they expected from a manufacturer. Through stakeholder workshops and research, I discovered there were three key user groups: 1) architects, 2) landscape architects, and 3) contractors.",
+      "tag": "p",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 153
+      },
+      "box": {
+        "x": 16,
+        "y": 4638.9,
+        "w": 358,
+        "h": 134.4
+      }
+    },
+    {
+      "text": "Some user considerations",
+      "tag": "p",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 311.4
+      },
+      "box": {
+        "x": 16,
+        "y": 4797.3,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Delivering results without data",
+      "tag": "p",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 353.9
+      },
+      "box": {
+        "x": 16,
+        "y": 4839.8,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "By combining insights from stakeholders, comparative analysis, and a heuristic review of Mos Urban’s existing website, I could make education assumptions on the user needs and pain points.",
+      "tag": "p",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 384.3
+      },
+      "box": {
+        "x": 16,
+        "y": 4870.2,
+        "w": 358,
+        "h": 89.6
+      }
+    },
+    {
+      "text": "Uncovering the genuine needs",
+      "tag": "p",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 499.9
+      },
+      "box": {
+        "x": 16,
+        "y": 4985.8,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "The decision-makers who ultimately specify furniture products into projects. These professionals often struggle to find manufacturers who are transparent, cooperative, and flexible, and they tend to return to those they trust. They look for evidence of credibility and experience, and as a secondary priority, evidence of environmental management plans.",
+      "tag": "p",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 530.3
+      },
+      "box": {
+        "x": 16,
+        "y": 5016.2,
+        "w": 358,
+        "h": 156.8
+      }
+    },
+    {
+      "text": "Putting our users at the centre",
+      "tag": "p",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 713.1
+      },
+      "box": {
+        "x": 16,
+        "y": 5199,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "To ensure we're solving for the genuine needs of users, I mapped the distinct pain points and motivations of each group — aligning them with business goals to uncover opportunities, and guide each user toward successful outcomes.",
+      "tag": "p",
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 743.5
+      },
+      "box": {
+        "x": 16,
+        "y": 5229.4,
+        "w": 358,
+        "h": 112
+      }
+    },
+    {
+      "text": "Building stakeholder confidence",
+      "tag": "h3",
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 5461.5,
+        "w": 358,
+        "h": 72
+      }
+    },
+    {
+      "text": "To establish a starting point for the website, I defined the information architecture through a card-sorting activity with the client, validating it against comparative sites and user assumptions. I then translated the IA into low-fidelity wireframes to test navigation and flows, facilitating feedback workshops with stakeholders to refine the direction collaboratively.",
+      "tag": "p",
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 419.8
+      },
+      "box": {
+        "x": 16,
+        "y": 5839.3,
+        "w": 358,
+        "h": 156.8
+      }
+    },
+    {
+      "text": "Involving the directors in the design process gave them a shared sense of ownership, from the drawing board to the final polished design. This was critical for keeping within scope and maintaining client satisfaction.",
+      "tag": "h5",
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 175
+      },
+      "box": {
+        "x": 16,
+        "y": 5594.5,
+        "w": 358,
+        "h": 184.8
+      }
+    },
+    {
+      "text": "Some defining moments of collaboration",
+      "tag": "p",
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 644.6
+      },
+      "box": {
+        "x": 16,
+        "y": 6064.1,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Strategy, design and feedback workshops",
+      "tag": "p",
+      "section": "Section Clients",
+      "local": {
+        "x": 54,
+        "y": 689
+      },
+      "box": {
+        "x": 54,
+        "y": 6108.5,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Low-fidelity design iterations",
+      "tag": "p",
+      "section": "Section Clients",
+      "local": {
+        "x": 54,
+        "y": 739.4
+      },
+      "box": {
+        "x": 54,
+        "y": 6158.9,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Card sorting and IA",
+      "tag": "p",
+      "section": "Section Clients",
+      "local": {
+        "x": 54,
+        "y": 789.8
+      },
+      "box": {
+        "x": 54,
+        "y": 6209.3,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "UX design and low-code development",
+      "tag": "h3",
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 6676.1,
+        "w": 358,
+        "h": 72
+      }
+    },
+    {
+      "text": "When moving into high-fidelity design, I prioritised simplicity first, then added features only where they directly supported user needs. The final design remained clear and usable while leaving space for visual storytelling and beautiful brand expression.",
+      "tag": "p",
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 327.4
+      },
+      "box": {
+        "x": 16,
+        "y": 6961.5,
+        "w": 358,
+        "h": 112
+      }
+    },
+    {
+      "text": "The redesigned Mos Urban website introduces a suite of UX enhancements to support specifiers, streamline exploration, build trust, and showcase the brand’s product ecosystem. Each feature was designed to solve a real user or business challenge.",
+      "tag": "p",
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 459.4
+      },
+      "box": {
+        "x": 16,
+        "y": 7093.5,
+        "w": 358,
+        "h": 112
+      }
+    },
+    {
+      "text": "The website’s primary functionality and goals were never clouded by secondary features.",
+      "tag": "h5",
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 175
+      },
+      "box": {
+        "x": 16,
+        "y": 6809.1,
+        "w": 358,
+        "h": 92.4
+      }
+    },
+    {
+      "text": "Some key features I designed + developed",
+      "tag": "p",
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 639.5
+      },
+      "box": {
+        "x": 16,
+        "y": 7273.6,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Landing page carousel slider",
+      "tag": "p",
+      "section": "Section UX",
+      "local": {
+        "x": 54,
+        "y": 683.9
+      },
+      "box": {
+        "x": 54,
+        "y": 7318,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "3D product configurator",
+      "tag": "p",
+      "section": "Section UX",
+      "local": {
+        "x": 54,
+        "y": 734.3
+      },
+      "box": {
+        "x": 54,
+        "y": 7368.4,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Map-based search tool",
+      "tag": "p",
+      "section": "Section UX",
+      "local": {
+        "x": 54,
+        "y": 784.7
+      },
+      "box": {
+        "x": 54,
+        "y": 7418.8,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Gated resource access",
+      "tag": "p",
+      "section": "Section UX",
+      "local": {
+        "x": 54,
+        "y": 835.1
+      },
+      "box": {
+        "x": 54,
+        "y": 7469.2,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Executing the rebrand",
+      "tag": "h3",
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 16,
+        "y": 7668,
+        "w": 358,
+        "h": 36
+      }
+    },
+    {
+      "text": "The brand platform became the foundation, and the website its most visible interface. By aligning strategy, identity, design, and development under one framework, I built an ecosystem that could flex with the business and grow with its audience.",
+      "tag": "p",
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 269.4
+      },
+      "box": {
+        "x": 16,
+        "y": 7889.4,
+        "w": 358,
+        "h": 112
+      }
+    },
+    {
+      "text": "Bringing order to the chaos with a cohesive brand ecosystem across digital and print.",
+      "tag": "h5",
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 117
+      },
+      "box": {
+        "x": 16,
+        "y": 7737,
+        "w": 358,
+        "h": 92.4
+      }
+    },
+    {
+      "text": "Some key brand deliverables",
+      "tag": "p",
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 449.4
+      },
+      "box": {
+        "x": 16,
+        "y": 8069.4,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Brand strategy & identity",
+      "tag": "p",
+      "section": "Section Brand",
+      "local": {
+        "x": 54,
+        "y": 493.8
+      },
+      "box": {
+        "x": 54,
+        "y": 8113.8,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Branding assets and applications",
+      "tag": "p",
+      "section": "Section Brand",
+      "local": {
+        "x": 54,
+        "y": 544.2
+      },
+      "box": {
+        "x": 54,
+        "y": 8164.2,
+        "w": 320,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Brand strategy & identityThe brand from the inside-out",
+      "tag": "h5",
+      "section": "Section Identity",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 8631,
+        "w": 358,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "Through collaborative workshops with the founders, I uncovered the beliefs, history, and aspirations behind the brand. These insights shaped the tone, structure, and visual direction of every deliverable. The result was a brand identity that not only reflected Mos Urban’s credibility in the market but positioned them as an inclusive, conscientious, and design-led partner.",
+      "tag": "p",
+      "section": "Section Identity",
+      "local": {
+        "x": 16,
+        "y": 164.6
+      },
+      "box": {
+        "x": 16,
+        "y": 8753.6,
+        "w": 358,
+        "h": 156.8
+      }
+    },
+    {
+      "text": "Branding assets and applicationsBrand cohesive facelifts",
+      "tag": "h5",
+      "section": "Section Assets",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 9290.5,
+        "w": 358,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "Maintained a consistent branded language across collateral, redesigning technical sheets with updated visual style. Delivered templates across each product category and range-specific marketing brochures. Rolled out the identity into practical applications, from a corporate branding suite to a full-page ad in Landscape Architecture Magazine.",
+      "tag": "p",
+      "section": "Section Assets",
+      "local": {
+        "x": 16,
+        "y": 164.5
+      },
+      "box": {
+        "x": 16,
+        "y": 9413,
+        "w": 358,
+        "h": 156.8
+      }
+    },
+    {
+      "text": "10-year anniversary assetsTeaming up with sales",
+      "tag": "h5",
+      "section": "Section Years",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 10171.9,
+        "w": 358,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "Developed promotional materials to celebrate Mos Urban’s milestone anniversary, creating collateral that was celebratory while still aligned with the brand’s identity. Using the milestone as an opportunity to drive traffic through marketing on diverse platforms, including a 10-year anniversary and launch party.",
+      "tag": "p",
+      "section": "Section Years",
+      "local": {
+        "x": 16,
+        "y": 164.6
+      },
+      "box": {
+        "x": 16,
+        "y": 10294.5,
+        "w": 358,
+        "h": 134.4
+      }
+    },
+    {
+      "text": "Outcome",
+      "tag": "h3",
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 10808.9,
+        "w": 358,
+        "h": 36
+      }
+    },
+    {
+      "text": "100%",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 261.8
+      },
+      "box": {
+        "x": 48,
+        "y": 11028.7,
+        "w": 136.5,
+        "h": 63.8
+      }
+    },
+    {
+      "text": "________________",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 333.6
+      },
+      "box": {
+        "x": 48,
+        "y": 11100.5,
+        "w": 264.6,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "100%",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 428
+      },
+      "box": {
+        "x": 48,
+        "y": 11194.9,
+        "w": 136.5,
+        "h": 63.8
+      }
+    },
+    {
+      "text": "________________",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 499.8
+      },
+      "box": {
+        "x": 48,
+        "y": 11266.7,
+        "w": 264.6,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "100%",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 594.2
+      },
+      "box": {
+        "x": 48,
+        "y": 11361.1,
+        "w": 136.5,
+        "h": 63.8
+      }
+    },
+    {
+      "text": "________________",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 666
+      },
+      "box": {
+        "x": 48,
+        "y": 11432.9,
+        "w": 264.6,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "100%",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 760.4
+      },
+      "box": {
+        "x": 48,
+        "y": 11527.3,
+        "w": 136.5,
+        "h": 63.8
+      }
+    },
+    {
+      "text": "________________",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 832.2
+      },
+      "box": {
+        "x": 48,
+        "y": 11599.1,
+        "w": 264.6,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "What's next for Mos?",
+      "tag": "h5",
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 11759.5,
+        "w": 358,
+        "h": 30.8
+      }
+    },
+    {
+      "text": "Coming Soon…",
+      "tag": "h5",
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 133.8
+      },
+      "box": {
+        "x": 16,
+        "y": 11851.3,
+        "w": 358,
+        "h": 30.8
+      }
+    },
+    {
+      "text": "Want the full story?",
+      "tag": "h3",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 32
+      },
+      "box": {
+        "x": 16,
+        "y": 12354.5,
+        "w": 358,
+        "h": 36
+      }
+    },
+    {
+      "text": "There’s more behind the scenes. Let’s grab a coffee and dive in.",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 88
+      },
+      "box": {
+        "x": 16,
+        "y": 12410.5,
+        "w": 322.2,
+        "h": 56
+      }
+    },
+    {
+      "text": "Go to Calendly",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 190
+      },
+      "box": {
+        "x": 16,
+        "y": 12512.5,
+        "w": 139.1,
+        "h": 28
+      }
+    },
+    {
+      "text": "Next project",
+      "tag": "h3",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 324
+      },
+      "box": {
+        "x": 16,
+        "y": 12646.5,
+        "w": 522,
+        "h": 36
+      }
+    },
+    {
+      "text": "SHIPPED",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 62,
+        "y": 415.5
+      },
+      "box": {
+        "x": 62,
+        "y": 12738,
+        "w": 48,
+        "h": 11
+      }
+    },
+    {
+      "text": "Acacia Money",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 739.4
+      },
+      "box": {
+        "x": 16,
+        "y": 13061.9,
+        "w": 358,
+        "h": 25.2
+      }
+    },
+    {
+      "text": "Unlocking Acacia's potential by turning hesitant users into engaged partners.",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 764.6
+      },
+      "box": {
+        "x": 16,
+        "y": 13087.1,
+        "w": 358,
+        "h": 50.4
+      }
+    },
+    {
+      "text": "Let's talk",
+      "tag": "h2",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 131.8
+      },
+      "box": {
+        "x": 24,
+        "y": 13333.3,
+        "w": 105.9,
+        "h": 33.6
+      }
+    },
+    {
+      "text": "Get in touch",
+      "tag": "h2",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 172.6
+      },
+      "box": {
+        "x": 24,
+        "y": 13374.1,
+        "w": 145,
+        "h": 33.6
+      }
+    },
+    {
+      "text": "Home",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 285.4
+      },
+      "box": {
+        "x": 24,
+        "y": 13486.9,
+        "w": 38.1,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Linkedin",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 316.4
+      },
+      "box": {
+        "x": 24,
+        "y": 13517.9,
+        "w": 53.1,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "See full CV",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 347.4
+      },
+      "box": {
+        "x": 24,
+        "y": 13548.9,
+        "w": 70.2,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "2025 Alexander Blum",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 487.5
+      },
+      "box": {
+        "x": 24,
+        "y": 13689,
+        "w": 127.9,
+        "h": 11
+      }
+    },
+    {
+      "text": "♥ Made with love ♥",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 231.6,
+        "y": 487.5
+      },
+      "box": {
+        "x": 231.6,
+        "y": 13689,
+        "w": 134.4,
+        "h": 11
+      }
+    },
+    {
+      "text": "",
+      "tag": "div",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 0,
+        "y": 844,
+        "w": 0,
+        "h": 0
+      }
+    }
+  ],
+  "runs": [
+    {
+      "text": "Let's talk",
+      "block": 1,
+      "section": "Header",
+      "local": {
+        "x": 228.6,
+        "y": 36
+      },
+      "box": {
+        "x": 228.6,
+        "y": 36,
+        "w": 85.4,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 1
+    },
+    {
+      "text": "arrow_back",
+      "block": 2,
+      "section": "Back",
+      "local": {
+        "x": 20,
+        "y": 14.5
+      },
+      "box": {
+        "x": 283,
+        "y": 100.5,
+        "w": 20,
+        "h": 20
+      },
+      "lines": 1,
+      "style": {
+        "family": "Material Icons",
+        "size": 20,
+        "lineHeight": 24,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(237, 237, 237)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 2
+    },
+    {
+      "text": "Back",
+      "block": 3,
+      "section": "Back",
+      "local": {
+        "x": 50,
+        "y": 13.9
+      },
+      "box": {
+        "x": 313,
+        "y": 99.9,
+        "w": 42,
+        "h": 21
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(237, 237, 237)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 2
+    },
+    {
+      "text": "In-development",
+      "block": 4,
+      "section": "Project Hero",
+      "local": {
+        "x": 54,
+        "y": 223.3
+      },
+      "box": {
+        "x": 54,
+        "y": 223.3,
+        "w": 94.3,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "MOS evolution",
+      "block": 5,
+      "section": "Project Hero",
+      "local": {
+        "x": 24,
+        "y": 258.8
+      },
+      "box": {
+        "x": 24,
+        "y": 258.8,
+        "w": 294.4,
+        "h": 59
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 48,
+        "lineHeight": 52.8,
+        "weight": 400,
+        "tracking": -0.96,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "From manufacturing strength to brand strength. Leading an α→ω evolution.",
+      "block": 6,
+      "section": "Project Hero",
+      "local": {
+        "x": 24,
+        "y": 330.6
+      },
+      "box": {
+        "x": 24,
+        "y": 330.6,
+        "w": 340.7,
+        "h": 86.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 24,
+        "lineHeight": 28.8,
+        "weight": 400,
+        "tracking": -0.24,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "From brand identity to digital ecosystem, I led a complete evolution across strategy, design, and development.",
+      "block": 7,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 82
+      },
+      "box": {
+        "x": 16,
+        "y": 967,
+        "w": 346,
+        "h": 118.4
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "By pitching my vision directly to the directors, I won an exciting opportunity to take end-to-end ownership — from brand to build.",
+      "block": 7,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 174.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1059.4,
+        "w": 342.7,
+        "h": 118.4
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Mos Urban had a strong reputation for high-quality street furniture, but their brand and digital presence hadn’t kept pace. This created friction for designers, contractors, and architects who struggled to find",
+      "block": 8,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 317.6
+      },
+      "box": {
+        "x": 16,
+        "y": 1202.6,
+        "w": 352.8,
+        "h": 180
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "critical resources quickly, trust the brand’s credibility and navigate the website efficiently.",
+      "block": 8,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 471.6
+      },
+      "box": {
+        "x": 16,
+        "y": 1356.6,
+        "w": 356.4,
+        "h": 87.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "For the business, this meant missed opportunities to win projects and a",
+      "block": 9,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 584
+      },
+      "box": {
+        "x": 16,
+        "y": 1469,
+        "w": 330.5,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "brand experience that did little justice to their market-leading products.",
+      "block": 9,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 645.5
+      },
+      "box": {
+        "x": 16,
+        "y": 1530.5,
+        "w": 342.4,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Typology",
+      "block": 10,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 781.1
+      },
+      "box": {
+        "x": 16,
+        "y": 1666.1,
+        "w": 59,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Furniture Manufacturing",
+      "block": 11,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 807.5
+      },
+      "box": {
+        "x": 16,
+        "y": 1692.5,
+        "w": 153.3,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Role",
+      "block": 12,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 850
+      },
+      "box": {
+        "x": 16,
+        "y": 1735,
+        "w": 27.6,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Full-Stack Designer. Leading end-to-end strategy, design, development, and stakeholder management. Including management of a freelance Junior Graphic Designer.",
+      "block": 13,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 876.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1761.4,
+        "w": 337.2,
+        "h": 84.2
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Timeline",
+      "block": 14,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 990
+      },
+      "box": {
+        "x": 16,
+        "y": 1875,
+        "w": 53.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Q3 2024 - Q4 2025",
+      "block": 15,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1016.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1901.4,
+        "w": 125.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Tools",
+      "block": 16,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1058.8
+      },
+      "box": {
+        "x": 16,
+        "y": 1943.8,
+        "w": 34.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Figma, Webflow CMS, Adobe Suite, Airtable & AI-workflows",
+      "block": 17,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1085.2
+      },
+      "box": {
+        "x": 16,
+        "y": 1970.2,
+        "w": 313.5,
+        "h": 39.4
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Deliverables",
+      "block": 18,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1150
+      },
+      "box": {
+        "x": 16,
+        "y": 2035,
+        "w": 78.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Brand strategy platform",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1176.4
+      },
+      "box": {
+        "x": 16,
+        "y": 2061.4,
+        "w": 149.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "(purpose, values, tone of voice)",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 165.7,
+        "y": 1176.4
+      },
+      "box": {
+        "x": 165.7,
+        "y": 2061.4,
+        "w": 204.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Visual identity system",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1198.8
+      },
+      "box": {
+        "x": 16,
+        "y": 2083.8,
+        "w": 142,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "(typography, palette, imagery direction)",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1198.8
+      },
+      "box": {
+        "x": 16,
+        "y": 2083.8,
+        "w": 332.5,
+        "h": 39.4
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Information architecture & user flowsWireframes & high-fidelity UI designsInteractive prototypes",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1243.6
+      },
+      "box": {
+        "x": 16,
+        "y": 2128.6,
+        "w": 236.7,
+        "h": 61.8
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "(for stakeholder/user testing)",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 158.6,
+        "y": 1288.5
+      },
+      "box": {
+        "x": 158.6,
+        "y": 2173.5,
+        "w": 184.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Responsive website design",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1310.9
+      },
+      "box": {
+        "x": 16,
+        "y": 2195.9,
+        "w": 176.4,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "(desktop, tablet, mobile)",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 192.4,
+        "y": 1310.9
+      },
+      "box": {
+        "x": 192.4,
+        "y": 2195.9,
+        "w": 153.5,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Full Webflow CMS build",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1333.3
+      },
+      "box": {
+        "x": 16,
+        "y": 2218.3,
+        "w": 154.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "(multi-reference collection, dynamic filters)",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1333.3
+      },
+      "box": {
+        "x": 16,
+        "y": 2218.3,
+        "w": 329.4,
+        "h": 39.4
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "SEO and accessibility implementation",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1378.1
+      },
+      "box": {
+        "x": 16,
+        "y": 2263.1,
+        "w": 241.5,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "(WCAG AA)",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 257.5,
+        "y": 1378.1
+      },
+      "box": {
+        "x": 257.5,
+        "y": 2263.1,
+        "w": 74.5,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Where it all started",
+      "block": 20,
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 16,
+        "y": 2395.5,
+        "w": 238.7,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Pitching for and winning an agency-scale project",
+      "block": 20,
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 84
+      },
+      "box": {
+        "x": 16,
+        "y": 2431.5,
+        "w": 351.6,
+        "h": 72
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I previously worked at Mos Urban for 5 years as a carpenter, I knew their products like the palm of my hand. Seeing an opportunity to help them, I reached out and presented my pitch to the three directors — complete with a timeline and a fee proposal. The directors were confident I could help them establish a new vision. One that recognises their past success, and sets a bold new benchmark for tomorrow.",
+      "block": 21,
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 890
+      },
+      "box": {
+        "x": 16,
+        "y": 3237.5,
+        "w": 360.2,
+        "h": 196.3
+      },
+      "lines": 8,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The project was exciting not only because I worked with a company I cared about, but because it gave me experience in end-to-end ownership: from running workshops and defining brand strategy, through to delivering a fully functional CMS-driven website in Webflow.",
+      "block": 22,
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 1111.6
+      },
+      "box": {
+        "x": 16,
+        "y": 3459.1,
+        "w": 359.9,
+        "h": 129
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I turned my past role as a carpenter into a career-defining design opportunity —",
+      "block": 23,
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 676
+      },
+      "box": {
+        "x": 16,
+        "y": 3023.5,
+        "w": 326,
+        "h": 87.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "winning the trust of Mos Urban’s founders with an ambitious pitch.",
+      "block": 23,
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 737.6
+      },
+      "box": {
+        "x": 16,
+        "y": 3085.1,
+        "w": 357.6,
+        "h": 87.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Defining the vision",
+      "block": 24,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 16,
+        "y": 3703.6,
+        "w": 234,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I approached every design choice through two lenses: would this help Mos Urban achieve their business goals, and would this make the experience clearer and easier for users? The right solution would be a happy compromise.",
+      "block": 25,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 16,
+        "y": 3774.6,
+        "w": 360.3,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Some business considerations",
+      "block": 26,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 255
+      },
+      "box": {
+        "x": 16,
+        "y": 3910.6,
+        "w": 194,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Identifying platform conventions",
+      "block": 27,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 297.4
+      },
+      "box": {
+        "x": 16,
+        "y": 3953,
+        "w": 204.5,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "In analysing competitors, I found platform conventions Mos Urban would need to match — customisation features that gave users ownership and flexibility, efficient navigation features to streamline user's time to value, and more.",
+      "block": 28,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 327.8
+      },
+      "box": {
+        "x": 16,
+        "y": 3983.4,
+        "w": 354.8,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Uncovering opportunities to shake the market",
+      "block": 29,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 465.8
+      },
+      "box": {
+        "x": 16,
+        "y": 4121.4,
+        "w": 289.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I uncovered gaps in the Australian market. Few brands positioned their products as design-focused or leaned into visual storytelling in the way successful European manufacturers did.",
+      "block": 30,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 496.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4151.8,
+        "w": 348.1,
+        "h": 84.2
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Aligning stakeholders in a mess of ideas",
+      "block": 31,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 611.9
+      },
+      "box": {
+        "x": 16,
+        "y": 4267.5,
+        "w": 254.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "With multiple cooks in the kitchen, low-fi prototypes became the backbone for iterative workshops with stakeholders. Helping me test website architecture before investing in high-fidelity and building stakeholder confidence in the process.",
+      "block": 32,
+      "section": "Section Vision",
+      "local": {
+        "x": 16,
+        "y": 642.3
+      },
+      "box": {
+        "x": 16,
+        "y": 4297.9,
+        "w": 359.7,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Establishing user assumptions",
+      "block": 33,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 16,
+        "y": 4533.9,
+        "w": 222.8,
+        "h": 72
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "In the early stages, I needed to understand who Mos Urban’s most critical users were and what they expected from a manufacturer. Through stakeholder workshops and research, I discovered there were three key user groups: 1) architects, 2) landscape architects, and 3) contractors.",
+      "block": 34,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 155
+      },
+      "box": {
+        "x": 16,
+        "y": 4640.9,
+        "w": 353.8,
+        "h": 129
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Some user considerations",
+      "block": 35,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 313.4
+      },
+      "box": {
+        "x": 16,
+        "y": 4799.3,
+        "w": 165.4,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Delivering results without data",
+      "block": 36,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 355.9
+      },
+      "box": {
+        "x": 16,
+        "y": 4841.8,
+        "w": 191.9,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "By combining insights from stakeholders, comparative analysis, and a heuristic review of Mos Urban’s existing website, I could make education assumptions on the user needs and pain points.",
+      "block": 37,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 386.3
+      },
+      "box": {
+        "x": 16,
+        "y": 4872.2,
+        "w": 353.6,
+        "h": 84.2
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Uncovering the genuine needs",
+      "block": 38,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 501.9
+      },
+      "box": {
+        "x": 16,
+        "y": 4987.8,
+        "w": 195,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The decision-makers who ultimately specify furniture products into projects. These professionals often struggle to find manufacturers who are transparent, cooperative, and flexible, and they tend to return to those they trust. They look for evidence of credibility and experience, and as a secondary priority, evidence of environmental management plans.",
+      "block": 39,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 532.3
+      },
+      "box": {
+        "x": 16,
+        "y": 5018.2,
+        "w": 347.8,
+        "h": 151.4
+      },
+      "lines": 7,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Putting our users at the centre",
+      "block": 40,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 715.1
+      },
+      "box": {
+        "x": 16,
+        "y": 5201,
+        "w": 191.4,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "To ensure we're solving for the genuine needs of users, I mapped the distinct pain points and motivations of each group — aligning them with business goals to uncover opportunities, and guide each user toward successful outcomes.",
+      "block": 41,
+      "section": "Section Users",
+      "local": {
+        "x": 16,
+        "y": 745.5
+      },
+      "box": {
+        "x": 16,
+        "y": 5231.4,
+        "w": 356.5,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Building stakeholder confidence",
+      "block": 42,
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 5461.5,
+        "w": 265.4,
+        "h": 72
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "To establish a starting point for the website, I defined the information architecture through a card-sorting activity with the client, validating it against comparative sites and user assumptions. I then translated the IA into low-fidelity wireframes to test navigation and flows, facilitating feedback workshops with stakeholders to refine the direction collaboratively.",
+      "block": 43,
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 421.8
+      },
+      "box": {
+        "x": 16,
+        "y": 5841.3,
+        "w": 353.4,
+        "h": 151.4
+      },
+      "lines": 7,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Involving the directors in the design process gave them a shared sense of ownership, from the drawing board to the final polished design.",
+      "block": 44,
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 177
+      },
+      "box": {
+        "x": 16,
+        "y": 5596.5,
+        "w": 345.1,
+        "h": 118.4
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "This was critical for keeping within scope and maintaining client satisfaction.",
+      "block": 44,
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 269.4
+      },
+      "box": {
+        "x": 16,
+        "y": 5688.9,
+        "w": 330.8,
+        "h": 87.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Some defining moments of collaboration",
+      "block": 45,
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 646.6
+      },
+      "box": {
+        "x": 16,
+        "y": 6066.1,
+        "w": 257.3,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Strategy, design and feedback workshops",
+      "block": 46,
+      "section": "Section Clients",
+      "local": {
+        "x": 54,
+        "y": 691
+      },
+      "box": {
+        "x": 54,
+        "y": 6110.5,
+        "w": 267.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Low-fidelity design iterations",
+      "block": 47,
+      "section": "Section Clients",
+      "local": {
+        "x": 54,
+        "y": 741.4
+      },
+      "box": {
+        "x": 54,
+        "y": 6160.9,
+        "w": 183.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Card sorting and IA",
+      "block": 48,
+      "section": "Section Clients",
+      "local": {
+        "x": 54,
+        "y": 791.8
+      },
+      "box": {
+        "x": 54,
+        "y": 6211.3,
+        "w": 122.4,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "UX design and low-code development",
+      "block": 49,
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 6676.1,
+        "w": 322,
+        "h": 72
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "When moving into high-fidelity design, I prioritised simplicity first, then added features only where they directly supported user needs. The final design remained clear and usable while leaving space for visual storytelling and beautiful brand expression.",
+      "block": 50,
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 329.4
+      },
+      "box": {
+        "x": 16,
+        "y": 6963.5,
+        "w": 357.6,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The redesigned Mos Urban website introduces a suite of UX enhancements to support specifiers, streamline exploration, build trust, and showcase the brand’s product ecosystem. Each feature was designed to solve a real user or business challenge.",
+      "block": 51,
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 461.4
+      },
+      "box": {
+        "x": 16,
+        "y": 7095.5,
+        "w": 359.1,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The website’s primary functionality and goals",
+      "block": 52,
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 177
+      },
+      "box": {
+        "x": 16,
+        "y": 6811.1,
+        "w": 359.2,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "were never clouded by secondary features.",
+      "block": 52,
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 207.8
+      },
+      "box": {
+        "x": 16,
+        "y": 6841.9,
+        "w": 266,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Some key features I designed + developed",
+      "block": 53,
+      "section": "Section UX",
+      "local": {
+        "x": 16,
+        "y": 641.5
+      },
+      "box": {
+        "x": 16,
+        "y": 7275.6,
+        "w": 271.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Landing page carousel slider",
+      "block": 54,
+      "section": "Section UX",
+      "local": {
+        "x": 54,
+        "y": 685.9
+      },
+      "box": {
+        "x": 54,
+        "y": 7320,
+        "w": 183,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "3D product configurator",
+      "block": 55,
+      "section": "Section UX",
+      "local": {
+        "x": 54,
+        "y": 736.3
+      },
+      "box": {
+        "x": 54,
+        "y": 7370.4,
+        "w": 153,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Map-based search tool",
+      "block": 56,
+      "section": "Section UX",
+      "local": {
+        "x": 54,
+        "y": 786.7
+      },
+      "box": {
+        "x": 54,
+        "y": 7420.8,
+        "w": 147.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Gated resource access",
+      "block": 57,
+      "section": "Section UX",
+      "local": {
+        "x": 54,
+        "y": 837.1
+      },
+      "box": {
+        "x": 54,
+        "y": 7471.2,
+        "w": 146.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Executing the rebrand",
+      "block": 58,
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 16,
+        "y": 7668,
+        "w": 280,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The brand platform became the foundation, and the website its most visible interface. By aligning strategy, identity, design, and development under one framework, I built an ecosystem that could flex with the business and grow with its audience.",
+      "block": 59,
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 271.4
+      },
+      "box": {
+        "x": 16,
+        "y": 7891.4,
+        "w": 353.8,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Bringing order to the chaos",
+      "block": 60,
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 16,
+        "y": 7739,
+        "w": 251.4,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "with a cohesive brand ecosystem across digital and print.",
+      "block": 60,
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 16,
+        "y": 7739,
+        "w": 314.8,
+        "h": 87.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Some key brand deliverables",
+      "block": 61,
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 451.4
+      },
+      "box": {
+        "x": 16,
+        "y": 8071.4,
+        "w": 183.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Brand strategy & identity",
+      "block": 62,
+      "section": "Section Brand",
+      "local": {
+        "x": 54,
+        "y": 495.8
+      },
+      "box": {
+        "x": 54,
+        "y": 8115.8,
+        "w": 156.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Branding assets and applications",
+      "block": 63,
+      "section": "Section Brand",
+      "local": {
+        "x": 54,
+        "y": 546.2
+      },
+      "box": {
+        "x": 54,
+        "y": 8166.2,
+        "w": 209.4,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Brand strategy & identity",
+      "block": 64,
+      "section": "Section Identity",
+      "local": {
+        "x": 16,
+        "y": 44
+      },
+      "box": {
+        "x": 16,
+        "y": 8633,
+        "w": 224.4,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The brand from the inside-out",
+      "block": 64,
+      "section": "Section Identity",
+      "local": {
+        "x": 16,
+        "y": 74.8
+      },
+      "box": {
+        "x": 16,
+        "y": 8663.8,
+        "w": 272.5,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Through collaborative workshops with the founders, I uncovered the beliefs, history, and aspirations behind the brand. These insights shaped the tone, structure, and visual direction of every deliverable. The result was a brand identity that not only reflected Mos Urban’s credibility in the market but positioned them as an inclusive, conscientious, and design-led partner.",
+      "block": 65,
+      "section": "Section Identity",
+      "local": {
+        "x": 16,
+        "y": 166.6
+      },
+      "box": {
+        "x": 16,
+        "y": 8755.6,
+        "w": 356.3,
+        "h": 151.4
+      },
+      "lines": 7,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Branding assets and applications",
+      "block": 66,
+      "section": "Section Assets",
+      "local": {
+        "x": 16,
+        "y": 44
+      },
+      "box": {
+        "x": 16,
+        "y": 9292.5,
+        "w": 299.3,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Brand cohesive facelifts",
+      "block": 66,
+      "section": "Section Assets",
+      "local": {
+        "x": 16,
+        "y": 74.8
+      },
+      "box": {
+        "x": 16,
+        "y": 9323.3,
+        "w": 215.3,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Maintained a consistent branded language across collateral, redesigning technical sheets with updated visual style. Delivered templates across each product category and range-specific marketing brochures. Rolled out the identity into practical applications, from a corporate branding suite to a full-page ad in",
+      "block": 67,
+      "section": "Section Assets",
+      "local": {
+        "x": 16,
+        "y": 166.5
+      },
+      "box": {
+        "x": 16,
+        "y": 9415,
+        "w": 354.9,
+        "h": 129
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Landscape Architecture Magazine",
+      "block": 67,
+      "section": "Section Assets",
+      "local": {
+        "x": 16,
+        "y": 278.6
+      },
+      "box": {
+        "x": 16,
+        "y": 9527.1,
+        "w": 357.6,
+        "h": 39.4
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "italic"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": ".",
+      "block": 67,
+      "section": "Section Assets",
+      "local": {
+        "x": 160.8,
+        "y": 301
+      },
+      "box": {
+        "x": 160.8,
+        "y": 9549.5,
+        "w": 3.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "10-year anniversary assets",
+      "block": 68,
+      "section": "Section Years",
+      "local": {
+        "x": 16,
+        "y": 44
+      },
+      "box": {
+        "x": 16,
+        "y": 10173.9,
+        "w": 242.6,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Teaming up with sales",
+      "block": 68,
+      "section": "Section Years",
+      "local": {
+        "x": 16,
+        "y": 74.8
+      },
+      "box": {
+        "x": 16,
+        "y": 10204.7,
+        "w": 202.1,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Developed promotional materials to celebrate Mos Urban’s milestone anniversary, creating collateral that was celebratory while still aligned with the brand’s identity. Using the milestone as an opportunity to drive traffic through marketing on diverse platforms, including a 10-year anniversary and launch party.",
+      "block": 69,
+      "section": "Section Years",
+      "local": {
+        "x": 16,
+        "y": 166.6
+      },
+      "box": {
+        "x": 16,
+        "y": 10296.5,
+        "w": 359.4,
+        "h": 129
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Outcome",
+      "block": 70,
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 42
+      },
+      "box": {
+        "x": 16,
+        "y": 10808.9,
+        "w": 119.2,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "100%",
+      "block": 71,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 257.8
+      },
+      "box": {
+        "x": 48,
+        "y": 11024.7,
+        "w": 136.5,
+        "h": 70
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 58,
+        "lineHeight": 63.8,
+        "weight": 400,
+        "tracking": -1.16,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "________________",
+      "block": 72,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 335.6
+      },
+      "box": {
+        "x": 48,
+        "y": 11102.5,
+        "w": 97.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "100%",
+      "block": 73,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 424
+      },
+      "box": {
+        "x": 48,
+        "y": 11190.9,
+        "w": 136.5,
+        "h": 70
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 58,
+        "lineHeight": 63.8,
+        "weight": 400,
+        "tracking": -1.16,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "________________",
+      "block": 74,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 501.8
+      },
+      "box": {
+        "x": 48,
+        "y": 11268.7,
+        "w": 97.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "100%",
+      "block": 75,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 590.2
+      },
+      "box": {
+        "x": 48,
+        "y": 11357.1,
+        "w": 136.5,
+        "h": 70
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 58,
+        "lineHeight": 63.8,
+        "weight": 400,
+        "tracking": -1.16,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "________________",
+      "block": 76,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 668
+      },
+      "box": {
+        "x": 48,
+        "y": 11434.9,
+        "w": 97.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "100%",
+      "block": 77,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 756.4
+      },
+      "box": {
+        "x": 48,
+        "y": 11523.3,
+        "w": 136.5,
+        "h": 70
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 58,
+        "lineHeight": 63.8,
+        "weight": 400,
+        "tracking": -1.16,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "________________",
+      "block": 78,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 834.2
+      },
+      "box": {
+        "x": 48,
+        "y": 11601.1,
+        "w": 97.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "What's next for Mos?",
+      "block": 79,
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 44
+      },
+      "box": {
+        "x": 16,
+        "y": 11761.5,
+        "w": 194.4,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Coming Soon…",
+      "block": 80,
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 135.8
+      },
+      "box": {
+        "x": 16,
+        "y": 11853.3,
+        "w": 139.8,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Want the full story?",
+      "block": 81,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 32
+      },
+      "box": {
+        "x": 16,
+        "y": 12354.5,
+        "w": 245.5,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "There’s more behind the scenes. Let’s grab a coffee and dive in.",
+      "block": 82,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 90
+      },
+      "box": {
+        "x": 16,
+        "y": 12412.5,
+        "w": 313.6,
+        "h": 52
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Go to Calendly",
+      "block": 83,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 192
+      },
+      "box": {
+        "x": 16,
+        "y": 12514.5,
+        "w": 139.1,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 3
+    },
+    {
+      "text": "Next project",
+      "block": 84,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 324
+      },
+      "box": {
+        "x": 16,
+        "y": 12646.5,
+        "w": 155.7,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "SHIPPED",
+      "block": 85,
+      "section": "Section CTA",
+      "local": {
+        "x": 62,
+        "y": 412.5
+      },
+      "box": {
+        "x": 62,
+        "y": 12735,
+        "w": 47.1,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "Acacia Money",
+      "block": 86,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 741.4
+      },
+      "box": {
+        "x": 16,
+        "y": 13063.9,
+        "w": 120.8,
+        "h": 21
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "Unlocking Acacia's potential by turning hesitant users into engaged partners.",
+      "block": 87,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 766.6
+      },
+      "box": {
+        "x": 16,
+        "y": 13089.1,
+        "w": 337.8,
+        "h": 46.2
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "Let's talk",
+      "block": 88,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 130.8
+      },
+      "box": {
+        "x": 24,
+        "y": 13332.3,
+        "w": 105.9,
+        "h": 34
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 28,
+        "lineHeight": 33.6,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Get in touch",
+      "block": 89,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 171.6
+      },
+      "box": {
+        "x": 24,
+        "y": 13373.1,
+        "w": 145,
+        "h": 34
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 28,
+        "lineHeight": 33.6,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 6
+    },
+    {
+      "text": "Home",
+      "block": 90,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 287.4
+      },
+      "box": {
+        "x": 24,
+        "y": 13488.9,
+        "w": 38.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 7
+    },
+    {
+      "text": "Linkedin",
+      "block": 91,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 318.4
+      },
+      "box": {
+        "x": 24,
+        "y": 13519.9,
+        "w": 53.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 8
+    },
+    {
+      "text": "See full CV",
+      "block": 92,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 349.4
+      },
+      "box": {
+        "x": 24,
+        "y": 13550.9,
+        "w": 70.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 9
+    },
+    {
+      "text": "2025 Alexander Blum",
+      "block": 93,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 484.5
+      },
+      "box": {
+        "x": 24,
+        "y": 13686,
+        "w": 127.9,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "♥ Made with love ♥",
+      "block": 94,
+      "section": "Footer",
+      "local": {
+        "x": 231.6,
+        "y": 484.5
+      },
+      "box": {
+        "x": 231.6,
+        "y": 13686,
+        "w": 134.4,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    }
+  ],
+  "links": [
+    {
+      "text": "Homepage",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Header",
+      "local": {
+        "x": 24,
+        "y": 24
+      },
+      "box": {
+        "x": 24,
+        "y": 24,
+        "w": 48,
+        "h": 48
+      }
+    },
+    {
+      "text": "Let's talk",
+      "href": "mailto:ablumeinfeld@gmail.com",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Header",
+      "local": {
+        "x": 228.6,
+        "y": 28
+      },
+      "box": {
+        "x": 228.6,
+        "y": 28,
+        "w": 137.4,
+        "h": 40
+      }
+    },
+    {
+      "text": "arrow_backBackBack",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Back",
+      "local": {
+        "x": 0,
+        "y": 0
+      },
+      "box": {
+        "x": 263,
+        "y": 86,
+        "w": 112,
+        "h": 49
+      }
+    },
+    {
+      "text": "Go to Calendly",
+      "href": "https://calendly.com/ablumeinfeld/let-s-talk-design",
+      "path": null,
+      "target": null,
+      "rel": "noopener",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 184
+      },
+      "box": {
+        "x": 16,
+        "y": 12506.5,
+        "w": 191.1,
+        "h": 40
+      }
+    },
+    {
+      "text": "SHIPPEDAcacia MoneyUnlocking Acacia's potential by turning hesitant users into engaged partners.",
+      "href": "https://designbyalex.dev/acacia",
+      "path": "/acacia",
+      "target": null,
+      "rel": null,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 390
+      },
+      "box": {
+        "x": 16,
+        "y": 12712.5,
+        "w": 358,
+        "h": 425
+      }
+    },
+    {
+      "text": "Homepage",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 64
+      },
+      "box": {
+        "x": 24,
+        "y": 13265.5,
+        "w": 35,
+        "h": 33
+      }
+    },
+    {
+      "text": "Get in touch",
+      "href": "mailto:ablumeinfeld@gmail.com",
+      "path": null,
+      "target": null,
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 165.4
+      },
+      "box": {
+        "x": 24,
+        "y": 13366.9,
+        "w": 201,
+        "h": 48
+      }
+    },
+    {
+      "text": "Home",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 283.1
+      },
+      "box": {
+        "x": 24,
+        "y": 13484.6,
+        "w": 38.1,
+        "h": 27
+      }
+    },
+    {
+      "text": "Linkedin",
+      "href": "https://www.linkedin.com/in/alexanderblumeinfeld/",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 314.1
+      },
+      "box": {
+        "x": 24,
+        "y": 13515.6,
+        "w": 53.1,
+        "h": 27
+      }
+    },
+    {
+      "text": "See full CV",
+      "href": "https://drive.google.com/file/d/15URS3xgdTp0vah7PuTuKfOPp4TZH_wph/view?usp=sharing",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 345.1
+      },
+      "box": {
+        "x": 24,
+        "y": 13546.6,
+        "w": 70.2,
+        "h": 27
+      }
+    }
+  ],
+  "media": [
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/Ack5Dsxyz8E4CBDScsGce3M1uw.png?width=3840&height=2880",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Project Hero",
+      "local": {
+        "x": -39,
+        "y": 406.5
+      },
+      "box": {
+        "x": -39,
+        "y": 406.5,
+        "w": 468,
+        "h": 522
+      },
+      "natural": {
+        "w": 3840,
+        "h": 2880
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/1QzWJ6IWaUobXsLtHmtDfnB53k.png?width=784&height=722",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Pitch",
+      "local": {
+        "x": 16,
+        "y": 189
+      },
+      "box": {
+        "x": 16,
+        "y": 2536.5,
+        "w": 358,
+        "h": 425
+      },
+      "natural": {
+        "w": 784,
+        "h": 722
+      },
+      "fit": "cover",
+      "radius": 16,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/Zu3JkhSRzl8ZGgd1fE0IVWyY0.png?width=3000&height=2250",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Clients",
+      "local": {
+        "x": 16,
+        "y": 936.6
+      },
+      "box": {
+        "x": 16,
+        "y": 6356.1,
+        "w": 358,
+        "h": 214
+      },
+      "natural": {
+        "w": 3000,
+        "h": 2250
+      },
+      "fit": "cover",
+      "radius": 20,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/gRV0guiPqzemMDfWAVBwGDoWSyU.png?width=4096&height=2925",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Brand",
+      "local": {
+        "x": 16,
+        "y": 691
+      },
+      "box": {
+        "x": 16,
+        "y": 8311,
+        "w": 358,
+        "h": 214
+      },
+      "natural": {
+        "w": 4096,
+        "h": 2925
+      },
+      "fit": "cover",
+      "radius": 20,
+      "video": null
+    },
+    {
+      "kind": "video",
+      "src": "https://framerusercontent.com/assets/5TAk61jxRKEc0zu4GgnG6G6w.mp4",
+      "host": "framerusercontent.com",
+      "alt": null,
+      "section": "Section Identity",
+      "local": {
+        "x": 14.2,
+        "y": 380.4
+      },
+      "box": {
+        "x": 14.2,
+        "y": 8969.4,
+        "w": 361.6,
+        "h": 216.1
+      },
+      "natural": {
+        "w": 1920,
+        "h": 1080
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": {
+        "autoplay": true,
+        "muted": true,
+        "controls": false,
+        "loop": true,
+        "playsInline": true,
+        "poster": null,
+        "pausedAfterView": false
+      }
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/EtNxYm6EGPMDRr3BRGi3zGpE8.png?scale-down-to=1024&width=1920&height=1080",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Assets",
+      "local": {
+        "x": 14.2,
+        "y": 380.3
+      },
+      "box": {
+        "x": 14.2,
+        "y": 9628.8,
+        "w": 361.6,
+        "h": 216.1
+      },
+      "natural": {
+        "w": 1024,
+        "h": 576
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/yxWMR7Z9VxhImsGZ0cA0cZoCUOw.png?scale-down-to=1024&width=1920&height=1080",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Assets",
+      "local": {
+        "x": 14.2,
+        "y": 602.3
+      },
+      "box": {
+        "x": 14.2,
+        "y": 9850.8,
+        "w": 361.6,
+        "h": 216.1
+      },
+      "natural": {
+        "w": 1024,
+        "h": 576
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "video",
+      "src": "https://framerusercontent.com/assets/uLQTEsgDZ1imbqzdT6kK8rR1k.mp4",
+      "host": "framerusercontent.com",
+      "alt": null,
+      "section": "Section Years",
+      "local": {
+        "x": 14.2,
+        "y": 357.9
+      },
+      "box": {
+        "x": 14.2,
+        "y": 10487.8,
+        "w": 361.6,
+        "h": 216.1
+      },
+      "natural": {
+        "w": 1920,
+        "h": 1080
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": {
+        "autoplay": true,
+        "muted": true,
+        "controls": false,
+        "loop": true,
+        "playsInline": true,
+        "poster": null,
+        "pausedAfterView": false
+      }
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/PbjvL3U7OAMr79tNnIP3UjBOXfY.png?scale-down-to=512&width=3840&height=2880",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 390
+      },
+      "box": {
+        "x": 16,
+        "y": 12712.5,
+        "w": 358,
+        "h": 330.4
+      },
+      "natural": {
+        "w": 358,
+        "h": 268
+      },
+      "fit": "cover",
+      "radius": 20,
+      "video": null
+    },
+    {
+      "kind": "background",
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22126%22 height=%22126%22><path id=%22a%22 d=%22M126 0v21.584L21.584 126H0v-17.585L108.415 0H126Zm0 108.414V126h-17.586L126 108.414Zm0-84v39.171L63.585 126H24.414L126 24.414Zm0 42v39.17L105.584 126h-39.17L126 66.414ZM105.586 0 0 105.586V66.415L66.415 0h39.171Zm-42 0L0 63.586V24.415L24.415 0h39.171Zm-42 0L0 21.586V0h21.586Z%22 fill=%22rgb(136, 136, 136, 0.2",
+      "host": null,
+      "alt": null,
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 224.6
+      },
+      "box": {
+        "x": 16,
+        "y": 11942.1,
+        "w": 358,
+        "h": 214
+      },
+      "natural": null,
+      "fit": "64px auto",
+      "radius": 20,
+      "video": null
+    }
+  ]
+}

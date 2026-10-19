@@ -1,0 +1,170 @@
+{
+  "format": 1,
+  "url": "https://designbyalex.dev/parity-reference-missing-page",
+  "finalUrl": "https://designbyalex.dev/parity-reference-missing-page",
+  "origin": "https://designbyalex.dev",
+  "path": "/parity-reference-missing-page",
+  "width": 1440,
+  "viewport": {
+    "w": 1440,
+    "h": 900
+  },
+  "clientWidth": 1440,
+  "colorScheme": "dark",
+  "reducedMotion": "reduce",
+  "status": 404,
+  "title": "Page Not Found | Framer",
+  "generator": null,
+  "pageHeight": 900,
+  "fonts": [
+    "Inter Variable UI"
+  ],
+  "capturedAt": "2026-10-19T03:22:28.092Z",
+  "browser": "Google Chrome 155.0.8059.80",
+  "sections": [],
+  "blocks": [
+    {
+      "text": "",
+      "tag": "body",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 900
+      }
+    },
+    {
+      "text": "Page not found",
+      "tag": "h1",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 675.9,
+        "y": 417.7,
+        "w": 88.2,
+        "h": 12
+      }
+    },
+    {
+      "text": "This page doesn’t exist or has moved.",
+      "tag": "p",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 620,
+        "y": 439.7,
+        "w": 200,
+        "h": 33.6
+      }
+    },
+    {
+      "text": "Back to home",
+      "tag": "a",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 670.8,
+        "y": 488.3,
+        "w": 98.5,
+        "h": 30
+      }
+    }
+  ],
+  "runs": [
+    {
+      "text": "Page not found",
+      "block": 1,
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 675.9,
+        "y": 415.7,
+        "w": 88.2,
+        "h": 15
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Variable UI",
+        "size": 12,
+        "lineHeight": 12,
+        "weight": 550,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "This page doesn’t exist or has moved.",
+      "block": 2,
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 664.3,
+        "y": 439.7,
+        "w": 111.5,
+        "h": 31.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Variable UI",
+        "size": 12,
+        "lineHeight": 16.8,
+        "weight": 450,
+        "tracking": 0,
+        "color": "rgb(153, 153, 153)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Back to home",
+      "block": 3,
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 680.8,
+        "y": 495.3,
+        "w": 78.5,
+        "h": 15
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Variable UI",
+        "size": 12,
+        "lineHeight": 12,
+        "weight": 450,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 0
+    }
+  ],
+  "links": [
+    {
+      "text": "Back to home",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 670.8,
+        "y": 488.3,
+        "w": 98.5,
+        "h": 30
+      }
+    }
+  ],
+  "media": []
+}
