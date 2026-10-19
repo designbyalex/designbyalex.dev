@@ -7,7 +7,6 @@ import { ArrowUpRight } from 'lucide-react';
 import { PageBlocksSelectedProjects } from '@/tina/__generated__/types';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
-import { HoverLift } from '../motion-primitives/hover-lift';
 import { TransitionLink as Link } from '../motion-primitives/route-transitions';
 import { cn } from '@/lib/utils';
 
@@ -23,9 +22,18 @@ const statusDotClasses: Record<string, string> = {
 };
 
 /**
- * Curated project rows for the homepage: a big thumbnail, then the status pill,
- * title and tagline. Each row is one link to the case study. The section is
- * anchored as `#works` so the hero's "See Selected Projects" action can jump here.
+ * Curated project rows for the homepage, laid out as the Reference site does:
+ * a "Works Header" row (heading left, years right, same size), then one
+ * full-width row per project whose card is a fixed-aspect flex column (the
+ * thumbnail takes what the title and tagline leave). Cards alternate between
+ * the left and the right edge of the row at desktop and tablet widths; on
+ * phones they fill the row. The status pill sits inside the thumbnail, and
+ * hovering reveals a green arrow circle top-right while the image zooms 2%.
+ * Each row is one link to the case study. The section is anchored as `#works`
+ * so the hero's "See Selected Projects" action can jump here.
+ *
+ * Breakpoints follow Framer's variants: phone to 1023, tablet 1024–1279 (`lg`),
+ * desktop from 1280 (`xl`).
  */
 export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects }) => {
   // A row is a link to a case study; one without an href has nowhere to go, so it isn't rendered.
@@ -34,83 +42,102 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
   );
 
   return (
-    <Section background={data.background!} id='works' className='scroll-mt-20'>
-      <div className='mx-auto max-w-5xl space-y-10 md:space-y-14'>
-        {(data.heading || data.years) && (
-          <ScrollReveal sectionId='works-header' className='flex flex-wrap items-baseline justify-between gap-4 border-b border-border pb-6'>
-            {data.heading && (
-              <h2 className='font-display text-heading' data-tina-field={tinaField(data, 'heading')}>
-                {data.heading}
-              </h2>
-            )}
-            {data.years && (
-              <p className='font-display text-heading text-muted-foreground' data-tina-field={tinaField(data, 'years')}>
-                {data.years}
-              </p>
-            )}
-          </ScrollReveal>
-        )}
+    <Section background={data.background!} id='works' className='max-w-none p-0 scroll-mt-20'>
+      {(data.heading || data.years) && (
+        <ScrollReveal
+          sectionId='works-header'
+          className='mx-auto flex max-w-[1440px] items-start px-4 pt-8 pb-16 lg:px-6 lg:pt-25 xl:gap-10 xl:px-12'
+        >
+          {data.heading && (
+            <h2 className='min-w-0 flex-1 font-display text-heading' data-tina-field={tinaField(data, 'heading')}>
+              {data.heading}
+            </h2>
+          )}
+          {data.years && (
+            <p
+              className='shrink-0 text-right font-display text-heading text-muted-foreground xl:flex-1'
+              data-tina-field={tinaField(data, 'years')}
+            >
+              {data.years}
+            </p>
+          )}
+        </ScrollReveal>
+      )}
 
-        <ul className='space-y-16 md:space-y-24'>
-          {projects.map((project, i) => {
-            const status = project!.status ?? '';
-            return (
-              <li key={i} data-section='project-row' data-tina-field={tinaField(project!)}>
-                <ScrollReveal amount={0.2}>
-                  <Link href={project.href} className='group block rounded-2xl'>
+      <ul>
+        {projects.map((project, i) => {
+          const status = project!.status ?? '';
+          const last = i === projects.length - 1;
+          return (
+            <li
+              key={i}
+              data-section='project-row'
+              data-tina-field={tinaField(project!)}
+              className={cn(
+                'mx-auto flex max-w-[1440px] flex-col px-4 lg:px-6 xl:pr-24 xl:pl-12',
+                // Rows alternate edges; the last row carries the section's extra bottom space.
+                i % 2 ? 'items-end' : 'items-start',
+                last ? 'pb-[150px]' : 'pb-[100px]'
+              )}
+            >
+              <ScrollReveal amount={0.2} scale={0.92} className='w-full lg:w-[90%] xl:w-[80%]'>
+                <Link
+                  href={project.href}
+                  className='group flex aspect-square w-full flex-col gap-[15px] rounded-[20px] lg:aspect-[1.50633] xl:aspect-[1.60627]'
+                >
+                  <div className='relative min-h-0 flex-1 rounded-[20px]'>
                     {project!.image?.src && (
-                      <HoverLift lift={4} scale={1.01} className='overflow-hidden rounded-2xl border border-border bg-card'>
-                        <div className='relative aspect-[4/3]' data-tina-field={tinaField(project!.image, 'src')}>
-                          <Image
-                            src={project!.image.src}
-                            alt={project!.image.alt || ''}
-                            fill
-                            sizes='(min-width: 1024px) 1024px, 100vw'
-                            className='object-cover'
-                          />
-                        </div>
-                      </HoverLift>
+                      <div
+                        className='absolute inset-0 overflow-hidden rounded-[20px] bg-card transition-transform duration-300 ease-out group-hover:scale-[1.02]'
+                        data-tina-field={tinaField(project!.image, 'src')}
+                      >
+                        <Image
+                          src={project!.image.src}
+                          alt={project!.image.alt || ''}
+                          fill
+                          sizes='(min-width: 1280px) calc((min(100vw, 1440px) - 144px) * 0.8), (min-width: 1024px) calc((100vw - 48px) * 0.9), calc(100vw - 32px)'
+                          className='rounded-[20px] object-cover'
+                        />
+                      </div>
                     )}
 
-                    <div className='mt-6 flex items-start justify-between gap-6'>
-                      <div className='space-y-3'>
-                        {status && (
-                          <span
-                            className='inline-flex items-center gap-2 rounded-full border border-border bg-foreground/10 px-3 py-1 font-mono text-mono uppercase text-foreground'
-                            data-tina-field={tinaField(project!, 'status')}
-                          >
-                            <span aria-hidden className={cn('size-1.5 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />
-                            {statusLabels[status] ?? status}
-                          </span>
-                        )}
-                        {project!.title && (
-                          <h3
-                            className='text-body group-hover:text-emphasis'
-                            data-tina-field={tinaField(project!, 'title')}
-                          >
-                            {project!.title}
-                          </h3>
-                        )}
-                        {project!.tagline && (
-                          <p className='max-w-2xl text-body text-muted-foreground' data-tina-field={tinaField(project!, 'tagline')}>
-                            {project!.tagline}
-                          </p>
-                        )}
-                      </div>
+                    {status && (
+                      // Over the image in both themes, so it uses the on-image tokens rather than the page's.
                       <span
-                        aria-hidden
-                        className='mt-1 hidden size-11 shrink-0 items-center justify-center rounded-full border border-border text-foreground transition-colors group-hover:border-emphasis group-hover:text-emphasis lg:inline-flex'
+                        className='absolute top-4 left-4 z-10 inline-flex h-[30px] items-center gap-2 rounded-full border border-on-image/25 bg-on-image/15 px-[13px] font-mono text-mono uppercase text-on-image'
+                        data-tina-field={tinaField(project!, 'status')}
                       >
-                        <ArrowUpRight className='size-5' />
+                        <span aria-hidden className={cn('size-2 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />
+                        {statusLabels[status] ?? status}
                       </span>
-                    </div>
-                  </Link>
-                </ScrollReveal>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+                    )}
+
+                    <span
+                      aria-hidden
+                      className='absolute top-6 right-12 z-10 flex size-16 items-center justify-center rounded-full bg-primary text-foreground opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100'
+                    >
+                      <ArrowUpRight className='size-6' />
+                    </span>
+                  </div>
+
+                  <div className='w-full pt-1'>
+                    {project!.title && (
+                      <h3 className='text-body text-foreground' data-tina-field={tinaField(project!, 'title')}>
+                        {project!.title}
+                      </h3>
+                    )}
+                    {project!.tagline && (
+                      <p className='text-body text-muted-foreground' data-tina-field={tinaField(project!, 'tagline')}>
+                        {project!.tagline}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              </ScrollReveal>
+            </li>
+          );
+        })}
+      </ul>
     </Section>
   );
 };
@@ -128,7 +155,12 @@ export const selectedProjectsBlockSchema: Template = {
   fields: [
     sectionBlockSchemaField as any,
     { type: 'string', label: 'Heading', name: 'heading' },
-    { type: 'string', label: 'Years', name: 'years', description: 'Small label beside the heading, e.g. ’23 – ’25.' },
+    {
+      type: 'string',
+      label: 'Years',
+      name: 'years',
+      description: 'Shown right of the heading at the same size, in grey, e.g. ’23 – ’25.',
+    },
     {
       type: 'object',
       label: 'Projects',

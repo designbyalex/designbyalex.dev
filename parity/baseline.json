@@ -15,19 +15,19 @@
           "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Works Header": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 3, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 3, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 3, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Project Row": {
-          "390": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 0 },
-          "768": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Project Row 2": {
-          "390": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 0 },
-          "768": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 3, "Layout": 4, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Project Overview": {
           "390": { "Copy": 3, "Media": 3, "Layout": 34, "Type": 1 },
