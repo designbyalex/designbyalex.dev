@@ -39,11 +39,16 @@
   --text-display--line-height: 1.1;
   --text-display--letter-spacing: -0.02em;
   --text-display--font-weight: 400;
-  /* Case-study title and the Outcome numbers: 48 → 58 */
+  /* Case-study title: 48 → 58 */
   --text-h1: clamp(3rem, calc(3rem + 0.625 * (100vw - 48rem) / 42), 3.625rem);
   --text-h1--line-height: 1.1;
   --text-h1--letter-spacing: -0.02em;
   --text-h1--font-weight: 400;
+  /* Outcome metric-card numbers: 58 at every width (the Reference doesn't scale them, #61) */
+  --text-metric: 3.625rem;
+  --text-metric--line-height: 1.1;
+  --text-metric--letter-spacing: -0.02em;
+  --text-metric--font-weight: 400;
   /* Footer invitation ("Let's talk" / "Get in touch"): 28 → 48 */
   --text-h2: clamp(1.75rem, calc(1.75rem + 1.25 * (100vw - 48rem) / 42), 3rem);
   --text-h2--line-height: 1.2;

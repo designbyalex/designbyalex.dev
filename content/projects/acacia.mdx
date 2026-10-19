@@ -104,79 +104,100 @@ blocks:
       - _template: iconList
         label: Some key features I designed
         items:
-          - text: Onboarding flow
-          - text: Gamified progress indicators
-          - text: Data consent experience
-          - text: Home upgrade modules
-          - text: Energy profile & insights
+          - icon: module
+            text: Onboarding flow
+          - icon: progress
+            text: Gamified progress indicators
+          - icon: lock
+            text: Data consent experience
+          - icon: house
+            text: Home upgrade modules
+          - icon: user
+            text: Energy profile & insights
     image:
       src: /uploads/projects/acacia/home-dashboard.png
       alt: The Acacia home dashboard on a laptop against a dark background, showing the welcome card, energy marketplace, partner news and the first "How it works" steps.
-  - _template: featureDeepDive
-    eyebrow: Onboarding flow
-    heading: Converting interest into action
-    mediaSide: right
-    body: |-
-      The onboarding flow was intentionally designed to feel approachable and human, reducing the cognitive load from the very first screen. By breaking down complex tasks into clear, bite-sized steps, users were never left guessing what to do next or why it mattered. Subtle design choices — from the platform's look and feel to the tone of language — all worked together to reduce anxiety and reinforce that Acacia was on their side. This approach created early wins, instilled confidence, and set the stage for deeper engagement throughout the platform.
-
-      - A step-by-step flow that speaks to users on their level.
-      - Keeping it simple and learnable.
-      - Driving conversion by providing a comforting balance between guidance and autonomy.
-  - _template: gallery
-    columns: "2"
-    items:
+  - _template: caseStudySection
+    sectionId: onboarding
+    heading: Onboarding flow
+    subheading: Converting interest into action
+    headingSize: statement
+    blocks:
+      - _template: body
+        body: |-
+          The onboarding flow was intentionally designed to feel approachable and human, reducing the cognitive load from the very first screen. By breaking down complex tasks into clear, bite-sized steps, users were never left guessing what to do next or why it mattered. Subtle design choices — from the platform's look and feel to the tone of language — all worked together to reduce anxiety and reinforce that Acacia was on their side. This approach created early wins, instilled confidence, and set the stage for deeper engagement throughout the platform.
+      - _template: statement
+        text: 'A step-by-step flow that speaks to users on their level. Keeping it simple and learnable. Driving conversion by '
+        emphasis: providing a comforting balance between guidance and autonomy.
+        leadOnPhone: true
+    imageGrid:
       - src: /uploads/projects/acacia/onboarding-1.png
         alt: Acacia's mobile welcome screen inviting the user to reduce their power bills with cheaper, cleaner energy, with a Get Started button.
       - src: /uploads/projects/acacia/onboarding-2.png
         alt: Acacia's mobile "How it works" steps - share your setup and preferences, then get personalised insights.
-  - _template: featureDeepDive
-    eyebrow: Data consent experience
-    heading: Building trust via user autonomy
-    mediaSide: left
-    body: |-
-      The data sharing stage was one of the biggest friction points in the journey, with clear drop-off patterns. Rather than overwhelm users with jargon, the redesigned flow emphasised the benefits of sharing data and explained how it directly improved their experience. By adding a manual upload option and clarifying how CDR safeguards their information, users felt both in control and reassured — building the trust they needed to take their next step.
-
-      - Plain-language explanations of what data is accessed and why.
-      - Offers choice through a manual upload path, preserving user control.
-      - Builds trust while meeting CDR compliance.
-    image:
-      src: /uploads/projects/acacia/data-consent.png
-      alt: Two phone screens from Acacia's data consent flow - an explainer on securely linking energy data using the Consumer Data Right, and the Link Your Data screen with a Connect Energy Account button and an Upload A Bill alternative.
-  - _template: featureDeepDive
-    eyebrow: Home upgrade modules
-    heading: Future-proofing Acacia's growth
-    mediaSide: right
-    body: |-
-      The modules were designed as flexible templates that can be quickly applied to different upgrade pathways without needing to be rebuilt each time. This gave users a sense of familiarity and predictability across journeys — no matter whether they were switching energy plans, installing solar, or considering an EV.
-
-      For the business, the modular approach meant new partnerships could be onboarded quickly while keeping the overall experience cohesive. It established a framework where innovation didn't come at the cost of usability or consistency.
-
-      - Flexible templates for use across all upgrade pathways.
-      - Provides consistent learnability and memorability for users.
-      - Future-proofed to enable new B2B2C partnerships at speed.
-    image:
-      src: /uploads/projects/acacia/home-upgrades.png
-      alt: Acacia's "Choose your upgrade path" screen on a laptop, with Cheaper Energy and EV Search module cards showing annual savings, CO2 reduction and payback period.
-  - _template: featureDeepDive
-    eyebrow: Energy profile & insights
-    heading: The reason to keep coming back
-    mediaSide: left
-    body: |-
-      The dashboard repositioned Acacia from a one-off tool into an ongoing partner in the user's clean energy transition. By making energy data easier to understand and serving them valuable insights, the experience turned abstract numbers into actions users could take with confidence. It was designed to instil a sense of progress, motivating users to return and play an active role in building a more sustainable future.
-
-      - A personalised dashboard that delivers tailored insights, progress tracking, and comparisons.
-      - Keeps users motivated to return, boosting retention and lifetime value.
+  - _template: caseStudySection
+    sectionId: consent
+    heading: Data consent experience
+    subheading: Building trust via user autonomy
+    headingSize: statement
+    blocks:
+      - _template: body
+        body: |-
+          The data sharing stage was one of the biggest friction points in the journey, with clear drop-off patterns. Rather than overwhelm users with jargon, the redesigned flow emphasised the benefits of sharing data and explained how it directly improved their experience. By adding a manual upload option and clarifying how CDR safeguards their information, users felt both in control and reassured — building the trust they needed to take their next step.
+      - _template: statement
+        text: 'Plain-language explanations of what data is accessed and why. Offers choice through a manual upload path, '
+        emphasis: preserving user control. Builds trust while meeting CDR compliance.
+      - _template: image
+        src: /uploads/projects/acacia/data-consent.png
+        alt: Two phone screens from Acacia's data consent flow - an explainer on securely linking energy data using the Consumer Data Right, and the Link Your Data screen with a Connect Energy Account button and an Upload A Bill alternative.
+        ratio: portrait
+  - _template: caseStudySection
+    sectionId: modules
+    heading: Home upgrade modules
+    subheading: Future-proofing Acacia’s growth
+    headingSize: statement
+    blocks:
+      - _template: body
+        body: |-
+          The modules were designed as flexible templates that can be quickly applied to different upgrade pathways without needing to be rebuilt each time. This gave users a sense of familiarity and predictability across journeys — no matter whether they were switching energy plans, installing solar, or considering an EV.\
+          \
+          For the business, the modular approach meant new partnerships could be onboarded quickly while keeping the overall experience cohesive. It established a framework where innovation didn’t come at the cost of usability or consistency.
+      - _template: statement
+        text: 'Flexible templates for use across all upgrade pathways. Provides consistent learnability and memorability for users. '
+        emphasis: Future-proofed to enable new B2B2C partnerships at speed.
+        leadOnPhone: true
+      - _template: image
+        src: /uploads/projects/acacia/home-upgrades.png
+        alt: Acacia's "Choose your upgrade path" screen on a laptop, with Cheaper Energy and EV Search module cards showing annual savings, CO2 reduction and payback period.
+        ratio: portrait
+  - _template: caseStudySection
+    sectionId: profile
+    heading: Energy profile & insights
+    subheading: The reason to keep coming back
+    headingSize: statement
+    blocks:
+      - _template: body
+        body: |-
+          The dashboard repositioned Acacia from a one-off tool into an ongoing partner in the user’s clean energy transition. By making energy data easier to understand and serving them valuable insights, the experience turned abstract numbers into actions users could take with confidence. It was designed to instil a sense of progress, motivating users to return and play an active role in building a more sustainable future.
+      - _template: statement
+        text: 'A personalised dashboard that delivers tailored insights, progress tracking, and comparisons. Keeps users '
+        emphasis: motivated to return, boosting retention and lifetime value.
+        leadOnPhone: true
     image:
       src: /uploads/projects/acacia/energy-profile.png
       alt: Acacia's profile dashboard on a laptop - a monthly savings prompt, an energy profile checklist, upcoming upgrade modules and a chart of last month's energy usage.
-  - _template: text
-    body: |-
-      ## Outcome
-
-      The impact of these design changes reached beyond the interface. By removing friction and instilling trust at critical moments, users felt confident to share their data, complete upgrades, and return for ongoing insights. For Acacia, this shift proved its ability to deliver customer lifetime value — a key requirement for winning and sustaining B2B2C partnerships. The result was an experience that worked for both sides: empowering users with clarity and control, while positioning the business for long-term growth.
-  - _template: quote
-    quote: Trust built credibility and credibility drove engagement — and engagement was critical for securing long-term partnerships.
-  - _template: metrics
+  - _template: caseStudySection
+    sectionId: outcome
+    heading: Outcome
+    headingSize: heading
+    blocks:
+      - _template: body
+        body: |-
+          The impact of these design changes reached beyond the interface. By removing friction and instilling trust at critical moments, users felt confident to share their data, complete upgrades, and return for ongoing insights. For Acacia, this shift proved its ability to deliver customer lifetime value — a key requirement for winning and sustaining B2B2C partnerships. The result was an experience that worked for both sides: empowering users with clarity and control, while positioning the business for long-term growth.
+      - _template: statement
+        lead: 'Trust built credibility and credibility drove engagement '
+        text: '— and engagement was critical for securing long-term partnerships.'
+        leadOnPhone: true
     metrics:
       - value: 25
         kind: percentage

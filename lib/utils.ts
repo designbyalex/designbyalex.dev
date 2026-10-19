@@ -7,7 +7,7 @@ import { extendTailwindMerge } from 'tailwind-merge';
  * a component's `text-sm` would survive the merge. Listing the tiers as font sizes lets a
  * block's tier override a primitive's default (Button's `text-sm`).
  */
-export const typeTiers = ['display', 'h1', 'h2', 'heading', 'lead', 'statement', 'body-lg', 'body', 'caption', 'mono', 'icon'] as const;
+export const typeTiers = ['display', 'h1', 'h2', 'heading', 'lead', 'statement', 'body-lg', 'body', 'caption', 'mono', 'icon', 'metric'] as const;
 
 const twMerge = extendTailwindMerge({
   extend: {

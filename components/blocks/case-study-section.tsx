@@ -14,15 +14,19 @@ import type {
   ProjectBlocksCaseStudySectionBlocksStatement,
 } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
+import { formatMetric, type MetricKind } from '@/lib/case-study/format';
+import { metricFields } from '@/tina/fields/metric';
 import { components } from '../mdx-components';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
+import { FeatureIcon, featureIconOptions } from './case-study-icons';
 
 /**
  * One case-study section, as the Reference composes them (#60, docs/parity-audit.md §2.4): the heading
  * (white) with its grey subheading on the next line in the left column, a column of nested blocks on
- * the right (body copy, statements, labelled lists, the Mission logo card, images), and an optional
- * full-width image below both. A hairline runs above the columns, so sections read as separated.
+ * the right (body copy, statements, labelled lists, the Mission logo card, images), and below both an
+ * optional full-width image, a two-up image grid or a row of metric cards (#61). A hairline runs above
+ * the columns, so sections read as separated.
  *
  * Boxes are Framer's. Section: 1440px max, padded 48/48/100 at xl (24/24/64 at lg, 32/16/64 under
  * it, where it is a 532px-max column), at least 605px tall, children 60px apart. Columns: the row is
@@ -34,6 +38,8 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 type SectionData = ProjectBlocksCaseStudySection;
 type ColumnBlock = NonNullable<NonNullable<SectionData['blocks']>[number]>;
+type GridImage = NonNullable<NonNullable<SectionData['imageGrid']>[number]>;
+type Metric = NonNullable<NonNullable<SectionData['metrics']>[number]>;
 
 const HAIRLINE_BELOW = 'shadow-[0_1px_0_0_var(--color-border)]';
 
@@ -42,6 +48,8 @@ const kindOf = (block: { __typename?: string | null }) => block.__typename?.repl
 
 export const CaseStudySection = ({ data }: { data: SectionData }) => {
   const blocks = (data.blocks?.filter(Boolean) ?? []) as ColumnBlock[];
+  const grid = (data.imageGrid?.filter((item) => item?.src) ?? []) as GridImage[];
+  const metrics = (data.metrics?.filter(Boolean) ?? []) as Metric[];
   const statementHeading = data.headingSize === 'statement';
 
   return (
@@ -92,6 +100,59 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
           </div>
         </ScrollReveal>
       )}
+
+      {grid.length > 0 && (
+        <ScrollReveal className='w-full'>
+          {/*
+           * Framer's "Image Grid": a 3.56129-ratio row of equal cards 8px apart at desktop; on phones a
+           * 0.838408-ratio column with the second image on top (its wrappers swap `order`), each card
+           * taking half the height. Corners 20px via clip-path, as the full-width image.
+           */}
+          <div className='flex aspect-[0.838408] w-full flex-col-reverse gap-2 lg:aspect-[3.56129] lg:flex-row'>
+            {grid.map((item, i) => (
+              <div key={i} className='relative min-h-0 flex-1 [clip-path:inset(0_round_20px)]' data-tina-field={tinaField(item, 'src')}>
+                <Image
+                  src={item.src!}
+                  alt={item.alt || ''}
+                  fill
+                  sizes='(min-width: 1280px) min(50vw - 52px, 668px), (min-width: 1024px) calc(50vw - 28px), min(100vw - 32px, 500px)'
+                  className='object-cover'
+                />
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
+      )}
+
+      {metrics.length > 0 && (
+        <ul className='grid w-full grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-4'>
+          {metrics.map((metric, i) => (
+            <li key={i} className='min-w-0' data-tina-field={tinaField(metric)}>
+              {/*
+               * Framer's "Number Counter" card: #131313, 20px corners, 32px padding, content at the bottom.
+               * Desktop: four across (8px apart), 310px tall, number 16px above the caption. Phones: one
+               * per row, as tall as its content, 8px between number and caption, caption 90% wide.
+               */}
+              <ScrollReveal
+                delay={Math.min(i, 4) * 0.06}
+                className='flex h-full flex-col items-start justify-end gap-2 rounded-[20px] bg-card p-8 xl:h-[310px] xl:gap-4'
+              >
+                <p className='font-display text-metric text-foreground' data-tina-field={tinaField(metric, 'value')}>
+                  {formatMetric({
+                    value: metric.value ?? Number.NaN,
+                    kind: metric.kind as MetricKind | null,
+                    to: metric.to,
+                    suffix: metric.suffix,
+                  })}
+                </p>
+                <p className='w-[90%] text-caption text-muted-foreground xl:w-full' data-tina-field={tinaField(metric, 'label')}>
+                  {metric.label}
+                </p>
+              </ScrollReveal>
+            </li>
+          ))}
+        </ul>
+      )}
     </Section>
   );
 };
@@ -117,9 +178,10 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
 
   if (kind === 'Statement') {
     const statement = block as ProjectBlocksCaseStudySectionBlocksStatement;
-    // Large white text with a green ending and no quote glyphs. pre-wrap as Framer's text containers:
-    // the space between the two parts belongs to whichever string carries it, and a space that hangs
-    // at the end of a line keeps its box, which is where the Fidelity gate measures the run from.
+    // Large white text with a green ending (or a green opening, as the Outcome statement) and no quote
+    // glyphs. pre-wrap as Framer's text containers: the space between the parts belongs to whichever
+    // string carries it, and a space that hangs at the end of a line keeps its box, which is where the
+    // Fidelity gate measures the run from.
     return (
       <ScrollReveal
         as='p'
@@ -127,6 +189,7 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
         className={cn('w-full whitespace-pre-wrap font-display text-statement text-foreground', statement.leadOnPhone && 'max-lg:-order-1')}
       >
         <span data-tina-field={tinaField(statement)}>
+          {statement.lead && <span className='text-emphasis'>{statement.lead}</span>}
           {statement.text}
           {statement.emphasis && <span className='text-emphasis'>{statement.emphasis}</span>}
         </span>
@@ -161,10 +224,12 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
         {list.label && <ListLabel text={list.label} field={tinaField(list, 'label')} />}
         <ul>
           {items.map((item, i) => (
-            // Framer's rows: 14px above and below, a 30px icon column 8px before the text, a hairline under each.
+            // Framer's rows: 14px above and below, a 30px icon column (the glyph top-left, 2px in) 8px before
+            // the text, a hairline under each.
             <li key={i} className={cn('flex w-full items-center gap-2 py-3.5', HAIRLINE_BELOW)} data-tina-field={tinaField(item!)}>
-              {/* Icon slot; the icons themselves are #61's. */}
-              <span aria-hidden className='w-[30px] shrink-0 self-stretch pl-0.5' />
+              <span aria-hidden className='flex w-[30px] shrink-0 items-start self-stretch pl-0.5 text-foreground'>
+                <FeatureIcon name={item!.icon} />
+              </span>
               <p className='min-w-0 flex-1 text-caption text-foreground-soft'>{item!.text}</p>
             </li>
           ))}
@@ -213,10 +278,26 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
   if (kind === 'Image') {
     const image = block as ProjectBlocksCaseStudySectionBlocksImage;
     if (!image.src) return null;
+    const natural = image.ratio === 'natural';
+    // Framer's "Image Right": the column's width at a 0.837097 ratio, cover, 20px corners (clip-path, as
+    // the Reference snapshot reads the radius as 0); or the image at its own ratio.
     return (
       <ScrollReveal delay={delay} className='w-full'>
-        <div data-tina-field={tinaField(image, 'src')}>
-          <Image src={image.src} alt={image.alt || ''} width={1600} height={1200} className='h-auto w-full' />
+        <div
+          className={cn('relative w-full [clip-path:inset(0_round_20px)]', !natural && 'aspect-[0.837097]')}
+          data-tina-field={tinaField(image, 'src')}
+        >
+          {natural ? (
+            <Image src={image.src} alt={image.alt || ''} width={1600} height={1200} className='h-auto w-full' />
+          ) : (
+            <Image
+              src={image.src}
+              alt={image.alt || ''}
+              fill
+              sizes='(min-width: 1024px) min(47vw, 532px), min(100vw - 32px, 500px)'
+              className='object-cover'
+            />
+          )}
         </div>
       </ScrollReveal>
     );
@@ -266,6 +347,12 @@ const statementTemplate: Template = {
   fields: [
     {
       type: 'string',
+      name: 'lead',
+      label: 'Green opening',
+      description: 'Optional: shown in the brand green before the text (the Outcome statement opens in green). Spaces are kept as typed: end with a space.',
+    },
+    {
+      type: 'string',
       name: 'text',
       label: 'Text',
       ui: { component: 'textarea' },
@@ -312,8 +399,11 @@ const iconListTemplate: Template = {
       list: true,
       name: 'items',
       label: 'Items',
-      ui: { itemProps: (item) => ({ label: item?.text || 'Item' }), defaultItem: { text: 'Feature' } },
-      fields: [{ type: 'string', name: 'text', label: 'Text' }],
+      ui: { itemProps: (item) => ({ label: item?.text || 'Item' }), defaultItem: { text: 'Feature', icon: 'module' } },
+      fields: [
+        { type: 'string', name: 'icon', label: 'Icon', options: featureIconOptions, description: 'The glyph in the 30px column before the text.' },
+        { type: 'string', name: 'text', label: 'Text' },
+      ],
     },
   ],
 };
@@ -332,8 +422,20 @@ const logoCardTemplate: Template = {
 const columnImageTemplate: Template = {
   name: 'image',
   label: 'Image',
-  ui: { itemProps: (item) => ({ label: item?.alt || 'Image' }) },
-  fields: [projectImageField('src', 'Image'), altField],
+  ui: { itemProps: (item) => ({ label: item?.alt || 'Image' }), defaultItem: { ratio: 'portrait' } },
+  fields: [
+    projectImageField('src', 'Image'),
+    altField,
+    {
+      type: 'string',
+      name: 'ratio',
+      label: 'Shape',
+      options: [
+        { label: 'Portrait card (column width at 0.837, cropped)', value: 'portrait' },
+        { label: 'Natural (the image’s own ratio)', value: 'natural' },
+      ],
+    },
+  ],
 };
 
 export const caseStudySectionBlockSchema: Template = {
@@ -386,6 +488,27 @@ export const caseStudySectionBlockSchema: Template = {
       label: 'Full-width image',
       description: 'Runs the full content width below the columns, at a 16:9 ratio with 20px corners.',
       fields: [projectImageField('src', 'Image'), altField],
+    },
+    {
+      type: 'object',
+      list: true,
+      name: 'imageGrid',
+      label: 'Image grid',
+      description: 'Two images side by side across the full content width below the columns (stacked, second first, on phones), 20px corners.',
+      ui: { itemProps: (item) => ({ label: item?.alt || 'Image' }) },
+      fields: [projectImageField('src', 'Image'), altField],
+    },
+    {
+      type: 'object',
+      list: true,
+      name: 'metrics',
+      label: 'Metric cards',
+      description: 'Raised rounded cards across the full content width below the columns: four per row at desktop, one per row on phones; the number bottom-left with its caption under it.',
+      ui: {
+        itemProps: (item) => ({ label: `${item?.value ?? ''} ${item?.label ?? ''}`.trim() || 'Metric' }),
+        defaultItem: { value: 40, kind: 'percentage', label: 'Caption under the number' },
+      },
+      fields: metricFields,
     },
   ],
 };
