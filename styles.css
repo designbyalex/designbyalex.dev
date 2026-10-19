@@ -54,6 +54,12 @@
   --highlight-text-light: #ffffff;
   --radius: 1rem;
 
+  /* Motion — mirrors EASE_MICRO / EASE_ENTRANCE / DURATION.route* in lib/motion/reduced-motion.ts */
+  --motion-ease-micro: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-duration-route-out: 180ms;
+  --motion-duration-route-in: 420ms;
+
   /* Light theme (proposed, net-new) */
   --background: #ffffff;
   --foreground: #080808;
@@ -132,5 +138,56 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/*
+ * Route transitions (S8 / #12) — View Transitions API.
+ * Started by components/motion-primitives/route-transitions.tsx (TransitionLink +
+ * the RouteTransitions provider). The old page fades out on the micro curve while
+ * the new page fades and rises in on the entrance curve; the fixed site header is
+ * its own group so it stays put while the page crossfades beneath it.
+ */
+@keyframes route-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes route-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: route-fade-out var(--motion-duration-route-out) var(--motion-ease-micro) both;
+}
+
+::view-transition-new(root) {
+  animation: route-rise-in var(--motion-duration-route-in) var(--motion-ease-entrance) both;
+}
+
+.site-header {
+  view-transition-name: site-header;
+}
+
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/*
+ * Reduced motion: TransitionLink already skips startViewTransition, so this only
+ * reaches browser back/forward (which the provider still wraps). With no animations
+ * the transition resolves on the next frame — an instant swap.
+ */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

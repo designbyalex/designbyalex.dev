@@ -1,10 +1,10 @@
 "use client";
-import Link from "next/link";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { Blocks } from "@/components/blocks";
 import { components } from "@/components/mdx-components";
 import { Section } from "@/components/layout/section";
+import { TransitionLink as Link } from "@/components/motion-primitives/route-transitions";
 import { ProjectQuery } from "@/tina/__generated__/types";
 import ErrorBoundary from "@/components/error-boundary";
 import { formatMetric, type MetricKind } from "@/lib/case-study/format";

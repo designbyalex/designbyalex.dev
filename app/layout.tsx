@@ -8,6 +8,7 @@ import VideoDialog from "@/components/ui/VideoDialog";
 import "@/styles.css";
 import { TailwindIndicator } from "@/components/ui/breakpoint-indicator";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { RouteTransitions } from "@/components/motion-primitives/route-transitions";
 
 const fontSans = Inter_Tight({
   subsets: ["latin"],
@@ -32,25 +33,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn(fontSans.variable, fontMono.variable)}
-    >
-      <body className="min-h-screen bg-background font-sans antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <VideoDialogProvider>
-            {children}
-            <VideoDialog />
-          </VideoDialogProvider>
-        </ThemeProvider>
-        <TailwindIndicator />
-      </body>
-    </html>
+    // RouteTransitions is a context provider (no DOM): it wraps <html> as the
+    // next-view-transitions docs prescribe so every route change can animate.
+    <RouteTransitions>
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={cn(fontSans.variable, fontMono.variable)}
+      >
+        <body className="min-h-screen bg-background font-sans antialiased">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <VideoDialogProvider>
+              {children}
+              <VideoDialog />
+            </VideoDialogProvider>
+          </ThemeProvider>
+          <TailwindIndicator />
+        </body>
+      </html>
+    </RouteTransitions>
   );
 }

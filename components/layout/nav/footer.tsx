@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "../../motion-primitives/route-transitions";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
 

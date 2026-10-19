@@ -75,3 +75,25 @@ Written by the unattended loop (`scripts/afk-loop.sh`): one section per ticket, 
   - [ ] Contact: display-size "Let's talk", green pill button opens mailto, LinkedIn / CV links open in new tabs.
   - [ ] Reduced motion (`prefers-reduced-motion: reduce`): everything renders at rest, nothing stuck at opacity 0 or scaled.
   - [ ] Tina visual editor: each block and list item is click-to-edit; thumbnails upload into `uploads/home`.
+
+## #12 S8: Route/page transitions
+- Built: animated route transitions via the View Transitions API using `next-view-transitions` (0.3.5, added to `package.json`). New motion primitive `components/motion-primitives/route-transitions.tsx` exports `RouteTransitions` (the provider, wrapping `<html>` in `app/layout.tsx` as the library prescribes) and `TransitionLink`, a drop-in for `next/link` that routes its decision through the new `routeTransitionMotion` selector in `lib/motion/reduced-motion.ts` (fourth `MotionCategory`, `DURATION.routeOut` 0.18s / `DURATION.routeIn` 0.42s, unit-tested). The animation is CSS in `styles.css`: `::view-transition-old(root)` fades out on the micro curve, `::view-transition-new(root)` fades and rises 12px on the entrance curve; the fixed header gets `view-transition-name: site-header` so it stays put while the page crossfades beneath it. `TransitionLink` replaces `next/link` on every internal route link between home and the case studies: header logo + nav, footer logo, selected-projects rows, case-study previous/next, and the 404's "Take me home". The styleguide has a TransitionLink demo under Motion primitives.
+- Decisions made without a human:
+  - `next-view-transitions` over Next's experimental `viewTransition` flag: the flag needs React 19 + the React `<ViewTransition>` API; the repo is on React 18 types and the PRD names this library.
+  - Reduced motion is two layers. (1) `TransitionLink` renders a plain `next/link` when `prefers-reduced-motion` is set, so `startViewTransition` is never called on click: no snapshot freeze, instant navigation. (2) The library's provider also wraps browser back/forward in a view transition (via `popstate`) and that cannot be bypassed from the link, so `styles.css` sets `animation: none !important` on every `::view-transition-*` pseudo-element under `prefers-reduced-motion: reduce`; with no animations the transition resolves on the next frame.
+  - Hash hrefs (`#works`) and external URLs fall through to plain `next/link` inside `TransitionLink` (`isInternalRoute`), so CMS-authored nav items are safe; `hero.tsx`'s "See Selected Projects" anchor was left on `next/link`.
+  - The header's own VT group shows the new snapshot immediately (`animation: none; mix-blend-mode: normal`) rather than crossfading, so its `backdrop-blur` doesn't double up.
+  - Timings/easings live in two places by design: canonical in `lib/motion/reduced-motion.ts` (testable), mirrored as `--motion-*` custom properties in `styles.css` (where the pseudo-elements must be styled). Comments in both point at each other.
+  - Browsers without `startViewTransition` (older Firefox/Safari) get a normal client-side navigation from the library's `Link`; no polyfill.
+  - No shared-element transition (project thumbnail → case-study hero) yet: Acacia has no images and the "smallest change" rule applies. Candidate for the elevate pass (`view-transition-name` on the thumbnail and `coverImage`).
+- Stubbed:
+  - `pnpm test` was denied in this session (as in #11); the five new `routeTransitionMotion` tests compiled under tsc only. Final pass runs `scripts/afk/check.sh --full`.
+- Verify visually:
+  - [ ] `/` → project row → `/acacia` (Chrome/Edge/Safari 18+): old page fades, case study rises in, header stays fixed; no white flash in dark theme, no flash in light.
+  - [ ] `/acacia` ⇄ `/mosurban` via Previous / Next project; header logo back to `/`.
+  - [ ] Browser back from a case study replays the transition and restores the homepage scroll position to the project row (no jump to top, no double scroll).
+  - [ ] `prefers-reduced-motion: reduce`: clicks navigate instantly with no frozen frame; back/forward is an instant swap; nothing animates.
+  - [ ] Console clean of hydration warnings on `/`, `/acacia`, `/mosurban`, `/styleguide`, `/404`.
+  - [ ] Header `backdrop-blur` during the 420ms transition: the header snapshot's blurred background is static while content moves beneath it; confirm it's not noticeable in either theme.
+  - [ ] Firefox < 144 / Safari < 18: links still navigate client-side (no transition).
+  - [ ] Tina visual editor (`/admin`): clicking a project row inside the preview iframe still navigates and the editor follows.

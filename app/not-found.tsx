@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { TransitionLink as Link } from "@/components/motion-primitives/route-transitions"
 
 interface NotFoundProps {
   title?: string

@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { ScrollReveal } from "@/components/motion-primitives/scroll-reveal";
 import { TextReveal } from "@/components/motion-primitives/text-reveal";
 import { HoverLift } from "@/components/motion-primitives/hover-lift";
+import { TransitionLink } from "@/components/motion-primitives/route-transitions";
 
 export const metadata: Metadata = {
   title: "Styleguide — designbyalex.dev",
@@ -161,7 +162,7 @@ export default function StyleguidePage() {
         <section>
           <SectionHeading>Motion primitives · S2</SectionHeading>
           <p className="mb-8 max-w-prose text-[1.125rem] leading-[1.4] text-muted-foreground">
-            All three route through the pure reduced-motion selector. Enable{" "}
+            All four route through the pure reduced-motion selector. Enable{" "}
             <span className="font-mono text-foreground">prefers-reduced-motion</span> at the OS level
             and every one below degrades to a static, non-animated fallback — the decision logic is
             unit-tested.
@@ -223,6 +224,24 @@ export default function StyleguidePage() {
                 <HoverLift className="inline-flex">
                   <Button>Hover me</Button>
                 </HoverLift>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                TransitionLink · route transition (S8)
+              </h3>
+              <p className="max-w-prose text-[1.125rem] leading-[1.4] text-muted-foreground">
+                Navigates with the View Transitions API: the old page fades out, the new one fades and
+                rises in, and the header stays put. Browser back replays it in reverse.
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button asChild>
+                  <TransitionLink href="/">Home</TransitionLink>
+                </Button>
+                <Button asChild variant="outline">
+                  <TransitionLink href="/acacia">Acacia case study</TransitionLink>
+                </Button>
               </div>
             </div>
           </div>

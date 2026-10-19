@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { ArrowUpRight } from 'lucide-react';
@@ -9,6 +8,7 @@ import { PageBlocksSelectedProjects } from '@/tina/__generated__/types';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { HoverLift } from '../motion-primitives/hover-lift';
+import { TransitionLink as Link } from '../motion-primitives/route-transitions';
 import { cn } from '@/lib/utils';
 
 const statusLabels: Record<string, string> = {

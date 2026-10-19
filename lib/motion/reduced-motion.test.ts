@@ -4,6 +4,7 @@ import {
   EASE_ENTRANCE,
   EASE_MICRO,
   hoverMotion,
+  routeTransitionMotion,
   scrollRevealMotion,
   textRevealMotion,
 } from './reduced-motion';
@@ -167,6 +168,41 @@ describe('hoverMotion', () => {
     it('ignores hover overrides', () => {
       const o = hoverMotion(true, { lift: 6, scale: 1.1 });
       expect(o.whileHover).toEqual({});
+    });
+  });
+});
+
+describe('routeTransitionMotion', () => {
+  describe('motion allowed', () => {
+    const m = routeTransitionMotion(false);
+
+    it('runs the navigation through a view transition', () => {
+      expect(m.animate).toBe(true);
+    });
+
+    it('fades the old page out quickly and settles the new page in over longer', () => {
+      expect(m.durationOut).toBe(DURATION.routeOut);
+      expect(m.durationIn).toBe(DURATION.routeIn);
+      expect(m.durationOut).toBeGreaterThan(0);
+      expect(m.durationIn).toBeGreaterThan(m.durationOut);
+    });
+
+    it('uses the micro curve out and the entrance curve in', () => {
+      expect(m.easeOut).toBe(EASE_MICRO);
+      expect(m.easeIn).toBe(EASE_ENTRANCE);
+    });
+  });
+
+  describe('reduced motion', () => {
+    const m = routeTransitionMotion(true);
+
+    it('does not start a view transition at all', () => {
+      expect(m.animate).toBe(false);
+    });
+
+    it('has zero-length timings', () => {
+      expect(m.durationOut).toBe(0);
+      expect(m.durationIn).toBe(0);
     });
   });
 });
