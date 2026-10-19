@@ -67,6 +67,17 @@
       "check": "copy-changed",
       "anchor": "2025 Alexander Blum",
       "decision": "The footer shows the current year instead of Framer's fixed 2025. Approved in #46."
+    },
+    {
+      "id": "cv-link-capture-1440",
+      "page": "home",
+      "section": "Project Overview",
+      "check": "copy-extra",
+      "anchor": [
+        "DOWNLOAD FULL CV",
+        "download"
+      ],
+      "decision": "Reference capture artefact, not a design difference. Framer's text-roll on the \"DOWNLOAD FULL CV\" link re-hides the label and its download icon once they scroll out of view, and the extractor collects with the page scrolled back to the top, so the frozen 1440 snapshot and screenshot miss them. The live site shows both at 1440 (checked 2026-10-19), 390 and 768 captured them, and PRD story 44 requires the link. Approved by the owner during the AFK run (#59)."
     }
   ]
 }
