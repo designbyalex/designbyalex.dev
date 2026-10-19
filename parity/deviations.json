@@ -1,0 +1,72 @@
+{
+  "deviations": [
+    {
+      "id": "themed-404",
+      "page": "not-found",
+      "section": "*",
+      "check": [
+        "Layout",
+        "Type"
+      ],
+      "anchor": "*",
+      "decision": "Themed 404 with the site chrome, keeping Framer's copy (\"Page not found\" / \"This page doesn’t exist or has moved.\" / \"Back to home\"). Suppresses the 404's Layout and Type Gaps, including the Header and Footer the Reference lacks; its copy, links, media hosts and status are still checked. Approved in #46."
+    },
+    {
+      "id": "per-page-metadata",
+      "page": "*",
+      "section": "(page)",
+      "check": "title",
+      "anchor": "*",
+      "decision": "Per-page titles, descriptions and OG images (#13) instead of Framer's one title for every page. The snapshot records only the title, so this suppresses title Gaps. Approved in #46."
+    },
+    {
+      "id": "the-their-typo",
+      "page": "acacia",
+      "section": "Section Engagement",
+      "check": "copy-changed",
+      "anchor": "Retention quickly emerged as one of the platform’s biggest challenges. Many users treated Acacia as a one-off utility: once they switched plans or completed an upgrade, there was little reason to return. For the business to grow sustainably, we needed to create ongoing value that encouraged regular re-engagement. The opportunity was to position Acacia as an independent partner in every user's renewable energy transition — always in the their corner, delivering insights that optimise their finances while helping them do their part for the world at large.",
+      "decision": "The Reference's \"always in the their corner\" typo is fixed to \"always in their corner\". Approved in #46."
+    },
+    {
+      "id": "reduced-motion",
+      "page": "*",
+      "section": "*",
+      "check": "video-autoplay",
+      "anchor": "*",
+      "decision": "Reduced-motion support: under prefers-reduced-motion the Build's videos don't autoplay, where Framer ignores the setting. Snapshots are taken under reduced motion, so this suppresses video-autoplay Gaps. Approved in #46."
+    },
+    {
+      "id": "header-theme-toggle",
+      "page": "*",
+      "section": "Header",
+      "check": "position",
+      "anchor": "Let's talk",
+      "decision": "The header theme toggle at every width. It sits beside \"Let's talk\" and moves it, so this suppresses that run's position Gap in the Header. Approved in #46."
+    },
+    {
+      "id": "en-dash-date-ranges",
+      "page": "*",
+      "section": "*",
+      "check": "punctuation",
+      "anchor": [
+        "'23 - 25'",
+        "2025-Present",
+        "2023-Present",
+        "2024-2025",
+        "2022-2023",
+        "2020-2023",
+        "Q3 2023 - Q2 2025",
+        "Q3 2024 - Q4 2025"
+      ],
+      "decision": "En dashes in date ranges (’23 – ’25, 2025 – Present) where the Reference uses hyphens. Suppresses punctuation Gaps on the Reference's date ranges only; a case change on them is still a Gap. Approved in #46."
+    },
+    {
+      "id": "dynamic-footer-year",
+      "page": "*",
+      "section": "Footer",
+      "check": "copy-changed",
+      "anchor": "2025 Alexander Blum",
+      "decision": "The footer shows the current year instead of Framer's fixed 2025. Approved in #46."
+    }
+  ]
+}

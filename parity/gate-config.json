@@ -1,0 +1,67 @@
+{
+  "tolerances": {
+    "positionPx": 4,
+    "widthPx": 4,
+    "widthRatio": 0.05,
+    "lines": 0,
+    "fontSizePx": 0.5,
+    "lineHeightPx": 1,
+    "trackingPx": 0.1,
+    "fontWeight": 0,
+    "colorDeltaE": 2,
+    "opacity": 0.05,
+    "sectionSizePx": 8,
+    "sectionSizeRatio": 0.05,
+    "mediaSizePx": 4,
+    "mediaSizeRatio": 0.03,
+    "mediaRadiusPx": 1
+  },
+  "matching": {
+    "fuzzyCopy": 0.5,
+    "containMinChars": 12
+  },
+  "fontFamilyAliases": {
+    "Inter Display": "Inter"
+  },
+  "forbiddenMediaHosts": [
+    "framerusercontent.com"
+  ],
+  "sectionMap": {
+    "Header": "header",
+    "Footer": "footer",
+    "Hero Content": "hero",
+    "Works Header": "works-header",
+    "Project Row": "project-row",
+    "Project Row 2": "project-row 2",
+    "Project Overview": "about",
+    "Project Hero": "project-hero",
+    "Back": "back",
+    "Section Overview": "overview",
+    "Section Outcome": "outcome",
+    "Section Next": "whats-next",
+    "Section CTA": "cta",
+    "Section Mission": "mission",
+    "Section Credibility": "credibility",
+    "Section Trust": "trust",
+    "Section Engagement": "engagement",
+    "Section Solution": "solution",
+    "Section Onboarding": "onboarding",
+    "Section Consent": "consent",
+    "Section Modules": "modules",
+    "Section Profile": "profile",
+    "Section Pitch": "pitch",
+    "Section Vision": "vision",
+    "Section Users": "users",
+    "Section Clients": "clients",
+    "Section UX": "ux",
+    "Section Brand": "brand",
+    "Section Identity": "identity",
+    "Section Assets": "assets",
+    "Section Years": "years",
+    "(none)": "not-found"
+  },
+  "extraRoutes": {
+    "/about": "not-found",
+    "/styleguide": "not-found"
+  }
+}
