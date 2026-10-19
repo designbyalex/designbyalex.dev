@@ -49,6 +49,11 @@ export interface ScrollRevealOptions {
   once?: boolean;
   /** Fraction of the element that must be visible to trigger. Default 0.3. */
   amount?: number;
+  /**
+   * Scale the element settles from (e.g. 1.08 for a slow zoom-out on a hero
+   * image). Default 1, which leaves scale untouched.
+   */
+  scale?: number;
 }
 
 export interface ScrollRevealMotion {
@@ -66,7 +71,7 @@ export function scrollRevealMotion(
   prefersReducedMotion: boolean,
   options: ScrollRevealOptions = {}
 ): ScrollRevealMotion {
-  const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3 } = options;
+  const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3, scale = 1 } = options;
   const viewport = { once, amount };
 
   if (prefersReducedMotion) {
@@ -78,9 +83,10 @@ export function scrollRevealMotion(
     };
   }
 
+  const scaled = scale !== 1;
   return {
-    initial: { opacity: 0, y },
-    whileInView: { opacity: 1, y: 0 },
+    initial: { opacity: 0, y, ...(scaled ? { scale } : {}) },
+    whileInView: { opacity: 1, y: 0, ...(scaled ? { scale: 1 } : {}) },
     transition: { duration, delay, ease: EASE_ENTRANCE },
     viewport,
   };

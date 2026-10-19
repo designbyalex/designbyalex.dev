@@ -1,135 +1,95 @@
 'use client';
-import { iconSchema } from '@/tina/fields/icon';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { PageBlocksHero, PageBlocksHeroImage } from '../../tina/__generated__/types';
-import { Icon } from '../icon';
+import { ArrowDown } from 'lucide-react';
+import { PageBlocksHero } from '../../tina/__generated__/types';
 import { Section, sectionBlockSchemaField } from '../layout/section';
-import { AnimatedGroup } from '../motion-primitives/animated-group';
-import { TextEffect } from '../motion-primitives/text-effect';
+import { ScrollReveal } from '../motion-primitives/scroll-reveal';
+import { TextReveal } from '../motion-primitives/text-reveal';
 import { Button } from '../ui/button';
-import HeroVideoDialog from '../ui/hero-video-dialog';
-import { Transition } from 'motion/react';
-const transitionVariants = {
-  container: {
-    visible: {
-      transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0.75,
-      },
-    },
-  },
-  item: {
-    hidden: {
-      opacity: 0,
-      filter: 'blur(12px)',
-      y: 12,
-    },
-    visible: {
-      opacity: 1,
-      filter: 'blur(0px)',
-      y: 0,
-      transition: {
-        type: 'spring',
-        bounce: 0.3,
-        duration: 1.5,
-      } as Transition,
-    },
-  },
-};
 
+/**
+ * Homepage hero, faithful to designbyalex.dev: the teal logo-mark card settles
+ * in with a slow zoom-out, then the headline arrives character by character,
+ * the tagline word by word, and the action last. Every piece routes through the
+ * motion primitives, so `prefers-reduced-motion` renders it at rest.
+ */
 export const Hero = ({ data }: { data: PageBlocksHero }) => {
-  // Extract the background style logic into a more readable format
-  let gradientStyle: React.CSSProperties | undefined = undefined;
-  if (data.background) {
-    const colorName = data.background
-      .replace(/\/\d{1,2}$/, '')
-      .split('-')
-      .slice(1)
-      .join('-');
-    const opacity = data.background.match(/\/(\d{1,3})$/)?.[1] || '100';
-
-    gradientStyle = {
-      '--tw-gradient-to': `color-mix(in oklab, var(--color-${colorName}) ${opacity}%, transparent)`,
-    } as React.CSSProperties;
-  }
-
   return (
-    <Section background={data.background!}>
-      <div className='text-center sm:mx-auto lg:mr-auto lg:mt-0'>
-        {data.headline && (
-          <div data-tina-field={tinaField(data, 'headline')}>
-            <TextEffect preset='fade-in-blur' speedSegment={0.3} as='h1' className='mt-8 text-balance text-6xl md:text-7xl xl:text-[5.25rem]'>
-              {data.headline!}
-            </TextEffect>
-          </div>
-        )}
-        {data.tagline && (
-          <div data-tina-field={tinaField(data, 'tagline')}>
-            <TextEffect per='line' preset='fade-in-blur' speedSegment={0.3} delay={0.5} as='p' className='mx-auto mt-8 max-w-2xl text-balance text-lg'>
-              {data.tagline!}
-            </TextEffect>
+    <Section background={data.background!} className='pt-4 md:pt-8'>
+      <div className='mx-auto max-w-6xl'>
+        {data.image?.src && (
+          <div
+            className='overflow-hidden rounded-2xl border border-border bg-card'
+            data-tina-field={tinaField(data.image, 'src')}
+          >
+            {/* The zoom-out is clipped by the card, like Framer's scaled background layer. */}
+            <ScrollReveal y={0} scale={1.08} duration={1.4} amount={0.1} className='relative h-[clamp(220px,48vh,600px)] w-full'>
+              <Image
+                src={data.image.src}
+                alt={data.image.alt || ''}
+                fill
+                priority
+                sizes='(min-width: 1280px) 1152px, 100vw'
+                className='object-cover'
+              />
+            </ScrollReveal>
           </div>
         )}
 
-        <AnimatedGroup variants={transitionVariants} className='mt-12 flex flex-col items-center justify-center gap-2 md:flex-row'>
-          {data.actions &&
-            data.actions.map((action) => (
-              <div key={action!.label} data-tina-field={tinaField(action)} className='bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5'>
-                <Button asChild size='lg' variant={action!.type === 'link' ? 'ghost' : 'default'} className='rounded-xl px-5 text-base'>
-                  <Link href={action!.link!}>
-                    {action?.icon && <Icon data={action?.icon} />}
+        <div className='mt-10 max-w-4xl md:mt-14'>
+          {data.headline && (
+            <div data-tina-field={tinaField(data, 'headline')}>
+              <TextReveal
+                as='h1'
+                per='char'
+                stagger={0.012}
+                delay={0.3}
+                className='text-balance text-[2.75rem] font-medium leading-[1.1] tracking-[-0.02em] sm:text-[3.5rem] lg:text-[4.5rem]'
+              >
+                {data.headline}
+              </TextReveal>
+            </div>
+          )}
+          {data.tagline && (
+            <div data-tina-field={tinaField(data, 'tagline')}>
+              <TextReveal
+                as='p'
+                per='word'
+                stagger={0.02}
+                delay={1.1}
+                className='mt-8 max-w-3xl text-balance text-lg leading-[1.4] text-foreground md:text-xl'
+              >
+                {data.tagline}
+              </TextReveal>
+            </div>
+          )}
+
+          {data.actions && data.actions.length > 0 && (
+            <ScrollReveal delay={1.6} className='mt-10 flex flex-wrap items-center gap-3'>
+              {data.actions.map((action) => (
+                <Button
+                  key={action!.label}
+                  asChild
+                  size='lg'
+                  variant={action!.type === 'link' ? 'ghost' : 'outline'}
+                  className='rounded-full px-5 text-base'
+                >
+                  <Link href={action!.link!} data-tina-field={tinaField(action)}>
                     <span className='text-nowrap'>{action!.label}</span>
+                    <ArrowDown aria-hidden className='size-4' />
                   </Link>
                 </Button>
-              </div>
-            ))}
-        </AnimatedGroup>
+              ))}
+            </ScrollReveal>
+          )}
+        </div>
       </div>
-
-      {data.image && (
-        <AnimatedGroup variants={transitionVariants}>
-          <div className='relative -mr-56 mt-8 overflow-hidden px-2 sm:mr-0 sm:mt-12 md:mt-20 max-w-full' data-tina-field={tinaField(data, 'image')}>
-            <div aria-hidden className='bg-linear-to-b absolute inset-0 z-10 from-transparent from-35% pointer-events-none' style={gradientStyle} />
-            <div className='inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1'>
-              <ImageBlock image={data.image} />
-            </div>
-          </div>
-        </AnimatedGroup>
-      )}
     </Section>
   );
-};
-
-const ImageBlock = ({ image }: { image: PageBlocksHeroImage }) => {
-  if (image.videoUrl) {
-    let videoId = '';
-    if (image.videoUrl) {
-      const embedPrefix = '/embed/';
-      const idx = image.videoUrl.indexOf(embedPrefix);
-      if (idx !== -1) {
-        videoId = image.videoUrl.substring(idx + embedPrefix.length).split('?')[0];
-      }
-    }
-    const thumbnailSrc = image.src ? image.src! : videoId ? `https://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg` : '';
-
-    return <HeroVideoDialog videoSrc={image.videoUrl} thumbnailSrc={thumbnailSrc} thumbnailAlt='Hero Video' />;
-  }
-
-  if (image.src) {
-    return (
-      <Image
-        className='z-2 border-border/25 aspect-15/8 relative rounded-2xl border max-w-full h-auto'
-        alt={image!.alt || ''}
-        src={image!.src!}
-        height={4000}
-        width={3000}
-      />
-    );
-  }
 };
 
 export const heroBlockSchema: Template = {
@@ -138,9 +98,9 @@ export const heroBlockSchema: Template = {
   ui: {
     previewSrc: '/blocks/hero.png',
     defaultItem: {
-      tagline: "Here's some text above the other text",
-      headline: 'This Big Text is Totally Awesome',
-      text: 'Phasellus scelerisque, libero eu finibus rutrum, risus risus accumsan libero, nec molestie urna dui a leo.',
+      headline: "I'm a digital product designer committed to my constant evolution.",
+      tagline: 'Leveraging AI-workflows, I design beautiful digital products for fast moving product teams.',
+      actions: [{ label: 'See Selected Projects', type: 'button', link: '#works' }],
     },
   },
   fields: [
@@ -149,11 +109,13 @@ export const heroBlockSchema: Template = {
       type: 'string',
       label: 'Headline',
       name: 'headline',
+      ui: { component: 'textarea' },
     },
     {
       type: 'string',
       label: 'Tagline',
       name: 'tagline',
+      ui: { component: 'textarea' },
     },
     {
       label: 'Actions',
@@ -164,11 +126,6 @@ export const heroBlockSchema: Template = {
         defaultItem: {
           label: 'Action Label',
           type: 'button',
-          icon: {
-              name: "Tina",
-              color: "white",
-              style: "float",
-          },
           link: '/',
         },
         itemProps: (item) => ({ label: item.label }),
@@ -188,11 +145,11 @@ export const heroBlockSchema: Template = {
             { label: 'Link', value: 'link' },
           ],
         },
-        iconSchema as any,
         {
           label: 'Link',
           name: 'link',
           type: 'string',
+          description: 'A path (/acacia), an anchor (#works) or a full URL.',
         },
       ],
     },
@@ -205,17 +162,13 @@ export const heroBlockSchema: Template = {
           name: 'src',
           label: 'Image Source',
           type: 'image',
+          // @ts-ignore - uploadDir is supported at runtime
+          uploadDir: () => 'home',
         },
         {
           name: 'alt',
           label: 'Alt Text',
           type: 'string',
-        },
-        {
-          name: 'videoUrl',
-          label: 'Video URL',
-          type: 'string',
-          description: 'If using a YouTube video, make sure to use the embed version of the video URL',
         },
       ],
     },

@@ -16,7 +16,7 @@ export type ScrollRevealProps = ScrollRevealOptions & {
  * Routes its motion through {@link scrollRevealMotion}, so with
  * `prefers-reduced-motion` it renders statically at its final position.
  */
-export function ScrollReveal({ children, className, as = 'div', y, duration, delay, once, amount }: ScrollRevealProps) {
+export function ScrollReveal({ children, className, as = 'div', y, duration, delay, once, amount, scale }: ScrollRevealProps) {
   const prefersReducedMotion = useReducedMotion() ?? false;
   const { initial, whileInView, transition, viewport } = scrollRevealMotion(prefersReducedMotion, {
     y,
@@ -24,6 +24,7 @@ export function ScrollReveal({ children, className, as = 'div', y, duration, del
     delay,
     once,
     amount,
+    scale,
   });
 
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;

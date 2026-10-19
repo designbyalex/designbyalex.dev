@@ -32,6 +32,13 @@ describe('scrollRevealMotion', () => {
       expect(o.transition.delay).toBe(0.2);
     });
 
+    it('adds a settle-from scale only when one is requested', () => {
+      expect('scale' in (m.initial as object)).toBe(false);
+      const o = scrollRevealMotion(false, { scale: 1.08, y: 0 });
+      expect(o.initial).toEqual({ opacity: 0, y: 0, scale: 1.08 });
+      expect(o.whileInView).toEqual({ opacity: 1, y: 0, scale: 1 });
+    });
+
     it('passes viewport options through with defaults', () => {
       expect(m.viewport).toEqual({ once: true, amount: 0.3 });
       const o = scrollRevealMotion(false, { once: false, amount: 0.6 });
@@ -56,8 +63,9 @@ describe('scrollRevealMotion', () => {
     });
 
     it('ignores motion overrides but keeps viewport options', () => {
-      const o = scrollRevealMotion(true, { y: 80, duration: 1, once: false });
+      const o = scrollRevealMotion(true, { y: 80, duration: 1, once: false, scale: 1.2 });
       expect(o.initial).toBe(false);
+      expect(o.whileInView).toEqual({ opacity: 1, y: 0 });
       expect(o.transition.duration).toBe(0);
       expect(o.viewport.once).toBe(false);
     });

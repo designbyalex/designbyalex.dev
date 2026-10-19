@@ -48,3 +48,30 @@ Written by the unattended loop (`scripts/afk-loop.sh`): one section per ticket, 
   - [ ] Next project / Previous links appear on both `/mosurban` and `/acacia` and point at each other.
   - [ ] CTA opens Calendly in the same tab.
   - [ ] Reduced motion: all reveals go through `ScrollReveal` → `scrollRevealMotion`; videos don't autoplay, so nothing moves with `prefers-reduced-motion: reduce`. Confirm nothing is stuck at opacity 0.
+
+## #11 S7: Homepage assembled
+- Built: `content/pages/home.mdx` rewritten as five blocks with the verbatim copy from designbyalex.dev (fetched with curl into `.afk/cache/home.html`): `hero` → `selectedProjects` → `about` → `experience` → `contact`. Four new homepage blocks in `components/blocks/` (`selected-projects.tsx`, `about.tsx`, `experience.tsx`, `contact.tsx`), registered in `components/blocks/index.tsx` and on the `page` collection only; the starter `hero.tsx` was rewritten in place as the faithful homepage hero (same template name, fields trimmed to headline / tagline / actions / image). Four images downloaded to `public/uploads/home/` (hero logo-mark card, both project thumbnails, the about portrait) with alt text written from the actual pictures. `tina-lock.json` regenerated and committed.
+  - Motion: hero card zooms out (`ScrollReveal scale={1.08}`, new option on `scrollRevealMotion`, unit-tested) → headline per-character (`TextReveal per="char"`) → tagline per-word → action. Every section reveals on scroll through `ScrollReveal`; experience rows and about parts stagger; project thumbnails use `HoverLift`. All of it routes through `lib/motion/reduced-motion.ts`, so reduced motion renders at rest.
+  - Selected-projects links resolve to `/acacia` and `/mosurban`; the section is `id="works"` so the hero's "See Selected Projects" anchor (`#works`, as live) jumps to it.
+- Decisions made without a human:
+  - Selected projects are hand-authored items (`status`, `title`, `tagline`, `href`, thumbnail) rather than Tina `reference`s to the `project` collection. The live homepage uses different titles ("Acacia sustainable home upgrades" vs "Acacia Money") and thumbnails from the case studies, and a reference would pull both full case-study bodies (`ProjectParts`) into the homepage query. Revisit if a `featured` flag is wanted.
+  - About section is modelled as `parts[]` of `{lead, text}` (bright lead-in + muted continuation, matching the live `h5` + muted span) instead of rich text; the last part is lead-only. Layout: text column + portrait beside it on desktop (live: text, then a half-width "Media Grid" image).
+  - Hero layout: the live hero stacks a scaled background layer, the logo-mark image and the text. Rendered here as the image card (capped at `48vh` so the headline stays above the fold on laptops) with the headline / tagline / action beneath, not overlaid, so the chrome mark isn't covered by text.
+  - Status pills on project rows: translucent `bg-foreground/10` pill with a coloured dot (`bg-primary` shipped, `bg-status-in-development` in-development) and white uppercase mono label, matching the live white-on-translucent pills.
+  - Contact block = "Let's talk" display heading + primary `mailto:` button ("Get in touch") + secondary links (LinkedIn, See full CV). The live footer-bottom links (Home / LinkedIn / See full CV / copyright) are the global Footer's job; `content/global/index.json` (nav, footer socials still TinaCMS placeholders) was not touched — follow-up for the final pass or a global-content ticket.
+  - Years label authored as "’23 – ’25" (live literally renders `'23 - 25'`); experience periods use en dashes ("2025 – Present"), consistent with the case-study timelines.
+  - Removed the starter hero's `icon` and `videoUrl` fields (unused by the faithful hero); `hero` stays registered on the `project` collection untouched.
+- Stubbed:
+  - `pnpm test` was denied in this session (the allowlist in `scripts/afk/settings.json` was not in effect for it), so the two new `scrollRevealMotion` scale tests ran only via tsc, not Vitest. Final pass runs `scripts/afk/check.sh --full`.
+  - `/about` (`content/pages/about.mdx`) is still starter content and the header nav still links to it; out of scope here.
+- Verify visually:
+  - [ ] `/` renders end to end in dark (faithful) and light; no starter content left.
+  - [ ] Hero on load: card zooms out, headline arrives per character, tagline per word, then the pill button; headline is above the fold at 1440×900 and on a phone.
+  - [ ] Hero card height (`clamp(220px,48vh,600px)`) crops the teal logo-mark sensibly at phone widths.
+  - [ ] "See Selected Projects" scrolls to the projects section with the sticky header clearing it (`scroll-mt-20`).
+  - [ ] Project rows: 4:3 thumbnails, status pill + dot colours (green / orange, and orange still legible on white), title turns green on hover, arrow chip hides below `sm`; rows link to `/acacia` and `/mosurban`.
+  - [ ] About: four parts with bright lead-in + muted text at `text-2xl`; portrait card crops OK at `4/5` (md) and `4/3` (lg), teal background doesn't look odd in light theme.
+  - [ ] Experience: six hairline rows, period in mono on the right, role drops to its own line below `sm`; CV button opens Google Drive in a new tab.
+  - [ ] Contact: display-size "Let's talk", green pill button opens mailto, LinkedIn / CV links open in new tabs.
+  - [ ] Reduced motion (`prefers-reduced-motion: reduce`): everything renders at rest, nothing stuck at opacity 0 or scaled.
+  - [ ] Tina visual editor: each block and list item is click-to-edit; thumbnails upload into `uploads/home`.

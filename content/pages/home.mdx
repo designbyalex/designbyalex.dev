@@ -1,67 +1,91 @@
 ---
 title: Home
 blocks:
-  - background: bg-orange-50/80
-    headline: Welcome to the TinaCloud Starter
-    tagline: Build 10x Faster with TinaCMS
+  - _template: hero
+    headline: I'm a digital product designer committed to my constant evolution.
+    tagline: >-
+      Leveraging AI-workflows, I design beautiful digital products for fast
+      moving product teams. I’m driven by natural curiosity, my passion for
+      human-centred design, and a continuous desire to improve my craft.
     actions:
-      - label: Get Started
+      - label: See Selected Projects
         type: button
-        icon:
-          name: Tina
-          color: white
-        link: /about
-      - label: View Acacia
-        type: link
-        link: /acacia
+        link: '#works'
     image:
-      src: ""
-      alt: Getting started with TinaCMS
-      videoUrl: "https://www.youtube.com/embed/j8egYW7Jpgk"
-    _template: hero
-  - background: ""
-    body: "## Support for live editing and editorial workflow\n\nThis is a [TinaCMS](https://tina.io)-enabled Next.js app, so you can edit content on a live page. Content is served from Markdown files in the repository and TinaCMS generates the editing forms automatically."
-    _template: text
-  - background: bg-zinc-50
-    title: TinaCMS by the numbers
-    description: >-
-      TinaCMS is an open-source content management system that lets developers
-      create and manage content for their websites and applications.
-    metrics:
-      - value: 12
-        kind: count
-        suffix: "K"
-        label: Stars on GitHub
-      - value: 11
-        kind: count
-        suffix: "K"
-        label: Active Users
-      - value: 22
-        kind: count
-        suffix: "K"
-        label: Powered Apps
-    _template: metrics
-  - background: ""
-    quote: >-
-      Editing content used to feel like defusing a bomb. TinaCMS made it feel
-      like playing Mario Kart—fun, fast, and kinda addictive.
-    attribution: DevRel Luigi
-    role: Pixelated Evangelist of Speed
-    _template: quote
-  - title: Start Building
-    description: >-
-      Get started with TinaCMS today and take your content management to the
-      next level.
-    actions:
-      - label: Get Started
-        type: button
-        icon:
-          name: Tina
-          color: white
-          style: ""
-        link: /
-      - label: Book Demo
-        type: link
-        link: "https://tina.io"
-    _template: cta
+      src: /uploads/home/hero.png
+      alt: Three chrome triangles arranged in a square on a teal background — the designbyalex mark.
+  - _template: selectedProjects
+    heading: Selected projects
+    years: ’23 – ’25
+    projects:
+      - status: shipped
+        title: Acacia sustainable home upgrades
+        tagline: Unlocking Acacia's potential by turning hesitant users into engaged partners.
+        href: /acacia
+        image:
+          src: /uploads/home/acacia-thumbnail.png
+          alt: The Acacia web app on a MacBook, showing modules for cheaper, cleaner home energy.
+      - status: in-development
+        title: MOS evolution
+        tagline: From manufacturing strength to brand strength. Leading an α→ω evolution.
+        href: /mosurban
+        image:
+          src: /uploads/home/mosurban-thumbnail.png
+          alt: The redesigned Mos Urban website on a phone, showing the Verge seating pods project.
+  - _template: about
+    heading: About
+    parts:
+      - lead: Currently at SSW Sydney,
+        text: >-
+          I work at the intersection of human-centred design, product strategy
+          and AI-powered innovation. I take pride in bridging the gap between
+          engineering and design, fostering a shared joy of creation.
+      - lead: Previously, I helped Australian startups
+        text: >-
+          like Acacia bring ideas from early concept to launch – shaping
+          business decisions while advocating for the user experience.
+      - lead: My approach to UX design is rooted in empathy.
+        text: >-
+          I’m a deep thinker, the kind of person friends come to when they want
+          to talk through life’s problems — and I bring that same listening and
+          problem-solving mindset to my craft.
+      - lead: >-
+          Outside of work, you’ll find me mastering my favourite video games,
+          fixing my car (again), or talking design over a beer or coffee.
+    image:
+      src: /uploads/home/about.png
+      alt: Alexander Blum smiling with arms crossed, wearing a black SSW t-shirt.
+  - _template: experience
+    heading: Experience
+    items:
+      - company: SSW
+        role: UI/UX Designer
+        period: 2025 – Present
+      - company: Acacia
+        role: Product Designer
+        period: 2023 – Present
+      - company: Mos Urban
+        role: Full-Stack Designer
+        period: 2024 – 2025
+      - company: WelcomeMat
+        role: UX Designer
+        period: '2022'
+      - company: Self-Employed
+        role: UX / Web Designer
+        period: 2022 – 2023
+      - company: Mos Urban
+        role: Lead Carpenter
+        period: 2020 – 2023
+    cta:
+      label: Download full CV
+      href: https://drive.google.com/file/d/15URS3xgdTp0vah7PuTuKfOPp4TZH_wph/view?usp=sharing
+  - _template: contact
+    heading: Let's talk
+    email: ablumeinfeld@gmail.com
+    emailLabel: Get in touch
+    links:
+      - label: LinkedIn
+        href: https://www.linkedin.com/in/alexanderblumeinfeld/
+      - label: See full CV
+        href: https://drive.google.com/file/d/15URS3xgdTp0vah7PuTuKfOPp4TZH_wph/view?usp=sharing
 ---
