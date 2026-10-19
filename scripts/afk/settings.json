@@ -54,7 +54,9 @@
       "Bash(tail:*)",
       "Bash(wc:*)",
       "Bash(file:*)",
-      "Bash(sips -g:*)"
+      "Bash(sips -g:*)",
+      "Bash(sips -Z:*)",
+      "Bash(sips --resampleWidth:*)"
     ],
     "deny": [
       "Bash(git push:*)",
