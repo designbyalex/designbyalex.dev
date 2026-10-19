@@ -30,9 +30,9 @@
           "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Project Overview": {
-          "390": { "Copy": 3, "Media": 3, "Layout": 34, "Type": 1 },
-          "768": { "Copy": 3, "Media": 2, "Layout": 40, "Type": 1 },
-          "1440": { "Copy": 0, "Media": 2, "Layout": 29, "Type": 1 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Footer": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
@@ -44,15 +44,15 @@
           "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
-        "experience": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
         "(none)": {
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "experience": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "contact": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
