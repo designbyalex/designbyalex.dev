@@ -1,0 +1,2412 @@
+{
+  "format": 1,
+  "url": "https://designbyalex.dev/",
+  "finalUrl": "https://designbyalex.dev/",
+  "origin": "https://designbyalex.dev",
+  "path": "/",
+  "width": 390,
+  "viewport": {
+    "w": 390,
+    "h": 844
+  },
+  "clientWidth": 390,
+  "colorScheme": "dark",
+  "reducedMotion": "reduce",
+  "status": 200,
+  "title": "Alexander Blum | UX • Product Design",
+  "generator": "Framer 36277c8",
+  "pageHeight": 4940,
+  "fonts": [
+    "Inter",
+    "Inter Display",
+    "Inter Display Placeholder",
+    "Inter Placeholder",
+    "Material Icons",
+    "Space Mono"
+  ],
+  "capturedAt": "2026-10-19T03:20:59.374Z",
+  "browser": "Google Chrome 155.0.8059.80",
+  "sections": [
+    {
+      "id": "Header",
+      "name": "Header",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 88
+      }
+    },
+    {
+      "id": "Hero Content",
+      "name": "Hero Content",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 844
+      }
+    },
+    {
+      "id": "Works Header",
+      "name": "Works Header",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 844,
+        "w": 390,
+        "h": 132
+      }
+    },
+    {
+      "id": "Project Row",
+      "name": "Project Row",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 976,
+        "w": 390,
+        "h": 458
+      }
+    },
+    {
+      "id": "Project Row 2",
+      "name": "Project Row",
+      "occurrence": 2,
+      "box": {
+        "x": 0,
+        "y": 1434,
+        "w": 390,
+        "h": 508
+      }
+    },
+    {
+      "id": "Project Overview",
+      "name": "Project Overview",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 1942,
+        "w": 390,
+        "h": 2483.2
+      }
+    },
+    {
+      "id": "Footer",
+      "name": "Footer",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 4425.2,
+        "w": 390,
+        "h": 515
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "text": "",
+      "tag": "body",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 4940.2
+      }
+    },
+    {
+      "text": "Let's talk",
+      "tag": "p",
+      "section": "Header",
+      "local": {
+        "x": 228.6,
+        "y": 34
+      },
+      "box": {
+        "x": 228.6,
+        "y": 34,
+        "w": 85.4,
+        "h": 28
+      }
+    },
+    {
+      "text": "I'm a digital product designer committed to my constant evolution.",
+      "tag": "h1",
+      "section": "Hero Content",
+      "local": {
+        "x": 16,
+        "y": 120
+      },
+      "box": {
+        "x": 16,
+        "y": 120,
+        "w": 358,
+        "h": 184.8
+      }
+    },
+    {
+      "text": "See Selected Projects",
+      "tag": "p",
+      "section": "Hero Content",
+      "local": {
+        "x": 159.8,
+        "y": 765.8
+      },
+      "box": {
+        "x": 159.8,
+        "y": 765.8,
+        "w": 186.2,
+        "h": 25.2
+      }
+    },
+    {
+      "text": "Selected projects",
+      "tag": "h3",
+      "section": "Works Header",
+      "local": {
+        "x": 16,
+        "y": 32
+      },
+      "box": {
+        "x": 16,
+        "y": 876,
+        "w": 248.7,
+        "h": 36
+      }
+    },
+    {
+      "text": "'23 - 25'",
+      "tag": "h3",
+      "section": "Works Header",
+      "local": {
+        "x": 264.7,
+        "y": 32
+      },
+      "box": {
+        "x": 264.7,
+        "y": 876,
+        "w": 109.3,
+        "h": 36
+      }
+    },
+    {
+      "text": "SHIPPED",
+      "tag": "p",
+      "section": "Project Row",
+      "local": {
+        "x": 62,
+        "y": 25.5
+      },
+      "box": {
+        "x": 62,
+        "y": 1001.5,
+        "w": 48,
+        "h": 11
+      }
+    },
+    {
+      "text": "Acacia sustainable home upgrades",
+      "tag": "p",
+      "section": "Project Row",
+      "local": {
+        "x": 16,
+        "y": 282.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1258.4,
+        "w": 358,
+        "h": 25.2
+      }
+    },
+    {
+      "text": "Unlocking Acacia's potential by turning hesitant users into engaged partners.",
+      "tag": "p",
+      "section": "Project Row",
+      "local": {
+        "x": 16,
+        "y": 307.6
+      },
+      "box": {
+        "x": 16,
+        "y": 1283.6,
+        "w": 358,
+        "h": 50.4
+      }
+    },
+    {
+      "text": "In-development",
+      "tag": "p",
+      "section": "Project Row 2",
+      "local": {
+        "x": 62,
+        "y": 25.5
+      },
+      "box": {
+        "x": 62,
+        "y": 1459.5,
+        "w": 95,
+        "h": 11
+      }
+    },
+    {
+      "text": "MOS evolution",
+      "tag": "p",
+      "section": "Project Row 2",
+      "local": {
+        "x": 16,
+        "y": 282.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1716.4,
+        "w": 358,
+        "h": 25.2
+      }
+    },
+    {
+      "text": "From manufacturing strength to brand strength. Leading an α→ω evolution.",
+      "tag": "p",
+      "section": "Project Row 2",
+      "local": {
+        "x": 16,
+        "y": 307.6
+      },
+      "box": {
+        "x": 16,
+        "y": 1741.6,
+        "w": 358,
+        "h": 50.4
+      }
+    },
+    {
+      "text": "Currently at SSW Sydney, I work at the intersection of human-centred design, product strategy and AI-powered innovation. I take pride in bridging the gap between engineering and design, fostering a shared joy of creation.",
+      "tag": "h5",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 132
+      },
+      "box": {
+        "x": 16,
+        "y": 2074,
+        "w": 358,
+        "h": 184.8
+      }
+    },
+    {
+      "text": "Previously, I helped Australian startups like Acacia bring ideas from early concept to launch – shaping business decisions while advocating for the user experience.",
+      "tag": "h5",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 356.8
+      },
+      "box": {
+        "x": 16,
+        "y": 2298.8,
+        "w": 358,
+        "h": 154
+      }
+    },
+    {
+      "text": "My approach to UX design is rooted in empathy. I’m a deep thinker, the kind of person friends come to when they want to talk through life’s problems — and I bring that same listening and problem-solving mindset to my craft.",
+      "tag": "h5",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 550.8
+      },
+      "box": {
+        "x": 16,
+        "y": 2492.8,
+        "w": 358,
+        "h": 184.8
+      }
+    },
+    {
+      "text": "Outside of work, you’ll find me mastering my favourite video games, fixing my car (again), or talking design over a beer or coffee.",
+      "tag": "h5",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 775.5
+      },
+      "box": {
+        "x": 16,
+        "y": 2717.5,
+        "w": 358,
+        "h": 123.2
+      }
+    },
+    {
+      "text": "Experience",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1484.8
+      },
+      "box": {
+        "x": 16,
+        "y": 3426.8,
+        "w": 358,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "SSW",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1539.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3481.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "UI/UX Designer",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1567.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3509.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "2025-Present",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1595.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3537.2,
+        "w": 310,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Acacia",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1665.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3607.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "Product Designer",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1693.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3635.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "2023-Present",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1721.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3663.2,
+        "w": 310,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Mos Urban",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1791.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3733.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "Full-Stack Designer",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1819.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3761.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "2024-2025",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1847.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3789.2,
+        "w": 310,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "WelcomeMat",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1917.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3859.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "UX Designer",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1945.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3887.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "2022",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1973.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3915.2,
+        "w": 310,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Self-Employed",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2043.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3985.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "UX / Web Designer",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2071.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4013.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "2022-2023",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2099.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4041.2,
+        "w": 310,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Mos Urban",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2169.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4111.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "Lead Carpenter",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2197.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4139.2,
+        "w": 310,
+        "h": 28
+      }
+    },
+    {
+      "text": "2020-2023",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2225.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4167.2,
+        "w": 310,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "download",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 209.5,
+        "y": 2289.6
+      },
+      "box": {
+        "x": 209.5,
+        "y": 4231.6,
+        "w": 16,
+        "h": 19.2
+      }
+    },
+    {
+      "text": "DOWNLOAD FULL CV",
+      "tag": "p",
+      "section": "Project Overview",
+      "local": {
+        "x": 233.5,
+        "y": 2288.2
+      },
+      "box": {
+        "x": 233.5,
+        "y": 4230.2,
+        "w": 140.5,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Let's talk",
+      "tag": "h2",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 131.9
+      },
+      "box": {
+        "x": 24,
+        "y": 4557.1,
+        "w": 105.9,
+        "h": 33.6
+      }
+    },
+    {
+      "text": "Get in touch",
+      "tag": "h2",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 172.7
+      },
+      "box": {
+        "x": 24,
+        "y": 4597.9,
+        "w": 145,
+        "h": 33.6
+      }
+    },
+    {
+      "text": "Home",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 285.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4710.7,
+        "w": 38.1,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Linkedin",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 316.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4741.7,
+        "w": 53.1,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "See full CV",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 347.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4772.7,
+        "w": 70.2,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "2025 Alexander Blum",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 487.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4912.7,
+        "w": 127.9,
+        "h": 11
+      }
+    },
+    {
+      "text": "♥ Made with love ♥",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 231.6,
+        "y": 487.5
+      },
+      "box": {
+        "x": 231.6,
+        "y": 4912.7,
+        "w": 134.4,
+        "h": 11
+      }
+    },
+    {
+      "text": "",
+      "tag": "div",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 0,
+        "y": 844,
+        "w": 0,
+        "h": 0
+      }
+    }
+  ],
+  "runs": [
+    {
+      "text": "Let's talk",
+      "block": 1,
+      "section": "Header",
+      "local": {
+        "x": 228.6,
+        "y": 36
+      },
+      "box": {
+        "x": 228.6,
+        "y": 36,
+        "w": 85.4,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 1
+    },
+    {
+      "text": "I'm a digital product designer committed to my constant evolution.",
+      "block": 2,
+      "section": "Hero Content",
+      "local": {
+        "x": 16,
+        "y": 117
+      },
+      "box": {
+        "x": 16,
+        "y": 117,
+        "w": 349.7,
+        "h": 189.6
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter Display",
+        "size": 42,
+        "lineHeight": 46.2,
+        "weight": 400,
+        "tracking": -0.84,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "See Selected Projects",
+      "block": 3,
+      "section": "Hero Content",
+      "local": {
+        "x": 159.8,
+        "y": 767.8
+      },
+      "box": {
+        "x": 159.8,
+        "y": 767.8,
+        "w": 186.2,
+        "h": 21
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 2
+    },
+    {
+      "text": "Selected projects",
+      "block": 4,
+      "section": "Works Header",
+      "local": {
+        "x": 16,
+        "y": 32
+      },
+      "box": {
+        "x": 16,
+        "y": 876,
+        "w": 221,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "'23 - 25'",
+      "block": 5,
+      "section": "Works Header",
+      "local": {
+        "x": 264.7,
+        "y": 32
+      },
+      "box": {
+        "x": 264.7,
+        "y": 876,
+        "w": 109.3,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "SHIPPED",
+      "block": 6,
+      "section": "Project Row",
+      "local": {
+        "x": 62,
+        "y": 22.5
+      },
+      "box": {
+        "x": 62,
+        "y": 998.5,
+        "w": 47.1,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 3
+    },
+    {
+      "text": "Acacia sustainable home upgrades",
+      "block": 7,
+      "section": "Project Row",
+      "local": {
+        "x": 16,
+        "y": 284.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1260.4,
+        "w": 297.9,
+        "h": 21
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 3
+    },
+    {
+      "text": "Unlocking Acacia's potential by turning hesitant users into engaged partners.",
+      "block": 8,
+      "section": "Project Row",
+      "local": {
+        "x": 16,
+        "y": 309.6
+      },
+      "box": {
+        "x": 16,
+        "y": 1285.6,
+        "w": 337.8,
+        "h": 46.2
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 3
+    },
+    {
+      "text": "In-development",
+      "block": 9,
+      "section": "Project Row 2",
+      "local": {
+        "x": 62,
+        "y": 22.5
+      },
+      "box": {
+        "x": 62,
+        "y": 1456.5,
+        "w": 94.3,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "MOS evolution",
+      "block": 10,
+      "section": "Project Row 2",
+      "local": {
+        "x": 16,
+        "y": 284.4
+      },
+      "box": {
+        "x": 16,
+        "y": 1718.4,
+        "w": 124,
+        "h": 21
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "From manufacturing strength to brand strength. Leading an α→ω evolution.",
+      "block": 11,
+      "section": "Project Row 2",
+      "local": {
+        "x": 16,
+        "y": 309.6
+      },
+      "box": {
+        "x": 16,
+        "y": 1743.6,
+        "w": 328.6,
+        "h": 46.2
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "Currently at SSW Sydney,",
+      "block": 12,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 134
+      },
+      "box": {
+        "x": 16,
+        "y": 2076,
+        "w": 240.5,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I work at the intersection of human-centred design, product strategy and AI-powered innovation. I take pride in bridging the gap between engineering and design, fostering a shared joy of creation.",
+      "block": 12,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 134
+      },
+      "box": {
+        "x": 16,
+        "y": 2076,
+        "w": 356.6,
+        "h": 180
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Previously, I helped Australian startups",
+      "block": 13,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 358.8
+      },
+      "box": {
+        "x": 16,
+        "y": 2300.8,
+        "w": 348.6,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "like Acacia bring ideas from early concept to launch – shaping business decisions while advocating for the user experience.",
+      "block": 13,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 358.8
+      },
+      "box": {
+        "x": 16,
+        "y": 2300.8,
+        "w": 358,
+        "h": 149.2
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "My approach to UX design is rooted in empathy.",
+      "block": 14,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 552.8
+      },
+      "box": {
+        "x": 16,
+        "y": 2494.8,
+        "w": 353.2,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I’m a deep thinker, the kind of person friends come to when they want to talk through life’s problems — and I bring that same listening and problem-solving mindset to my craft.",
+      "block": 14,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 583.6
+      },
+      "box": {
+        "x": 16,
+        "y": 2525.6,
+        "w": 358.4,
+        "h": 149.2
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Outside of work, you’ll find me mastering my favourite video games, fixing my car (again), or talking design over a beer or coffee.",
+      "block": 15,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 777.5
+      },
+      "box": {
+        "x": 16,
+        "y": 2719.5,
+        "w": 347,
+        "h": 118.4
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Experience",
+      "block": 16,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1486.8
+      },
+      "box": {
+        "x": 16,
+        "y": 3428.8,
+        "w": 71.5,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "SSW",
+      "block": 17,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1541.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3483.2,
+        "w": 45.4,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "UI/UX Designer",
+      "block": 18,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1569.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3511.2,
+        "w": 146.4,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "2025-Present",
+      "block": 19,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1597.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3539.2,
+        "w": 88,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Acacia",
+      "block": 20,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1667.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3609.2,
+        "w": 64.2,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Product Designer",
+      "block": 21,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1695.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3637.2,
+        "w": 164.4,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "2023-Present",
+      "block": 22,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1723.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3665.2,
+        "w": 88.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Mos Urban",
+      "block": 23,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1793.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3735.2,
+        "w": 104.5,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Full-Stack Designer",
+      "block": 24,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1821.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3763.2,
+        "w": 185.3,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "2024-2025",
+      "block": 25,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1849.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3791.2,
+        "w": 72.6,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "WelcomeMat",
+      "block": 26,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1919.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3861.2,
+        "w": 123.6,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "UX Designer",
+      "block": 27,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1947.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3889.2,
+        "w": 118.9,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "2022",
+      "block": 28,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 1975.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3917.2,
+        "w": 33.3,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Self-Employed",
+      "block": 29,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2045.2
+      },
+      "box": {
+        "x": 16,
+        "y": 3987.2,
+        "w": 138.4,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "UX / Web Designer",
+      "block": 30,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2073.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4015.2,
+        "w": 180,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "2022-2023",
+      "block": 31,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2101.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4043.2,
+        "w": 72.5,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Mos Urban",
+      "block": 32,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2171.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4113.2,
+        "w": 104.5,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Lead Carpenter",
+      "block": 33,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2199.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4141.2,
+        "w": 147.2,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "2020-2023",
+      "block": 34,
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 2227.2
+      },
+      "box": {
+        "x": 16,
+        "y": 4169.2,
+        "w": 72.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "download",
+      "block": 35,
+      "section": "Project Overview",
+      "local": {
+        "x": 209.5,
+        "y": 2290.6
+      },
+      "box": {
+        "x": 209.5,
+        "y": 4232.6,
+        "w": 16,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Material Icons",
+        "size": 16,
+        "lineHeight": 19.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "DOWNLOAD FULL CV",
+      "block": 36,
+      "section": "Project Overview",
+      "local": {
+        "x": 233.5,
+        "y": 2290.2
+      },
+      "box": {
+        "x": 233.5,
+        "y": 4232.2,
+        "w": 140.5,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 5
+    },
+    {
+      "text": "Let's talk",
+      "block": 37,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 130.9
+      },
+      "box": {
+        "x": 24,
+        "y": 4556.1,
+        "w": 105.9,
+        "h": 34
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 28,
+        "lineHeight": 33.6,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Get in touch",
+      "block": 38,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 171.7
+      },
+      "box": {
+        "x": 24,
+        "y": 4596.9,
+        "w": 145,
+        "h": 34
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 28,
+        "lineHeight": 33.6,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 7
+    },
+    {
+      "text": "Home",
+      "block": 39,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 287.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4712.7,
+        "w": 38.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 8
+    },
+    {
+      "text": "Linkedin",
+      "block": 40,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 318.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4743.7,
+        "w": 53.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 9
+    },
+    {
+      "text": "See full CV",
+      "block": 41,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 349.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4774.7,
+        "w": 70.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 10
+    },
+    {
+      "text": "2025 Alexander Blum",
+      "block": 42,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 484.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4909.7,
+        "w": 127.9,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "♥ Made with love ♥",
+      "block": 43,
+      "section": "Footer",
+      "local": {
+        "x": 231.6,
+        "y": 484.5
+      },
+      "box": {
+        "x": 231.6,
+        "y": 4909.7,
+        "w": 134.4,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    }
+  ],
+  "links": [
+    {
+      "text": "Homepage",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Header",
+      "local": {
+        "x": 24,
+        "y": 24
+      },
+      "box": {
+        "x": 24,
+        "y": 24,
+        "w": 48,
+        "h": 48
+      }
+    },
+    {
+      "text": "Let's talk",
+      "href": "mailto:ablumeinfeld@gmail.com",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Header",
+      "local": {
+        "x": 228.6,
+        "y": 28
+      },
+      "box": {
+        "x": 228.6,
+        "y": 28,
+        "w": 137.4,
+        "h": 40
+      }
+    },
+    {
+      "text": "See Selected Projects",
+      "href": "https://designbyalex.dev/#works",
+      "path": "/#works",
+      "target": null,
+      "rel": null,
+      "section": "Hero Content",
+      "local": {
+        "x": 159.8,
+        "y": 765.8
+      },
+      "box": {
+        "x": 159.8,
+        "y": 765.8,
+        "w": 214.2,
+        "h": 25.2
+      }
+    },
+    {
+      "text": "SHIPPEDAcacia sustainable home upgradesUnlocking Acacia's potential by turning hesitant users into engaged partners.",
+      "href": "https://designbyalex.dev/acacia",
+      "path": "/acacia",
+      "target": null,
+      "rel": null,
+      "section": "Project Row",
+      "local": {
+        "x": 16,
+        "y": 0
+      },
+      "box": {
+        "x": 16,
+        "y": 976,
+        "w": 358,
+        "h": 358
+      }
+    },
+    {
+      "text": "In-developmentMOS evolutionFrom manufacturing strength to brand strength. Leading an α→ω evolution.",
+      "href": "https://designbyalex.dev/mosurban",
+      "path": "/mosurban",
+      "target": null,
+      "rel": null,
+      "section": "Project Row 2",
+      "local": {
+        "x": 16,
+        "y": 0
+      },
+      "box": {
+        "x": 16,
+        "y": 1434,
+        "w": 358,
+        "h": 358
+      }
+    },
+    {
+      "text": "DOWNLOAD FULL CVDOWNLOAD FULL CV",
+      "href": "https://drive.google.com/file/d/15URS3xgdTp0vah7PuTuKfOPp4TZH_wph/view?usp=sharing",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Project Overview",
+      "local": {
+        "x": 233.5,
+        "y": 2288.2
+      },
+      "box": {
+        "x": 233.5,
+        "y": 4230.2,
+        "w": 140.5,
+        "h": 22
+      }
+    },
+    {
+      "text": "Homepage",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 64
+      },
+      "box": {
+        "x": 24,
+        "y": 4489.2,
+        "w": 35,
+        "h": 33
+      }
+    },
+    {
+      "text": "Get in touch",
+      "href": "mailto:ablumeinfeld@gmail.com",
+      "path": null,
+      "target": null,
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 165.5
+      },
+      "box": {
+        "x": 24,
+        "y": 4590.7,
+        "w": 201,
+        "h": 48
+      }
+    },
+    {
+      "text": "Home",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 283.2
+      },
+      "box": {
+        "x": 24,
+        "y": 4708.4,
+        "w": 38.1,
+        "h": 27
+      }
+    },
+    {
+      "text": "Linkedin",
+      "href": "https://www.linkedin.com/in/alexanderblumeinfeld/",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 314.2
+      },
+      "box": {
+        "x": 24,
+        "y": 4739.4,
+        "w": 53.1,
+        "h": 27
+      }
+    },
+    {
+      "text": "See full CV",
+      "href": "https://drive.google.com/file/d/15URS3xgdTp0vah7PuTuKfOPp4TZH_wph/view?usp=sharing",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 24,
+        "y": 345.2
+      },
+      "box": {
+        "x": 24,
+        "y": 4770.4,
+        "w": 70.2,
+        "h": 27
+      }
+    }
+  ],
+  "media": [
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/nEeSutUFWbjlhy09YOOwZJROzOA.png?width=1920&height=1080",
+      "host": "framerusercontent.com",
+      "alt": "Hero image with abstract blue pattern",
+      "section": "Hero Content",
+      "local": {
+        "x": 0,
+        "y": 0
+      },
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 844
+      },
+      "natural": {
+        "w": 1920,
+        "h": 1080
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/LUpt7Z7VUxXnR7hvLsqfgpLTQXs.png?width=2880&height=1800",
+      "host": "framerusercontent.com",
+      "alt": "Hero image with abstract blue pattern",
+      "section": "Hero Content",
+      "local": {
+        "x": -80,
+        "y": 110
+      },
+      "box": {
+        "x": -80,
+        "y": 110,
+        "w": 840,
+        "h": 1055
+      },
+      "natural": {
+        "w": 2880,
+        "h": 1800
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/PbjvL3U7OAMr79tNnIP3UjBOXfY.png?scale-down-to=512&width=3840&height=2880",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Project Row",
+      "local": {
+        "x": 16,
+        "y": 0
+      },
+      "box": {
+        "x": 16,
+        "y": 976,
+        "w": 358,
+        "h": 263.4
+      },
+      "natural": {
+        "w": 358,
+        "h": 268
+      },
+      "fit": "cover",
+      "radius": 20,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/Ack5Dsxyz8E4CBDScsGce3M1uw.png?scale-down-to=512&width=3840&height=2880",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Project Row 2",
+      "local": {
+        "x": 16,
+        "y": 0
+      },
+      "box": {
+        "x": 16,
+        "y": 1434,
+        "w": 358,
+        "h": 263.4
+      },
+      "natural": {
+        "w": 358,
+        "h": 268
+      },
+      "fit": "cover",
+      "radius": 20,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/IXEKTlGxFfmVmhjY3f2DuzxN80.png?scale-down-to=512&width=4096&height=2298",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Project Overview",
+      "local": {
+        "x": 16,
+        "y": 972.7
+      },
+      "box": {
+        "x": 16,
+        "y": 2914.7,
+        "w": 358,
+        "h": 402.1
+      },
+      "natural": {
+        "w": 358,
+        "h": 200
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "background",
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 xmlns:xlink=%22http://www.w3.org/1999/xlink%22 viewBox=%220 0 1200 1030.04%22 overflow=%22visible%22><path d=%22M 595.907 57.485 C 694.799 57.485 704.036 38.729 735.587 31.168 C 767.138 23.607 811.027 68.076 871.034 77.147 C 931.041 86.217 904.327 43.438 999.225 84.104 C 1046.674 104.437 1118.191 31.66 1183.349 57.485 C 1248.507 83.309 1101.415 373.428 1101.415 422.895 C 1101.415 818.629 948.193 1030.04 552.626 1030.04 C 157.059 1030.04 8.189 773.123 8.189 377.39 C 8.189 179.523 -39.548 26.411 95.492 50.093 C 129.252 56.014 165.468 75.027 221.009 57.474 C 276.55 39.92 351.415 -14.202 392.132 3.516 C 432.848 21.233 444.755 75.041 473.158 84.104 C 501.561 93.167 546.461 57.485 595.907 57.485 Z%22 fill=%22rgb(8, 8, 8",
+      "host": null,
+      "alt": null,
+      "section": "Hero Content",
+      "local": {
+        "x": -405,
+        "y": 853
+      },
+      "box": {
+        "x": -405,
+        "y": 853,
+        "w": 1200,
+        "h": 1030
+      },
+      "natural": null,
+      "fit": "100% 100%",
+      "radius": 0,
+      "video": null
+    }
+  ]
+}

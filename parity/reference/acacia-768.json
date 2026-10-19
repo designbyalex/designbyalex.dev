@@ -1,0 +1,5093 @@
+{
+  "format": 1,
+  "url": "https://designbyalex.dev/acacia",
+  "finalUrl": "https://designbyalex.dev/acacia",
+  "origin": "https://designbyalex.dev",
+  "path": "/acacia",
+  "width": 768,
+  "viewport": {
+    "w": 768,
+    "h": 1024
+  },
+  "clientWidth": 768,
+  "colorScheme": "dark",
+  "reducedMotion": "reduce",
+  "status": 200,
+  "title": "Alexander Blum | UX • Product Design",
+  "generator": "Framer 36277c8",
+  "pageHeight": 14938,
+  "fonts": [
+    "Inter",
+    "Inter Display",
+    "Inter Display Placeholder",
+    "Inter Placeholder",
+    "Material Icons",
+    "Space Mono"
+  ],
+  "capturedAt": "2026-10-19T03:21:32.611Z",
+  "browser": "Google Chrome 155.0.8059.80",
+  "sections": [
+    {
+      "id": "Header",
+      "name": "Header",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 88
+      }
+    },
+    {
+      "id": "Project Hero",
+      "name": "Project Hero",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 1306.6
+      }
+    },
+    {
+      "id": "Back",
+      "name": "Back",
+      "occurrence": 1,
+      "box": {
+        "x": 641,
+        "y": 86,
+        "w": 112,
+        "h": 49
+      }
+    },
+    {
+      "id": "Section Overview",
+      "name": "Section Overview",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 1306.6,
+        "w": 532,
+        "h": 1298.4
+      }
+    },
+    {
+      "id": "Section Mission",
+      "name": "Section Mission",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 2605,
+        "w": 532,
+        "h": 981.6
+      }
+    },
+    {
+      "id": "Section Credibility",
+      "name": "Section Credibility",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 3586.7,
+        "w": 532,
+        "h": 829.5
+      }
+    },
+    {
+      "id": "Section Trust",
+      "name": "Section Trust",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 4416.2,
+        "w": 532,
+        "h": 605
+      }
+    },
+    {
+      "id": "Section Engagement",
+      "name": "Section Engagement",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 5021.2,
+        "w": 532,
+        "h": 605
+      }
+    },
+    {
+      "id": "Section Solution",
+      "name": "Section Solution",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 5626.2,
+        "w": 532,
+        "h": 1105.8
+      }
+    },
+    {
+      "id": "Section Onboarding",
+      "name": "Section Onboarding",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 6732,
+        "w": 532,
+        "h": 1225.4
+      }
+    },
+    {
+      "id": "Section Consent",
+      "name": "Section Consent",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 7957.4,
+        "w": 532,
+        "h": 1181.5
+      }
+    },
+    {
+      "id": "Section Modules",
+      "name": "Section Modules",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 9138.9,
+        "w": 532,
+        "h": 1271.1
+      }
+    },
+    {
+      "id": "Section Profile",
+      "name": "Section Profile",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 10410.1,
+        "w": 532,
+        "h": 865
+      }
+    },
+    {
+      "id": "Section Outcome",
+      "name": "Section Outcome",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 11275.1,
+        "w": 532,
+        "h": 1207
+      }
+    },
+    {
+      "id": "Section Next",
+      "name": "Section Next",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 12482.1,
+        "w": 532,
+        "h": 893
+      }
+    },
+    {
+      "id": "Section CTA",
+      "name": "Section CTA",
+      "occurrence": 1,
+      "box": {
+        "x": 118,
+        "y": 13375.2,
+        "w": 532,
+        "h": 1047.6
+      }
+    },
+    {
+      "id": "Footer",
+      "name": "Footer",
+      "occurrence": 1,
+      "box": {
+        "x": 0,
+        "y": 14422.7,
+        "w": 768,
+        "h": 515
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "text": "",
+      "tag": "body",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 768,
+        "h": 14937.7
+      }
+    },
+    {
+      "text": "Let's talk",
+      "tag": "p",
+      "section": "Header",
+      "local": {
+        "x": 606.6,
+        "y": 34
+      },
+      "box": {
+        "x": 606.6,
+        "y": 34,
+        "w": 85.4,
+        "h": 28
+      }
+    },
+    {
+      "text": "arrow_back",
+      "tag": "p",
+      "section": "Back",
+      "local": {
+        "x": 20,
+        "y": 12.5
+      },
+      "box": {
+        "x": 661,
+        "y": 98.5,
+        "w": 20,
+        "h": 24
+      }
+    },
+    {
+      "text": "Back",
+      "tag": "p",
+      "section": "Back",
+      "local": {
+        "x": 50,
+        "y": 11.9
+      },
+      "box": {
+        "x": 691,
+        "y": 97.9,
+        "w": 42,
+        "h": 25.2
+      }
+    },
+    {
+      "text": "SHIPPED",
+      "tag": "p",
+      "section": "Project Hero",
+      "local": {
+        "x": 54,
+        "y": 255.1
+      },
+      "box": {
+        "x": 54,
+        "y": 255.1,
+        "w": 48,
+        "h": 11
+      }
+    },
+    {
+      "text": "Acacia Money",
+      "tag": "h1",
+      "section": "Project Hero",
+      "local": {
+        "x": 24,
+        "y": 291.6
+      },
+      "box": {
+        "x": 24,
+        "y": 291.6,
+        "w": 284,
+        "h": 52.8
+      }
+    },
+    {
+      "text": "Unlocking Acacia's potential by turning hesitant users into engaged partners.",
+      "tag": "h4",
+      "section": "Project Hero",
+      "local": {
+        "x": 24,
+        "y": 360.4
+      },
+      "box": {
+        "x": 24,
+        "y": 360.4,
+        "w": 720,
+        "h": 57.6
+      }
+    },
+    {
+      "text": "Working closely with the CEO and software engineers, I brought structure and simplicity to a rapidly evolving product. I facilitated cross-functional workshops, made impactful design decisions aligned with business goals, and used Lean UX methods to move quickly and iteratively as the product matured.",
+      "tag": "h5",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 80
+      },
+      "box": {
+        "x": 134,
+        "y": 1386.6,
+        "w": 500,
+        "h": 184.8
+      }
+    },
+    {
+      "text": "I joined the project mid-build, inheriting a library of components originally built for another domain and working with limited dev capacity. In collaboration with the devs, we laid the foundation for a cohesive design system, and found ways to repurpose what had already been built.",
+      "tag": "h5",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 284.8
+      },
+      "box": {
+        "x": 134,
+        "y": 1591.4,
+        "w": 500,
+        "h": 184.8
+      }
+    },
+    {
+      "text": "The challenge here wasn’t just technical — it was also about building credibility and trust. Users loved the overarching concept but found the process overwhelming, often putting it in the “too hard basket.” There was resistance in sharing their data, and if they'd completed a one-off energy optimisation they had little reason to return. Proving customer lifetime value was critical for Acacia to secure future B2B2C partnerships in the long-term.",
+      "tag": "h5",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 489.6
+      },
+      "box": {
+        "x": 134,
+        "y": 1796.2,
+        "w": 500,
+        "h": 277.2
+      }
+    },
+    {
+      "text": "Typology",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 840.7
+      },
+      "box": {
+        "x": 134,
+        "y": 2147.3,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Fintech & Sustainability",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 863.2
+      },
+      "box": {
+        "x": 134,
+        "y": 2169.8,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Product",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 905.6
+      },
+      "box": {
+        "x": 134,
+        "y": 2212.2,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "B2B2C SaaS Platform",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 928
+      },
+      "box": {
+        "x": 134,
+        "y": 2234.6,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Role",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 970.4
+      },
+      "box": {
+        "x": 134,
+        "y": 2277,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Product Designer. Worked closely with CEO across UX & business strategy, research, and delivery. Designed the core user journeys and established a design system in collaboration with developers. Built roadmaps for future revisions.",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 992.8
+      },
+      "box": {
+        "x": 134,
+        "y": 2299.4,
+        "w": 500,
+        "h": 89.6
+      }
+    },
+    {
+      "text": "Timeline",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1102.4
+      },
+      "box": {
+        "x": 134,
+        "y": 2409,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Q3 2023 - Q2 2025",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1124.8
+      },
+      "box": {
+        "x": 134,
+        "y": 2431.4,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Collaborators",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1167.2
+      },
+      "box": {
+        "x": 134,
+        "y": 2473.8,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Anil Sagaram (Founder & CEO)Pat Abadilla (Software Engineer)",
+      "tag": "p",
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1189.6
+      },
+      "box": {
+        "x": 134,
+        "y": 2496.2,
+        "w": 500,
+        "h": 44.8
+      }
+    },
+    {
+      "text": "What's Acacia's mission?Making the renewable energy transition frictionless.",
+      "tag": "h3",
+      "section": "Section Mission",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 2653,
+        "w": 500,
+        "h": 108
+      }
+    },
+    {
+      "text": "Acacia empowers organisations, their customers, and employees to unlock savings through smarter decisions across energy, transport, and finance. The platform offers tools for switching to cheaper, greener energy plans, adopting solar and batteries, assessing EV suitability, and even connecting to virtual power plants.",
+      "tag": "p",
+      "section": "Section Mission",
+      "local": {
+        "x": 16,
+        "y": 684
+      },
+      "box": {
+        "x": 134,
+        "y": 3289,
+        "w": 500,
+        "h": 112
+      }
+    },
+    {
+      "text": "The platform is trying to do something very hard: Changing hearts and minds.",
+      "tag": "h5",
+      "section": "Section Mission",
+      "local": {
+        "x": 16,
+        "y": 856.1
+      },
+      "box": {
+        "x": 134,
+        "y": 3461.1,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "Fighting for credibility",
+      "tag": "h3",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 3634.7,
+        "w": 500,
+        "h": 36
+      }
+    },
+    {
+      "text": "Acacia’s biggest challenge wasn’t technology — it was building credibility. Every core feature asked users to make difficult financial or environmental choices. These were the moments where hesitation crept in: users needed guidance, not jargon and complexity. My role was to design clarity into these journeys, building confidence at each step so users could unlock Acacia's value without feeling overwhelmed. This was the foundation for credibility — and credibility was essential for driving conversion and securing future partnerships.",
+      "tag": "p",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 117
+      },
+      "box": {
+        "x": 134,
+        "y": 3703.7,
+        "w": 500,
+        "h": 179.3
+      }
+    },
+    {
+      "text": "Some user insights",
+      "tag": "p",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 364.2
+      },
+      "box": {
+        "x": 134,
+        "y": 3950.9,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Users “loved the idea” but needed guidance",
+      "tag": "p",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 406.6
+      },
+      "box": {
+        "x": 134,
+        "y": 3993.3,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "The platform was well received, but we were asking users to do something hard. We had to be clear on the problem being solved and reinforce how simple it was to get started.",
+      "tag": "p",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 437
+      },
+      "box": {
+        "x": 134,
+        "y": 4023.7,
+        "w": 500,
+        "h": 67.2
+      }
+    },
+    {
+      "text": "Users were required to “work things out”",
+      "tag": "p",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 530.2
+      },
+      "box": {
+        "x": 134,
+        "y": 4116.9,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "While some enjoyed exploring, a larger percentage want to be guided. Too much was left to interpretation — every word and interaction needed to build clarity.",
+      "tag": "p",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 560.6
+      },
+      "box": {
+        "x": 134,
+        "y": 4147.3,
+        "w": 500,
+        "h": 67.2
+      }
+    },
+    {
+      "text": "Users put it into the “too hard basket”",
+      "tag": "p",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 653.9
+      },
+      "box": {
+        "x": 134,
+        "y": 4240.6,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "At critical decision points, complexity and jargon contributed to drop-off. Once doubt entered the experience, trust eroded quickly and users abandoned the process.",
+      "tag": "p",
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 684.3
+      },
+      "box": {
+        "x": 134,
+        "y": 4271,
+        "w": 500,
+        "h": 67.2
+      }
+    },
+    {
+      "text": "A trust barrier…",
+      "tag": "h3",
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 4464.2,
+        "w": 500,
+        "h": 36
+      }
+    },
+    {
+      "text": "Usage analysis and tailored upgrade recommendations are central to Acacia’s product value — but delivering this experience required users to share their energy data through the CDR consent flow. This was a tightly regulated process, filled with technical language that only heightened hesitation. Without trust, most users abandoned the journey before unlocking the product’s core features.",
+      "tag": "p",
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 238.6
+      },
+      "box": {
+        "x": 134,
+        "y": 4654.8,
+        "w": 500,
+        "h": 134.4
+      }
+    },
+    {
+      "text": "Building confidence before the consent stage became critical: only by addressing credibility first could we guide users through the process and deliver the platform’s full potential.",
+      "tag": "p",
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 393
+      },
+      "box": {
+        "x": 134,
+        "y": 4809.2,
+        "w": 500,
+        "h": 67.2
+      }
+    },
+    {
+      "text": "We recognised that we didn't have a data problem, we had a trust problem.",
+      "tag": "h5",
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 117
+      },
+      "box": {
+        "x": 134,
+        "y": 4533.2,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "Driving long-term engagement",
+      "tag": "h3",
+      "section": "Section Engagement",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 5069.2,
+        "w": 500,
+        "h": 36
+      }
+    },
+    {
+      "text": "“I did what I had to do — why would I go back to Acacia?” Retention quickly emerged as one of the platform’s biggest challenges. Many users treated Acacia as a one-off utility: once they switched plans or completed an upgrade, there was little reason to return. For the business to grow sustainably, we needed to create ongoing value that encouraged regular re-engagement. The opportunity was to position Acacia as an independent partner in every user's renewable energy transition — always in the their corner, delivering insights that optimise their finances while helping them do their part for the world at large.",
+      "tag": "p",
+      "section": "Section Engagement",
+      "local": {
+        "x": 16,
+        "y": 238.6
+      },
+      "box": {
+        "x": 134,
+        "y": 5259.8,
+        "w": 500,
+        "h": 224.1
+      }
+    },
+    {
+      "text": "The platform needed to demonstrate strong customer lifetime value to secure long-term B2B2C partnerships.",
+      "tag": "h5",
+      "section": "Section Engagement",
+      "local": {
+        "x": 16,
+        "y": 117
+      },
+      "box": {
+        "x": 134,
+        "y": 5138.2,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "Solution",
+      "tag": "h3",
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 5674.2,
+        "w": 500,
+        "h": 36
+      }
+    },
+    {
+      "text": "The problems of credibility, trust, and engagement directly shaped the solutions. To turn interest into action, I focused on simplifying complex user journeys and building user confidence at each step. Working together, these features transformed moments of hesitation into trust, action, and sustainable growth.",
+      "tag": "p",
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 238.6
+      },
+      "box": {
+        "x": 134,
+        "y": 5864.8,
+        "w": 500,
+        "h": 112
+      }
+    },
+    {
+      "text": "Solving for the problems of credibility, trust, and engagement.",
+      "tag": "h5",
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 117
+      },
+      "box": {
+        "x": 134,
+        "y": 5743.2,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "Some key features I designed",
+      "tag": "p",
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 418.6
+      },
+      "box": {
+        "x": 134,
+        "y": 6044.8,
+        "w": 500,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Onboarding flow",
+      "tag": "p",
+      "section": "Section Solution",
+      "local": {
+        "x": 54,
+        "y": 463
+      },
+      "box": {
+        "x": 172,
+        "y": 6089.2,
+        "w": 462,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Gamified progress indicators",
+      "tag": "p",
+      "section": "Section Solution",
+      "local": {
+        "x": 54,
+        "y": 513.4
+      },
+      "box": {
+        "x": 172,
+        "y": 6139.6,
+        "w": 462,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Data consent experience",
+      "tag": "p",
+      "section": "Section Solution",
+      "local": {
+        "x": 54,
+        "y": 563.8
+      },
+      "box": {
+        "x": 172,
+        "y": 6190,
+        "w": 462,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Home upgrade modules",
+      "tag": "p",
+      "section": "Section Solution",
+      "local": {
+        "x": 54,
+        "y": 614.2
+      },
+      "box": {
+        "x": 172,
+        "y": 6240.4,
+        "w": 462,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Onboarding flowConverting interest into action",
+      "tag": "h5",
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 6780,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "The onboarding flow was intentionally designed to feel approachable and human, reducing the cognitive load from the very first screen. By breaking down complex tasks into clear, bite-sized steps, users were never left guessing what to do next or why it mattered. Subtle design choices — from the platform's look and feel to the tone of language — all worked together to reduce anxiety and reinforce that Acacia was on their side. This approach created early wins, instilled confidence, and set the stage for deeper engagement throughout the platform.",
+      "tag": "p",
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 325.8
+      },
+      "box": {
+        "x": 134,
+        "y": 7057.8,
+        "w": 500,
+        "h": 179.3
+      }
+    },
+    {
+      "text": "A step-by-step flow that speaks to users on their level. Keeping it simple and learnable. Driving conversion by providing a comforting balance between guidance and autonomy.",
+      "tag": "h5",
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 142.6
+      },
+      "box": {
+        "x": 134,
+        "y": 6874.6,
+        "w": 500,
+        "h": 123.2
+      }
+    },
+    {
+      "text": "Data consent experienceBuilding trust via user autonomy",
+      "tag": "h5",
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 8005.4,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "The data sharing stage was one of the biggest friction points in the journey, with clear drop-off patterns. Rather than overwhelm users with jargon, the redesigned flow emphasised the benefits of sharing data and explained how it directly improved their experience. By adding a manual upload option and clarifying how CDR safeguards their information, users felt both in control and reassured — building the trust they needed to take their next step.",
+      "tag": "p",
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 142.6
+      },
+      "box": {
+        "x": 134,
+        "y": 8100,
+        "w": 500,
+        "h": 134.4
+      }
+    },
+    {
+      "text": "Plain-language explanations of what data is accessed and why. Offers choice through a manual upload path, preserving user control. Builds trust while meeting CDR compliance.",
+      "tag": "h5",
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 337.1
+      },
+      "box": {
+        "x": 134,
+        "y": 8294.5,
+        "w": 500,
+        "h": 123.2
+      }
+    },
+    {
+      "text": "Home upgrade modulesFuture-proofing Acacia’s growth",
+      "tag": "h5",
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 9186.9,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "The modules were designed as flexible templates that can be quickly applied to different upgrade pathways without needing to be rebuilt each time. This gave users a sense of familiarity and predictability across journeys — no matter whether they were switching energy plans, installing solar, or considering an EV. For the business, the modular approach meant new partnerships could be onboarded quickly while keeping the overall experience cohesive. It established a framework where innovation didn’t come at the cost of usability or consistency.",
+      "tag": "p",
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 325.8
+      },
+      "box": {
+        "x": 134,
+        "y": 9464.7,
+        "w": 500,
+        "h": 224.1
+      }
+    },
+    {
+      "text": "Flexible templates for use across all upgrade pathways. Provides consistent learnability and memorability for users. Future-proofed to enable new B2B2C partnerships at speed.",
+      "tag": "h5",
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 142.6
+      },
+      "box": {
+        "x": 134,
+        "y": 9281.5,
+        "w": 500,
+        "h": 123.2
+      }
+    },
+    {
+      "text": "Energy profile & insightsThe reason to keep coming back",
+      "tag": "h5",
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 10458.1,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "The dashboard repositioned Acacia from a one-off tool into an ongoing partner in the user’s clean energy transition. By making energy data easier to understand and serving them valuable insights, the experience turned abstract numbers into actions users could take with confidence. It was designed to instil a sense of progress, motivating users to return and play an active role in building a more sustainable future.",
+      "tag": "p",
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 325.8
+      },
+      "box": {
+        "x": 134,
+        "y": 10735.9,
+        "w": 500,
+        "h": 134.4
+      }
+    },
+    {
+      "text": "A personalised dashboard that delivers tailored insights, progress tracking, and comparisons. Keeps users motivated to return, boosting retention and lifetime value.",
+      "tag": "h5",
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 142.6
+      },
+      "box": {
+        "x": 134,
+        "y": 10552.7,
+        "w": 500,
+        "h": 123.2
+      }
+    },
+    {
+      "text": "Outcome",
+      "tag": "h3",
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 11323.1,
+        "w": 500,
+        "h": 36
+      }
+    },
+    {
+      "text": "The impact of these design changes reached beyond the interface. By removing friction and instilling trust at critical moments, users felt confident to share their data, complete upgrades, and return for ongoing insights. For Acacia, this shift proved its ability to deliver customer lifetime value — a key requirement for winning and sustaining B2B2C partnerships. The result was an experience that worked for both sides: empowering users with clarity and control, while positioning the business for long-term growth.",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 269.4
+      },
+      "box": {
+        "x": 134,
+        "y": 11544.5,
+        "w": 500,
+        "h": 156.8
+      }
+    },
+    {
+      "text": "Trust built credibility and credibility drove engagement — and engagement was critical for securing long-term partnerships.",
+      "tag": "h5",
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 117
+      },
+      "box": {
+        "x": 134,
+        "y": 11392.1,
+        "w": 500,
+        "h": 92.4
+      }
+    },
+    {
+      "text": "25%",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 518.2
+      },
+      "box": {
+        "x": 166,
+        "y": 11793.3,
+        "w": 111.5,
+        "h": 63.8
+      }
+    },
+    {
+      "text": "projected increase in first-time users completing onboarding",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 590
+      },
+      "box": {
+        "x": 166,
+        "y": 11865.1,
+        "w": 392.4,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "40%",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 684.4
+      },
+      "box": {
+        "x": 166,
+        "y": 11959.5,
+        "w": 116.9,
+        "h": 63.8
+      }
+    },
+    {
+      "text": "estimated reduction in user drop-off at data sharing stage",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 756.2
+      },
+      "box": {
+        "x": 166,
+        "y": 12031.3,
+        "w": 392.4,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "20%",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 850.6
+      },
+      "box": {
+        "x": 166,
+        "y": 12125.7,
+        "w": 113.6,
+        "h": 63.8
+      }
+    },
+    {
+      "text": "projected increase in returning monthly users",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 922.4
+      },
+      "box": {
+        "x": 166,
+        "y": 12197.5,
+        "w": 392.4,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "15%",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 1016.8
+      },
+      "box": {
+        "x": 166,
+        "y": 12291.9,
+        "w": 99.9,
+        "h": 63.8
+      }
+    },
+    {
+      "text": "estimated increase in average customer lifetime value",
+      "tag": "p",
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 1088.6
+      },
+      "box": {
+        "x": 166,
+        "y": 12363.7,
+        "w": 392.4,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "What's next for Acacia?Impact now, growth tomorrow",
+      "tag": "h5",
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 12530.1,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "When I joined Acacia, the product lacked a unified design system. I rebuilt UI components from scattered demos, pixel by pixel, and worked closely with developers to define styling rules that brought much-needed consistency to a fast-evolving product. These foundations ensured we could move quickly without sacrificing cohesion.As the product matured and more ambitious solutions emerged, I developed a roadmap for a V.2 rollout — a way to iterate on the experience once additional developer resources became available. We had to be smart and efficient: designing for immediate impact while planning ahead for sustainable growth.",
+      "tag": "p",
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 264.2
+      },
+      "box": {
+        "x": 134,
+        "y": 12746.3,
+        "w": 500,
+        "h": 224.1
+      }
+    },
+    {
+      "text": "Pixel by pixel, I built the foundations. Then mapped the path to Acacia’s next chapter.",
+      "tag": "h5",
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 142.6
+      },
+      "box": {
+        "x": 134,
+        "y": 12624.7,
+        "w": 500,
+        "h": 61.6
+      }
+    },
+    {
+      "text": "Want the full story?",
+      "tag": "h3",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 32
+      },
+      "box": {
+        "x": 134,
+        "y": 13407.2,
+        "w": 500,
+        "h": 36
+      }
+    },
+    {
+      "text": "There’s more behind the scenes. Let’s grab a coffee and dive in.",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 88
+      },
+      "box": {
+        "x": 134,
+        "y": 13463.2,
+        "w": 450,
+        "h": 56
+      }
+    },
+    {
+      "text": "Go to Calendly",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 190
+      },
+      "box": {
+        "x": 134,
+        "y": 13565.2,
+        "w": 139.1,
+        "h": 28
+      }
+    },
+    {
+      "text": "Next project",
+      "tag": "h3",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 324
+      },
+      "box": {
+        "x": 134,
+        "y": 13699.2,
+        "w": 500,
+        "h": 36
+      }
+    },
+    {
+      "text": "In-development",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 62,
+        "y": 415.5
+      },
+      "box": {
+        "x": 180,
+        "y": 13790.7,
+        "w": 95,
+        "h": 11
+      }
+    },
+    {
+      "text": "MOS evolution",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 907.9
+      },
+      "box": {
+        "x": 134,
+        "y": 14283.1,
+        "w": 500,
+        "h": 25.2
+      }
+    },
+    {
+      "text": "From manufacturing strength to brand strength. Leading an α→ω evolution.",
+      "tag": "p",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 933.1
+      },
+      "box": {
+        "x": 134,
+        "y": 14308.3,
+        "w": 500,
+        "h": 50.4
+      }
+    },
+    {
+      "text": "Let's talk",
+      "tag": "h2",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 131.9
+      },
+      "box": {
+        "x": 142,
+        "y": 14554.6,
+        "w": 105.9,
+        "h": 33.6
+      }
+    },
+    {
+      "text": "Get in touch",
+      "tag": "h2",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 172.7
+      },
+      "box": {
+        "x": 142,
+        "y": 14595.4,
+        "w": 145,
+        "h": 33.6
+      }
+    },
+    {
+      "text": "Home",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 285.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14708.2,
+        "w": 38.1,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "Linkedin",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 316.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14739.2,
+        "w": 53.1,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "See full CV",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 347.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14770.2,
+        "w": 70.2,
+        "h": 22.4
+      }
+    },
+    {
+      "text": "2025 Alexander Blum",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 487.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14910.2,
+        "w": 127.9,
+        "h": 11
+      }
+    },
+    {
+      "text": "♥ Made with love ♥",
+      "tag": "p",
+      "section": "Footer",
+      "local": {
+        "x": 491.6,
+        "y": 487.5
+      },
+      "box": {
+        "x": 491.6,
+        "y": 14910.2,
+        "w": 134.4,
+        "h": 11
+      }
+    },
+    {
+      "text": "",
+      "tag": "div",
+      "section": null,
+      "local": null,
+      "box": {
+        "x": 0,
+        "y": 1024,
+        "w": 0,
+        "h": 0
+      }
+    }
+  ],
+  "runs": [
+    {
+      "text": "Let's talk",
+      "block": 1,
+      "section": "Header",
+      "local": {
+        "x": 606.6,
+        "y": 36
+      },
+      "box": {
+        "x": 606.6,
+        "y": 36,
+        "w": 85.4,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 1
+    },
+    {
+      "text": "arrow_back",
+      "block": 2,
+      "section": "Back",
+      "local": {
+        "x": 20,
+        "y": 14.5
+      },
+      "box": {
+        "x": 661,
+        "y": 100.5,
+        "w": 20,
+        "h": 20
+      },
+      "lines": 1,
+      "style": {
+        "family": "Material Icons",
+        "size": 20,
+        "lineHeight": 24,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(237, 237, 237)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 2
+    },
+    {
+      "text": "Back",
+      "block": 3,
+      "section": "Back",
+      "local": {
+        "x": 50,
+        "y": 13.9
+      },
+      "box": {
+        "x": 691,
+        "y": 99.9,
+        "w": 42,
+        "h": 21
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(237, 237, 237)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 2
+    },
+    {
+      "text": "SHIPPED",
+      "block": 4,
+      "section": "Project Hero",
+      "local": {
+        "x": 54,
+        "y": 252.1
+      },
+      "box": {
+        "x": 54,
+        "y": 252.1,
+        "w": 47.1,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Acacia Money",
+      "block": 5,
+      "section": "Project Hero",
+      "local": {
+        "x": 24,
+        "y": 287.6
+      },
+      "box": {
+        "x": 24,
+        "y": 287.6,
+        "w": 284,
+        "h": 59
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 48,
+        "lineHeight": 52.8,
+        "weight": 400,
+        "tracking": -0.96,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Unlocking Acacia's potential by turning hesitant users into engaged partners.",
+      "block": 6,
+      "section": "Project Hero",
+      "local": {
+        "x": 24,
+        "y": 359.4
+      },
+      "box": {
+        "x": 24,
+        "y": 359.4,
+        "w": 686.5,
+        "h": 57.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 24,
+        "lineHeight": 28.8,
+        "weight": 400,
+        "tracking": -0.24,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Working closely with the CEO and software engineers,",
+      "block": 7,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 82
+      },
+      "box": {
+        "x": 134,
+        "y": 1388.6,
+        "w": 498.8,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I brought structure and simplicity to a rapidly evolving product.",
+      "block": 7,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 112.8
+      },
+      "box": {
+        "x": 134,
+        "y": 1419.4,
+        "w": 488.4,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I facilitated cross-functional workshops, made impactful design decisions aligned with business goals, and used Lean UX methods to move quickly and iteratively as the product matured.",
+      "block": 7,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 143.6
+      },
+      "box": {
+        "x": 134,
+        "y": 1450.2,
+        "w": 505,
+        "h": 118.4
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "I joined the project mid-build, inheriting a",
+      "block": 8,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 286.8
+      },
+      "box": {
+        "x": 134,
+        "y": 1593.4,
+        "w": 373.1,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "library of components originally built for another domain",
+      "block": 8,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 286.8
+      },
+      "box": {
+        "x": 134,
+        "y": 1593.4,
+        "w": 456.3,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "and working with limited dev capacity. In collaboration with the devs, we laid the foundation for a cohesive design system, and found ways to",
+      "block": 8,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 317.6
+      },
+      "box": {
+        "x": 134,
+        "y": 1624.2,
+        "w": 497.4,
+        "h": 118.4
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "repurpose what had already been built.",
+      "block": 8,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 410
+      },
+      "box": {
+        "x": 134,
+        "y": 1716.6,
+        "w": 435.8,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The challenge here wasn’t just technical — it was also about",
+      "block": 9,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 491.6
+      },
+      "box": {
+        "x": 134,
+        "y": 1798.2,
+        "w": 493.8,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "building credibility and trust.",
+      "block": 9,
+      "section": "Section Overview",
+      "local": {
+        "x": 73.6,
+        "y": 522.4
+      },
+      "box": {
+        "x": 191.6,
+        "y": 1829,
+        "w": 259.2,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Users loved the overarching concept but found the process overwhelming, often putting it in the “too hard basket.” There was resistance in sharing their data, and if they'd completed a one-off energy optimisation they had little reason to return.",
+      "block": 9,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 522.4
+      },
+      "box": {
+        "x": 134,
+        "y": 1829,
+        "w": 503.5,
+        "h": 180
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Proving customer lifetime value",
+      "block": 9,
+      "section": "Section Overview",
+      "local": {
+        "x": 169.5,
+        "y": 676.4
+      },
+      "box": {
+        "x": 287.5,
+        "y": 1983,
+        "w": 284.8,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "was critical for Acacia to secure future B2B2C partnerships in the long-term.",
+      "block": 9,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 676.4
+      },
+      "box": {
+        "x": 134,
+        "y": 1983,
+        "w": 498.8,
+        "h": 87.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Typology",
+      "block": 10,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 842.7
+      },
+      "box": {
+        "x": 134,
+        "y": 2149.3,
+        "w": 59,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Fintech & Sustainability",
+      "block": 11,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 865.2
+      },
+      "box": {
+        "x": 134,
+        "y": 2171.8,
+        "w": 147.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Product",
+      "block": 12,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 907.6
+      },
+      "box": {
+        "x": 134,
+        "y": 2214.2,
+        "w": 49.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "B2B2C SaaS Platform",
+      "block": 13,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 930
+      },
+      "box": {
+        "x": 134,
+        "y": 2236.6,
+        "w": 137.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Role",
+      "block": 14,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 972.4
+      },
+      "box": {
+        "x": 134,
+        "y": 2279,
+        "w": 27.6,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Product Designer. Worked closely with CEO across UX & business strategy, research, and delivery. Designed the core user journeys and established a design system in collaboration with developers. Built roadmaps for future revisions.",
+      "block": 15,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 994.8
+      },
+      "box": {
+        "x": 134,
+        "y": 2301.4,
+        "w": 481.5,
+        "h": 84.2
+      },
+      "lines": 4,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Timeline",
+      "block": 16,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1104.4
+      },
+      "box": {
+        "x": 134,
+        "y": 2411,
+        "w": 53.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Q3 2023 - Q2 2025",
+      "block": 17,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1126.8
+      },
+      "box": {
+        "x": 134,
+        "y": 2433.4,
+        "w": 125,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Collaborators",
+      "block": 18,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1169.2
+      },
+      "box": {
+        "x": 134,
+        "y": 2475.8,
+        "w": 85.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Anil Sagaram (Founder & CEO)Pat Abadilla (Software Engineer)",
+      "block": 19,
+      "section": "Section Overview",
+      "local": {
+        "x": 16,
+        "y": 1191.6
+      },
+      "box": {
+        "x": 134,
+        "y": 2498.2,
+        "w": 205.2,
+        "h": 39.4
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "What's Acacia's mission?",
+      "block": 20,
+      "section": "Section Mission",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 2653,
+        "w": 320.1,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Making the renewable energy transition frictionless.",
+      "block": 20,
+      "section": "Section Mission",
+      "local": {
+        "x": 16,
+        "y": 84
+      },
+      "box": {
+        "x": 134,
+        "y": 2689,
+        "w": 384.3,
+        "h": 72
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Acacia empowers organisations, their customers, and employees to unlock savings through smarter decisions across energy, transport, and finance. The platform offers tools for switching to cheaper, greener energy plans, adopting solar and batteries, assessing EV suitability, and even connecting to virtual power plants.",
+      "block": 21,
+      "section": "Section Mission",
+      "local": {
+        "x": 16,
+        "y": 686
+      },
+      "box": {
+        "x": 134,
+        "y": 3291,
+        "w": 495,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The platform is trying to do something very hard:",
+      "block": 22,
+      "section": "Section Mission",
+      "local": {
+        "x": 16,
+        "y": 858.1
+      },
+      "box": {
+        "x": 134,
+        "y": 3463.1,
+        "w": 445.8,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Changing hearts and minds.",
+      "block": 22,
+      "section": "Section Mission",
+      "local": {
+        "x": 16,
+        "y": 888.9
+      },
+      "box": {
+        "x": 134,
+        "y": 3493.9,
+        "w": 256.3,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Fighting for credibility",
+      "block": 23,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 3634.7,
+        "w": 273.5,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Acacia’s biggest challenge wasn’t technology — it was building credibility. Every core feature asked users to make difficult financial or environmental choices. These were the moments where hesitation crept in: users needed guidance, not jargon and complexity. My role was to design clarity into these journeys, building confidence at each step so users could unlock Acacia's value without feeling overwhelmed. This was the foundation for credibility — and credibility was essential for driving conversion and securing future partnerships.",
+      "block": 24,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 134,
+        "y": 3705.7,
+        "w": 489.1,
+        "h": 173.8
+      },
+      "lines": 8,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Some user insights",
+      "block": 25,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 366.2
+      },
+      "box": {
+        "x": 134,
+        "y": 3952.9,
+        "w": 120.9,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Users “loved the idea” but needed guidance",
+      "block": 26,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 408.6
+      },
+      "box": {
+        "x": 134,
+        "y": 3995.3,
+        "w": 280,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The platform was well received, but we were asking users to do something hard. We had to be clear on the problem being solved and reinforce how simple it was to get started.",
+      "block": 27,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 439
+      },
+      "box": {
+        "x": 134,
+        "y": 4025.7,
+        "w": 477.4,
+        "h": 61.8
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Users were required to “work things out”",
+      "block": 28,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 532.2
+      },
+      "box": {
+        "x": 134,
+        "y": 4118.9,
+        "w": 258.5,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "While some enjoyed exploring, a larger percentage want to be guided. Too much was left to interpretation — every word and interaction needed to build clarity.",
+      "block": 29,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 562.6
+      },
+      "box": {
+        "x": 134,
+        "y": 4149.3,
+        "w": 489.4,
+        "h": 61.8
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Users put it into the “too hard basket”",
+      "block": 30,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 655.9
+      },
+      "box": {
+        "x": 134,
+        "y": 4242.6,
+        "w": 237.6,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "At critical decision points, complexity and jargon contributed to drop-off. Once doubt entered the experience, trust eroded quickly and users abandoned the process.",
+      "block": 31,
+      "section": "Section Credibility",
+      "local": {
+        "x": 16,
+        "y": 686.3
+      },
+      "box": {
+        "x": 134,
+        "y": 4273,
+        "w": 500,
+        "h": 61.8
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "A trust barrier…",
+      "block": 32,
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 4464.2,
+        "w": 190.9,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Usage analysis and tailored upgrade recommendations are central to Acacia’s product value — but delivering this experience required users to share their energy data through the CDR consent flow. This was a tightly regulated process, filled with technical language that only heightened hesitation. Without trust, most users abandoned the journey before unlocking the product’s core features.",
+      "block": 33,
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 240.6
+      },
+      "box": {
+        "x": 134,
+        "y": 4656.8,
+        "w": 501.7,
+        "h": 129
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Building confidence before the consent stage became critical: only by addressing credibility first could we guide users through the process and deliver the platform’s full potential.",
+      "block": 34,
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 395
+      },
+      "box": {
+        "x": 134,
+        "y": 4811.2,
+        "w": 465.9,
+        "h": 61.8
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "We recognised that we didn't have a data problem,",
+      "block": 35,
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 134,
+        "y": 4535.2,
+        "w": 465.5,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "we had a trust problem.",
+      "block": 35,
+      "section": "Section Trust",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 134,
+        "y": 4535.2,
+        "w": 497.7,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Driving long-term engagement",
+      "block": 36,
+      "section": "Section Engagement",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 5069.2,
+        "w": 391.9,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "“I did what I had to do — why would I go back to Acacia?”",
+      "block": 37,
+      "section": "Section Engagement",
+      "local": {
+        "x": 16,
+        "y": 240.6
+      },
+      "box": {
+        "x": 134,
+        "y": 5261.8,
+        "w": 370,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "italic"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Retention quickly emerged as one of the platform’s biggest challenges. Many users treated Acacia as a one-off utility: once they switched plans or completed an upgrade, there was little reason to return. For the business to grow sustainably, we needed to create ongoing value that encouraged regular re-engagement. The opportunity was to position Acacia as an independent partner in every user's renewable energy transition — always in the their corner, delivering insights that optimise their finances while helping them do their part for the world at large.",
+      "block": 37,
+      "section": "Section Engagement",
+      "local": {
+        "x": 16,
+        "y": 240.6
+      },
+      "box": {
+        "x": 134,
+        "y": 5261.8,
+        "w": 502.1,
+        "h": 218.7
+      },
+      "lines": 9,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The platform needed to demonstrate strong customer lifetime value",
+      "block": 38,
+      "section": "Section Engagement",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 134,
+        "y": 5140.2,
+        "w": 495.5,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "to secure long-term B2B2C partnerships.",
+      "block": 38,
+      "section": "Section Engagement",
+      "local": {
+        "x": 140.1,
+        "y": 149.8
+      },
+      "box": {
+        "x": 258.1,
+        "y": 5171,
+        "w": 375,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Solution",
+      "block": 39,
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 5674.2,
+        "w": 103.5,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The problems of credibility, trust, and engagement directly shaped the solutions. To turn interest into action, I focused on simplifying complex user journeys and building user confidence at each step. Working together, these features transformed moments of hesitation into trust, action, and sustainable growth.",
+      "block": 40,
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 240.6
+      },
+      "box": {
+        "x": 134,
+        "y": 5866.8,
+        "w": 494.9,
+        "h": 106.6
+      },
+      "lines": 5,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Solving for the problems of",
+      "block": 41,
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 134,
+        "y": 5745.2,
+        "w": 249.9,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "credibility, trust, and engagement.",
+      "block": 41,
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 134,
+        "y": 5745.2,
+        "w": 435.6,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Some key features I designed",
+      "block": 42,
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 420.6
+      },
+      "box": {
+        "x": 134,
+        "y": 6046.8,
+        "w": 188.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Onboarding flow",
+      "block": 43,
+      "section": "Section Solution",
+      "local": {
+        "x": 54,
+        "y": 465
+      },
+      "box": {
+        "x": 172,
+        "y": 6091.2,
+        "w": 105.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Gamified progress indicators",
+      "block": 44,
+      "section": "Section Solution",
+      "local": {
+        "x": 54,
+        "y": 515.4
+      },
+      "box": {
+        "x": 172,
+        "y": 6141.6,
+        "w": 183,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Data consent experience",
+      "block": 45,
+      "section": "Section Solution",
+      "local": {
+        "x": 54,
+        "y": 565.8
+      },
+      "box": {
+        "x": 172,
+        "y": 6192,
+        "w": 158.7,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Home upgrade modules",
+      "block": 46,
+      "section": "Section Solution",
+      "local": {
+        "x": 54,
+        "y": 616.2
+      },
+      "box": {
+        "x": 172,
+        "y": 6242.4,
+        "w": 153.3,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(247, 247, 247)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Onboarding flow",
+      "block": 47,
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 50
+      },
+      "box": {
+        "x": 134,
+        "y": 6782,
+        "w": 151.2,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Converting interest into action",
+      "block": 47,
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 80.8
+      },
+      "box": {
+        "x": 134,
+        "y": 6812.8,
+        "w": 273,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The onboarding flow was intentionally designed to feel approachable and human, reducing the cognitive load from the very first screen. By breaking down complex tasks into clear, bite-sized steps, users were never left guessing what to do next or why it mattered. Subtle design choices — from the platform's look and feel to the tone of language — all worked together to reduce anxiety and reinforce that Acacia was on their side. This approach created early wins, instilled confidence, and set the stage for deeper engagement throughout the platform.",
+      "block": 48,
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 327.8
+      },
+      "box": {
+        "x": 134,
+        "y": 7059.8,
+        "w": 499.9,
+        "h": 173.8
+      },
+      "lines": 8,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "A step-by-step flow that speaks to users on their level. Keeping it simple and learnable. Driving conversion by",
+      "block": 49,
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 144.6
+      },
+      "box": {
+        "x": 134,
+        "y": 6876.6,
+        "w": 498.4,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "providing a comforting balance between guidance and autonomy.",
+      "block": 49,
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 206.2
+      },
+      "box": {
+        "x": 134,
+        "y": 6938.2,
+        "w": 501.7,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Data consent experience",
+      "block": 50,
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 50
+      },
+      "box": {
+        "x": 134,
+        "y": 8007.4,
+        "w": 228.2,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Building trust via user autonomy",
+      "block": 50,
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 80.8
+      },
+      "box": {
+        "x": 134,
+        "y": 8038.2,
+        "w": 291.9,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The data sharing stage was one of the biggest friction points in the journey, with clear drop-off patterns. Rather than overwhelm users with jargon, the redesigned flow emphasised the benefits of sharing data and explained how it directly improved their experience. By adding a manual upload option and clarifying how CDR safeguards their information, users felt both in control and reassured — building the trust they needed to take their next step.",
+      "block": 51,
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 144.6
+      },
+      "box": {
+        "x": 134,
+        "y": 8102,
+        "w": 498.9,
+        "h": 129
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Plain-language explanations of what data is accessed and why. Offers choice through a manual upload path,",
+      "block": 52,
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 339.1
+      },
+      "box": {
+        "x": 134,
+        "y": 8296.5,
+        "w": 494.8,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "preserving user control. Builds trust while meeting CDR compliance.",
+      "block": 52,
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 400.6
+      },
+      "box": {
+        "x": 134,
+        "y": 8358,
+        "w": 457.5,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Home upgrade modules",
+      "block": 53,
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 50
+      },
+      "box": {
+        "x": 134,
+        "y": 9188.9,
+        "w": 221.2,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Future-proofing Acacia’s growth",
+      "block": 53,
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 80.8
+      },
+      "box": {
+        "x": 134,
+        "y": 9219.7,
+        "w": 289.9,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The modules were designed as flexible templates that can be quickly applied to different upgrade pathways without needing to be rebuilt each time. This gave users a sense of familiarity and predictability across journeys — no matter whether they were switching energy plans, installing solar, or considering an EV. For the business, the modular approach meant new partnerships could be onboarded quickly while keeping the overall experience cohesive. It established a framework where innovation didn’t come at the cost of usability or consistency.",
+      "block": 54,
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 327.8
+      },
+      "box": {
+        "x": 134,
+        "y": 9466.7,
+        "w": 494,
+        "h": 218.7
+      },
+      "lines": 9,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Flexible templates for use across all upgrade pathways. Provides consistent learnability and memorability for users.",
+      "block": 55,
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 144.6
+      },
+      "box": {
+        "x": 134,
+        "y": 9283.5,
+        "w": 499.7,
+        "h": 87.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Future-proofed to enable new B2B2C partnerships at speed.",
+      "block": 55,
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 206.2
+      },
+      "box": {
+        "x": 134,
+        "y": 9345.1,
+        "w": 407.2,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Energy profile & insights",
+      "block": 56,
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 50
+      },
+      "box": {
+        "x": 134,
+        "y": 10460.1,
+        "w": 218.1,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The reason to keep coming back",
+      "block": 56,
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 80.8
+      },
+      "box": {
+        "x": 134,
+        "y": 10490.9,
+        "w": 299.3,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The dashboard repositioned Acacia from a one-off tool into an ongoing partner in the user’s clean energy transition. By making energy data easier to understand and serving them valuable insights, the experience turned abstract numbers into actions users could take with confidence. It was designed to instil a sense of progress, motivating users to return and play an active role in building a more sustainable future.",
+      "block": 57,
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 327.8
+      },
+      "box": {
+        "x": 134,
+        "y": 10737.9,
+        "w": 502.7,
+        "h": 129
+      },
+      "lines": 6,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "A personalised dashboard that delivers tailored insights, progress tracking, and comparisons. Keeps users",
+      "block": 58,
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 144.6
+      },
+      "box": {
+        "x": 134,
+        "y": 10554.7,
+        "w": 475.7,
+        "h": 87.6
+      },
+      "lines": 3,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "motivated to return, boosting retention and lifetime value.",
+      "block": 58,
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 206.2
+      },
+      "box": {
+        "x": 134,
+        "y": 10616.3,
+        "w": 447.2,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Outcome",
+      "block": 59,
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 48
+      },
+      "box": {
+        "x": 134,
+        "y": 11323.1,
+        "w": 119.2,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "The impact of these design changes reached beyond the interface. By removing friction and instilling trust at critical moments, users felt confident to share their data, complete upgrades, and return for ongoing insights. For Acacia, this shift proved its ability to deliver customer lifetime value — a key requirement for winning and sustaining B2B2C partnerships. The result was an experience that worked for both sides: empowering users with clarity and control, while positioning the business for long-term growth.",
+      "block": 60,
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 271.4
+      },
+      "box": {
+        "x": 134,
+        "y": 11546.5,
+        "w": 502.3,
+        "h": 151.4
+      },
+      "lines": 7,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Trust built credibility and credibility drove engagement",
+      "block": 61,
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 119
+      },
+      "box": {
+        "x": 134,
+        "y": 11394.1,
+        "w": 496.7,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "— and engagement was critical for securing long-term partnerships.",
+      "block": 61,
+      "section": "Section Outcome",
+      "local": {
+        "x": 16,
+        "y": 149.8
+      },
+      "box": {
+        "x": 134,
+        "y": 11424.9,
+        "w": 502.1,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "25%",
+      "block": 62,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 514.2
+      },
+      "box": {
+        "x": 166,
+        "y": 11789.3,
+        "w": 111.5,
+        "h": 70
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 58,
+        "lineHeight": 63.8,
+        "weight": 400,
+        "tracking": -1.16,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "projected increase in first-time users completing onboarding",
+      "block": 63,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 592
+      },
+      "box": {
+        "x": 166,
+        "y": 11867.1,
+        "w": 383.6,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "40%",
+      "block": 64,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 680.4
+      },
+      "box": {
+        "x": 166,
+        "y": 11955.5,
+        "w": 116.9,
+        "h": 70
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 58,
+        "lineHeight": 63.8,
+        "weight": 400,
+        "tracking": -1.16,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "estimated reduction in user drop-off at data sharing stage",
+      "block": 65,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 758.2
+      },
+      "box": {
+        "x": 166,
+        "y": 12033.3,
+        "w": 366.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "20%",
+      "block": 66,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 846.6
+      },
+      "box": {
+        "x": 166,
+        "y": 12121.7,
+        "w": 113.6,
+        "h": 70
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 58,
+        "lineHeight": 63.8,
+        "weight": 400,
+        "tracking": -1.16,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "projected increase in returning monthly users",
+      "block": 67,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 924.4
+      },
+      "box": {
+        "x": 166,
+        "y": 12199.5,
+        "w": 287.6,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "15%",
+      "block": 68,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 1012.8
+      },
+      "box": {
+        "x": 166,
+        "y": 12287.9,
+        "w": 99.9,
+        "h": 70
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 58,
+        "lineHeight": 63.8,
+        "weight": 400,
+        "tracking": -1.16,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "estimated increase in average customer lifetime value",
+      "block": 69,
+      "section": "Section Outcome",
+      "local": {
+        "x": 48,
+        "y": 1090.6
+      },
+      "box": {
+        "x": 166,
+        "y": 12365.7,
+        "w": 340.8,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "What's next for Acacia?",
+      "block": 70,
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 50
+      },
+      "box": {
+        "x": 134,
+        "y": 12532.1,
+        "w": 216,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Impact now, growth tomorrow",
+      "block": 70,
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 80.8
+      },
+      "box": {
+        "x": 134,
+        "y": 12562.9,
+        "w": 271.8,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "When I joined Acacia, the product lacked a unified design system. I rebuilt UI components from scattered demos, pixel by pixel, and worked closely with developers to define styling rules that brought much-needed consistency to a fast-evolving product. These foundations ensured we could move quickly without sacrificing cohesion.As the product matured and more ambitious solutions emerged, I developed a roadmap for a V.2 rollout — a way to iterate on the experience once additional developer resources became available. We had to be smart and efficient: designing for immediate impact while planning ahead for sustainable growth.",
+      "block": 71,
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 266.2
+      },
+      "box": {
+        "x": 134,
+        "y": 12748.3,
+        "w": 496.6,
+        "h": 218.7
+      },
+      "lines": 9,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Pixel by pixel, I built the foundations. Then mapped the",
+      "block": 72,
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 144.6
+      },
+      "box": {
+        "x": 134,
+        "y": 12626.7,
+        "w": 494.3,
+        "h": 26
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "path to Acacia’s next chapter.",
+      "block": 72,
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 144.6
+      },
+      "box": {
+        "x": 134,
+        "y": 12626.7,
+        "w": 499.4,
+        "h": 56.8
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter Display",
+        "size": 22,
+        "lineHeight": 30.8,
+        "weight": 400,
+        "tracking": -0.44,
+        "color": "rgb(60, 218, 100)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Want the full story?",
+      "block": 73,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 32
+      },
+      "box": {
+        "x": 134,
+        "y": 13407.2,
+        "w": 245.5,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "There’s more behind the scenes. Let’s grab a coffee and dive in.",
+      "block": 74,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 90
+      },
+      "box": {
+        "x": 134,
+        "y": 13465.2,
+        "w": 428.7,
+        "h": 52
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Go to Calendly",
+      "block": 75,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 192
+      },
+      "box": {
+        "x": 134,
+        "y": 13567.2,
+        "w": 139.1,
+        "h": 24
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 20,
+        "lineHeight": 28,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 3
+    },
+    {
+      "text": "Next project",
+      "block": 76,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 324
+      },
+      "box": {
+        "x": 134,
+        "y": 13699.2,
+        "w": 155.7,
+        "h": 36
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 30,
+        "lineHeight": 36,
+        "weight": 400,
+        "tracking": -0.3,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "In-development",
+      "block": 77,
+      "section": "Section CTA",
+      "local": {
+        "x": 62,
+        "y": 412.5
+      },
+      "box": {
+        "x": 180,
+        "y": 13787.7,
+        "w": 94.3,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "MOS evolution",
+      "block": 78,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 909.9
+      },
+      "box": {
+        "x": 134,
+        "y": 14285.1,
+        "w": 124,
+        "h": 21
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "From manufacturing strength to brand strength. Leading an α→ω evolution.",
+      "block": 79,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 935.1
+      },
+      "box": {
+        "x": 134,
+        "y": 14310.3,
+        "w": 482.5,
+        "h": 46.2
+      },
+      "lines": 2,
+      "style": {
+        "family": "Inter",
+        "size": 18,
+        "lineHeight": 25.2,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 4
+    },
+    {
+      "text": "Let's talk",
+      "block": 80,
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 130.9
+      },
+      "box": {
+        "x": 142,
+        "y": 14553.6,
+        "w": 105.9,
+        "h": 34
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 28,
+        "lineHeight": 33.6,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "Get in touch",
+      "block": 81,
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 171.7
+      },
+      "box": {
+        "x": 142,
+        "y": 14594.4,
+        "w": 145,
+        "h": 34
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter Display",
+        "size": 28,
+        "lineHeight": 33.6,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 6
+    },
+    {
+      "text": "Home",
+      "block": 82,
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 287.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14710.2,
+        "w": 38.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 7
+    },
+    {
+      "text": "Linkedin",
+      "block": 83,
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 318.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14741.2,
+        "w": 53.1,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 8
+    },
+    {
+      "text": "See full CV",
+      "block": 84,
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 349.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14772.2,
+        "w": 70.2,
+        "h": 17
+      },
+      "lines": 1,
+      "style": {
+        "family": "Inter",
+        "size": 14,
+        "lineHeight": 22.4,
+        "weight": 400,
+        "tracking": -0.28,
+        "color": "rgb(255, 255, 255)",
+        "transform": "none",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": 9
+    },
+    {
+      "text": "2025 Alexander Blum",
+      "block": 85,
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 484.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14907.2,
+        "w": 127.9,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    },
+    {
+      "text": "♥ Made with love ♥",
+      "block": 86,
+      "section": "Footer",
+      "local": {
+        "x": 491.6,
+        "y": 484.5
+      },
+      "box": {
+        "x": 491.6,
+        "y": 14907.2,
+        "w": 134.4,
+        "h": 16
+      },
+      "lines": 1,
+      "style": {
+        "family": "Space Mono",
+        "size": 11,
+        "lineHeight": 11,
+        "weight": 400,
+        "tracking": 0,
+        "color": "rgb(166, 166, 166)",
+        "transform": "uppercase",
+        "fontStyle": "normal"
+      },
+      "opacity": 1,
+      "link": null
+    }
+  ],
+  "links": [
+    {
+      "text": "Homepage",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Header",
+      "local": {
+        "x": 24,
+        "y": 24
+      },
+      "box": {
+        "x": 24,
+        "y": 24,
+        "w": 48,
+        "h": 48
+      }
+    },
+    {
+      "text": "Let's talk",
+      "href": "mailto:ablumeinfeld@gmail.com",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Header",
+      "local": {
+        "x": 606.6,
+        "y": 28
+      },
+      "box": {
+        "x": 606.6,
+        "y": 28,
+        "w": 137.4,
+        "h": 40
+      }
+    },
+    {
+      "text": "arrow_backBackBack",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Back",
+      "local": {
+        "x": 0,
+        "y": 0
+      },
+      "box": {
+        "x": 641,
+        "y": 86,
+        "w": 112,
+        "h": 49
+      }
+    },
+    {
+      "text": "Go to Calendly",
+      "href": "https://calendly.com/ablumeinfeld/let-s-talk-design",
+      "path": null,
+      "target": null,
+      "rel": "noopener",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 184
+      },
+      "box": {
+        "x": 134,
+        "y": 13559.2,
+        "w": 191.1,
+        "h": 40
+      }
+    },
+    {
+      "text": "In-developmentMOS evolutionFrom manufacturing strength to brand strength. Leading an α→ω evolution.",
+      "href": "https://designbyalex.dev/mosurban",
+      "path": "/mosurban",
+      "target": null,
+      "rel": null,
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 390
+      },
+      "box": {
+        "x": 134,
+        "y": 13765.2,
+        "w": 500,
+        "h": 593.6
+      }
+    },
+    {
+      "text": "Homepage",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 64
+      },
+      "box": {
+        "x": 142,
+        "y": 14486.7,
+        "w": 35,
+        "h": 33
+      }
+    },
+    {
+      "text": "Get in touch",
+      "href": "mailto:ablumeinfeld@gmail.com",
+      "path": null,
+      "target": null,
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 165.5
+      },
+      "box": {
+        "x": 142,
+        "y": 14588.2,
+        "w": 201,
+        "h": 48
+      }
+    },
+    {
+      "text": "Home",
+      "href": "https://designbyalex.dev/",
+      "path": "/",
+      "target": null,
+      "rel": null,
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 283.2
+      },
+      "box": {
+        "x": 142,
+        "y": 14705.9,
+        "w": 38.1,
+        "h": 27
+      }
+    },
+    {
+      "text": "Linkedin",
+      "href": "https://www.linkedin.com/in/alexanderblumeinfeld/",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 314.2
+      },
+      "box": {
+        "x": 142,
+        "y": 14736.9,
+        "w": 53.1,
+        "h": 27
+      }
+    },
+    {
+      "text": "See full CV",
+      "href": "https://drive.google.com/file/d/15URS3xgdTp0vah7PuTuKfOPp4TZH_wph/view?usp=sharing",
+      "path": null,
+      "target": "_blank",
+      "rel": "noopener",
+      "section": "Footer",
+      "local": {
+        "x": 142,
+        "y": 345.2
+      },
+      "box": {
+        "x": 142,
+        "y": 14767.9,
+        "w": 70.2,
+        "h": 27
+      }
+    }
+  ],
+  "media": [
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/PbjvL3U7OAMr79tNnIP3UjBOXfY.png?width=3840&height=2880",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Project Hero",
+      "local": {
+        "x": -76.8,
+        "y": 364.3
+      },
+      "box": {
+        "x": -76.8,
+        "y": 364.3,
+        "w": 921.6,
+        "h": 1027.9
+      },
+      "natural": {
+        "w": 3840,
+        "h": 2880
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/b55JhiNvrYWvYKDPg0YRHSL83xE.png?width=3000&height=2250",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Solution",
+      "local": {
+        "x": 16,
+        "y": 761.1
+      },
+      "box": {
+        "x": 134,
+        "y": 6387.3,
+        "w": 500,
+        "h": 280.8
+      },
+      "natural": {
+        "w": 3000,
+        "h": 2250
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/dU7llaulbPWolxAGvwSeZOYUpDQ.png?scale-down-to=1024&width=6000&height=3300",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 867.2
+      },
+      "box": {
+        "x": 134,
+        "y": 7599.2,
+        "w": 500,
+        "h": 294.2
+      },
+      "natural": {
+        "w": 1024,
+        "h": 563
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/2aTwCHUSykoESjmoANhjXk4uY2o.png?scale-down-to=1024&width=6000&height=3300",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Onboarding",
+      "local": {
+        "x": 16,
+        "y": 565.1
+      },
+      "box": {
+        "x": 134,
+        "y": 7297.1,
+        "w": 500,
+        "h": 294.2
+      },
+      "natural": {
+        "w": 1024,
+        "h": 563
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/URioleSZJRdZRqfRgmHAGcuwU.png?scale-down-to=2048&width=5600&height=6600",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Consent",
+      "local": {
+        "x": 16,
+        "y": 520.2
+      },
+      "box": {
+        "x": 134,
+        "y": 8477.6,
+        "w": 500,
+        "h": 597.3
+      },
+      "natural": {
+        "w": 1738,
+        "h": 2048
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/guZ753kAJ3H9VYXBgKZLZlIzyrc.png?scale-down-to=2048&width=5600&height=6600",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Modules",
+      "local": {
+        "x": 16,
+        "y": 609.9
+      },
+      "box": {
+        "x": 134,
+        "y": 9748.8,
+        "w": 500,
+        "h": 597.3
+      },
+      "natural": {
+        "w": 1738,
+        "h": 2048
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/VXTMutCGcRUSOJQMMDU14CeyDto.png?width=6000&height=4500",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Profile",
+      "local": {
+        "x": 16,
+        "y": 520.2
+      },
+      "box": {
+        "x": 134,
+        "y": 10930.3,
+        "w": 500,
+        "h": 280.8
+      },
+      "natural": {
+        "w": 6000,
+        "h": 4500
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/3qukmX1nCAUguT7lVBX3KlTTgGE.png?width=3840&height=2160",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section Next",
+      "local": {
+        "x": 16,
+        "y": 548.3
+      },
+      "box": {
+        "x": 134,
+        "y": 13030.4,
+        "w": 500,
+        "h": 280.8
+      },
+      "natural": {
+        "w": 3840,
+        "h": 2160
+      },
+      "fit": "cover",
+      "radius": 0,
+      "video": null
+    },
+    {
+      "kind": "image",
+      "src": "https://framerusercontent.com/images/Ack5Dsxyz8E4CBDScsGce3M1uw.png?scale-down-to=512&width=3840&height=2880",
+      "host": "framerusercontent.com",
+      "alt": "",
+      "section": "Section CTA",
+      "local": {
+        "x": 16,
+        "y": 390
+      },
+      "box": {
+        "x": 134,
+        "y": 13765.2,
+        "w": 500,
+        "h": 499
+      },
+      "natural": {
+        "w": 499,
+        "h": 374
+      },
+      "fit": "cover",
+      "radius": 20,
+      "video": null
+    },
+    {
+      "kind": "background",
+      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 xmlns:xlink=%22http://www.w3.org/1999/xlink%22 viewBox=%220 0 524 522%22><path d=%22M 1.564 56.266 L 521.769 56.266 M 1.564 72.014 L 521.769 72.014 M 1.564 87.762 L 521.769 87.762 M 1.564 103.51 L 521.769 103.51 M 1.564 119.258 L 521.769 119.258 M 1.564 135.008 L 521.769 135.008 M 1.564 150.753 L 521.769 150.753 M 1.564 166.503 L 521.769 166.503 M 1.564 182.25 L 521.769 182.25 M 1.564 197.996 L 521.769 197.996 M 1.564 213.749 L 521.769 213.749 M 1.564 229.493 L 521.769 229.493 M 1.564 245.244 L 521.769 245.244 M 1.564 260.994 L 521.769 260.994 M 1.564 276.739 L 521.769 276.739 M 1.564 292.488 L 521.769 292.488 M 1.564 308.238 L 521.769 308.238 M 1.564 323.983 L 521.769 323.983 M 1.564 339.731 L 521.769 339.731 M 1.564 355.481 L 521.769 355.481 M 1.564 371.229 L 521.769 371.229 M 1.564 386.977 L 521.769 386.977 M 1.564 402.724 L 521.769 402.724 M 1.564 418.471 L 521.769 418.471 M 1.564 434.223 L 521.769 434.223 M 1.564 449.968 L 521.769 449.968 M 1.564 465.718 L 521.769 465.718 M 17.337 40.614 L 17.337 481.562 M 33.088 40.614 L 33.088 481.562 M 48.833 40.614 L 48.833 481.562 M 64.582 40.614 L 64.582 481.562 M 80.332 40.614 L 80.332 481.562 M 96.078 40.614 L 96.078 481.562 M 111.828 40.614 L 111.828 481.562 M 127.578 40.614 L 127.578 481.562 M 143.324 40.614 L 143.324 481.562 M 159.072 40.614 L 159.072 481.562 M 174.822 40.614 L 174.822 481.562 M 190.567 40.614 L 190.567 481.562 M 206.317 40.614 L 206.317 481.562 M 222.063 40.614 L 222.063 481.562 M 237.813 40.614 L 237.813 481.562 M 253.561 40.614 L 253.561 481.562 M 269.306 40.614 L 269.306 481.562 M 285.056 40.614 L 285.056 481.562 M 300.806 40.614 L 300.806 481.562 M 316.552 40.614 L 316.552 481.562 M 332.302 40.614 L 332.302 481.562 M 348.05 40.614 L 348.05 481.562 M 363.797 40.614 L 363.797 481.562 M 379.545 40.614 L 379.545 481.562 M 395.296 40.614 L 395.296 481.562 M 411.041 40.614 L 411.041 481.562 M 426.791 40.614 L 426.791 481.562 M 442.538 40.614 L 442.538 481.562 M 458.286 40.614 L 458.286 481.562 M 474.035 40.614 L 474.035 481.562 M 490.114 40.614 L 490.114 481.562 M 505.857 40.614 L 505.857 481.562 M 1.589 40.449 L 521.935 40.449 L 521.935 481.398 L 1.589 481.398 Z%22 fill=%22transparent%22 stroke-width=%220.78%22 stroke=%22rgba(65,194,73,0.3",
+      "host": null,
+      "alt": null,
+      "section": "Section Mission",
+      "local": {
+        "x": 15,
+        "y": 146
+      },
+      "box": {
+        "x": 133,
+        "y": 2751,
+        "w": 524,
+        "h": 522
+      },
+      "natural": null,
+      "fit": "100% 100%",
+      "radius": 0,
+      "video": null
+    }
+  ]
+}
