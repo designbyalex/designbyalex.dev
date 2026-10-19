@@ -19,7 +19,7 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
     return null;
   }
   return (
-    <Section background={data.background!} className={`aspect-video ${data.color}`}>
+    <Section sectionId="video" background={data.background!} className={`aspect-video ${data.color}`}>
       <ReactPlayer
         width='100%'
         height='100%'

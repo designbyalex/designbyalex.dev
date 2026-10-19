@@ -11,7 +11,7 @@ export const Quote = ({ data }: { data: PageBlocksQuote }) => {
   if (!data.quote) return null;
 
   return (
-    <Section background={data.background!}>
+    <Section sectionId="quote" background={data.background!}>
       <ScrollReveal as="figure" className="mx-auto max-w-3xl text-center">
         <blockquote
           className="text-balance text-2xl font-medium leading-snug tracking-tight md:text-3xl"

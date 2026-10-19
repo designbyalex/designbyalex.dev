@@ -15,6 +15,7 @@ export const Header = () => {
   return (
     <header>
       <nav
+        data-section="header"
         data-state={menuState && 'active'}
         className="site-header bg-background/50 fixed z-20 w-full border-b backdrop-blur-3xl">
         <div className="mx-auto max-w-6xl px-6 transition-all duration-300">

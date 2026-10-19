@@ -19,7 +19,7 @@ export const ImageBlock = ({ data }: { data: PageBlocksImage }) => {
   const width = data.width || 'wide';
 
   return (
-    <Section background={data.background!}>
+    <Section sectionId="image" background={data.background!}>
       <ScrollReveal>
         <figure className={cn('mx-auto', widthClasses[width] ?? widthClasses.wide)}>
           <div

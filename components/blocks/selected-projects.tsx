@@ -37,7 +37,7 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
     <Section background={data.background!} id='works' className='scroll-mt-20'>
       <div className='mx-auto max-w-5xl space-y-10 md:space-y-14'>
         {(data.heading || data.years) && (
-          <ScrollReveal className='flex flex-wrap items-baseline justify-between gap-4 border-b border-border pb-6'>
+          <ScrollReveal sectionId='works-header' className='flex flex-wrap items-baseline justify-between gap-4 border-b border-border pb-6'>
             {data.heading && (
               <h2 className='text-2xl font-medium tracking-tight md:text-3xl' data-tina-field={tinaField(data, 'heading')}>
                 {data.heading}
@@ -55,7 +55,7 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
           {projects.map((project, i) => {
             const status = project!.status ?? '';
             return (
-              <li key={i} data-tina-field={tinaField(project!)}>
+              <li key={i} data-section='project-row' data-tina-field={tinaField(project!)}>
                 <ScrollReveal amount={0.2}>
                   <Link href={project.href} className='group block rounded-2xl'>
                     {project!.image?.src && (

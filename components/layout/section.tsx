@@ -3,12 +3,14 @@ import { cn } from '../../lib/utils';
 
 interface SectionProps extends React.HTMLProps<HTMLElement> {
   background?: string;
+  /** Stable Section id for the Fidelity gate, rendered as `data-section` on the root (parity/gate-config.json sectionMap). */
+  sectionId?: string;
   children: ReactNode;
 }
 
-export const Section: React.FC<SectionProps> = ({ className, children, background, ...props }) => {
+export const Section: React.FC<SectionProps> = ({ className, children, background, sectionId, ...props }) => {
   return (
-    <div className={background || "bg-default"}>
+    <div className={background || "bg-default"} data-section={sectionId}>
       <section
         className={cn("py-12 mx-auto max-w-7xl px-6", className)}
         {...props}

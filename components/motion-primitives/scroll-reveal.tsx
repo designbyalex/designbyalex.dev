@@ -9,6 +9,8 @@ export type ScrollRevealProps = ScrollRevealOptions & {
   className?: string;
   /** Element to render. Default 'div'. */
   as?: ElementType;
+  /** Stable Section id for the Fidelity gate, rendered as `data-section`. */
+  sectionId?: string;
 };
 
 /**
@@ -16,7 +18,7 @@ export type ScrollRevealProps = ScrollRevealOptions & {
  * Routes its motion through {@link scrollRevealMotion}, so with
  * `prefers-reduced-motion` it renders statically at its final position.
  */
-export function ScrollReveal({ children, className, as = 'div', y, duration, delay, once, amount, scale }: ScrollRevealProps) {
+export function ScrollReveal({ children, className, as = 'div', y, duration, delay, once, amount, scale, sectionId }: ScrollRevealProps) {
   const prefersReducedMotion = useReducedMotion() ?? false;
   const { initial, whileInView, transition, viewport } = scrollRevealMotion(prefersReducedMotion, {
     y,
@@ -30,7 +32,7 @@ export function ScrollReveal({ children, className, as = 'div', y, duration, del
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
 
   return (
-    <MotionTag className={cn(className)} initial={initial} whileInView={whileInView} viewport={viewport} transition={transition}>
+    <MotionTag className={cn(className)} data-section={sectionId} initial={initial} whileInView={whileInView} viewport={viewport} transition={transition}>
       {children}
     </MotionTag>
   );

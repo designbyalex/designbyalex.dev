@@ -13,7 +13,7 @@ export const Metrics = ({ data }: { data: PageBlocksMetrics }) => {
   const metrics = data.metrics?.filter(Boolean) ?? [];
 
   return (
-    <Section background={data.background!}>
+    <Section sectionId="metrics" background={data.background!}>
       <div className="mx-auto max-w-5xl space-y-10">
         {(data.title || data.description) && (
           <ScrollReveal className="mx-auto max-w-2xl space-y-4 text-center">

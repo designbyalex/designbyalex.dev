@@ -19,7 +19,7 @@ export const Gallery = ({ data }: { data: PageBlocksGallery }) => {
   const columns = data.columns || '2';
 
   return (
-    <Section background={data.background!}>
+    <Section sectionId="gallery" background={data.background!}>
       <div className="mx-auto max-w-6xl space-y-8">
         {data.title && (
           <h2

@@ -1,4 +1,4 @@
-You are working unattended on designbyalex.dev. Tickets {{TICKETS}} are committed on branch `afk/migration`, built for speed with only the gate (`scripts/afk/check.sh`) per ticket. This is the deferred testing pass. No human will answer questions: make the reasonable call, and write it down.
+You are working unattended on designbyalex.dev. Tickets {{TICKETS}} are committed on branch `afk/migration`, each gated per ticket by `scripts/afk/check.sh --ticket N` (types, schema, lint and the Fidelity gate). This is the deferred testing pass. No human will answer questions: make the reasonable call, and write it down.
 
 ## Never background anything
 
@@ -15,7 +15,7 @@ This is a headless `claude -p` run. When you end your turn, the process exits an
    - Page HTML: `curl -fsSL https://designbyalex.dev/acacia -o .afk/cache/acacia.html`, then grep it for `framerusercontent.com` URLs and the counter targets.
    - Images: `curl -fsSL https://framerusercontent.com/<path> -o public/uploads/projects/acacia/<name>.<ext>`, referenced as `/uploads/projects/acacia/<name>.<ext>`, with `alt` text, wherever the live page shows them.
    - Update #9's *Stubbed* items in `docs/afk/NOTES.md` to say what's now done. Do the same for any other ticket whose notes say curl was denied.
-2. Run the full gate, `scripts/afk/check.sh --full`, which adds `pnpm build-local` (offline Tina + `next build`) and vitest. Fix each failure at its root cause, with the smallest change.
+2. Run the full gate, `scripts/afk/check.sh --full`, which adds `pnpm build-local` (offline Tina + `next build`) and vitest before the Fidelity gate. The Fidelity gate has no Parity scope here: it only holds every Gap count to `parity/baseline.json` (see `scripts/afk/ticket.md`, *The Fidelity gate*). Fix each failure at its root cause, with the smallest change, and commit any `parity/baseline.json` it rewrites.
 3. Add the tests the PRD's **Testing Decisions** section calls for (`gh issue view 3`): every pure module added under `lib/` on this branch gets a colocated `*.test.ts`.
 4. Review the whole diff (`git diff origin/main...HEAD`) against every acceptance criterion of every ticket (`gh issue view <n>`). Use the `mattpocock-skills:code-review` skill if it's available; otherwise review by hand. Fix real defects.
 5. Re-run the full gate until it's green.
