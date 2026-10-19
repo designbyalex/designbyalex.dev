@@ -260,8 +260,8 @@ writeFileSync(join(RUN, 'counts.json'), formatBaseline(counts));
 writeFileSync(join(RUN, 'ratchet.json'), `${JSON.stringify({ pass: result.pass, reason: result.reason, failures: result.failures }, null, 2)}\n`);
 writeFileSync(join(RUN, 'report.txt'), `${formatReport(comparisons)}\n${verdict.join('\n')}\n${result.pass ? '' : `\nAll failures:\n${result.reason}\n`}`);
 
-if (result.pass && !partial) {
-  const next = formatBaseline(counts);
+if (result.pass && result.baseline && !partial) {
+  const next = formatBaseline(result.baseline);
   if (next !== committed) {
     writeFileSync(BASELINE, next);
     verdict.push(`ℹ parity/baseline.json ${committed === null ? 'created' : 'updated'}: commit it with this change`);

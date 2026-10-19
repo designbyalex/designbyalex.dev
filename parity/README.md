@@ -1,13 +1,14 @@
 # Parity: the Fidelity gate's inputs
 
-The first three are owned by the site owner (ADR 0002). Agents read them and never edit them: the loop fails any unattended commit that touches them. The Baseline is the one file here the loop commits.
+The first three are owned by the site owner (ADR 0002). Agents read them and never edit them: the loop fails any unattended commit that touches them. The Baseline is the one file here the loop commits, and only lower: verification fails a run whose commits raise any of its counts above the Baseline the ticket started from, or remove one (`scripts/parity/baseline-check.ts`).
 
 | Path | What |
 |---|---|
 | `reference/` | The frozen Reference snapshot of the Framer site (see its README). Never re-captured. |
 | `gate-config.json` | Tolerances, matching thresholds, font aliases, forbidden media hosts, the Section map and extra routes |
 | `deviations.json` | The Deviation list: the differences the owner has approved, which stop counting as Gaps |
-| `baseline.json` | The Baseline: open Gaps per page, Section, width and Dimension, which may only go down. Rewritten by a passing gate run and committed with the change |
+| `baseline.json` | The Baseline: open Gaps per page, Section, width and Dimension, which may only go down. Rewritten by a passing gate run and committed with the change. A Section the Build no longer has stays at 0 |
+| `../scripts/parity/`, `../scripts/afk/`, `../scripts/afk-loop.sh` | The gate's own code (extractor, comparator, ratchet, gate runner) and the loop that runs it. Owner-only like the first three, so the agent being judged can't change its judge: gate changes are attended work |
 
 ## The Fidelity gate
 

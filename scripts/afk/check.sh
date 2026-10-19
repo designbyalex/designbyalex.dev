@@ -78,7 +78,8 @@ if [[ $gate == 1 ]]; then
     gate_args+=(--ticket "$ticket_file")
   fi
   step "fidelity gate (build-local → next start → extract → compare → ratchet)"
-  pnpm --silent parity:gate ${gate_args[@]+"${gate_args[@]}"}
+  # Called directly, not through a package.json script: package.json isn't owner-only, this file is.
+  node scripts/parity/gate.ts ${gate_args[@]+"${gate_args[@]}"}
 fi
 
 printf '\n✓ gate green%s\n' "$([[ $full == 1 ]] && echo ' (full)')$([[ $gate == 0 ]] && echo ' (without the Fidelity gate)')"

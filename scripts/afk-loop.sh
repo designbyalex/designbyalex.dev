@@ -9,8 +9,11 @@
 # After the last ticket, one deferred testing pass runs build-local + vitest + review. Then the
 # branch is pushed once and opened as a draft PR, which is the only Vercel build of the whole run.
 #
-# Verification fails any run whose commits touch the owner-only parity files ($PROTECTED): the
-# Deviation list, the gate config and the Reference snapshot. Agents propose Deviations in the notes.
+# Verification fails any run whose commits touch the owner-only files ($PROTECTED): the Deviation
+# list, the gate config, the Reference snapshot, and the gate's own code (scripts/parity, scripts/afk,
+# this script), so the agent being judged can't change its judge. It also fails a run that raises any
+# count in parity/baseline.json above the Baseline the ticket started from, or drops one
+# (scripts/parity/baseline-check.ts): only a passing gate lowers it. Agents propose Deviations in the notes.
 #
 # Run from a checkout of branch afk/migration with a clean working tree:
 #   scripts/afk-loop.sh
@@ -44,8 +47,9 @@ PUSH=${AFK_PUSH:-1}
 DRY=${AFK_DRY_RUN:-0}
 DIR=scripts/afk
 LOGS=.afk/logs
-# Owner-only (ADR 0002): an unattended commit that touches these fails verification.
-PROTECTED=(parity/deviations.json parity/gate-config.json parity/reference)
+# Owner-only (ADR 0002): an unattended commit that touches these fails verification. Gate changes are
+# attended work.
+PROTECTED=(parity/deviations.json parity/gate-config.json parity/reference scripts/parity scripts/afk scripts/afk-loop.sh)
 
 say() { printf '[afk %s] %s\n' "$(date +%H:%M:%S)" "$*"; }
 notify() { osascript -e "display notification \"$1\" with title \"AFK loop\"" >/dev/null 2>&1 || true; }
@@ -106,13 +110,21 @@ run_claude() {
     "$log" 2>/dev/null | tail -1 || true
 }
 
-# Owner-only parity files changed by this branch's commits since main, one per line.
+# Owner-only files changed by this branch's commits since main, one per line.
 protected_changes() { git diff --name-only "$(git merge-base origin/main HEAD)" HEAD -- "${PROTECTED[@]}"; }
+
+# Counts in parity/baseline.json at HEAD that are above (or missing from) the Baseline at commit $1, one
+# per line. Exit 0 = none; non-zero = raised (or the check crashed), with the reasons on stdout.
+baseline_raised() {
+  local before=.afk/baseline-before.json
+  git show "$1:parity/baseline.json" >"$before" 2>/dev/null || rm -f "$before"
+  node scripts/parity/baseline-check.ts "$before" parity/baseline.json 2>&1
+}
 
 # Did the run finish properly? Marker commit, clean tree, owner-only files untouched, gate green.
 # Reason → .afk/verify.log.
 verify() {
-  local marker=$1 out=.afk/verify.log touched
+  local marker=$1 out=.afk/verify.log touched raised
   shift
   if ! has_commit "$marker"; then
     echo "No commit with a subject starting '$marker' was made." >"$out"
@@ -125,10 +137,19 @@ verify() {
   touched=$(protected_changes)
   if [[ -n $touched ]]; then
     {
-      echo "Your commits modify owner-only Fidelity gate files, which an unattended run must never change:"
+      echo "✗ Your commits modify owner-only Fidelity gate files, which an unattended run must never change:"
       sed 's/^/  /' <<<"$touched"
       echo "Restore them with \`git restore --source=origin/main -- <path>\` and commit that with the same subject prefix."
       echo "To propose a Deviation, add it under \"## Proposed deviations\" in docs/afk/NOTES.md instead."
+    } >"$out"
+    return 1
+  fi
+  if ! raised=$(baseline_raised "$UNIT_START"); then
+    {
+      echo "✗ Your commits raise parity/baseline.json above the Baseline this run started from ($(git rev-parse --short "$UNIT_START")):"
+      sed 's/^/  /' <<<"$raised"
+      echo "The Baseline may only go down, and only a passing Fidelity gate writes it. Restore it with"
+      echo "\`git restore --source=$(git rev-parse --short "$UNIT_START") -- parity/baseline.json\`, close the Gaps instead, and commit."
     } >"$out"
     return 1
   fi
@@ -152,6 +173,8 @@ feedback() {
 attempt_unit() {
   local label=$1 marker=$2 tpl=$3 vargs=$4 fb="" attempt prompt log
   shift 4
+  # The Baseline this unit must not raise: as committed before its first attempt.
+  UNIT_START=$(git rev-parse HEAD)
   for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
     prompt=${tpl//\{\{FEEDBACK\}\}/$fb}
     log="$LOGS/$label-$(date +%Y%m%d-%H%M%S)-a$attempt.jsonl"
@@ -247,7 +270,8 @@ else
 fi
 
 say "▶ independent full check before pushing"
-[[ -z $(protected_changes) ]] || die "commits on $BRANCH modify owner-only parity files: $(protected_changes | tr '\n' ' ')"
+[[ -z $(protected_changes) ]] || die "commits on $BRANCH modify owner-only files: $(protected_changes | tr '\n' ' ')"
+baseline_raised "$(git merge-base origin/main HEAD)" >.afk/baseline-check.log || die "commits on $BRANCH raise parity/baseline.json above main's. See .afk/baseline-check.log"
 "$DIR/check.sh" --full >.afk/final-check.log 2>&1 || die "full check failed. See .afk/final-check.log"
 [[ -z $(git status --porcelain) ]] || die "full check left uncommitted changes"
 

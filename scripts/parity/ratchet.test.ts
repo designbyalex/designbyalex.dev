@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Comparison, Gap } from './compare';
-import { type Counts, countGaps, formatBaseline, parseBaseline, parseParityScope, ratchet } from './ratchet';
+import { baselineRaised, type Counts, countGaps, formatBaseline, parseBaseline, parseParityScope, ratchet } from './ratchet';
 
 const ticket = (scope: string) => `## What to build
 
@@ -122,6 +122,14 @@ describe('ratchet', () => {
     expect(result.reason).toBe('Baseline held: none lower (6 → 7 Gaps), none rose, 1 new Section');
   });
 
+  it('keeps a Section the run no longer has in the new Baseline, at 0', () => {
+    const now = counts(['/acacia', 'Section Mission', 1440, { Type: 3, Copy: 1 }]);
+    const result = ratchet({ baseline, counts: now, scope: [] });
+    expect(result.pass).toBe(true);
+    expect(result.baseline).toEqual(counts(['/acacia', 'Section Mission', 1440, { Type: 3, Copy: 1 }], ['/acacia', 'Section Trust', 1440, {}]));
+    expect(result.reason).toBe('Baseline held: 1 count lower (6 → 4 Gaps), none rose');
+  });
+
   it('passes on a first run with no Baseline, taking the counts as the Baseline', () => {
     const result = ratchet({ baseline: null, counts: baseline, scope: [] });
     expect(result.pass).toBe(true);
@@ -207,5 +215,37 @@ describe('Baseline file', () => {
     expect(() => parseBaseline({ format: 1, counts: { '/': { page: 'home', sections: { Hero: { 390: { Copy: 'x' } } } } } })).toThrow(
       /counts\.\/\.sections\.Hero\.390\.Copy: expected a number/
     );
+  });
+});
+
+describe('baselineRaised', () => {
+  const before = counts(['/acacia', 'Section Mission', 1440, { Type: 3, Copy: 1 }], ['/acacia', 'Section Trust', 1440, { Layout: 2 }]);
+
+  it('lists a count the new Baseline raised', () => {
+    const after = counts(['/acacia', 'Section Mission', 1440, { Type: 4, Copy: 1 }], ['/acacia', 'Section Trust', 1440, { Layout: 2 }]);
+    expect(baselineRaised(before, after)).toEqual([{ path: '/acacia', section: 'Section Mission', width: 1440, dimension: 'Type', before: 3, after: 4 }]);
+  });
+
+  it('accepts lower and equal counts', () => {
+    const after = counts(['/acacia', 'Section Mission', 1440, { Type: 1 }], ['/acacia', 'Section Trust', 1440, { Layout: 2 }]);
+    expect(baselineRaised(before, after)).toEqual([]);
+  });
+
+  it('lists a page, Section or width the new Baseline removed', () => {
+    const after = counts(['/acacia', 'Section Mission', 1440, { Type: 3, Copy: 1 }]);
+    expect(baselineRaised(before, after)).toEqual([{ path: '/acacia', section: 'Section Trust', width: 1440, dimension: null, before: 2, after: null }]);
+  });
+
+  it('accepts a new Section at its first count', () => {
+    const after = counts(
+      ['/acacia', 'Section Mission', 1440, { Type: 3, Copy: 1 }],
+      ['/acacia', 'Section Trust', 1440, { Layout: 2 }],
+      ['/acacia', 'case-study-section', 1440, { Layout: 5 }]
+    );
+    expect(baselineRaised(before, after)).toEqual([]);
+  });
+
+  it('accepts any first Baseline', () => {
+    expect(baselineRaised(null, before)).toEqual([]);
   });
 });

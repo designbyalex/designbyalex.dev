@@ -3,7 +3,8 @@
 //
 // A ticket must clear every Gap its Parity scope names. Everywhere else a count may stay or go down, never
 // rise. A Section the Baseline has never seen starts at its first count. On a pass the new counts become the
-// Baseline, committed with the change (parity/baseline.json).
+// Baseline, committed with the change (parity/baseline.json). A Section the run no longer has stays in it at
+// 0, so the Baseline never loses a key and the loop can check a committed Baseline with baselineRaised.
 import { DIMENSIONS, type Dimension } from './checks.ts';
 import type { Comparison } from './compare.ts';
 import { fail, num, obj, oneOf, type ShapeCheck, str } from './validate.ts';
@@ -92,7 +93,7 @@ export interface RatchetInput {
 
 export interface RatchetResult {
   pass: boolean;
-  /** The counts on a pass; the Baseline unchanged on a failure. */
+  /** The counts on a pass, plus at 0 any Section the run no longer has; the Baseline unchanged on a failure. */
   baseline: Counts | null;
   /** One line per failure, or a summary of the change on a pass. */
   reason: string;
@@ -175,6 +176,7 @@ export function ratchet({ baseline, counts, scope }: RatchetInput): RatchetResul
   const failures: Failure[] = [];
   let lower = 0;
   const fresh = new Set<string>();
+  const vanished: [path: string, section: string, width: string][] = [];
 
   for (const line of scope) {
     const hit = Object.entries(counts).some(([path, p]) => Object.keys(p.sections).some((s) => inScope(line, path, p.page, s)));
@@ -212,7 +214,10 @@ export function ratchet({ baseline, counts, scope }: RatchetInput): RatchetResul
         continue;
       }
       for (const [section, s] of Object.entries(p.sections))
-        if (s[w] && !counts[path].sections[section]?.[w]) lower += DIMENSIONS.filter((d) => s[w][d] > 0).length;
+        if (s[w] && !counts[path].sections[section]?.[w]) {
+          lower += DIMENSIONS.filter((d) => s[w][d] > 0).length;
+          vanished.push([path, section, w]);
+        }
     }
   }
 
@@ -224,7 +229,36 @@ export function ratchet({ baseline, counts, scope }: RatchetInput): RatchetResul
   const reason = `Baseline held: ${lower > 0 ? `${plural(lower, 'count')} lower` : 'none lower'} (${sum(baseline)} → ${sum(counts)} Gaps), none rose${
     news > 0 ? `, ${plural(news, 'new Section')}` : ''
   }`;
-  return { pass: true, baseline: counts, reason, failures };
+  const next = structuredClone(counts);
+  for (const [path, section, w] of vanished) (next[path].sections[section] ??= {})[w] = { Copy: 0, Media: 0, Layout: 0, Type: 0 };
+  return { pass: true, baseline: next, reason, failures };
+}
+
+/** A count a committed Baseline raised, or a Section and width it dropped (`dimension` and `after` null). */
+export interface RaisedCount {
+  path: string;
+  section: string;
+  width: number;
+  dimension: Dimension | null;
+  before: number;
+  after: number | null;
+}
+
+/**
+ * Where `after` is above `before`: a raised count, or a page, Section or width `before` has and `after` lacks.
+ * A key only `after` has is a new Section at its first count. The loop runs it on the Baseline committed at a
+ * ticket's start and at its end, so an agent can't make room in the ratchet by editing the Baseline.
+ */
+export function baselineRaised(before: Counts | null, after: Counts): RaisedCount[] {
+  const raised: RaisedCount[] = [];
+  for (const [path, p] of Object.entries(before ?? {}))
+    for (const [section, widths] of Object.entries(p.sections))
+      for (const [w, b] of Object.entries(widths)) {
+        const a = after[path]?.sections[section]?.[w];
+        if (!a) raised.push({ path, section, width: Number(w), dimension: null, before: total(b), after: null });
+        else for (const d of DIMENSIONS) if (a[d] > b[d]) raised.push({ path, section, width: Number(w), dimension: d, before: b[d], after: a[d] });
+      }
+  return raised;
 }
 
 export function describeFailure(f: Failure): string {
