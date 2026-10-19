@@ -5,12 +5,14 @@ interface SectionProps extends React.HTMLProps<HTMLElement> {
   background?: string;
   /** Stable Section id for the Fidelity gate, rendered as `data-section` on the root (parity/gate-config.json sectionMap). */
   sectionId?: string;
+  /** Classes for the root `data-section` element itself (the `className` goes on the inner `section`). */
+  rootClassName?: string;
   children: ReactNode;
 }
 
-export const Section: React.FC<SectionProps> = ({ className, children, background, sectionId, ...props }) => {
+export const Section: React.FC<SectionProps> = ({ className, rootClassName, children, background, sectionId, ...props }) => {
   return (
-    <div className={background || "bg-default"} data-section={sectionId}>
+    <div className={cn(background || "bg-default", rootClassName)} data-section={sectionId}>
       <section
         className={cn("py-12 mx-auto max-w-7xl px-6", className)}
         {...props}

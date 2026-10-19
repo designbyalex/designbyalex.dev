@@ -10,9 +10,9 @@
           "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Hero Content": {
-          "390": { "Copy": 1, "Media": 5, "Layout": 4, "Type": 0 },
-          "768": { "Copy": 1, "Media": 5, "Layout": 2, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 5, "Layout": 5, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Works Header": {
           "390": { "Copy": 0, "Media": 0, "Layout": 3, "Type": 0 },

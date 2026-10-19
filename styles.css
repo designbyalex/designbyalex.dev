@@ -109,6 +109,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-emphasis: var(--emphasis);
+  --color-on-image: var(--on-image);
   --color-status-in-development: var(--status-in-development);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -135,6 +136,8 @@
   --highlight-text-dark: #000000;
   --highlight-text-light: #ffffff;
   --radius: 1rem;
+  /* Text and hairlines drawn over imagery (the home hero gradient): the image is the same in both themes, so this never switches. */
+  --on-image: #ffffff;
 
   /* Motion — mirrors EASE_MICRO / EASE_ENTRANCE / DURATION.route* in lib/motion/reduced-motion.ts */
   --motion-ease-micro: cubic-bezier(0.2, 0, 0, 1);
