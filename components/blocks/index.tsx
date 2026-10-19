@@ -9,6 +9,7 @@ import { FeatureDeepDive } from "./feature-deep-dive";
 import { Metrics } from "./metrics";
 import { Quote } from "./quote";
 import { CallToAction } from "./call-to-action";
+import { CaseStudySection } from "./case-study-section";
 import { SelectedProjects } from "./selected-projects";
 import { About } from "./about";
 import { resolveBlockComponent } from "./resolve";
@@ -28,6 +29,8 @@ export const blockComponents: Record<string, ComponentType<{ data: any }>> = {
   Metrics,
   Quote,
   Cta: CallToAction,
+  // Case-study sections (registered on the `project` collection only).
+  CaseStudySection,
   // Homepage sections (registered on the `page` collection only).
   SelectedProjects,
   About,

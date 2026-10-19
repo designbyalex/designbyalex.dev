@@ -8,6 +8,7 @@ import { featureDeepDiveBlockSchema } from '@/components/blocks/feature-deep-div
 import { metricsBlockSchema } from '@/components/blocks/metrics';
 import { quoteBlockSchema } from '@/components/blocks/quote';
 import { ctaBlockSchema } from '@/components/blocks/call-to-action';
+import { caseStudySectionBlockSchema } from '@/components/blocks/case-study-section';
 import { metricFields } from '@/tina/fields/metric';
 
 const Project: Collection = {
@@ -54,7 +55,7 @@ const Project: Collection = {
       type: 'rich-text',
       label: 'Intro',
       name: 'intro',
-      description: 'Lead paragraphs shown under the tagline, before the overview.',
+      description: 'Lead paragraphs shown under the tagline, before the overview. Highlight the green key phrases with the editor’s highlighter.',
     },
     {
       type: 'string',
@@ -140,6 +141,7 @@ const Project: Collection = {
         visualSelector: true,
       },
       templates: [
+        caseStudySectionBlockSchema,
         heroBlockSchema,
         textBlockSchema,
         imageBlockSchema,

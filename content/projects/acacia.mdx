@@ -28,70 +28,90 @@ blocks:
     src: /uploads/projects/acacia/hero.png
     alt: The Acacia web app's home dashboard on a laptop on a wooden desk, with welcome, marketplace and news cards over a sunset sky.
     width: wide
-  - _template: text
-    body: |-
-      ## What's Acacia's mission? Making the renewable energy transition frictionless.
+  - _template: caseStudySection
+    sectionId: mission
+    heading: What's Acacia's mission?
+    subheading: Making the renewable energy transition frictionless.
+    headingSize: heading
+    blocks:
+      - _template: logoCard
+        grid: /uploads/projects/acacia/mission-grid.svg
+        logo: /uploads/projects/acacia/acacia-logo.svg
+        alt: The Acacia logo on a green grid.
+      - _template: body
+        body: |-
+          Acacia empowers organisations, their customers, and employees to unlock savings through smarter decisions across energy, transport, and finance. The platform offers tools for switching to cheaper, greener energy plans, adopting solar and batteries, assessing EV suitability, and even connecting to virtual power plants.
+      - _template: statement
+        text: 'The platform is trying to do something very hard: '
+        emphasis: Changing hearts and minds.
+  - _template: caseStudySection
+    sectionId: credibility
+    heading: Fighting for credibility
+    headingSize: heading
+    blocks:
+      - _template: body
+        body: |-
+          Acacia’s biggest challenge wasn’t technology — it was building credibility. Every core feature asked users to make difficult financial or environmental choices. These were the moments where hesitation crept in: users needed guidance, not jargon and complexity. My role was to design clarity into these journeys, building confidence at each step so users could unlock Acacia's value without feeling overwhelmed. This was the foundation for credibility — and credibility was essential for driving conversion and securing future partnerships.
+      - _template: insights
+        label: Some user insights
+        items:
+          - title: Users “loved the idea” but needed guidance
+            text: The platform was well received, but we were asking users to do something hard. We had to be clear on the problem being solved and reinforce how simple it was to get started.
+          - title: Users were required to “work things out”
+            text: While some enjoyed exploring, a larger percentage want to be guided. Too much was left to interpretation — every word and interaction needed to build clarity.
+          - title: Users put it into the “too hard basket”
+            text: At critical decision points, complexity and jargon contributed to drop-off. Once doubt entered the experience, trust eroded quickly and users abandoned the process.
+  - _template: caseStudySection
+    sectionId: trust
+    heading: A trust barrier…
+    headingSize: heading
+    blocks:
+      - _template: body
+        body: |-
+          Usage analysis and tailored upgrade recommendations are central to Acacia’s product value — but delivering this experience required users to share their energy data through the CDR consent flow. This was a tightly regulated process, filled with technical language that only heightened hesitation. Without trust, most users abandoned the journey before unlocking the product’s core features.
 
-      Acacia empowers organisations, their customers, and employees to unlock savings through smarter decisions across energy, transport, and finance. The platform offers tools for switching to cheaper, greener energy plans, adopting solar and batteries, assessing EV suitability, and even connecting to virtual power plants.
-  - _template: quote
-    quote: "The platform is trying to do something very hard: Changing hearts and minds."
-  - _template: text
-    body: |-
-      ## Fighting for credibility
-
-      Acacia's biggest challenge wasn't technology — it was building credibility. Every core feature asked users to make difficult financial or environmental choices. These were the moments where hesitation crept in: users needed guidance, not jargon and complexity. My role was to design clarity into these journeys, building confidence at each step so users could unlock Acacia's value without feeling overwhelmed. This was the foundation for credibility — and credibility was essential for driving conversion and securing future partnerships.
-
-      ### Some user insights
-
-      **Users "loved the idea" but needed guidance**
-
-      The platform was well received, but we were asking users to do something hard. We had to be clear on the problem being solved and reinforce how simple it was to get started.
-
-      **Users were required to "work things out"**
-
-      While some enjoyed exploring, a larger percentage want to be guided. Too much was left to interpretation — every word and interaction needed to build clarity.
-
-      **Users put it into the "too hard basket"**
-
-      At critical decision points, complexity and jargon contributed to drop-off. Once doubt entered the experience, trust eroded quickly and users abandoned the process.
-  - _template: text
-    body: |-
-      ## A trust barrier…
-
-      Usage analysis and tailored upgrade recommendations are central to Acacia's product value — but delivering this experience required users to share their energy data through the CDR consent flow. This was a tightly regulated process, filled with technical language that only heightened hesitation. Without trust, most users abandoned the journey before unlocking the product's core features.
-
-      Building confidence before the consent stage became critical: only by addressing credibility first could we guide users through the process and deliver the platform's full potential.
-  - _template: quote
-    quote: We recognised that we didn't have a data problem, we had a trust problem.
-  - _template: text
-    body: |-
-      ## Driving long-term engagement
-
-      *"I did what I had to do — why would I go back to Acacia?"* Retention quickly emerged as one of the platform's biggest challenges. Many users treated Acacia as a one-off utility: once they switched plans or completed an upgrade, there was little reason to return.
-
-      For the business to grow sustainably, we needed to create ongoing value that encouraged regular re-engagement. The opportunity was to position Acacia as an independent partner in every user's renewable energy transition — always in their corner, delivering insights that optimise their finances while helping them do their part for the world at large.
-  - _template: quote
-    quote: The platform needed to demonstrate strong customer lifetime value to secure long-term B2B2C partnerships.
-  - _template: text
-    body: |-
-      ## Solution
-
-      The problems of credibility, trust, and engagement directly shaped the solutions. To turn interest into action, I focused on simplifying complex user journeys and building user confidence at each step. Working together, these features transformed moments of hesitation into trust, action, and sustainable growth.
-  - _template: quote
-    quote: Solving for the problems of credibility, trust, and engagement.
-  - _template: text
-    body: |-
-      ### Some key features I designed
-
-      - Onboarding flow
-      - Gamified progress indicators
-      - Data consent experience
-      - Home upgrade modules
-      - Energy profile & insights
-  - _template: image
-    src: /uploads/projects/acacia/home-dashboard.png
-    alt: The Acacia home dashboard on a laptop against a dark background, showing the welcome card, energy marketplace, partner news and the first "How it works" steps.
-    width: wide
+          Building confidence before the consent stage became critical: only by addressing credibility first could we guide users through the process and deliver the platform’s full potential.
+      - _template: statement
+        text: 'We recognised that we didn''t have a data problem, '
+        emphasis: we had a trust problem.
+        leadOnPhone: true
+  - _template: caseStudySection
+    sectionId: engagement
+    heading: Driving long-term engagement
+    headingSize: heading
+    blocks:
+      - _template: body
+        body: |-
+          *“I did what I had to do — why would I go back to Acacia?”* Retention quickly emerged as one of the platform’s biggest challenges. Many users treated Acacia as a one-off utility: once they switched plans or completed an upgrade, there was little reason to return.\
+          \
+          For the business to grow sustainably, we needed to create ongoing value that encouraged regular re-engagement. The opportunity was to position Acacia as an independent partner in every user's renewable energy transition — always in their corner, delivering insights that optimise their finances while helping them do their part for the world at large.
+      - _template: statement
+        text: 'The platform needed to demonstrate strong customer lifetime value '
+        emphasis: to secure long-term B2B2C partnerships.
+        leadOnPhone: true
+  - _template: caseStudySection
+    sectionId: solution
+    heading: Solution
+    headingSize: heading
+    blocks:
+      - _template: body
+        body: |-
+          The problems of credibility, trust, and engagement directly shaped the solutions. To turn interest into action, I focused on simplifying complex user journeys and building user confidence at each step. Working together, these features transformed moments of hesitation into trust, action, and sustainable growth.
+      - _template: statement
+        text: 'Solving for the problems of '
+        emphasis: credibility, trust, and engagement.
+        leadOnPhone: true
+      - _template: iconList
+        label: Some key features I designed
+        items:
+          - text: Onboarding flow
+          - text: Gamified progress indicators
+          - text: Data consent experience
+          - text: Home upgrade modules
+          - text: Energy profile & insights
+    image:
+      src: /uploads/projects/acacia/home-dashboard.png
+      alt: The Acacia home dashboard on a laptop against a dark background, showing the welcome card, energy marketplace, partner news and the first "How it works" steps.
   - _template: featureDeepDive
     eyebrow: Onboarding flow
     heading: Converting interest into action
@@ -170,19 +190,24 @@ blocks:
       - value: 15
         kind: percentage
         label: estimated increase in average customer lifetime value
-  - _template: text
-    body: |-
-      ## What's next for Acacia? Impact now, growth tomorrow
-
-      When I joined Acacia, the product lacked a unified design system. I rebuilt UI components from scattered demos, pixel by pixel, and worked closely with developers to define styling rules that brought much-needed consistency to a fast-evolving product. These foundations ensured we could move quickly without sacrificing cohesion.
-
-      As the product matured and more ambitious solutions emerged, I developed a roadmap for a V.2 rollout — a way to iterate on the experience once additional developer resources became available. We had to be smart and efficient: designing for immediate impact while planning ahead for sustainable growth.
-  - _template: quote
-    quote: Pixel by pixel, I built the foundations. Then mapped the path to Acacia's next chapter.
-  - _template: image
-    src: /uploads/projects/acacia/design-system.png
-    alt: A sheet of Acacia design system components - content cards, an upgrade module, a testimonial card, button and icon variants, and the "How it works" steps.
-    width: wide
+  - _template: caseStudySection
+    sectionId: whats-next
+    heading: What's next for Acacia?
+    subheading: Impact now, growth tomorrow
+    headingSize: statement
+    blocks:
+      - _template: body
+        body: |-
+          When I joined Acacia, the product lacked a unified design system. I rebuilt UI components from scattered demos, pixel by pixel, and worked closely with developers to define styling rules that brought much-needed consistency to a fast-evolving product. These foundations ensured we could move quickly without sacrificing cohesion.\
+          \
+          As the product matured and more ambitious solutions emerged, I developed a roadmap for a V.2 rollout — a way to iterate on the experience once additional developer resources became available. We had to be smart and efficient: designing for immediate impact while planning ahead for sustainable growth.
+      - _template: statement
+        text: Pixel by pixel, I built the foundations. Then mapped the
+        emphasis: ' path to Acacia’s next chapter.'
+        leadOnPhone: true
+    image:
+      src: /uploads/projects/acacia/design-system.png
+      alt: A sheet of Acacia design system components - content cards, an upgrade module, a testimonial card, button and icon variants, and the "How it works" steps.
   - _template: cta
     title: Want the full story?
     description: |-
