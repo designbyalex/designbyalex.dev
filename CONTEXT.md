@@ -44,6 +44,21 @@ One visually distinct region of a page (a homepage block, a case-study header), 
 One of the fixed viewport widths (390, 768, 1440) at which Layout and Type are compared.
 _Avoid_: breakpoint (those belong to the CSS)
 
+**Reference snapshot**:
+A frozen capture of the Reference site (text, geometry, computed style and screenshots per page and Checkpoint width), taken before Cutover; what the Build is compared against from then on.
+_Avoid_: golden, baseline
+
+**Deviation list**:
+The owner-maintained record of approved Deviations, read by the Fidelity gate.
+
+**Baseline**:
+The committed count of open Gaps per Section, which may only go down.
+_Avoid_: snapshot
+
+**Parity sign-off**:
+The site owner's final review of Motion, the Net-new theme and the Deviation list; the last step before Cutover.
+_Avoid_: QA pass, parity review
+
 ## Themes
 
 **Faithful theme**:
