@@ -73,6 +73,8 @@
       "Bash(gh issue edit:*)",
       "Bash(gh issue comment:*)",
       "Bash(rm -rf:*)",
+      "Bash(pnpm parity:capture-reference:*)",
+      "Bash(node scripts/parity/capture-reference.ts:*)",
       "Bash(pnpm dev:*)"
     ]
   }
