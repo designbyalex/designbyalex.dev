@@ -3,6 +3,10 @@ You are working unattended on designbyalex.dev. Tickets {{TICKETS}} are committe
 ## Steps
 
 1. Read `docs/afk/NOTES.md` and `git log --reverse origin/main..HEAD`.
+1a. Finish the stubs a harness bug forced. Ticket #9 ran while the curl allowlist was broken (fixed in a later `chore(afk):` commit), so its images and its four outcome counter values are stubbed: see its *Stubbed* notes. Do them now, the way the tickets do:
+   - Page HTML: `curl -fsSL https://designbyalex.dev/acacia -o .afk/cache/acacia.html`, then grep it for `framerusercontent.com` URLs and the counter targets.
+   - Images: `curl -fsSL https://framerusercontent.com/<path> -o public/uploads/projects/acacia/<name>.<ext>`, referenced as `/uploads/projects/acacia/<name>.<ext>`, with `alt` text, wherever the live page shows them.
+   - Update #9's *Stubbed* items in `docs/afk/NOTES.md` to say what's now done. Do the same for any other ticket whose notes say curl was denied.
 2. Run the full gate, `scripts/afk/check.sh --full`, which adds `pnpm build-local` (offline Tina + `next build`) and vitest. Fix each failure at its root cause, with the smallest change.
 3. Add the tests the PRD's **Testing Decisions** section calls for (`gh issue view 3`): every pure module added under `lib/` on this branch gets a colocated `*.test.ts`.
 4. Review the whole diff (`git diff origin/main...HEAD`) against every acceptance criterion of every ticket (`gh issue view <n>`). Use the `mattpocock-skills:code-review` skill if it's available; otherwise review by hand. Fix real defects.
