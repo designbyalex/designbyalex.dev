@@ -33,9 +33,11 @@ export const DURATION = {
   routeOut: 0.18,
   /** route transition: incoming page fade-and-rise (mirrored in styles.css) */
   routeIn: 0.42,
+  /** header sliding out of / back into view on scroll */
+  hideOnScroll: 0.3,
 } as const;
 
-export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition' | 'autoplay';
+export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition' | 'autoplay' | 'hide-on-scroll';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -238,4 +240,29 @@ export function routeTransitionMotion(prefersReducedMotion: boolean): RouteTrans
 export function autoplayMotion(prefersReducedMotion: boolean, autoPlay: boolean | null | undefined): boolean {
   if (prefersReducedMotion) return false;
   return Boolean(autoPlay);
+}
+
+// ─── hide-on-scroll ───────────────────────────────────────────────────────────
+
+export interface HideOnScrollMotion {
+  /** `shown` / `hidden` variants for the fixed header. */
+  variants: Variants;
+  transition: Transition;
+}
+
+/**
+ * Props for the header that slides up out of view on scroll down and back on
+ * scroll up (the decision itself is `lib/motion/scroll-visibility.ts`).
+ * Reduced motion → both variants are the resting position, so the header never
+ * moves even if a `hidden` state were ever requested.
+ */
+export function hideOnScrollMotion(prefersReducedMotion: boolean): HideOnScrollMotion {
+  if (prefersReducedMotion) {
+    return { variants: { shown: { y: 0 }, hidden: { y: 0 } }, transition: INSTANT };
+  }
+
+  return {
+    variants: { shown: { y: 0 }, hidden: { y: '-100%' } },
+    transition: { duration: DURATION.hideOnScroll, ease: EASE_MICRO },
+  };
 }

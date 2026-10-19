@@ -4,6 +4,7 @@ import {
   DURATION,
   EASE_ENTRANCE,
   EASE_MICRO,
+  hideOnScrollMotion,
   hoverMotion,
   routeTransitionMotion,
   scrollRevealMotion,
@@ -226,5 +227,20 @@ describe('autoplayMotion', () => {
       expect(autoplayMotion(true, true)).toBe(false);
       expect(autoplayMotion(true, false)).toBe(false);
     });
+  });
+});
+
+describe('hideOnScrollMotion', () => {
+  it('slides the header fully out of view and back, on the micro curve', () => {
+    const m = hideOnScrollMotion(false);
+    expect(m.variants).toEqual({ shown: { y: 0 }, hidden: { y: '-100%' } });
+    expect(m.transition.duration).toBe(DURATION.hideOnScroll);
+    expect(m.transition.ease).toBe(EASE_MICRO);
+  });
+
+  it('reduced motion: both variants rest at y 0 with an instant transition', () => {
+    const m = hideOnScrollMotion(true);
+    expect(m.variants).toEqual({ shown: { y: 0 }, hidden: { y: 0 } });
+    expect(m.transition.duration).toBe(0);
   });
 });

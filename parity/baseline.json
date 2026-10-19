@@ -5,9 +5,9 @@
       "page": "home",
       "sections": {
         "Header": {
-          "390": { "Copy": 2, "Media": 0, "Layout": 2, "Type": 3 },
-          "768": { "Copy": 2, "Media": 0, "Layout": 2, "Type": 3 },
-          "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Hero Content": {
           "390": { "Copy": 1, "Media": 5, "Layout": 4, "Type": 0 },
@@ -35,9 +35,9 @@
           "1440": { "Copy": 0, "Media": 2, "Layout": 29, "Type": 1 }
         },
         "Footer": {
-          "390": { "Copy": 8, "Media": 0, "Layout": 4, "Type": 4 },
-          "768": { "Copy": 8, "Media": 0, "Layout": 4, "Type": 4 },
-          "1440": { "Copy": 6, "Media": 0, "Layout": 5, "Type": 4 }
+          "390": { "Copy": 6, "Media": 0, "Layout": 4, "Type": 4 },
+          "768": { "Copy": 6, "Media": 0, "Layout": 4, "Type": 4 },
+          "1440": { "Copy": 6, "Media": 0, "Layout": 4, "Type": 4 }
         },
         "(page)": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
@@ -65,9 +65,9 @@
       "page": "acacia",
       "sections": {
         "Header": {
-          "390": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Project Hero": {
           "390": { "Copy": 3, "Media": 1, "Layout": 5, "Type": 1 },
@@ -145,9 +145,9 @@
           "1440": { "Copy": 4, "Media": 1, "Layout": 8, "Type": 6 }
         },
         "Footer": {
-          "390": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 }
+          "390": { "Copy": 11, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 11, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 11, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "(page)": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
@@ -285,9 +285,9 @@
       "page": "mosurban",
       "sections": {
         "Header": {
-          "390": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 3, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Project Hero": {
           "390": { "Copy": 2, "Media": 1, "Layout": 5, "Type": 1 },
@@ -365,9 +365,9 @@
           "1440": { "Copy": 4, "Media": 1, "Layout": 8, "Type": 6 }
         },
         "Footer": {
-          "390": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 11, "Media": 0, "Layout": 1, "Type": 0 }
+          "390": { "Copy": 11, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 11, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 11, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "(page)": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },

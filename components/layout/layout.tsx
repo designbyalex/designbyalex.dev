@@ -31,7 +31,8 @@ export default async function Layout({ children, rawPageData }: LayoutProps) {
         Skip to content
       </a>
       <Header />
-      <main id="main" tabIndex={-1} className="overflow-x-hidden pt-20 outline-none">
+      {/* Offset by the header's height (88px, 96px at ≥1024) until the Hero and Project Hero tickets place their content under it as the Reference does. */}
+      <main id="main" tabIndex={-1} className="overflow-x-hidden pt-22 outline-none lg:pt-24">
         {children}
       </main>
       <Footer />

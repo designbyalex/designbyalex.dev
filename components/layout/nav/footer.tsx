@@ -29,7 +29,8 @@ export const Footer = () => {
   const { header, footer } = globalSettings!;
 
   return (
-    <footer data-section="footer" className="border-b bg-white pt-20 dark:bg-transparent">
+    // The Reference footer band is 515px tall up to 768 and 277.6px at 1440; #56 fills it.
+    <footer data-section="footer" className="min-h-[515px] border-b bg-white pt-20 lg:min-h-[278px] dark:bg-transparent">
       <div className="mx-auto max-w-5xl px-6">
         <div className="mt-12 flex flex-wrap items-center gap-6 border-t py-6 flex-col md:flex-row md:justify-between">
 
@@ -38,6 +39,7 @@ export const Footer = () => {
               <Icon
                 parentColor={header!.color!}
                 data={header!.icon}
+                className="text-foreground opacity-100"
               />
             </Link>
             {/* Reference footer bar: Space Mono, uppercase, grey */}

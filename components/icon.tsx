@@ -5,11 +5,22 @@ import * as BoxIcons from 'react-icons/bi';
 import { FaFacebookF, FaGithub, FaLinkedin, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 import { AiFillInstagram } from 'react-icons/ai';
 import React from 'react';
+import { cn } from '@/lib/utils';
 import { useLayout } from './layout/layout-context';
 
 export const IconOptions = {
-  // The designbyalex.dev brand mark (same artwork as app/icon.svg). It carries its
-  // own brand colours, so the theme colour classes don't apply to it.
+  // The bare brand glyph as the Reference header and footer draw it (35×33, no
+  // tile), in the current text colour so the theme colour classes apply.
+  MarkGlyph: (props: any) => (
+    <svg {...props} viewBox='0 0 35 33.2' fill='none' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+      <path
+        fill='currentColor'
+        d='M 15.132 16.922 L 1.322 2.39 C 0.836 1.876 0 2.242 0 2.967 L 0 32.034 C 0 32.758 0.835 33.124 1.323 32.612 L 15.132 18.078 C 15.433 17.752 15.433 17.248 15.132 16.922 Z M 19.869 18.078 L 33.677 32.612 C 34.165 33.125 35 32.758 35 32.034 L 35 2.967 C 35 2.242 34.165 1.876 33.677 2.388 L 19.87 16.922 C 19.569 17.248 19.569 17.752 19.87 18.078 Z M 18.21 15.92 L 32.025 1.393 C 32.51 0.879 32.163 0 31.474 0 L 3.848 0 C 3.16 0 2.812 0.88 3.3 1.392 L 17.112 15.92 C 17.254 16.072 17.453 16.158 17.661 16.158 C 17.87 16.158 18.069 16.072 18.211 15.92 Z'
+      />
+    </svg>
+  ),
+  // The designbyalex.dev brand mark on its green tile (same artwork as app/icon.svg). It
+  // carries its own brand colours, so the theme colour classes don't apply to it.
   Mark: (props: any) => (
     <svg {...props} viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <title>Alexander Blum</title>
@@ -126,7 +137,8 @@ export const Icon = ({ data, parentColor = '', className = '', tinaField = '' })
     return (
       <IconSVG
         {...(tinaField ? { 'data-tina-field': tinaField } : {})} // only render data-tina-field if it exists
-        className={`${iconSizeClasses} ${iconColorClasses} ${className}`}
+        // tailwind-merge, so a caller's text/opacity classes override the picked colour
+        className={cn(iconSizeClasses, iconColorClasses, className)}
       />
     );
   }
