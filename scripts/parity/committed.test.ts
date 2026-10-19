@@ -51,7 +51,7 @@ describe('the gate config', () => {
 });
 
 describe('the Deviation list', () => {
-  it('holds exactly the seven Deviations approved in #46', () => {
+  it('holds the seven Deviations approved in #46, then the owner-approved additions', () => {
     expect(deviations.map((d) => d.id)).toEqual([
       'themed-404',
       'per-page-metadata',
@@ -60,6 +60,8 @@ describe('the Deviation list', () => {
       'header-theme-toggle',
       'en-dash-date-ranges',
       'dynamic-footer-year',
+      // Approved by the owner during the AFK run (#59): a Reference capture artefact at 1440.
+      'cv-link-capture-1440',
     ]);
   });
 
