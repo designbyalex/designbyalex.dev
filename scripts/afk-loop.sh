@@ -9,6 +9,11 @@
 #
 # Run from a checkout of branch afk/migration with a clean working tree:
 #   scripts/afk-loop.sh
+# Preflight fast-forwards the branch to origin/main, and stops if it has diverged.
+#
+# Every queued ticket passes the ticket guard (scripts/afk/ticket-guard.ts) first: it skips
+# HITL tickets, tickets without the `ready-for-agent` label, and tickets with an open
+# `## Blocked by` issue that wasn't finished earlier in this run. Each skip prints its reason.
 #
 # Env:
 #   AFK_TICKETS="9 10 11 12 13"  queue, in blocking order
@@ -46,11 +51,37 @@ if [[ $DRY != 1 && -z ${ANTHROPIC_API_KEY:-} ]] && ! claude auth status 2>/dev/n
   die "claude CLI is not logged in. Run: claude auth login"
 fi
 git fetch -q origin main
-[[ -d node_modules ]] || { say "installing dependencies"; pnpm install --frozen-lockfile; }
+# Never build on a stale branch: fast-forward to origin/main, or stop if that isn't possible.
+deps_changed=0
+if git merge-base --is-ancestor origin/main HEAD; then
+  say "$BRANCH is up to date with origin/main ($(git rev-list --count origin/main..HEAD) ahead)"
+elif git merge-base --is-ancestor HEAD origin/main; then
+  if [[ $DRY == 1 ]]; then
+    say "would fast-forward $BRANCH to origin/main ($(git rev-parse --short origin/main))"
+  else
+    git diff --quiet HEAD origin/main -- pnpm-lock.yaml || deps_changed=1
+    git merge -q --ff-only origin/main
+    say "fast-forwarded $BRANCH to origin/main ($(git rev-parse --short HEAD))"
+  fi
+else
+  die "$BRANCH has diverged from origin/main and can't fast-forward. Merge or rebase it by hand, then re-run"
+fi
+[[ -d node_modules && $deps_changed == 0 ]] || { say "installing dependencies"; pnpm install --frozen-lockfile; }
 mkdir -p "$LOGS" .afk/cache
 
 # A commit on this branch (since main) whose subject starts with $1.
 has_commit() { git log --format=%s "$(git merge-base origin/main HEAD)..HEAD" | grep "^$1" >/dev/null; }
+
+# Tickets finished on this branch (since main): the numbers of its `afk(#N):` commits.
+finished_tickets() { git log --format=%s "$(git merge-base origin/main HEAD)..HEAD" | sed -n 's/^afk(#\([0-9]*\)):.*/\1/p' | tr '\n' ' '; }
+
+# Ticket guard for issue JSON $1 (from `gh issue view`), given finished tickets $2 and the
+# $issue_states map. Exit 0 = run; exit 10 = skip, with the reasons on stdout.
+ticket_guard() {
+  jq -c --argjson states "$issue_states" --arg finished "$2" \
+    '{body, labels: [.labels[].name], issueStates: $states, finished: ($finished | split(" ") | map(select(. != "") | tonumber))}' <<<"$1" |
+    node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON "$DIR/ticket-guard.ts"
+}
 
 # claude -p with the AFK allowlist; full transcript to $2, one-line summary to stdout.
 run_claude() {
@@ -139,19 +170,38 @@ fi
 
 # ── tickets ──────────────────────────────────────────────────────────────────
 ticket_tpl=$(cat "$DIR/ticket.md")
+# Every issue's state, fetched once, for the guard's `## Blocked by` check.
+issue_states=$(gh issue list --state all --limit 1000 --json number,state | jq -c 'map({key: (.number | tostring), value: .state}) | from_entries')
+# Finished this run. A dry run counts the tickets it would run, so later skips match a real run.
+finished=$(finished_tickets)
 for n in $TICKETS; do
   marker="afk(#$n):"
   if has_commit "$marker"; then say "✓ #$n already done"; continue; fi
-  state=$(gh issue view "$n" --json state -q .state)
-  if [[ $state != OPEN ]]; then say "· #$n is $state, skipping"; continue; fi
-  issue=$(gh issue view "$n" --json number,title,body -q '"### #\(.number): \(.title)\n\n\(.body)"')
-  if [[ $DRY == 1 ]]; then say "would run #$n: $(head -1 <<<"$issue")"; continue; fi
+  issue_json=$(gh issue view "$n" --json number,state,title,body,labels)
+  state=$(jq -r .state <<<"$issue_json")
+  if [[ $state != OPEN ]]; then say "· skip #$n: it is $state"; continue; fi
+  reason=$(ticket_guard "$issue_json" "$finished") && rc=0 || rc=$?
+  case $rc in
+    0) ;;
+    10) say "· skip #$n: $reason"; continue ;;
+    *) die "ticket guard crashed on #$n (exit $rc)" ;;
+  esac
+  issue=$(jq -r '"### #\(.number): \(.title)\n\n\(.body)"' <<<"$issue_json")
+  if [[ $DRY == 1 ]]; then say "would run #$n: $(head -1 <<<"$issue")"; finished+=" $n"; continue; fi
 
   tpl=${ticket_tpl//\{\{N\}\}/$n}
   tpl=${tpl//\{\{ISSUE\}\}/$issue}
   attempt_unit "ticket-$n" "$marker" "$tpl" "" \
     --disallowedTools "Bash(scripts/afk/check.sh --full:*)" "Bash(pnpm build-local:*)" "Bash(pnpm test:*)"
+  finished+=" $n"
 done
+
+# Only finished tickets go into the final pass and the PR, never skipped ones.
+read -ra done_tickets <<<"$finished"
+if [[ ${#done_tickets[@]} == 0 ]]; then
+  say "no tickets to run; stopping"
+  exit 0
+fi
 
 # ── deferred testing pass ────────────────────────────────────────────────────
 if has_commit "afk(final):"; then
@@ -160,7 +210,7 @@ elif [[ $DRY == 1 ]]; then
   say "would run the final testing pass, then $([[ $PUSH == 1 ]] && echo 'push + open a draft PR' || echo 'stop locally')"
   exit 0
 else
-  list=$(for n in $TICKETS; do printf '#%s ' "$n"; done)
+  list=$(printf '#%s ' "${done_tickets[@]}")
   tpl=$(cat "$DIR/final.md")
   tpl=${tpl//\{\{TICKETS\}\}/${list% }}
   attempt_unit "final" "afk(final):" "$tpl" "--full"
@@ -185,14 +235,14 @@ else
   {
     echo "Unattended build of the migration tickets. **Draft until visually QA'd**: see the final checklist in the notes below."
     echo
-    for n in $TICKETS; do echo "Closes #$n"; done
+    for n in "${done_tickets[@]}"; do echo "Closes #$n"; done
     echo
     cat docs/afk/NOTES.md
     echo
     echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
   } >"$body"
   gh pr create --draft --base main --head "$BRANCH" \
-    --title "AFK: migration tickets $(echo "$TICKETS" | sed 's/^/#/; s/ /, #/g')" \
+    --title "AFK: migration tickets $(printf '#%s, ' "${done_tickets[@]}" | sed 's/, $//')" \
     --body-file "$body"
 fi
 say "✓ done. Draft PR open; the Vercel preview is the run's only build"
