@@ -23,10 +23,10 @@ export default function NotFound({
 }: NotFoundProps) {
   return (
     <div data-section="not-found" className="relative text-center z-[1] pt-52">
-      <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight text-emphasis sm:text-7xl">
+      <h1 className="mt-4 font-display text-h1 text-balance text-emphasis">
         {title}
       </h1>
-      <p className="mt-6 text-pretty text-lg font-medium text-muted-foreground sm:text-xl/8">
+      <p className="mt-6 text-pretty text-body text-muted-foreground">
         {description}
       </p>
       <div className="mt-10 mx-auto">

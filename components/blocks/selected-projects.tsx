@@ -39,12 +39,12 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
         {(data.heading || data.years) && (
           <ScrollReveal sectionId='works-header' className='flex flex-wrap items-baseline justify-between gap-4 border-b border-border pb-6'>
             {data.heading && (
-              <h2 className='text-2xl font-medium tracking-tight md:text-3xl' data-tina-field={tinaField(data, 'heading')}>
+              <h2 className='font-display text-heading' data-tina-field={tinaField(data, 'heading')}>
                 {data.heading}
               </h2>
             )}
             {data.years && (
-              <p className='font-mono text-xs uppercase tracking-widest text-muted-foreground' data-tina-field={tinaField(data, 'years')}>
+              <p className='font-display text-heading text-muted-foreground' data-tina-field={tinaField(data, 'years')}>
                 {data.years}
               </p>
             )}
@@ -76,7 +76,7 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
                       <div className='space-y-3'>
                         {status && (
                           <span
-                            className='inline-flex items-center gap-2 rounded-full border border-border bg-foreground/10 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-foreground'
+                            className='inline-flex items-center gap-2 rounded-full border border-border bg-foreground/10 px-3 py-1 font-mono text-mono uppercase text-foreground'
                             data-tina-field={tinaField(project!, 'status')}
                           >
                             <span aria-hidden className={cn('size-1.5 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />
@@ -85,21 +85,21 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
                         )}
                         {project!.title && (
                           <h3
-                            className='text-2xl font-medium tracking-tight group-hover:text-emphasis md:text-3xl'
+                            className='text-body group-hover:text-emphasis'
                             data-tina-field={tinaField(project!, 'title')}
                           >
                             {project!.title}
                           </h3>
                         )}
                         {project!.tagline && (
-                          <p className='max-w-2xl text-lg text-muted-foreground' data-tina-field={tinaField(project!, 'tagline')}>
+                          <p className='max-w-2xl text-body text-muted-foreground' data-tina-field={tinaField(project!, 'tagline')}>
                             {project!.tagline}
                           </p>
                         )}
                       </div>
                       <span
                         aria-hidden
-                        className='mt-1 hidden size-11 shrink-0 items-center justify-center rounded-full border border-border text-foreground transition-colors group-hover:border-emphasis group-hover:text-emphasis sm:inline-flex'
+                        className='mt-1 hidden size-11 shrink-0 items-center justify-center rounded-full border border-border text-foreground transition-colors group-hover:border-emphasis group-hover:text-emphasis lg:inline-flex'
                       >
                         <ArrowUpRight className='size-5' />
                       </span>

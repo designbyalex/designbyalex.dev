@@ -40,7 +40,8 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
           </div>
         )}
 
-        <div className='mt-10 max-w-4xl md:mt-14'>
+        {/* Headline and tagline measure as the Reference's text columns (450px at 768, 722px / 509px at 1440) so lines break alike. */}
+        <div className='mt-10 md:mt-14 md:max-w-[28.125rem] lg:max-w-[45.125rem]'>
           {data.headline && (
             <div data-tina-field={tinaField(data, 'headline')}>
               <TextReveal
@@ -48,7 +49,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                 per='char'
                 stagger={0.012}
                 delay={0.3}
-                className='text-balance text-[2.75rem] font-medium leading-[1.1] tracking-[-0.02em] sm:text-[3.5rem] lg:text-[4.5rem]'
+                className='font-display text-display text-balance'
               >
                 {data.headline}
               </TextReveal>
@@ -61,7 +62,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                 per='word'
                 stagger={0.02}
                 delay={1.1}
-                className='mt-8 max-w-3xl text-balance text-lg leading-[1.4] text-foreground md:text-xl'
+                className='mt-8 text-balance text-body text-foreground lg:max-w-[31.8rem]'
               >
                 {data.tagline}
               </TextReveal>
@@ -76,7 +77,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                   asChild
                   size='lg'
                   variant={action!.type === 'link' ? 'ghost' : 'outline'}
-                  className='rounded-full px-5 text-base'
+                  className='rounded-full px-5 text-body font-normal'
                 >
                   <Link href={action!.link!} data-tina-field={tinaField(action)}>
                     <span className='text-nowrap'>{action!.label}</span>

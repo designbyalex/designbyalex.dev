@@ -33,7 +33,7 @@ export const Header = () => {
                     style: header.icon!.style,
                   }}
                 />{" "}
-                <span>
+                <span className="text-body">
                   {header.name}
                 </span>
               </Link>
@@ -53,12 +53,12 @@ export const Header = () => {
               </div>
 
               <div className="hidden items-center gap-8 lg:flex">
-                <ul className="flex gap-8 text-sm">
+                <ul className="flex gap-8 text-body-lg">
                   {header.nav!.map((item, index) => (
                     <li key={index}>
                       <Link
                         href={item!.href!}
-                        className="text-muted-foreground hover:text-accent-foreground block rounded-sm duration-150">
+                        className="text-foreground hover:text-emphasis block rounded-sm duration-150">
                         <span>{item!.label}</span>
                       </Link>
                     </li>
@@ -70,12 +70,12 @@ export const Header = () => {
 
             <div id="site-menu" className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
               <div className="lg:hidden">
-                <ul className="space-y-6 text-base">
+                <ul className="space-y-6 text-body-lg">
                   {header.nav!.map((item, index) => (
                     <li key={index}>
                       <Link
                         href={item!.href!}
-                        className="text-muted-foreground hover:text-accent-foreground block rounded-sm duration-150">
+                        className="text-foreground hover:text-emphasis block rounded-sm duration-150">
                         <span>{item!.label}</span>
                       </Link>
                     </li>

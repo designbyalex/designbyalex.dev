@@ -22,7 +22,8 @@ export const Experience = ({ data }: { data: PageBlocksExperience }) => {
       <div className='mx-auto max-w-5xl'>
         {data.heading && (
           <ScrollReveal>
-            <h2 className='text-2xl font-medium tracking-tight md:text-3xl' data-tina-field={tinaField(data, 'heading')}>
+            {/* Reference: "Experience" is a small green label, not a section heading. */}
+            <h2 className='text-caption text-emphasis' data-tina-field={tinaField(data, 'heading')}>
               {data.heading}
             </h2>
           </ScrollReveal>
@@ -38,13 +39,13 @@ export const Experience = ({ data }: { data: PageBlocksExperience }) => {
                 amount={0.5}
                 className='grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-border py-5 sm:grid-cols-[1.2fr_1fr_auto]'
               >
-                <span className='text-lg text-foreground' data-tina-field={tinaField(item!, 'company')}>
+                <span className='text-body-lg text-foreground' data-tina-field={tinaField(item!, 'company')}>
                   {item!.company}
                 </span>
-                <span className='order-last col-span-2 text-base text-muted-foreground sm:order-none sm:col-span-1' data-tina-field={tinaField(item!, 'role')}>
+                <span className='order-last col-span-2 text-body-lg text-muted-foreground sm:order-none sm:col-span-1' data-tina-field={tinaField(item!, 'role')}>
                   {item!.role}
                 </span>
-                <span className='justify-self-end font-mono text-xs uppercase tracking-widest text-muted-foreground' data-tina-field={tinaField(item!, 'period')}>
+                <span className='justify-self-end text-caption text-muted-foreground' data-tina-field={tinaField(item!, 'period')}>
                   {item!.period}
                 </span>
               </ScrollReveal>
@@ -54,7 +55,7 @@ export const Experience = ({ data }: { data: PageBlocksExperience }) => {
 
         {data.cta?.label && data.cta?.href && (
           <ScrollReveal className='mt-8'>
-            <Button asChild size='lg' variant='outline' className='rounded-full px-5 text-base'>
+            <Button asChild size='lg' variant='outline' className='rounded-full px-5 text-caption font-normal'>
               <Link
                 href={data.cta.href}
                 target={isExternal(data.cta.href) ? '_blank' : undefined}

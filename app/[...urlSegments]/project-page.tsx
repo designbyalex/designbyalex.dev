@@ -75,21 +75,21 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
         <Section sectionId="project-hero" className="prose-none">
           {project.status && (
             <p
-              className={`font-mono text-xs uppercase tracking-widest ${statusClasses[project.status] ?? "text-emphasis"}`}
+              className={`font-mono text-mono uppercase ${statusClasses[project.status] ?? "text-emphasis"}`}
               data-tina-field={tinaField(project, "status")}
             >
               {statusLabels[project.status] ?? project.status}
             </p>
           )}
           <h1
-            className="mt-4 text-balance text-5xl font-medium tracking-tight md:text-6xl"
+            className="mt-4 font-display text-h1 text-balance"
             data-tina-field={tinaField(project, "title")}
           >
             {project.title}
           </h1>
           {project.tagline && (
             <p
-              className="mt-6 max-w-2xl text-balance text-xl text-muted-foreground"
+              className="mt-6 max-w-2xl font-display text-lead text-balance text-muted-foreground"
               data-tina-field={tinaField(project, "tagline")}
             >
               {project.tagline}
@@ -97,8 +97,9 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
           )}
 
           {project.intro && (
+            // Reference: the intro is set as white statements (with green phrases), not body copy.
             <div
-              className="prose prose-lg dark:prose-invert mt-10 max-w-3xl text-muted-foreground"
+              className="mt-10 max-w-3xl space-y-6 font-display text-statement text-foreground"
               data-tina-field={tinaField(project, "intro")}
             >
               <TinaMarkdown content={project.intro} components={components} />
@@ -109,11 +110,11 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
             <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-border pt-8 sm:grid-cols-4">
               {meta.map((m) => (
                 <div key={m.key} className={m.wide ? "col-span-2" : undefined} data-tina-field={tinaField(project, m.key as any)}>
-                  <dt className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{m.label}</dt>
-                  <dd className="mt-2 whitespace-pre-line text-base">{m.value}</dd>
+                  <dt className="text-caption text-muted-foreground">{m.label}</dt>
+                  <dd className="mt-2 whitespace-pre-line text-caption text-foreground-soft">{m.value}</dd>
                   {m.note && (
                     <dd
-                      className="mt-2 text-sm text-muted-foreground"
+                      className="mt-2 text-caption text-muted-foreground"
                       data-tina-field={tinaField(project, "roleDescription")}
                     >
                       {m.note}
@@ -128,7 +129,7 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
             <ul className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
               {project.metrics.filter(Boolean).map((metric, i) => (
                 <li key={i} data-tina-field={tinaField(metric!)}>
-                  <span className="block text-4xl font-medium tracking-tight">
+                  <span className="block font-display text-h1">
                     {formatMetric({
                       value: metric!.value ?? Number.NaN,
                       kind: metric!.kind as MetricKind | null,
@@ -136,7 +137,7 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
                       suffix: metric!.suffix,
                     })}
                   </span>
-                  <span className="mt-1 block text-sm text-muted-foreground">{metric!.label}</span>
+                  <span className="mt-1 block text-caption text-muted-foreground">{metric!.label}</span>
                 </li>
               ))}
             </ul>
@@ -150,20 +151,20 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
             <nav className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:justify-between">
               {prev ? (
                 <Link href={`/${prev.slug}`} className="group rounded-md">
-                  <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                  <span className="font-mono text-mono uppercase text-muted-foreground">
                     Previous
                   </span>
-                  <span className="mt-1 block text-lg font-medium group-hover:text-emphasis">{prev.title}</span>
+                  <span className="mt-1 block text-body group-hover:text-emphasis">{prev.title}</span>
                 </Link>
               ) : (
                 <span />
               )}
               {next ? (
                 <Link href={`/${next.slug}`} className="group rounded-md sm:text-right">
-                  <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                  <span className="font-mono text-mono uppercase text-muted-foreground">
                     Next project
                   </span>
-                  <span className="mt-1 block text-lg font-medium group-hover:text-emphasis">{next.title}</span>
+                  <span className="mt-1 block text-body group-hover:text-emphasis">{next.title}</span>
                 </Link>
               ) : (
                 <span />

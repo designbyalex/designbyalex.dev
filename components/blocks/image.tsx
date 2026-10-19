@@ -36,7 +36,7 @@ export const ImageBlock = ({ data }: { data: PageBlocksImage }) => {
           </div>
           {data.caption && (
             <figcaption
-              className="mt-3 text-center text-sm text-muted-foreground"
+              className="mt-3 text-center text-caption text-muted-foreground"
               data-tina-field={tinaField(data, 'caption')}
             >
               {data.caption}

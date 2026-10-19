@@ -19,14 +19,14 @@ export const Metrics = ({ data }: { data: PageBlocksMetrics }) => {
           <ScrollReveal className="mx-auto max-w-2xl space-y-4 text-center">
             {data.title && (
               <h2
-                className="text-3xl font-medium tracking-tight md:text-4xl"
+                className="font-display text-heading"
                 data-tina-field={tinaField(data, 'title')}
               >
                 {data.title}
               </h2>
             )}
             {data.description && (
-              <p className="text-muted-foreground" data-tina-field={tinaField(data, 'description')}>
+              <p className="text-body text-muted-foreground" data-tina-field={tinaField(data, 'description')}>
                 {data.description}
               </p>
             )}
@@ -44,8 +44,9 @@ export const Metrics = ({ data }: { data: PageBlocksMetrics }) => {
           >
             {metrics.map((metric, i) => (
               <ScrollReveal key={i} as="div" delay={i * 0.05} className="space-y-2">
+                {/* The Reference sets its Outcome numbers at the case-study title size. */}
                 <dt
-                  className="text-4xl font-semibold tracking-tight md:text-5xl"
+                  className="font-display text-h1"
                   data-tina-field={tinaField(metric!, 'value')}
                 >
                   {formatMetric({
@@ -55,7 +56,7 @@ export const Metrics = ({ data }: { data: PageBlocksMetrics }) => {
                     suffix: metric!.suffix,
                   })}
                 </dt>
-                <dd className="text-sm text-muted-foreground" data-tina-field={tinaField(metric!, 'label')}>
+                <dd className="text-caption text-muted-foreground" data-tina-field={tinaField(metric!, 'label')}>
                   {metric!.label}
                 </dd>
               </ScrollReveal>

@@ -8,8 +8,8 @@ import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 /**
- * Multi-part about section: a heading, a list of parts (each a bright lead-in
- * followed by muted body text, as on the live site) and a portrait. On desktop
+ * Multi-part about section: a heading, a list of parts (each a green lead-in
+ * followed by white body text, as on the live site) and a portrait. On desktop
  * the text column stays put while the portrait sits beside it.
  */
 export const About = ({ data }: { data: PageBlocksAbout }) => {
@@ -17,22 +17,24 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
   const hasImage = Boolean(data.image?.src);
 
   return (
-    <Section sectionId="about" background={data.background!}>
-      <div className='mx-auto grid max-w-6xl gap-10 md:grid-cols-2 md:gap-16'>
+    // Gutter and text column follow the Reference (16px on phones; a 672px column at desktop) so the statements wrap alike.
+    <Section sectionId="about" background={data.background!} className='px-4 sm:px-6'>
+      <div className='mx-auto grid max-w-6xl gap-10 md:grid-cols-2 md:gap-16 lg:grid-cols-[minmax(0,42rem)_1fr]'>
         <div className='space-y-8 md:sticky md:top-28 md:self-start'>
           {data.heading && (
             <ScrollReveal>
-              <h2 className='text-2xl font-medium tracking-tight md:text-3xl' data-tina-field={tinaField(data, 'heading')}>
+              <h2 className='font-display text-heading' data-tina-field={tinaField(data, 'heading')}>
                 {data.heading}
               </h2>
             </ScrollReveal>
           )}
           {parts.map((part, i) => (
-            <ScrollReveal key={i} delay={i * 0.06} as='p' className='text-balance text-xl leading-snug tracking-tight md:text-2xl'>
+            <ScrollReveal key={i} delay={i * 0.06} as='p' className='font-display text-statement text-balance'>
               <span data-tina-field={tinaField(part!)}>
-                {part!.lead && <span className='text-foreground'>{part!.lead}</span>}
+                {/* Reference: the lead-in is brand green, the continuation white. */}
+                {part!.lead && <span className='text-emphasis'>{part!.lead}</span>}
                 {part!.lead && part!.text ? ' ' : ''}
-                {part!.text && <span className='text-muted-foreground'>{part!.text}</span>}
+                {part!.text && <span className='text-foreground'>{part!.text}</span>}
               </span>
             </ScrollReveal>
           ))}
@@ -74,7 +76,7 @@ export const aboutBlockSchema: Template = {
       label: 'Parts',
       name: 'parts',
       list: true,
-      description: 'Each part is a bright lead-in followed by muted body text.',
+      description: 'Each part is a green lead-in followed by white body text.',
       ui: {
         itemProps: (item) => ({ label: item?.lead || item?.text || 'Part' }),
         defaultItem: { lead: 'Lead-in,', text: 'and the rest of the sentence.' },

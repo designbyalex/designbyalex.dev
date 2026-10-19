@@ -27,7 +27,7 @@ export const Contact = ({ data }: { data: PageBlocksContact }) => {
             <TextReveal
               as='h2'
               per='word'
-              className='text-balance text-[2.75rem] font-medium leading-[1.1] tracking-[-0.02em] sm:text-[3.625rem] lg:text-[4.5rem]'
+              className='font-display text-h2 text-balance'
             >
               {data.heading}
             </TextReveal>
@@ -35,7 +35,7 @@ export const Contact = ({ data }: { data: PageBlocksContact }) => {
         )}
         {data.description && (
           <ScrollReveal delay={0.1}>
-            <p className='mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl' data-tina-field={tinaField(data, 'description')}>
+            <p className='mt-6 max-w-2xl text-body text-muted-foreground' data-tina-field={tinaField(data, 'description')}>
               {data.description}
             </p>
           </ScrollReveal>
@@ -43,7 +43,7 @@ export const Contact = ({ data }: { data: PageBlocksContact }) => {
 
         <ScrollReveal delay={0.2} className='mt-10 flex flex-wrap items-center gap-x-8 gap-y-4'>
           {data.email && (
-            <Button asChild size='lg' className='rounded-full px-6 text-base'>
+            <Button asChild size='lg' className='rounded-full px-6 text-body font-normal'>
               <Link href={`mailto:${data.email}`} data-tina-field={tinaField(data, 'emailLabel')}>
                 <Mail aria-hidden className='size-4' />
                 <span className='text-nowrap'>{data.emailLabel || 'Get in touch'}</span>
@@ -57,7 +57,7 @@ export const Contact = ({ data }: { data: PageBlocksContact }) => {
                 href={link!.href}
                 target={isExternal(link!.href) ? '_blank' : undefined}
                 rel={isExternal(link!.href) ? 'noopener noreferrer' : undefined}
-                className='inline-flex items-center gap-1 text-base text-muted-foreground underline-offset-4 transition-colors hover:text-emphasis hover:underline'
+                className='inline-flex items-center gap-1 text-caption text-foreground underline-offset-4 transition-colors hover:text-emphasis hover:underline'
                 data-tina-field={tinaField(link!)}
               >
                 {link!.label}

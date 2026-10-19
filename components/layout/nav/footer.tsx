@@ -40,10 +40,11 @@ export const Footer = () => {
                 data={header!.icon}
               />
             </Link>
-            <span className="self-center text-muted-foreground text-sm ml-2">© {new Date().getFullYear()} {header?.name}, All rights reserved</span>
+            {/* Reference footer bar: Space Mono, uppercase, grey */}
+            <span className="ml-2 self-center font-mono text-mono uppercase text-muted-foreground">© {new Date().getFullYear()} {header?.name}, All rights reserved</span>
           </div>
 
-          <div className="order-first flex justify-center gap-6 text-sm md:order-last md:justify-end">
+          <div className="order-first flex justify-center gap-6 text-caption md:order-last md:justify-end">
             {footer?.social?.map((link, index) => (
               <Link
                 key={`${link!.icon}${index}`}

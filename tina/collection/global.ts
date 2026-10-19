@@ -107,7 +107,7 @@ const Global: Collection = {
           label: "Font Family",
           options: [
             {
-              label: "Inter Tight (Sans)",
+              label: "Inter (Sans)",
               value: "sans",
             },
             {

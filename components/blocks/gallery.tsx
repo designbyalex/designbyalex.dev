@@ -23,7 +23,7 @@ export const Gallery = ({ data }: { data: PageBlocksGallery }) => {
       <div className="mx-auto max-w-6xl space-y-8">
         {data.title && (
           <h2
-            className="text-3xl font-medium tracking-tight md:text-4xl"
+            className="font-display text-heading"
             data-tina-field={tinaField(data, 'title')}
           >
             {data.title}
@@ -47,7 +47,7 @@ export const Gallery = ({ data }: { data: PageBlocksGallery }) => {
                 </div>
                 {item.caption && (
                   <figcaption
-                    className="mt-2 text-sm text-muted-foreground"
+                    className="mt-2 text-caption text-muted-foreground"
                     data-tina-field={tinaField(item, 'caption')}
                   >
                     {item.caption}

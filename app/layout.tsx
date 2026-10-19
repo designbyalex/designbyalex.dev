@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import { Inter_Tight, Space_Mono } from "next/font/google";
+import { Inter, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { cn } from "@/lib/utils";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
@@ -13,14 +13,19 @@ import { RouteTransitions } from "@/components/motion-primitives/route-transitio
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { siteDefaults } from "@/lib/seo/site";
 
-const fontSans = Inter_Tight({
+// Inter with its optical-size axis (ADR 0003): styles.css pins opsz 14 for text
+// (`font-sans`) and opsz 32 for headings (`font-display`), the Reference's
+// "Inter" and "Inter Display". Tailwind's --font-sans/--font-display/--font-mono
+// are built from these two variables.
+const fontInter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter",
+  axes: ["opsz"],
 });
 
 const fontMono = Space_Mono({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-space-mono",
   weight: ["400", "700"],
 });
 
@@ -49,7 +54,7 @@ export default function RootLayout({
       <html
         lang="en"
         suppressHydrationWarning
-        className={cn(fontSans.variable, fontMono.variable)}
+        className={cn(fontInter.variable, fontMono.variable)}
       >
         <body className="min-h-screen bg-background font-sans antialiased">
           <ThemeProvider
