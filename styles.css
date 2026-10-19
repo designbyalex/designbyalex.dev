@@ -15,7 +15,12 @@
   --font-sans--font-variation-settings: "opsz" 14;
   --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display--font-variation-settings: "opsz" 32;
-  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+  /*
+   * Space Mono first, then real monospace faces before next/font's Arial-based
+   * "Space Mono Fallback": glyphs Space Mono lacks (the footer's ♥) then keep a
+   * monospace advance, as on the Reference, instead of a 137%-scaled Arial one.
+   */
+  --font-mono: "Space Mono", ui-monospace, Menlo, var(--font-space-mono), monospace;
 }
 
 /*

@@ -12,7 +12,6 @@ import { CallToAction } from "./call-to-action";
 import { SelectedProjects } from "./selected-projects";
 import { About } from "./about";
 import { Experience } from "./experience";
-import { Contact } from "./contact";
 import { resolveBlockComponent } from "./resolve";
 
 /**
@@ -34,7 +33,6 @@ export const blockComponents: Record<string, ComponentType<{ data: any }>> = {
   SelectedProjects,
   About,
   Experience,
-  Contact,
 };
 
 type BlockData = {

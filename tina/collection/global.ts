@@ -20,11 +20,6 @@ const Global: Collection = {
         iconSchema as any,
         {
           type: "string",
-          label: "Name",
-          name: "name",
-        },
-        {
-          type: "string",
           label: "Color",
           name: "color",
           options: [
@@ -65,25 +60,72 @@ const Global: Collection = {
       type: "object",
       label: "Footer",
       name: "footer",
+      description: "Rendered on every page: the invitation, the text links and the bottom bar.",
       fields: [
         {
           type: "object",
-          label: "Social Links",
-          name: "social",
+          label: "Call to action",
+          name: "cta",
+          fields: [
+            {
+              type: "string",
+              label: "Heading",
+              name: "heading",
+              description: "The invitation above the link, e.g. “Let's talk”.",
+            },
+            {
+              type: "string",
+              label: "Link label",
+              name: "label",
+              description: "The large link under the heading, e.g. “Get in touch”. Turns green on hover.",
+            },
+            {
+              type: "string",
+              label: "Link",
+              name: "href",
+              description: "Where the link goes, e.g. mailto:you@example.com.",
+            },
+          ],
+        },
+        {
+          type: "object",
+          label: "Links",
+          name: "links",
           list: true,
+          description: "Small text links beside the call to action. http(s) links open in a new tab.",
           ui: {
             itemProps: (item) => {
-              return { label: item?.icon?.name || 'undefined' };
+              return { label: item?.label || "Link" };
+            },
+            defaultItem: {
+              label: "Home",
+              href: "/",
             },
           },
           fields: [
-            iconSchema as any,
             {
               type: "string",
-              label: "Url",
-              name: "url",
+              label: "Label",
+              name: "label",
+            },
+            {
+              type: "string",
+              label: "Link",
+              name: "href",
             },
           ],
+        },
+        {
+          type: "string",
+          label: "Name",
+          name: "name",
+          description: "Bottom bar, left: shown after the current year (“2026 Alexander Blum”).",
+        },
+        {
+          type: "string",
+          label: "Tagline",
+          name: "tagline",
+          description: "Bottom bar, right. Spaces are kept as typed (the live site has two either side of the words).",
         },
       ],
     },
