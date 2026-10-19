@@ -24,7 +24,8 @@
 # `## Blocked by` issue that wasn't finished earlier in this run. Each skip prints its reason.
 #
 # Env:
-#   AFK_TICKETS="9 10 11 12 13"  queue, in blocking order
+#   AFK_TICKETS="53 55 56 57 58 59 60 61 62 63 64 65 54 66"
+#                                queue, in blocking order: the PRD #46 parity tickets; #54 and #66 are final sweeps
 #   AFK_MAX_ATTEMPTS=2           runs per ticket before stopping (retries see why the last run failed)
 #   AFK_MODEL=                   passed through as `claude --model`
 #   AFK_PUSH=1                   after the final pass, push + open a draft PR (0 = stop locally)
@@ -41,7 +42,7 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 BRANCH=afk/migration
-TICKETS=${AFK_TICKETS:-"9 10 11 12 13"}
+TICKETS=${AFK_TICKETS:-"53 55 56 57 58 59 60 61 62 63 64 65 54 66"}
 MAX_ATTEMPTS=${AFK_MAX_ATTEMPTS:-2}
 PUSH=${AFK_PUSH:-1}
 DRY=${AFK_DRY_RUN:-0}
