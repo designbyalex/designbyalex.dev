@@ -27,6 +27,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-emphasis: var(--emphasis);
   --color-status-in-development: var(--status-in-development);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -78,7 +79,13 @@
   --destructive: #cc4141;
   --border: oklch(0 0 0 / 12%);
   --input: oklch(0 0 0 / 12%);
-  --ring: #3cda64;
+  /*
+   * Green as *text* or a focus ring on white: the brand #3cda64 is 1.8:1 on
+   * white, so both darken to #0f7a35 (5.4:1, AA) in the light theme. Fills
+   * (`bg-primary` with black text, 10.9:1) keep the brand green.
+   */
+  --ring: #0f7a35;
+  --emphasis: #0f7a35;
   /* Case-study status accent (live: orange #ff731c); darkened here for AA on white */
   --status-in-development: #b94a00;
   --chart-1: #3cda64;
@@ -116,6 +123,8 @@
   --border: oklch(1 0 0 / 15%);
   --input: oklch(1 0 0 / 15%);
   --ring: #3cda64;
+  /* Brand green is 10.9:1 on #080808, so emphasised text keeps it (faithful) */
+  --emphasis: #3cda64;
   --status-in-development: #ff731c;
   --chart-1: #3cda64;
   --chart-2: #0099ff;
@@ -138,6 +147,33 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  /*
+   * Accessibility (S9 / #13): one visible keyboard focus indicator for every
+   * focusable element (links, buttons, the hamburger, the theme toggle). The
+   * ring token is AA against the page background in both themes. Components
+   * that draw their own ring (Button) opt out with `focus-visible:outline-none`.
+   */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/*
+ * Reduced motion, sitewide safety net. The motion primitives already render at
+ * rest through lib/motion/reduced-motion.ts; this catches everything that isn't a
+ * primitive (Tailwind `transition-*`/`duration-*` classes, tw-animate-css, the
+ * hamburger icon swap) so nothing non-essential moves under the OS setting.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

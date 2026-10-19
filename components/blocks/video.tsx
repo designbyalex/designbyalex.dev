@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import dynamic from 'next/dynamic';
+import { useReducedMotion } from 'motion/react';
 import type { Template } from 'tinacms';
 import { PageBlocksVideo } from '@/tina/__generated__/types';
 import { Section } from '../layout/section';
@@ -9,12 +10,23 @@ import { sectionBlockSchemaField } from '../layout/section';
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 export const Video = ({ data }: { data: PageBlocksVideo }) => {
+  // Autoplay is motion the visitor didn't ask for: under `prefers-reduced-motion`
+  // the player waits for a click, whatever the block's Auto Play setting says.
+  const prefersReducedMotion = useReducedMotion() ?? false;
   if (!data.url) {
     return null;
   }
   return (
     <Section background={data.background!} className={`aspect-video ${data.color}`}>
-      <ReactPlayer width='100%' height='100%' style={{ margin: 'auto' }} playing={!!data.autoPlay} loop={!!data.loop} controls={true} url={data.url} />
+      <ReactPlayer
+        width='100%'
+        height='100%'
+        style={{ margin: 'auto' }}
+        playing={!!data.autoPlay && !prefersReducedMotion}
+        loop={!!data.loop}
+        controls={true}
+        url={data.url}
+      />
     </Section>
   );
 };

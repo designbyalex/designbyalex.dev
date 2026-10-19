@@ -54,7 +54,7 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
             return (
               <li key={i} data-tina-field={tinaField(project!)}>
                 <ScrollReveal amount={0.2}>
-                  <Link href={project!.href || '#'} className='group block focus-visible:outline-none'>
+                  <Link href={project!.href || '#'} className='group block rounded-2xl'>
                     {project!.image?.src && (
                       <HoverLift lift={4} scale={1.01} className='overflow-hidden rounded-2xl border border-border bg-card'>
                         <div className='relative aspect-[4/3]' data-tina-field={tinaField(project!.image, 'src')}>
@@ -82,7 +82,7 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
                         )}
                         {project!.title && (
                           <h3
-                            className='text-2xl font-medium tracking-tight group-hover:text-primary md:text-3xl'
+                            className='text-2xl font-medium tracking-tight group-hover:text-emphasis md:text-3xl'
                             data-tina-field={tinaField(project!, 'title')}
                           >
                             {project!.title}
@@ -96,7 +96,7 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
                       </div>
                       <span
                         aria-hidden
-                        className='mt-1 hidden size-11 shrink-0 items-center justify-center rounded-full border border-border text-foreground transition-colors group-hover:border-primary group-hover:text-primary sm:inline-flex'
+                        className='mt-1 hidden size-11 shrink-0 items-center justify-center rounded-full border border-border text-foreground transition-colors group-hover:border-emphasis group-hover:text-emphasis sm:inline-flex'
                       >
                         <ArrowUpRight className='size-5' />
                       </span>

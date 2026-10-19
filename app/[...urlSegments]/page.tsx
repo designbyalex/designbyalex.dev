@@ -6,18 +6,11 @@ import Layout from '@/components/layout/layout';
 import { Section } from '@/components/layout/section';
 import PageClientPage from './client-page';
 import ProjectClientPage from './project-page';
-import { buildProjectMetadata } from '@/lib/seo/metadata';
+import { buildPageMetadata, buildProjectMetadata } from '@/lib/seo/metadata';
+import { siteDefaults } from '@/lib/seo/site';
 import type { ProjectRef } from '@/lib/case-study/next-project';
 
 export const revalidate = 300;
-
-const siteDefaults = {
-  siteName: 'Alexander Blum',
-  titleTemplate: '%s · Alexander Blum',
-  defaultDescription:
-    "Alex is a Sydney-based product designer with 3+ years' experience crafting human-centred products.",
-  baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://designbyalex.dev',
-};
 
 /** Collect a minimal {slug, title, order} list of every project for next/prev nav. */
 async function fetchAllProjects(): Promise<ProjectRef[]> {
@@ -67,7 +60,10 @@ export async function generateMetadata({
 
   try {
     const res = await client.queries.page({ relativePath: `${filepath}.mdx` });
-    return { title: res.data.page.title };
+    return buildPageMetadata(
+      { title: res.data.page.title, description: res.data.page.description, slug: filepath },
+      siteDefaults
+    );
   } catch {
     return {};
   }

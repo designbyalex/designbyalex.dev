@@ -37,6 +37,13 @@ const Page: Collection = {
       description: 'Used for the editor list and document metadata.',
     },
     {
+      type: 'string',
+      label: 'Description',
+      name: 'description',
+      description: 'Meta description for search engines and share cards (about 150 characters). Falls back to the site default.',
+      ui: { component: 'textarea' },
+    },
+    {
       type: 'object',
       list: true,
       name: 'blocks',

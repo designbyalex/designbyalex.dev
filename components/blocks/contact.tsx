@@ -56,7 +56,7 @@ export const Contact = ({ data }: { data: PageBlocksContact }) => {
                 href={link!.href}
                 target={isExternal(link!.href) && !link!.href.startsWith('mailto:') ? '_blank' : undefined}
                 rel={isExternal(link!.href) ? 'noopener noreferrer' : undefined}
-                className='inline-flex items-center gap-1 text-base text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline'
+                className='inline-flex items-center gap-1 text-base text-muted-foreground underline-offset-4 transition-colors hover:text-emphasis hover:underline'
                 data-tina-field={tinaField(link!)}
               >
                 {link!.label}

@@ -76,7 +76,7 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
         <Section className="prose-none">
           {project.status && (
             <p
-              className={`font-mono text-xs uppercase tracking-widest ${statusClasses[project.status] ?? "text-primary"}`}
+              className={`font-mono text-xs uppercase tracking-widest ${statusClasses[project.status] ?? "text-emphasis"}`}
               data-tina-field={tinaField(project, "status")}
             >
               {statusLabels[project.status] ?? project.status}
@@ -150,21 +150,21 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
           <Section className="prose-none">
             <nav className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:justify-between">
               {prev ? (
-                <Link href={`/${prev.slug}`} className="group">
+                <Link href={`/${prev.slug}`} className="group rounded-md">
                   <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                     Previous
                   </span>
-                  <span className="mt-1 block text-lg font-medium group-hover:text-primary">{prev.title}</span>
+                  <span className="mt-1 block text-lg font-medium group-hover:text-emphasis">{prev.title}</span>
                 </Link>
               ) : (
                 <span />
               )}
               {next ? (
-                <Link href={`/${next.slug}`} className="group sm:text-right">
+                <Link href={`/${next.slug}`} className="group rounded-md sm:text-right">
                   <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                     Next project
                   </span>
-                  <span className="mt-1 block text-lg font-medium group-hover:text-primary">{next.title}</span>
+                  <span className="mt-1 block text-lg font-medium group-hover:text-emphasis">{next.title}</span>
                 </Link>
               ) : (
                 <span />

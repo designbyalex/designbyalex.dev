@@ -27,7 +27,7 @@ export const FeatureDeepDive = ({ data }: { data: PageBlocksFeatureDeepDive }) =
         >
           {data.eyebrow && (
             <p
-              className="font-mono text-xs uppercase tracking-widest text-primary"
+              className="font-mono text-xs uppercase tracking-widest text-emphasis"
               data-tina-field={tinaField(data, 'eyebrow')}
             >
               {data.eyebrow}
