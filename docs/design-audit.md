@@ -3,6 +3,8 @@
 > Source-of-truth for the design system. Produced for **#4 (S0)**; consumed by **#5 (S1)** and the rest of the migration (**#3** PRD).
 > Extracted from the live Framer site `designbyalex.dev` (homepage + `/acacia`) via raw-source parsing **and** area-weighted computed-style sampling of the rendered page.
 
+> **Superseded in part (2026-10-19):** decision (a) and §1's families are wrong. Framer serves real Inter and Inter Display, not Inter Tight. See `docs/adr/0003-match-framer-fonts-with-inter.md` and `docs/parity-audit.md` §2.1.
+
 ## TL;DR decisions
 
 | # | Decision | Outcome |
