@@ -15,8 +15,11 @@
 # count in parity/baseline.json above the Baseline the ticket started from, or drops one
 # (scripts/parity/baseline-check.ts): only a passing gate lowers it. Agents propose Deviations in the notes.
 #
-# Run from a checkout of branch afk/migration with a clean working tree:
-#   scripts/afk-loop.sh
+# Run from a checkout of branch afk/migration with a clean working tree, on AC power with the lid open:
+#   caffeinate -dis scripts/afk-loop.sh
+# A run takes hours. On battery, closing the lid sleeps the Mac whatever caffeinate asks, and a dark wake
+# has no network, so preflight stops on battery power (AFK_ALLOW_BATTERY=1 to run anyway). Every network
+# call (gh, git fetch/push, pnpm install) retries with backoff for about 5 minutes before the run stops.
 # Preflight fast-forwards the branch to origin/main, and stops if it has diverged.
 #
 # Every queued ticket passes the ticket guard (scripts/afk/ticket-guard.ts) first: it skips
@@ -31,6 +34,9 @@
 #   AFK_PUSH=1                   after the final pass, push + open a draft PR (0 = stop locally)
 #   AFK_DRY_RUN=1                print what would run; change nothing
 #   AFK_SMOKE=1                  check the permission allowlist with one cheap headless run, then exit
+#   AFK_ALLOW_BATTERY=1          run on battery power anyway (dry and smoke runs only warn)
+#   AFK_NET_TRIES=5 AFK_NET_DELAY=20
+#                                tries per network call, and the first wait in seconds (it doubles)
 #
 # Before the first run: `claude auth login` (headless runs need a logged-in CLI),
 # then `AFK_SMOKE=1 scripts/afk-loop.sh`.
@@ -56,14 +62,32 @@ say() { printf '[afk %s] %s\n' "$(date +%H:%M:%S)" "$*"; }
 notify() { osascript -e "display notification \"$1\" with title \"AFK loop\"" >/dev/null 2>&1 || true; }
 die() { say "✗ $*"; notify "Stopped: $*"; exit 1; }
 
+# shellcheck source=scripts/afk/retry.sh
+source "$DIR/retry.sh"
+# net <what> <command...>: retry a network command (scripts/afk/retry.sh); stop the run once it gives up.
+# Its stdout is in RETRY_OUT.
+net() { retry "$@" || die "network unavailable: $1 still failing after ${AFK_NET_TRIES:-5} tries ($RETRY_ERR)"; }
+
 # ── preflight ────────────────────────────────────────────────────────────────
+if [[ $(uname) == Darwin && $(pmset -g batt 2>/dev/null) == *"'Battery Power'"* ]]; then
+  battery="on battery power: closing the lid will sleep the Mac and stop the run. Plug in, keep the lid open, and run \`caffeinate -dis scripts/afk-loop.sh\`"
+  if [[ ${AFK_ALLOW_BATTERY:-0} == 1 || $DRY == 1 || ${AFK_SMOKE:-0} == 1 ]]; then
+    say "⚠ $battery"
+    notify "Warning: on battery power"
+  else
+    die "$battery (or set AFK_ALLOW_BATTERY=1)"
+  fi
+fi
+# caffeinate execs the command in place and asserts from a helper "on behalf of" its pid.
+[[ $(uname) != Darwin || $(pmset -g assertions 2>/dev/null) == *"on behalf of"*"(pid $$)"* ]] ||
+  say "⚠ not running under caffeinate: idle sleep can stop the run. Use \`caffeinate -dis scripts/afk-loop.sh\`"
 [[ $(git branch --show-current) == "$BRANCH" ]] || die "not on branch $BRANCH"
 [[ -z $(git status --porcelain) ]] || die "working tree not clean"
 for c in claude gh pnpm jq; do command -v "$c" >/dev/null || die "missing command: $c"; done
 if [[ $DRY != 1 && -z ${ANTHROPIC_API_KEY:-} ]] && ! claude auth status 2>/dev/null | jq -e .loggedIn >/dev/null; then
   die "claude CLI is not logged in. Run: claude auth login"
 fi
-git fetch -q origin main
+net "git fetch origin main" git fetch -q origin main
 # Never build on a stale branch: fast-forward to origin/main, or stop if that isn't possible.
 deps_changed=0
 if git merge-base --is-ancestor origin/main HEAD; then
@@ -79,7 +103,7 @@ elif git merge-base --is-ancestor HEAD origin/main; then
 else
   die "$BRANCH has diverged from origin/main and can't fast-forward. Merge or rebase it by hand, then re-run"
 fi
-[[ -d node_modules && $deps_changed == 0 ]] || { say "installing dependencies"; pnpm install --frozen-lockfile; }
+[[ -d node_modules && $deps_changed == 0 ]] || { say "installing dependencies"; net "pnpm install" pnpm install --frozen-lockfile; }
 mkdir -p "$LOGS" .afk/cache .afk/tickets
 
 # A commit on this branch (since main) whose subject starts with $1.
@@ -223,13 +247,15 @@ fi
 # ── tickets ──────────────────────────────────────────────────────────────────
 ticket_tpl=$(cat "$DIR/ticket.md")
 # Every issue's state, fetched once, for the guard's `## Blocked by` check.
-issue_states=$(gh issue list --state all --limit 1000 --json number,state | jq -c 'map({key: (.number | tostring), value: .state}) | from_entries')
+net "gh issue list" gh issue list --state all --limit 1000 --json number,state
+issue_states=$(jq -c 'map({key: (.number | tostring), value: .state}) | from_entries' <<<"$RETRY_OUT")
 # Finished this run. A dry run counts the tickets it would run, so later skips match a real run.
 finished=$(finished_tickets)
 for n in $TICKETS; do
   marker="afk(#$n):"
   if has_commit "$marker"; then say "✓ #$n already done"; continue; fi
-  issue_json=$(gh issue view "$n" --json number,state,title,body,labels)
+  net "gh issue view #$n" gh issue view "$n" --json number,state,title,body,labels
+  issue_json=$RETRY_OUT
   state=$(jq -r .state <<<"$issue_json")
   if [[ $state != OPEN ]]; then say "· skip #$n: it is $state"; continue; fi
   reason=$(ticket_guard "$issue_json" "$finished") && rc=0 || rc=$?
@@ -283,23 +309,24 @@ if [[ $PUSH != 1 ]]; then
   exit 0
 fi
 
-git push -u origin "$BRANCH"
-if gh pr view "$BRANCH" --json number >/dev/null 2>&1; then
-  say "PR already open for $BRANCH"
-else
-  body=.afk/pr-body.md
-  {
-    echo "Unattended build of the migration tickets. **Draft until visually QA'd**: see the final checklist in the notes below."
-    echo
-    for n in "${done_tickets[@]}"; do echo "Closes #$n"; done
-    echo
-    cat docs/afk/NOTES.md
-    echo
-    echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
-  } >"$body"
+net "git push" git push -q -u origin "$BRANCH"
+body=.afk/pr-body.md
+{
+  echo "Unattended build of the migration tickets. **Draft until visually QA'd**: see the final checklist in the notes below."
+  echo
+  for n in "${done_tickets[@]}"; do echo "Closes #$n"; done
+  echo
+  cat docs/afk/NOTES.md
+  echo
+  echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+} >"$body"
+# Retried as a whole: a create that reached GitHub before the connection dropped is found by the view.
+open_pr() {
+  if gh pr view "$BRANCH" --json url -q .url 2>/dev/null; then return 0; fi
   gh pr create --draft --base main --head "$BRANCH" \
     --title "AFK: migration tickets $(printf '#%s, ' "${done_tickets[@]}" | sed 's/, $//')" \
     --body-file "$body"
-fi
-say "✓ done. Draft PR open; the Vercel preview is the run's only build"
+}
+net "gh pr create" open_pr
+say "✓ done. Draft PR open: $RETRY_OUT. The Vercel preview is the run's only build"
 notify "Done: draft PR open"
