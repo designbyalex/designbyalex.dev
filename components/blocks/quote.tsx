@@ -26,7 +26,7 @@ export const Quote = ({ data }: { data: PageBlocksQuote }) => {
             {data.attribution && (
               <span className="font-medium text-foreground" data-tina-field={tinaField(data, 'attribution')}>
                 {data.url ? (
-                  <Link href={data.url} className="hover:text-primary">
+                  <Link href={data.url} className="hover:text-emphasis">
                     {data.attribution}
                   </Link>
                 ) : (

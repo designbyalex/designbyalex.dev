@@ -1,8 +1,28 @@
 "use client";
 import React from "react";
-import Link from "next/link";
+import { TransitionLink as Link } from "../../motion-primitives/route-transitions";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
+
+// Accessible names for icon-only social links, keyed by the Tina icon name.
+const socialLabels: Record<string, string> = {
+  FaLinkedin: "LinkedIn",
+  FaGithub: "GitHub",
+  FaYoutube: "YouTube",
+  FaXTwitter: "X (Twitter)",
+  FaFacebookF: "Facebook",
+  AiFillInstagram: "Instagram",
+};
+
+/** Fall back to the link's hostname when the icon has no known label. */
+function socialLabel(iconName: string | null | undefined, url: string): string {
+  if (iconName && socialLabels[iconName]) return socialLabels[iconName];
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "Social link";
+  }
+}
 
 export const Footer = () => {
   const { globalSettings } = useLayout();
@@ -14,7 +34,7 @@ export const Footer = () => {
         <div className="mt-12 flex flex-wrap items-center gap-6 border-t py-6 flex-col md:flex-row md:justify-between">
 
           <div className="order-last flex justify-center md:order-first md:justify-start">
-            <Link href="/" aria-label="go home">
+            <Link href="/" aria-label="go home" className="rounded-md">
               <Icon
                 parentColor={header!.color!}
                 data={header!.icon}
@@ -25,8 +45,15 @@ export const Footer = () => {
 
           <div className="order-first flex justify-center gap-6 text-sm md:order-last md:justify-end">
             {footer?.social?.map((link, index) => (
-              <Link key={`${link!.icon}${index}`} href={link!.url!} target="_blank" rel="noopener noreferrer" >
-                <Icon data={{ ...link!.icon, size: 'small' }} className="text-muted-foreground hover:text-primary block" />
+              <Link
+                key={`${link!.icon}${index}`}
+                href={link!.url!}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${socialLabel(link!.icon?.name, link!.url!)} (opens in a new tab)`}
+                className="rounded-md"
+              >
+                <Icon data={{ ...link!.icon, size: 'small' }} className="text-muted-foreground hover:text-emphasis block" />
               </Link>
             ))}
           </div>

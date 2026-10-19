@@ -27,6 +27,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-emphasis: var(--emphasis);
+  --color-status-in-development: var(--status-in-development);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -53,6 +55,12 @@
   --highlight-text-light: #ffffff;
   --radius: 1rem;
 
+  /* Motion — mirrors EASE_MICRO / EASE_ENTRANCE / DURATION.route* in lib/motion/reduced-motion.ts */
+  --motion-ease-micro: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-duration-route-out: 180ms;
+  --motion-duration-route-in: 420ms;
+
   /* Light theme (proposed, net-new) */
   --background: #ffffff;
   --foreground: #080808;
@@ -71,7 +79,15 @@
   --destructive: #cc4141;
   --border: oklch(0 0 0 / 12%);
   --input: oklch(0 0 0 / 12%);
-  --ring: #3cda64;
+  /*
+   * Green as *text* or a focus ring on white: the brand #3cda64 is 1.8:1 on
+   * white, so both darken to #0f7a35 (5.4:1, AA) in the light theme. Fills
+   * (`bg-primary` with black text, 10.9:1) keep the brand green.
+   */
+  --ring: #0f7a35;
+  --emphasis: #0f7a35;
+  /* Case-study status accent (live: orange #ff731c); darkened here for AA on white */
+  --status-in-development: #b94a00;
   --chart-1: #3cda64;
   --chart-2: #0099ff;
   --chart-3: #fdb52a;
@@ -107,6 +123,9 @@
   --border: oklch(1 0 0 / 15%);
   --input: oklch(1 0 0 / 15%);
   --ring: #3cda64;
+  /* Brand green is 10.9:1 on #080808, so emphasised text keeps it (faithful) */
+  --emphasis: #3cda64;
+  --status-in-development: #ff731c;
   --chart-1: #3cda64;
   --chart-2: #0099ff;
   --chart-3: #fdb52a;
@@ -128,5 +147,83 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  /*
+   * Accessibility (S9 / #13): one visible keyboard focus indicator for every
+   * focusable element (links, buttons, the hamburger, the theme toggle). The
+   * ring token is AA against the page background in both themes. Components
+   * that draw their own ring (Button) opt out with `focus-visible:outline-none`.
+   */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/*
+ * Reduced motion, sitewide safety net. The motion primitives already render at
+ * rest through lib/motion/reduced-motion.ts; this catches everything that isn't a
+ * primitive (Tailwind `transition-*`/`duration-*` classes, tw-animate-css, the
+ * hamburger icon swap) so nothing non-essential moves under the OS setting.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Route transitions (S8 / #12) — View Transitions API.
+ * Started by components/motion-primitives/route-transitions.tsx (TransitionLink +
+ * the RouteTransitions provider). The old page fades out on the micro curve while
+ * the new page fades and rises in on the entrance curve; the fixed site header is
+ * its own group so it stays put while the page crossfades beneath it.
+ */
+@keyframes route-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes route-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: route-fade-out var(--motion-duration-route-out) var(--motion-ease-micro) both;
+}
+
+::view-transition-new(root) {
+  animation: route-rise-in var(--motion-duration-route-in) var(--motion-ease-entrance) both;
+}
+
+.site-header {
+  view-transition-name: site-header;
+}
+
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/*
+ * Reduced motion: TransitionLink already skips startViewTransition, so this only
+ * reaches browser back/forward (which the provider still wraps). With no animations
+ * the transition resolves on the next frame — an instant swap.
+ */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

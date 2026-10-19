@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import {
+  autoplayMotion,
   DURATION,
   EASE_ENTRANCE,
   EASE_MICRO,
   hoverMotion,
+  routeTransitionMotion,
   scrollRevealMotion,
   textRevealMotion,
 } from './reduced-motion';
@@ -32,6 +34,13 @@ describe('scrollRevealMotion', () => {
       expect(o.transition.delay).toBe(0.2);
     });
 
+    it('adds a settle-from scale only when one is requested', () => {
+      expect('scale' in (m.initial as object)).toBe(false);
+      const o = scrollRevealMotion(false, { scale: 1.08, y: 0 });
+      expect(o.initial).toEqual({ opacity: 0, y: 0, scale: 1.08 });
+      expect(o.whileInView).toEqual({ opacity: 1, y: 0, scale: 1 });
+    });
+
     it('passes viewport options through with defaults', () => {
       expect(m.viewport).toEqual({ once: true, amount: 0.3 });
       const o = scrollRevealMotion(false, { once: false, amount: 0.6 });
@@ -56,8 +65,9 @@ describe('scrollRevealMotion', () => {
     });
 
     it('ignores motion overrides but keeps viewport options', () => {
-      const o = scrollRevealMotion(true, { y: 80, duration: 1, once: false });
+      const o = scrollRevealMotion(true, { y: 80, duration: 1, once: false, scale: 1.2 });
       expect(o.initial).toBe(false);
+      expect(o.whileInView).toEqual({ opacity: 1, y: 0 });
       expect(o.transition.duration).toBe(0);
       expect(o.viewport.once).toBe(false);
     });
@@ -159,6 +169,62 @@ describe('hoverMotion', () => {
     it('ignores hover overrides', () => {
       const o = hoverMotion(true, { lift: 6, scale: 1.1 });
       expect(o.whileHover).toEqual({});
+    });
+  });
+});
+
+describe('routeTransitionMotion', () => {
+  describe('motion allowed', () => {
+    const m = routeTransitionMotion(false);
+
+    it('runs the navigation through a view transition', () => {
+      expect(m.animate).toBe(true);
+    });
+
+    it('fades the old page out quickly and settles the new page in over longer', () => {
+      expect(m.durationOut).toBe(DURATION.routeOut);
+      expect(m.durationIn).toBe(DURATION.routeIn);
+      expect(m.durationOut).toBeGreaterThan(0);
+      expect(m.durationIn).toBeGreaterThan(m.durationOut);
+    });
+
+    it('uses the micro curve out and the entrance curve in', () => {
+      expect(m.easeOut).toBe(EASE_MICRO);
+      expect(m.easeIn).toBe(EASE_ENTRANCE);
+    });
+  });
+
+  describe('reduced motion', () => {
+    const m = routeTransitionMotion(true);
+
+    it('does not start a view transition at all', () => {
+      expect(m.animate).toBe(false);
+    });
+
+    it('has zero-length timings', () => {
+      expect(m.durationOut).toBe(0);
+      expect(m.durationIn).toBe(0);
+    });
+  });
+});
+
+describe('autoplayMotion', () => {
+  describe('motion allowed', () => {
+    it('plays when the block asks for autoplay', () => {
+      expect(autoplayMotion(false, true)).toBe(true);
+    });
+
+    it('waits for a click when autoplay is off or unset', () => {
+      expect(autoplayMotion(false, false)).toBe(false);
+      expect(autoplayMotion(false, null)).toBe(false);
+      expect(autoplayMotion(false, undefined)).toBe(false);
+    });
+  });
+
+  describe('reduced motion', () => {
+    it('never autoplays, whatever the block says', () => {
+      expect(autoplayMotion(true, true)).toBe(false);
+      expect(autoplayMotion(true, false)).toBe(false);
     });
   });
 });

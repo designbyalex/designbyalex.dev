@@ -29,9 +29,13 @@ export const DURATION = {
   entrance: 0.6,
   /** per-segment text reveal */
   segment: 0.5,
+  /** route transition: outgoing page fade (mirrored in styles.css) */
+  routeOut: 0.18,
+  /** route transition: incoming page fade-and-rise (mirrored in styles.css) */
+  routeIn: 0.42,
 } as const;
 
-export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover';
+export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition' | 'autoplay';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -49,6 +53,11 @@ export interface ScrollRevealOptions {
   once?: boolean;
   /** Fraction of the element that must be visible to trigger. Default 0.3. */
   amount?: number;
+  /**
+   * Scale the element settles from (e.g. 1.08 for a slow zoom-out on a hero
+   * image). Default 1, which leaves scale untouched.
+   */
+  scale?: number;
 }
 
 export interface ScrollRevealMotion {
@@ -66,7 +75,7 @@ export function scrollRevealMotion(
   prefersReducedMotion: boolean,
   options: ScrollRevealOptions = {}
 ): ScrollRevealMotion {
-  const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3 } = options;
+  const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3, scale = 1 } = options;
   const viewport = { once, amount };
 
   if (prefersReducedMotion) {
@@ -78,9 +87,10 @@ export function scrollRevealMotion(
     };
   }
 
+  const scaled = scale !== 1;
   return {
-    initial: { opacity: 0, y },
-    whileInView: { opacity: 1, y: 0 },
+    initial: { opacity: 0, y, ...(scaled ? { scale } : {}) },
+    whileInView: { opacity: 1, y: 0, ...(scaled ? { scale: 1 } : {}) },
     transition: { duration, delay, ease: EASE_ENTRANCE },
     viewport,
   };
@@ -174,4 +184,58 @@ export function hoverMotion(prefersReducedMotion: boolean, options: HoverOptions
     whileTap: { scale: tapScale },
     transition: { duration: DURATION.micro, ease: EASE_MICRO },
   };
+}
+
+// ─── route-transition ─────────────────────────────────────────────────────────
+
+export interface RouteTransitionMotion {
+  /**
+   * Whether a client-side navigation should run through the View Transitions
+   * API (`document.startViewTransition`) at all. False under reduced motion,
+   * so the link falls back to a plain `next/link` navigation: instant, with no
+   * snapshot freeze.
+   */
+  animate: boolean;
+  /** Seconds the outgoing page takes to fade out. 0 under reduced motion. */
+  durationOut: number;
+  /** Seconds the incoming page takes to fade and rise in. 0 under reduced motion. */
+  durationIn: number;
+  /** Easing for the outgoing fade (micro curve). */
+  easeOut: CubicBezier;
+  /** Easing for the incoming rise (entrance curve). */
+  easeIn: CubicBezier;
+}
+
+/**
+ * Decision for an animated route change (home ⇄ case study).
+ *
+ * The animation itself is CSS on the `::view-transition-old/new(root)`
+ * pseudo-elements in `styles.css`; this selector owns the *decision* and the
+ * canonical timings so the behaviour is unit-testable. Reduced motion → no
+ * view transition is started and every duration is zero.
+ */
+export function routeTransitionMotion(prefersReducedMotion: boolean): RouteTransitionMotion {
+  if (prefersReducedMotion) {
+    return { animate: false, durationOut: 0, durationIn: 0, easeOut: EASE_MICRO, easeIn: EASE_ENTRANCE };
+  }
+
+  return {
+    animate: true,
+    durationOut: DURATION.routeOut,
+    durationIn: DURATION.routeIn,
+    easeOut: EASE_MICRO,
+    easeIn: EASE_ENTRANCE,
+  };
+}
+
+// ─── autoplay ─────────────────────────────────────────────────────────────────
+
+/**
+ * Whether embedded media (the `video` block) may start playing on its own.
+ * Autoplay is motion the visitor didn't ask for, so reduced motion → never,
+ * whatever the block's Auto Play setting says; otherwise the setting decides.
+ */
+export function autoplayMotion(prefersReducedMotion: boolean, autoPlay: boolean | null | undefined): boolean {
+  if (prefersReducedMotion) return false;
+  return Boolean(autoPlay);
 }

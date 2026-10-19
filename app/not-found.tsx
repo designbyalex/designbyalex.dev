@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { TransitionLink as Link } from "@/components/motion-primitives/route-transitions"
 
 interface NotFoundProps {
   title?: string
@@ -23,7 +23,7 @@ export default function NotFound({
 }: NotFoundProps) {
   return (
     <div className="relative text-center z-[1] pt-52">
-      <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight text-primary sm:text-7xl">
+      <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight text-emphasis sm:text-7xl">
         {title}
       </h1>
       <p className="mt-6 text-pretty text-lg font-medium text-muted-foreground sm:text-xl/8">

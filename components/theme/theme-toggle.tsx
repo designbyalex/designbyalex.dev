@@ -12,16 +12,20 @@ export function ThemeToggle() {
   React.useEffect(() => setMounted(true), []);
 
   const isDark = resolvedTheme === "dark";
+  // Before hydration the theme is unknown, so the label stays generic.
+  const label = mounted ? `Switch to ${isDark ? "light" : "dark"} theme` : "Toggle theme";
 
   return (
     <Button
       variant="outline"
       size="icon"
-      aria-label="Toggle theme"
+      className="rounded-full"
+      aria-label={label}
+      title={label}
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       {mounted ? (
-        isDark ? <Sun className="size-4" /> : <Moon className="size-4" />
+        isDark ? <Sun aria-hidden className="size-4" /> : <Moon aria-hidden className="size-4" />
       ) : (
         <span className="size-4" />
       )}
