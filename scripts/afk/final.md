@@ -1,5 +1,13 @@
 You are working unattended on designbyalex.dev. Tickets {{TICKETS}} are committed on branch `afk/migration`, built for speed with only the gate (`scripts/afk/check.sh`) per ticket. This is the deferred testing pass. No human will answer questions: make the reasonable call, and write it down.
 
+## Never background anything
+
+This is a headless `claude -p` run. When you end your turn, the process exits and every background task and subagent still running is killed: nothing will "report back", and the commit never happens.
+
+- Run the gate in the foreground: `scripts/afk/check.sh --full > .afk/full-gate.log 2>&1` with a Bash `timeout` of 600000 (the maximum), then read the log.
+- Never set `run_in_background` on Bash or Agent calls, including review subagents. Wait for each one's result.
+- Never end your turn while a subagent or background task is pending. Your last action is the commit, and you end your turn only once the tree is clean.
+
 ## Steps
 
 1. Read `docs/afk/NOTES.md` and `git log --reverse origin/main..HEAD`.

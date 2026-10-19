@@ -15,6 +15,7 @@ You are working unattended on designbyalex.dev (a Framer → TinaCMS + Next.js p
 ## Velocity
 
 - Your one feedback loop is **the gate**: `scripts/afk/check.sh`. Run it before committing and fix until it's green.
+- Run everything in the foreground (Bash `timeout` up to 600000) and never set `run_in_background`. This is a headless run: ending your turn exits the process and kills any background task or subagent, so never end it while one is pending.
 - Builds, tests and visual checks all run once, in the final pass after the last ticket. Keep momentum: build the ticket, get the gate green, commit.
 - Your output is a local commit on `afk/migration`. The loop script handles everything after that: push, PR, and issues.
 
