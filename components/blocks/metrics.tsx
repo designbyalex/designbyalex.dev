@@ -7,6 +7,7 @@ import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { formatMetric, type MetricKind } from '@/lib/case-study/format';
 import { metricFields } from '@/tina/fields/metric';
+import { cn } from '@/lib/utils';
 
 export const Metrics = ({ data }: { data: PageBlocksMetrics }) => {
   const metrics = data.metrics?.filter(Boolean) ?? [];
@@ -33,7 +34,14 @@ export const Metrics = ({ data }: { data: PageBlocksMetrics }) => {
         )}
 
         {metrics.length > 0 && (
-          <dl className="grid grid-cols-2 gap-8 text-center md:grid-cols-3">
+          <dl
+            className={cn(
+              'grid grid-cols-2 gap-8 text-center',
+              // Three or six metrics sit in rows of three; anything else (the live Acacia
+              // page has four in one row) fills rows of four so no item is orphaned.
+              metrics.length % 3 === 0 ? 'md:grid-cols-3' : 'md:grid-cols-4'
+            )}
+          >
             {metrics.map((metric, i) => (
               <ScrollReveal key={i} as="div" delay={i * 0.05} className="space-y-2">
                 <dt

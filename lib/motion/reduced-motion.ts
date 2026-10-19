@@ -35,7 +35,7 @@ export const DURATION = {
   routeIn: 0.42,
 } as const;
 
-export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition';
+export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition' | 'autoplay';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -226,4 +226,16 @@ export function routeTransitionMotion(prefersReducedMotion: boolean): RouteTrans
     easeOut: EASE_MICRO,
     easeIn: EASE_ENTRANCE,
   };
+}
+
+// ─── autoplay ─────────────────────────────────────────────────────────────────
+
+/**
+ * Whether embedded media (the `video` block) may start playing on its own.
+ * Autoplay is motion the visitor didn't ask for, so reduced motion → never,
+ * whatever the block's Auto Play setting says; otherwise the setting decides.
+ */
+export function autoplayMotion(prefersReducedMotion: boolean, autoPlay: boolean | null | undefined): boolean {
+  if (prefersReducedMotion) return false;
+  return Boolean(autoPlay);
 }

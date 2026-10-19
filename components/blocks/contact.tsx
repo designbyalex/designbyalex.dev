@@ -16,7 +16,8 @@ import { Button } from '../ui/button';
  */
 export const Contact = ({ data }: { data: PageBlocksContact }) => {
   const links = data.links?.filter(Boolean) ?? [];
-  const isExternal = (href: string) => /^(https?:|mailto:)/.test(href);
+  // Only http(s) links open in a new tab; mailto: stays in-tab with no rel.
+  const isExternal = (href: string) => /^https?:\/\//.test(href);
 
   return (
     <Section background={data.background!} className='py-20 md:py-28'>
@@ -54,7 +55,7 @@ export const Contact = ({ data }: { data: PageBlocksContact }) => {
               <Link
                 key={i}
                 href={link!.href}
-                target={isExternal(link!.href) && !link!.href.startsWith('mailto:') ? '_blank' : undefined}
+                target={isExternal(link!.href) ? '_blank' : undefined}
                 rel={isExternal(link!.href) ? 'noopener noreferrer' : undefined}
                 className='inline-flex items-center gap-1 text-base text-muted-foreground underline-offset-4 transition-colors hover:text-emphasis hover:underline'
                 data-tina-field={tinaField(link!)}

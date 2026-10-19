@@ -30,7 +30,7 @@ const fontMono = Space_Mono({
 // Next resolve any relative OG image a page might emit.
 const { title, description, openGraph, twitter } = buildPageMetadata({ slug: "home" }, siteDefaults);
 export const metadata: Metadata = {
-  metadataBase: new URL(siteDefaults.baseUrl!),
+  metadataBase: new URL(siteDefaults.baseUrl),
   title,
   description,
   openGraph: { ...openGraph, url: undefined },

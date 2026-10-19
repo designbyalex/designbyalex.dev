@@ -8,6 +8,18 @@ import React from 'react';
 import { useLayout } from './layout/layout-context';
 
 export const IconOptions = {
+  // The designbyalex.dev brand mark (same artwork as app/icon.svg). It carries its
+  // own brand colours, so the theme colour classes don't apply to it.
+  Mark: (props: any) => (
+    <svg {...props} viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <title>Alexander Blum</title>
+      <rect width='64' height='64' x='.609' y='.5' fill='#3CDA64' rx='8' />
+      <path
+        fill='#000'
+        d='m35.034 34.699 17.307 16.54c.61.584 1.658.167 1.658-.658v-33.08c0-.825-1.048-1.242-1.658-.658l-17.307 16.54a.905.905 0 0 0 0 1.316m-1.754-2.982L50.489 15.08c.607-.587.173-1.594-.685-1.594H15.39c-.858 0-1.292 1.007-.685 1.594l17.207 16.637a.995.995 0 0 0 1.369 0Zm-3.096 1.658-17.307-16.54c-.611-.584-1.658-.167-1.658.658v33.08c0 .825 1.047 1.242 1.658.658l17.307-16.54a.905.905 0 0 0 0-1.316'
+      />
+    </svg>
+  ),
   Tina: (props: any) => (
     <svg {...props} viewBox='0 0 66 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <title>Tina</title>

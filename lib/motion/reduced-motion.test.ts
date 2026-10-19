@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  autoplayMotion,
   DURATION,
   EASE_ENTRANCE,
   EASE_MICRO,
@@ -203,6 +204,27 @@ describe('routeTransitionMotion', () => {
     it('has zero-length timings', () => {
       expect(m.durationOut).toBe(0);
       expect(m.durationIn).toBe(0);
+    });
+  });
+});
+
+describe('autoplayMotion', () => {
+  describe('motion allowed', () => {
+    it('plays when the block asks for autoplay', () => {
+      expect(autoplayMotion(false, true)).toBe(true);
+    });
+
+    it('waits for a click when autoplay is off or unset', () => {
+      expect(autoplayMotion(false, false)).toBe(false);
+      expect(autoplayMotion(false, null)).toBe(false);
+      expect(autoplayMotion(false, undefined)).toBe(false);
+    });
+  });
+
+  describe('reduced motion', () => {
+    it('never autoplays, whatever the block says', () => {
+      expect(autoplayMotion(true, true)).toBe(false);
+      expect(autoplayMotion(true, false)).toBe(false);
     });
   });
 });

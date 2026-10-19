@@ -1,20 +1,16 @@
 {
   "header": {
     "icon": {
-      "name": "Tina",
-      "color": "orange",
-      "style": "float"
+      "name": "Mark",
+      "color": "green",
+      "style": "regular"
     },
-    "name": "designbyalex",
+    "name": "Alexander Blum",
     "color": "default",
     "nav": [
       {
-        "href": "/",
-        "label": "Work"
-      },
-      {
-        "href": "/about",
-        "label": "About"
+        "href": "mailto:ablumeinfeld@gmail.com",
+        "label": "Let's talk"
       }
     ]
   },
@@ -24,25 +20,7 @@
         "icon": {
           "name": "FaLinkedin"
         },
-        "url": "https://www.linkedin.com/company/tinacms"
-      },
-      {
-        "icon": {
-          "name": "FaGithub"
-        },
-        "url": "https://github.com/tinacms/tinacms"
-      },
-      {
-        "icon": {
-          "name": "FaYoutube"
-        },
-        "url": "https://www.youtube.com/@TinaCMS"
-      },
-      {
-        "icon": {
-          "name": "FaXTwitter"
-        },
-        "url": "https://x.com/TinaCMS"
+        "url": "https://www.linkedin.com/in/alexanderblumeinfeld/"
       }
     ]
   },

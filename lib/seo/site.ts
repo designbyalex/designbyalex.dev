@@ -7,12 +7,12 @@ import type { SiteSeoDefaults } from './metadata';
  * override. `NEXT_PUBLIC_SITE_URL` lets a Vercel preview resolve canonical
  * and Open Graph URLs against itself.
  */
-export const siteDefaults: SiteSeoDefaults = {
+export const siteDefaults: SiteSeoDefaults & { baseUrl: string } = {
   siteName: 'Alexander Blum',
   siteTitle: 'Alexander Blum | UX • Product Design',
   titleTemplate: '%s · Alexander Blum',
   defaultDescription:
-    "Alex is a Sydney-based product designer with 3+ years' experience crafting human-centred products.",
+    'Alex is a Sydney-based product designer with 3+ years’ experience crafting human-centred products.',
   defaultImage: '/uploads/home/og.png',
   baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://designbyalex.dev',
 };

@@ -6,13 +6,15 @@ import type { Template } from 'tinacms';
 import { PageBlocksVideo } from '@/tina/__generated__/types';
 import { Section } from '../layout/section';
 import { sectionBlockSchemaField } from '../layout/section';
+import { autoplayMotion } from '@/lib/motion/reduced-motion';
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 export const Video = ({ data }: { data: PageBlocksVideo }) => {
-  // Autoplay is motion the visitor didn't ask for: under `prefers-reduced-motion`
-  // the player waits for a click, whatever the block's Auto Play setting says.
+  // Autoplay is motion the visitor didn't ask for: `autoplayMotion` keeps the
+  // player paused under `prefers-reduced-motion`, whatever Auto Play says.
   const prefersReducedMotion = useReducedMotion() ?? false;
+  const playing = autoplayMotion(prefersReducedMotion, data.autoPlay);
   if (!data.url) {
     return null;
   }
@@ -22,7 +24,7 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
         width='100%'
         height='100%'
         style={{ margin: 'auto' }}
-        playing={!!data.autoPlay && !prefersReducedMotion}
+        playing={playing}
         loop={!!data.loop}
         controls={true}
         url={data.url}

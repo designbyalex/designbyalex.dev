@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 
 const statusLabels: Record<string, string> = {
   shipped: 'Shipped',
-  'in-development': 'In development',
+  'in-development': 'In-development',
   concept: 'Concept',
 };
 
@@ -28,7 +28,10 @@ const statusDotClasses: Record<string, string> = {
  * anchored as `#works` so the hero's "See Selected Projects" action can jump here.
  */
 export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects }) => {
-  const projects = data.projects?.filter(Boolean) ?? [];
+  // A row is a link to a case study; one without an href has nowhere to go, so it isn't rendered.
+  const projects = (data.projects ?? []).filter(
+    (p): p is NonNullable<typeof p> & { href: string } => Boolean(p?.href)
+  );
 
   return (
     <Section background={data.background!} id='works' className='scroll-mt-20'>
@@ -54,7 +57,7 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
             return (
               <li key={i} data-tina-field={tinaField(project!)}>
                 <ScrollReveal amount={0.2}>
-                  <Link href={project!.href || '#'} className='group block rounded-2xl'>
+                  <Link href={project.href} className='group block rounded-2xl'>
                     {project!.image?.src && (
                       <HoverLift lift={4} scale={1.01} className='overflow-hidden rounded-2xl border border-border bg-card'>
                         <div className='relative aspect-[4/3]' data-tina-field={tinaField(project!.image, 'src')}>

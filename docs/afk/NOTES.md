@@ -11,10 +11,11 @@ Written by the unattended loop (`scripts/afk-loop.sh`): one section per ticket, 
   - Pull-statements (Framer `h5` lines like "We recognised that we didn't have a data problem…") use the `quote` block without attribution; it adds green curly quote marks, which the live page doesn't have. Accepted for reuse over a new block.
   - The per-feature summary lines under each deep-dive are authored as a bullet list in the deep-dive body.
   - Timeline uses an en dash ("Q3 2023 – Q2 2025"); live uses a hyphen.
-- Stubbed:
-  - **Images.** `curl` to designbyalex.dev / framerusercontent.com was denied in this session (the permission allowlist in `scripts/afk/settings.json` was not in effect), and WebFetch's markdown conversion strips `<img>`. No images are downloaded or referenced; `featureDeepDive` blocks render text-only and `public/uploads/projects/acacia/` does not exist yet. Final pass: `curl -fsSL https://designbyalex.dev/acacia -o .afk/cache/acacia.html`, grep `framerusercontent.com`, download into `public/uploads/projects/acacia/`, add `image.src`/`alt` on the three deep-dives and an `image`/`gallery` block where the live page shows screens (hero, mission, insights).
-  - **Outcome metric values are `0`.** The live counters animate from 0 and the fetched text only exposes the initial "0%". Labels are correct; replace the four `value`s from the cached HTML (or from Alex) in the final pass. Kinds are `percentage`; switch to `delta` if the real copy reads "+N%".
-  - Next-project link only appears once `/mosurban` (#10) exists (`resolveAdjacentProjects` returns null for a single project).
+- Stubbed (all resolved in the final pass; see *Final pass* below):
+  - **Images** — *done.* `curl` was denied in the #9 session (broken allowlist, fixed in `chore(afk)`), so the page shipped text-only. The final pass fetched `/acacia` into `.afk/cache/acacia.html`, mapped the ten `framerusercontent.com` images against the headings, and downloaded the eight that belong to the case study into `public/uploads/projects/acacia/` at Framer's `?scale-down-to=2048` (≈2.8MB total): `hero.png` (laptop on a desk; also `coverImage`, rendered as the first `image` block like MOS Urban), `home-dashboard.png` (`image` block after the Solution pull-statement), `onboarding-1/2.png` (2-up `gallery` after the Onboarding deep-dive, as the live page shows two phones), `data-consent.png`, `home-upgrades.png`, `energy-profile.png` (`image` on their deep-dives, sides alternating left/right), `design-system.png` (`image` block after the "Pixel by pixel" quote). Alt text written from the actual pictures. The other two images were the site logo mark and the MOS Urban next-project thumbnail (already in `public/uploads/home/`). The page's `og:image` is the site share image (byte-identical to `public/uploads/home/og.png`), so no separate OG asset.
+  - **Missing deep-dive** — *done.* The live page has **four** deep-dives, not three: "Data consent experience — Building trust via user autonomy" sits between Onboarding and Home upgrade modules. Authored verbatim from the cached HTML (paragraph + three summary lines as bullets).
+  - **Outcome metric values** — *done.* The counter targets live in the page's JS module (`yjxwSQFfU.*.mjs`, prop `eBxVYvoSF` with suffix `%`), not in the SSR HTML: **25%** onboarding completion, **40%** reduction in data-sharing drop-off, **20%** returning monthly users, **15%** customer lifetime value. Kind stays `percentage` (the live copy has no "+").
+  - Next-project link appears now that `/mosurban` (#10) exists.
 - Verify visually:
   - [ ] `/acacia` renders end to end in dark (faithful) and light.
   - [ ] Header: status eyebrow, title, tagline, intro paragraphs, 4-column overview with role description and two collaborators.
@@ -62,7 +63,7 @@ Written by the unattended loop (`scripts/afk-loop.sh`): one section per ticket, 
   - Years label authored as "’23 – ’25" (live literally renders `'23 - 25'`); experience periods use en dashes ("2025 – Present"), consistent with the case-study timelines.
   - Removed the starter hero's `icon` and `videoUrl` fields (unused by the faithful hero); `hero` stays registered on the `project` collection untouched.
 - Stubbed:
-  - `pnpm test` was denied in this session (the allowlist in `scripts/afk/settings.json` was not in effect for it), so the two new `scrollRevealMotion` scale tests ran only via tsc, not Vitest. Final pass runs `scripts/afk/check.sh --full`.
+  - `pnpm test` was denied in this session (the allowlist in `scripts/afk/settings.json` was not in effect for it), so the two new `scrollRevealMotion` scale tests ran only via tsc, not Vitest. *Final pass: ran under Vitest in `scripts/afk/check.sh --full`; green.*
   - `/about` (`content/pages/about.mdx`) is still starter content and the header nav still links to it; out of scope here.
 - Verify visually:
   - [ ] `/` renders end to end in dark (faithful) and light; no starter content left.
@@ -87,7 +88,7 @@ Written by the unattended loop (`scripts/afk-loop.sh`): one section per ticket, 
   - Browsers without `startViewTransition` (older Firefox/Safari) get a normal client-side navigation from the library's `Link`; no polyfill.
   - No shared-element transition (project thumbnail → case-study hero) yet: Acacia has no images and the "smallest change" rule applies. Candidate for the elevate pass (`view-transition-name` on the thumbnail and `coverImage`).
 - Stubbed:
-  - `pnpm test` was denied in this session (as in #11); the five new `routeTransitionMotion` tests compiled under tsc only. Final pass runs `scripts/afk/check.sh --full`.
+  - `pnpm test` was denied in this session (as in #11); the five new `routeTransitionMotion` tests compiled under tsc only. *Final pass: ran under Vitest; green.*
 - Verify visually:
   - [ ] `/` → project row → `/acacia` (Chrome/Edge/Safari 18+): old page fades, case study rises in, header stays fixed; no white flash in dark theme, no flash in light.
   - [ ] `/acacia` ⇄ `/mosurban` via Previous / Next project; header logo back to `/`.
@@ -118,7 +119,7 @@ Written by the unattended loop (`scripts/afk-loop.sh`): one section per ticket, 
   - No `sitemap.ts` / `robots.ts` — not in the acceptance criteria; one-file additions for the final pass or cutover ticket. The live site's `robots: max-image-preview:large` meta was not reproduced.
   - Root metadata is derived from `buildPageMetadata` so the title/description live in one place (`lib/seo/site.ts`); `openGraph.url` is stripped there on purpose.
 - Stubbed:
-  - `pnpm test` was denied in this session (as in #11/#12); the six new metadata tests compiled under tsc only. Final pass runs `scripts/afk/check.sh --full`.
+  - `pnpm test` was denied in this session (as in #11/#12); the six new metadata tests compiled under tsc only. *Final pass: ran under Vitest; green.*
   - Global footer content (`content/global/index.json`) still carries the TinaCMS placeholder socials; the new `aria-label`s make them accessible but the links themselves are still a follow-up (noted in #11).
   - `/about` is still starter content; its metadata now at least gets the template + site description.
 - Verify visually:
@@ -131,3 +132,103 @@ Written by the unattended loop (`scripts/afk-loop.sh`): one section per ticket, 
   - [ ] Screen reader (VoiceOver): footer socials announce "LinkedIn (opens in a new tab)" etc.; hamburger announces expanded state; hero/contact `TextReveal` reads the full sentence once.
   - [ ] `prefers-reduced-motion: reduce`: hamburger icon swaps instantly, hover colour changes are instant, Framer-hosted videos on `/mosurban` do not autoplay, route changes are instant, nothing stuck at opacity 0.
   - [ ] Tina (`/admin`): Pages → Home shows the new Description field; saving still works.
+
+## Final pass
+Deferred testing pass over #9–#13 (`scripts/afk/final.md`). Everything below was done without a human; decisions are written down so the PR review can overturn them.
+
+### What failed, and how it was fixed
+- **Nothing failed in the gate.** `scripts/afk/check.sh --full` (Tina schema + types, tsc, biome, `pnpm build-local`, vitest) was green on the first run against the committed branch (70 tests), and again after each round of fixes. `tina-lock.json` did not change.
+- **The first final-pass session ended before committing** (the loop reported no `afk(final):` commit). A second session re-verified its working tree against the notes (images on disk, counter values re-read from the cached Framer module, the code diff reviewed by hand), re-ran the full gate (green, 79 tests) and committed the same work unchanged.
+- **#9's curl-blocked stubs** (images, counter values) were filled in as described under #9 → *Stubbed*; the live page also turned out to have a fourth deep-dive ("Data consent experience") that #9 missed, now authored.
+- **Fidelity defects found in review, fixed:**
+  - Global chrome still carried the TinaCMS starter: Tina logo + "designbyalex" in the header, "Work / About" nav, and four TinaCMS social links in the footer on every page. `content/global/index.json` now uses the brand mark (new `Mark` entry in `components/icon.tsx`, same artwork as `app/icon.svg`), name "Alexander Blum" (so the footer copyright reads "© 2026 Alexander Blum"), a single "Let's talk" `mailto:` nav item (the live header is logo + "Let's talk"), and only the real LinkedIn in the footer. The `/about` nav link is gone, which also hides the starter About page from navigation.
+  - Acacia: the pull-statement "Solving for the problems…" now sits between the Solution paragraph and "Some key features I designed", as live (the text block was split in two).
+  - Status label is "In-development" (hyphenated, verbatim) in the case-study eyebrow and the homepage pill.
+  - MOS Urban: *Landscape Architecture Magazine* is italic, as live.
+  - `lib/seo/site.ts` description used a straight apostrophe where the live meta has `years’`; fixed (the new test pins it).
+  - Metrics block: four metrics rendered 3 + 1 at `md`; the grid now uses rows of four unless the count is a multiple of three.
+- **Code defects found in review, fixed:**
+  - `video.tsx` decided autoplay inline from `useReducedMotion`, bypassing the selector module the PRD requires. New `autoplayMotion()` in `lib/motion/reduced-motion.ts` (fifth `MotionCategory`), unit-tested; the block calls it.
+  - `project-page.tsx`: a collaborator with a role but no name rendered "null (Role)"; rows without a name are skipped.
+  - `contact.tsx`: `isExternal` matched `mailto:` so mail links got `rel="noopener noreferrer"`; now only http(s) links open in a new tab.
+  - `selected-projects.tsx`: a row without an `href` became a scroll-to-top `#` link; such rows are no longer rendered.
+  - `app/layout.tsx` asserted `siteDefaults.baseUrl!`; `siteDefaults` is now typed with a required `baseUrl`, no assertion.
+
+### Tests added
+- `lib/seo/site.test.ts` (new, 6 tests): `siteDefaults` reproduces the live `<title>`/description verbatim; the share image points at a committed file under `public/`; the origin defaults to `https://designbyalex.dev` and `NEXT_PUBLIC_SITE_URL` redirects canonical/OG URLs to a preview; the homepage and a case study get the right title, canonical and absolute `og:image` through the builders. (`site.ts` is the only pure module added under `lib/` on this branch; `metadata.ts`, `reduced-motion.ts`, `format.ts`, `next-project.ts` and `blocks/resolve.ts` already had colocated tests.)
+- `lib/motion/reduced-motion.test.ts` (+3): `autoplayMotion` plays only when asked and motion is allowed; never under reduced motion.
+- Totals after the pass: 6 test files, 79 tests, all green under Vitest.
+
+### Acceptance criteria
+Legend: **met** = verified by build/tests/code reading; **met (code), visual unverified** = the code path is correct and covered, but no browser was available in this sandbox, so it is on the QA checklist; **not met** = reason given.
+
+| Ticket | Criterion | Status |
+|---|---|---|
+| #9 | Acacia content authored via blocks, faithful to the live case study | **met** — 24 blocks, copy verbatim from the cached live HTML, 8 images with alt text, counters 25/40/20/15, four deep-dives, section order matches live |
+| #9 | Page live at `/acacia` | **met** — SSG route in `next build`; previous/next links to `/mosurban` |
+| #9 | Renders correctly in both themes | **met (code), visual unverified** |
+| #9 | Reduced-motion fallback verified | **met (code), visual unverified** — every reveal goes through `scrollRevealMotion`; no autoplaying media |
+| #10 | MOS Urban content authored via blocks with in-development status | **met** — `status: in-development`, orange eyebrow/pill, label "In-development" |
+| #10 | Page live at `/mosurban` | **met** |
+| #10 | Renders correctly in both themes | **met (code), visual unverified** |
+| #10 | Reduced-motion fallback verified | **met (code), visual unverified** — videos never autoplay under reduced motion (`autoplayMotion`, tested) |
+| #11 | Home composed of blocks: animated hero, selected-projects, about, experience timeline, contact | **met** |
+| #11 | Faithful to the current homepage; hero entrance + scroll reveals present | **met with recorded deviations** — copy and images verbatim; hero is card-above-text rather than overlaid; header shows the name beside the mark and "Let's talk" as a text link, not a pill; footer has LinkedIn only (no Home / See full CV small links, see *not fixed*) |
+| #11 | Renders in both themes with reduced-motion support | **met (code), visual unverified** |
+| #11 | Selected-projects links resolve to `/acacia` and `/mosurban` | **met** |
+| #12 | Animated transitions between home and case studies via the View Transitions API | **met (code), visual unverified** — `next-view-transitions` provider + `TransitionLink` on every internal route link |
+| #12 | Graceful instant fallback when `prefers-reduced-motion` is set | **met** — link falls back to `next/link` (tested selector) and CSS disables every `::view-transition-*` animation for back/forward |
+| #12 | No layout jank, broken scroll restoration, or RSC hydration errors | **not verified** — build is clean and both link variants render an `<a>` (no hydration mismatch by construction), but scroll restoration and jank need a browser; on the checklist |
+| #13 | `generateMetadata` wired for home + projects (title, description, OG/Twitter, canonical) | **met** — `app/page.tsx`, catch-all page + project routes; 17 metadata tests |
+| #13 | Vercel Analytics enabled | **met** — `<Analytics />` in the root layout; only verifiable on a Vercel deploy |
+| #13 | Visible focus states and alt text on all media | **met (code), visual unverified** — global `:focus-visible` ring, skip link; all 18 content images carry alt |
+| #13 | Contrast meets AA in both themes; reduced-motion respected sitewide | **met (code), visual unverified** — `--emphasis` 5.4:1 in light / 10.9:1 in dark; sitewide reduced-motion CSS + selector module |
+
+### Review findings not fixed (and why)
+Standards axis:
+- Display headings use `lg:text-[4.5rem]` (72px) in `hero.tsx` / `contact.tsx` while the design audit's scale tops out at 58px, and the two disagree at `sm`. No type tokens exist yet (the audit asked S1 for a ramp); a typography-token pass belongs in the elevate ticket, not a smallest-change final pass.
+- Binary duplication: `projects/acacia/hero.png` = `home/acacia-thumbnail.png` and `projects/mosurban/hero.png` = `home/mosurban-thumbnail.png` (~1MB total). Kept so each Tina media folder owns its own files; dedupe if repo size matters.
+- `statusLabels` / status accent maps are duplicated between `project-page.tsx` and `selected-projects.tsx` (plus a third copy as Tina options); `isExternal` is defined twice with different regexes; the `{src, alt}` image field schema repeats in three blocks. All refactors, not defects.
+- `routeTransitionMotion` returns durations/easings nothing consumes (CSS owns the timings, mirrored on purpose per #12); `PageSeoInput.image` has no caller yet. Kept: documented design, removing them would orphan tests for no behaviour change.
+- `hasImage && data.image?.src` double guard in `about.tsx` / `feature-deep-dive.tsx`: redundant but harmless (it narrows the type).
+Spec axis:
+- The live next-project link is a card (status pill, title, tagline, thumbnail); ours is a title-only link and also shows "Previous", which the live page lacks. Design call for the review, not a bug.
+- `hero.tsx` dropped the starter's unused `icon` / `videoUrl` fields while the template stays registered on the `project` collection (recorded in #11).
+- Live footer has "Home / Linkedin / See full CV" text links; the footer schema only has icon socials, so only LinkedIn is there. The CV link lives in the Experience and Contact blocks. Adding text links to the footer schema is a small follow-up.
+- Live header is the mark + a "Let's talk" pill button; ours renders the mark + "Alexander Blum" + "Let's talk" as a nav text link.
+
+### Open risks
+- **`public/uploads/home/og.png` is 2.3MB (2400×1260).** `magick` and `sips` are both denied in this sandbox. Crawlers accept it, but it should be resized to 1200×630 before cutover.
+- **Framer-hosted videos** on `/mosurban` stream from `framerusercontent.com`; they 404 if the Framer project is deleted. Re-host before DNS cutover.
+- **Acacia counter values** (25/40/20/15) were read from the Framer page module, which is not in the repo; the cache (`.afk/cache/`) is gitignored. If they look wrong to Alex, they're one edit in Tina.
+- **`/about` is still starter content** and reachable by URL (no longer linked from the nav). Needs its own ticket or a redirect.
+- **Tina admin for the global icon**: the `Mark` option exists in `IconOptions`; confirm the Global → Header icon picker lists it and the preview renders it.
+- **View transitions + back/forward** cannot be exercised here; the reduced-motion CSS safety net is the only guard against a frozen snapshot on `popstate`.
+- Light theme is net-new design; token contrast is computed, not eyeballed.
+
+### Visual QA checklist (consolidated)
+Run each page in **dark** and **light** (header toggle), then once more with **`prefers-reduced-motion: reduce`** (DevTools → Rendering). Pages: `/`, `/acacia`, `/mosurban`, `/styleguide`, `/404` (any bad URL), `/about` (starter; expect to replace). For each page × theme × motion:
+- [ ] Nothing starter-branded: header shows the green brand mark + "Alexander Blum" + "Let's talk" (mailto); footer shows the mark, "© 2026 Alexander Blum", one LinkedIn icon with the accessible name "LinkedIn (opens in a new tab)".
+- [ ] No content stuck at opacity 0 or scaled; under reduced motion every reveal is already at rest, hover colour changes are instant, the hamburger icon swaps instantly.
+- [ ] Tab order: skip link appears top-left on first Tab; every link/button shows the green (dark) / dark-green (light) focus ring; nothing has its outline removed.
+- [ ] Console clean of hydration warnings.
+
+Page-specific:
+- [ ] `/` hero: card zooms out, headline per character, tagline per word, then the button; headline above the fold at 1440×900 and on a phone; card height `clamp(220px,48vh,600px)` crops the mark sensibly on a phone. "See Selected Projects" scrolls to `#works` with the sticky header clearing it.
+- [ ] `/` project rows: 4:3 thumbnails, "Shipped" green dot / "In-development" orange dot (orange legible on white), title turns green on hover, arrow chip hidden below `sm`; rows link to `/acacia` and `/mosurban`; the row outline wraps the whole card on focus.
+- [ ] `/` about: four parts, bright lead-in + muted text at `text-2xl`; portrait crops OK at `4/5` (md) and `4/3` (lg); teal background in light theme.
+- [ ] `/` experience: six hairline rows, mono period on the right, role drops to its own line below `sm`; CV button opens Google Drive in a new tab.
+- [ ] `/` contact: display "Let's talk", green pill opens mailto (same tab, no `rel`), LinkedIn / CV open in new tabs.
+- [ ] `/acacia` header: "Shipped" eyebrow, title, tagline, 3 intro paragraphs, overview Typology / Role (+ description) / Timeline / Collaborators (2 lines, with roles).
+- [ ] `/acacia` images: hero laptop (wide), dark home-dashboard after "Solving for the problems…", two onboarding phones 2-up after the Onboarding deep-dive, then consent (image left) / home upgrades (right) / energy profile (left) deep-dives, design-system sheet after "Pixel by pixel". Dark screenshots don't look odd on the light theme; rounded borders OK.
+- [ ] `/acacia` metrics: 25% / 40% / 20% / 15% in **one row of four** at `md+`, 2×2 below; pull-statement quotes read as intentional without attribution (decide whether to hide the green quote marks).
+- [ ] `/acacia` CTA opens Calendly in the same tab; "Next project → MOS evolution" at the bottom.
+- [ ] `/mosurban` header: orange "In-development" eyebrow (contrast OK on white), overview with Tools and a 2-column Deliverables list (8 lines).
+- [ ] `/mosurban` media: phone hero, pitch illustration right of "Where it all started", two wide illustrations, three Framer mp4s play with controls (never autoplay under reduced motion; no letterbox gap), 2-up typography gallery; *Landscape Architecture Magazine* italic; "Previous ← Acacia Money".
+- [ ] Route transitions (Chrome/Edge/Safari 18+): `/` → row → `/acacia`: old page fades, new rises, header stays fixed, no flash in either theme; `/acacia` ⇄ `/mosurban` via Previous/Next; browser Back replays the transition and restores the homepage scroll to the row. Under reduced motion: instant swaps, no frozen frame. Firefox < 144: plain client navigation.
+- [ ] Header `backdrop-blur` during the 420ms transition isn't noticeably static in either theme.
+- [ ] SEO: view source on `/`, `/acacia`, `/mosurban` — `<title>` ("Alexander Blum | UX • Product Design" / "Acacia Money · Alexander Blum" / "MOS evolution · Alexander Blum"), description, `og:*`, `twitter:*`, canonical; `og:image` → `/uploads/home/og.png` on `/` and `/uploads/projects/{acacia,mosurban}/hero.png` on the case studies. Favicon is the green mark; apple-touch-icon present.
+- [ ] Vercel preview: Analytics records page views (`/_vercel/insights/script.js` loads).
+- [ ] VoiceOver: footer LinkedIn announces its name; hamburger announces expanded state; hero/contact `TextReveal` reads each sentence once.
+- [ ] Tina (`/admin`): Global → Header icon picker offers "Mark" and the preview renders it; Pages → Home shows the Description field; Projects → Acacia shows the new images in the deep-dive / gallery / image blocks; each homepage block and list item is click-to-edit; saving works.
+- [ ] `/styleguide`: TransitionLink demo under Motion primitives still navigates.

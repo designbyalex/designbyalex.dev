@@ -24,7 +24,7 @@ export interface ProjectClientPageProps {
 
 const statusLabels: Record<string, string> = {
   shipped: "Shipped",
-  "in-development": "In development",
+  "in-development": "In-development",
   concept: "Concept",
 };
 
@@ -54,9 +54,8 @@ export default function ProjectClientPage(props: ProjectClientPageProps) {
       key: "collaborators",
       label: "Collaborators",
       value: project.collaborators
-        .filter(Boolean)
+        .filter((c) => c?.name)
         .map((c) => (c!.role ? `${c!.name} (${c!.role})` : c!.name))
-        .filter(Boolean)
         .join("\n"),
     });
   }
