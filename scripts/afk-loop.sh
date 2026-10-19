@@ -118,17 +118,20 @@ attempt_unit() {
 
 # ── optional: prove the allowlist works headlessly, then exit ────────────────
 if [[ ${AFK_SMOKE:-0} == 1 ]]; then
-  say "permission smoke test (haiku). Expected: 1-4 RAN, 5-8 DENIED"
+  say "permission smoke test (haiku). Expected: 1-6 RAN, 7-10 DENIED"
   # 3-4 fetch a real page and image: a bare-host fetch can pass while every /<path> fetch is denied.
+  # 5 quotes its URL (as a query string forces), 6 resizes the image from 4.
   claude -p 'Permission smoke test. Run each command below exactly as written, one Bash call each, in order, even if one fails. Do nothing else. Then reply with one line per command: "<n>. RAN" or "<n>. DENIED".
 1. git status --short
 2. gh issue view 9 --json title -q .title
 3. curl -fsSL https://designbyalex.dev/acacia -o .afk/cache/smoke.html
 4. curl -fsSL https://framerusercontent.com/images/2aTwCHUSykoESjmoANhjXk4uY2o.png -o .afk/cache/smoke.png
-5. git push --dry-run origin afk/migration
-6. gh issue comment 9 --body smoke-test
-7. pnpm build-local
-8. git checkout main' \
+5. curl -fsSL "https://framerusercontent.com/images/2aTwCHUSykoESjmoANhjXk4uY2o.png?scale-down-to=512" -o .afk/cache/smoke-quoted.png
+6. sips -Z 256 .afk/cache/smoke.png --out .afk/cache/smoke-256.png
+7. git push --dry-run origin afk/migration
+8. gh issue comment 9 --body smoke-test
+9. pnpm build-local
+10. git checkout main' \
     --settings "$DIR/settings.json" --permission-mode acceptEdits --strict-mcp-config --model haiku \
     --disallowedTools "Bash(scripts/afk/check.sh --full:*)" "Bash(pnpm build-local:*)" "Bash(pnpm test:*)"
   exit 0
