@@ -21,6 +21,8 @@
    * monospace advance, as on the Reference, instead of a 137%-scaled Arial one.
    */
   --font-mono: "Space Mono", ui-monospace, Menlo, var(--font-space-mono), monospace;
+  /* Material Icons ligatures (#59): the CV link's "download" glyph, as on the Reference. No fallback: the word must never show. */
+  --font-icons: var(--font-material-icons);
 }
 
 /*
@@ -82,6 +84,11 @@
   --text-mono--line-height: 1;
   --text-mono--letter-spacing: 0em;
   --text-mono--font-weight: 400;
+  /* Material Icons glyphs set as text (`font-icons`): 16, as the Reference's download icon */
+  --text-icon: 1rem;
+  --text-icon--line-height: 1.2;
+  --text-icon--letter-spacing: 0em;
+  --text-icon--font-weight: 400;
 }
 
 @theme inline {

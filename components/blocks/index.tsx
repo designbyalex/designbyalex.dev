@@ -11,7 +11,6 @@ import { Quote } from "./quote";
 import { CallToAction } from "./call-to-action";
 import { SelectedProjects } from "./selected-projects";
 import { About } from "./about";
-import { Experience } from "./experience";
 import { resolveBlockComponent } from "./resolve";
 
 /**
@@ -32,7 +31,6 @@ export const blockComponents: Record<string, ComponentType<{ data: any }>> = {
   // Homepage sections (registered on the `page` collection only).
   SelectedProjects,
   About,
-  Experience,
 };
 
 type BlockData = {
