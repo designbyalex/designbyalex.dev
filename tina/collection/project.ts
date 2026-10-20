@@ -60,6 +60,17 @@ const Project: Collection = {
     },
     {
       type: 'string',
+      label: 'Overview spacing',
+      name: 'overviewStyle',
+      description:
+        'Rhythm of the Overview. Compact (the default): each value straight under its label, paragraphs 30px apart on desktop. Relaxed: 4px between label and value, the Role set as a white paragraph with 4px below, paragraphs 40px apart on desktop.',
+      options: [
+        { label: 'Compact', value: 'compact' },
+        { label: 'Relaxed', value: 'relaxed' },
+      ],
+    },
+    {
+      type: 'string',
       label: 'Typology',
       name: 'typology',
       description: 'Project category / discipline (e.g. Fintech & Sustainability). First row of the Overview list.',

@@ -27,10 +27,15 @@ const HAIRLINE_ABOVE = 'shadow-[0_-1px_0_0_var(--color-border)]';
  * 532px column padded 64/16, the columns stacked 64px apart, the intro 16px under its hairline
  * with paragraphs 20px apart. The tablet variant (1024–1279) is approximated: 128/24/64 padding,
  * the list 43% wide.
+ *
+ * `overviewStyle: relaxed` is Framer's MOS Urban instance, a hand-tuned copy of Acacia's: 4px
+ * between every label and its value, the Role value a white paragraph in a 4px-padded wrapper,
+ * and the paragraphs 40px apart at desktop (20px on phones, as the compact style).
  */
 export const ProjectOverview = ({ project }: { project: Project }) => {
   const rows = buildOverviewRows(project);
   if (!project.intro && rows.length === 0) return null;
+  const relaxed = project.overviewStyle === 'relaxed';
 
   return (
     <Section
@@ -43,7 +48,10 @@ export const ProjectOverview = ({ project }: { project: Project }) => {
           <ScrollReveal className={cn('w-full pt-4 lg:min-w-0 lg:flex-1 lg:pt-[10px]', HAIRLINE_ABOVE)}>
             {/* Statements at the Reference's 28px Inter Display, white, highlights green; pre-wrap as Framer's text containers. */}
             <div
-              className='flex flex-col gap-5 font-display text-statement text-foreground xl:gap-[30px] [&_p]:whitespace-pre-wrap'
+              className={cn(
+                'flex flex-col gap-5 font-display text-statement text-foreground [&_p]:whitespace-pre-wrap',
+                relaxed ? 'xl:gap-10' : 'xl:gap-[30px]'
+              )}
               data-tina-field={tinaField(project, 'intro')}
             >
               <TinaMarkdown content={project.intro} components={components} />
@@ -61,7 +69,14 @@ export const ProjectOverview = ({ project }: { project: Project }) => {
             {rows.map((row, i) => (
               <ScrollReveal key={row.key} delay={Math.min(i, 4) * 0.06} className={cn('w-full', i > 0 && cn('pt-[10px]', HAIRLINE_ABOVE))}>
                 <dt className='text-caption text-muted-foreground'>{row.label}</dt>
-                <dd className='text-caption text-foreground-soft' data-tina-field={tinaField(project, row.key)}>
+                <dd
+                  className={cn(
+                    'text-caption text-foreground-soft',
+                    relaxed && 'mt-1',
+                    relaxed && row.key === 'role' && 'pb-1 text-foreground'
+                  )}
+                  data-tina-field={tinaField(project, row.key)}
+                >
                   {row.lines.map((line, j) => (
                     <Fragment key={j}>
                       {j > 0 && <br />}
