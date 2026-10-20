@@ -86,6 +86,38 @@
       "check": "copy-extra",
       "anchor": "Energy profile & insights",
       "decision": "The Build shows all five key features in Solution. Framer's list has the same fifth item, \"Energy profile & insights\", and keeps its row, but the item's appear animation never fires, so it stays at opacity 0 for every visitor (checked live 2026-10-20, with and without reduced motion) and the Reference snapshot drops it. Showing it fixes a Framer bug: it is a key feature with its own deep-dive Section further down. Layout is unchanged, since the row exists on both sites. Approved by the owner during the AFK run (#61)."
+    },
+    {
+      "id": "mos-last-list-item-clients",
+      "page": "mosurban",
+      "section": "Section Clients",
+      "check": "copy-extra",
+      "anchor": "Prototyping and testing",
+      "decision": "Reference capture artefact, not a design difference. On Framer the last item of each of these lists fades in on a staggered delay once in view. The extractor scrolls through in short steps and collects at the top, so these items had not appeared yet and the frozen snapshot holds them at opacity 0. On the live site all four are visible after a few seconds in view, with and without reduced motion (checked 2026-10-21). Approved by the owner during the AFK run (#65)."
+    },
+    {
+      "id": "mos-last-list-item-ux",
+      "page": "mosurban",
+      "section": "Section UX",
+      "check": "copy-extra",
+      "anchor": "Dynamic search filters",
+      "decision": "Reference capture artefact, not a design difference. On Framer the last item of each of these lists fades in on a staggered delay once in view. The extractor scrolls through in short steps and collects at the top, so these items had not appeared yet and the frozen snapshot holds them at opacity 0. On the live site all four are visible after a few seconds in view, with and without reduced motion (checked 2026-10-21). Approved by the owner during the AFK run (#65)."
+    },
+    {
+      "id": "mos-last-list-item-brand",
+      "page": "mosurban",
+      "section": "Section Brand",
+      "check": "copy-extra",
+      "anchor": "10-year anniversary assets",
+      "decision": "Reference capture artefact, not a design difference. On Framer the last item of each of these lists fades in on a staggered delay once in view. The extractor scrolls through in short steps and collects at the top, so these items had not appeared yet and the frozen snapshot holds them at opacity 0. On the live site all four are visible after a few seconds in view, with and without reduced motion (checked 2026-10-21). Approved by the owner during the AFK run (#65)."
+    },
+    {
+      "id": "mos-last-list-item-outcome",
+      "page": "mosurban",
+      "section": "Section Outcome",
+      "check": "copy-extra",
+      "anchor": "Coming Soon…",
+      "decision": "Reference capture artefact, not a design difference. On Framer the last item of each of these lists fades in on a staggered delay once in view. The extractor scrolls through in short steps and collects at the top, so these items had not appeared yet and the frozen snapshot holds them at opacity 0. On the live site all four are visible after a few seconds in view, with and without reduced motion (checked 2026-10-21). Approved by the owner during the AFK run (#65)."
     }
   ]
 }
