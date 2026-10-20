@@ -170,15 +170,20 @@ describe('compare: text runs', () => {
 const messages = (r: { gaps: { message: string }[] }) => r.gaps.map((g) => g.message);
 
 describe('compare: normalised matching', () => {
-  it('matches curly against straight quotes and reports the difference as punctuation, not missing copy', () => {
+  it('matches curly against straight quotes and reports the difference as quote style, not missing copy', () => {
     const r = run(
       ref({ sections: cred, runs: [{ text: 'Acacia’s “too hard basket.”' }] }),
       build({ sections: credBuild, runs: [{ text: `Acacia's "too hard basket."` }] })
     );
-    expect(r.gaps.map((g) => [g.dimension, g.check])).toEqual([['Copy', 'punctuation']]);
+    expect(r.gaps.map((g) => [g.dimension, g.check])).toEqual([['Copy', 'quote-style']]);
     expect(messages(r)).toEqual([
-      `/acacia Section Credibility @1440 "Acacia’s “too hard basket.”": punctuation "Acacia's "too hard basket."", expected "Acacia’s “too hard basket.”"`,
+      `/acacia Section Credibility @1440 "Acacia’s “too hard basket.”": quote style "Acacia's "too hard basket."", expected "Acacia’s “too hard basket.”"`,
     ]);
+  });
+
+  it('keeps a quote change that comes with other punctuation changes a punctuation Gap', () => {
+    const r = run(ref({ sections: cred, runs: [{ text: "Let's talk, now" }] }), build({ sections: credBuild, runs: [{ text: 'Let’s talk now' }] }));
+    expect(r.gaps.map((g) => g.check)).toEqual(['punctuation']);
   });
 
   it('matches across dash styles and spacing in a date range', () => {

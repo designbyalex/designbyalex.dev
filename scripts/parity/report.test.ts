@@ -58,4 +58,9 @@ describe('formatReport', () => {
       ].join('\n')
     );
   });
+
+  it('counts a quote-style difference as punctuation-only, not as a word change', () => {
+    const text = formatReport([comparison(1440, [gap({ dimension: 'Copy', check: 'quote-style', message: 'quote style' })])]);
+    expect(text).toContain('/acacia (acacia): 0 Gaps, 1 punctuation-only, 0 suppressed');
+  });
 });

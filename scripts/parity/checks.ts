@@ -10,6 +10,8 @@ export const CHECKS = {
   'copy-changed': 'Copy',
   'copy-extra': 'Copy',
   punctuation: 'Copy',
+  // Curly versus straight quotes and nothing else, so a site-wide quote-style Deviation can't hide other punctuation.
+  'quote-style': 'Copy',
   case: 'Copy',
   'link-missing': 'Copy',
   'link-extra': 'Copy',
