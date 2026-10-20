@@ -156,7 +156,7 @@ export const heroBlockSchema: Template = {
   ui: {
     previewSrc: '/blocks/hero.png',
     defaultItem: {
-      headline: "I'm a digital product designer committed to my constant evolution.",
+      headline: 'I’m a digital product designer committed to my constant evolution.',
       tagline: 'Leveraging AI-workflows, I design beautiful digital products for fast moving product teams.',
       actions: [{ label: 'See Selected Projects', link: '#works' }],
     },

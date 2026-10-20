@@ -133,7 +133,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
                       download
                     </span>
                     {/* Hover rolls the label up and a second copy in from below, as Framer's link variant does. */}
-                    <span className='flex h-[22px] flex-col overflow-hidden text-caption uppercase'>
+                    <span className='flex h-[22px] flex-col overflow-hidden text-caption'>
                       <span className='transition-transform duration-300 ease-out group-hover:-translate-y-[22px]'>{cv.label}</span>
                       <span aria-hidden className='transition-transform duration-300 ease-out group-hover:-translate-y-[22px]'>
                         {cv.label}
@@ -227,7 +227,7 @@ export const aboutBlockSchema: Template = {
       type: 'object',
       label: 'CV link',
       name: 'cv',
-      description: 'Small right-aligned link under the roles, with a download icon. Shown in capitals.',
+      description: 'Small right-aligned link under the roles, with a download icon. Rendered as typed (the live site has it in capitals).',
       fields: [
         { type: 'string', label: 'Label', name: 'label' },
         { type: 'string', label: 'Link', name: 'href' },

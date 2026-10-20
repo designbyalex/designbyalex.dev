@@ -20,7 +20,7 @@ export function Illustration(props: React.ComponentPropsWithoutRef<"svg">) {
 
 export function NotFoundContent({
   title = "Page not found",
-  description = "Lost, this page is. In another system, it may be.",
+  description = "This page doesn’t exist or has moved.",
 }: NotFoundProps) {
   return (
     <div data-section="not-found" className="relative text-center z-[1] pt-52 pb-40">
@@ -32,7 +32,7 @@ export function NotFoundContent({
       </p>
       <div className="mt-10 mx-auto">
         <Button asChild>
-          <Link href="/">Take me home</Link>
+          <Link href="/">Back to home</Link>
         </Button>
       </div>
     </div>
