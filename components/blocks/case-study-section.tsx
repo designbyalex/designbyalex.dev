@@ -368,8 +368,9 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     return (
       <ScrollReveal delay={delay} className='w-full'>
         <div
-          role='img'
+          role={card.alt ? 'img' : undefined}
           aria-label={card.alt || undefined}
+          aria-hidden={card.alt ? undefined : true}
           className='relative h-[435px] w-full overflow-clip rounded-[16px] border border-primary/50'
           data-tina-field={tinaField(card, 'grid')}
         >

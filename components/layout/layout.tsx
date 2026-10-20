@@ -31,7 +31,7 @@ export default async function Layout({ children, rawPageData }: LayoutProps) {
         Skip to content
       </a>
       <Header />
-      {/* Offset by the header's height (88px, 96px at ≥1024) until the Hero and Project Hero tickets place their content under it as the Reference does. */}
+      {/* Offset by the header's height (88px, 96px at ≥1024). The home hero and the Project Hero pull themselves back up under the header with the matching negative margin; the offset serves every other page (the 404). */}
       {/* overflow-x-clip, not -hidden: hidden would make <main> the scrollport for position: sticky, and the About heading sticks to the viewport. */}
       <main id="main" tabIndex={-1} className="overflow-x-clip pt-22 outline-none lg:pt-24">
         {children}

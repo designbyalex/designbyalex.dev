@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { autoplayMotion } from '@/lib/motion/reduced-motion';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
+import { useHydrated } from '../motion-primitives/use-hydrated';
 
 /**
  * A muted, looping clip, as Framer plays the MOS Urban videos (docs/parity-audit.md M4–M6). The files
@@ -66,7 +67,11 @@ interface ClipOptions {
 
 /** Whether the clip plays on its own: the block's Auto Play through the reduced-motion selector. */
 const usePlayback = (autoPlay?: boolean | null) => {
-  const reducedMotion = useReducedMotion() ?? false;
+  const hydrated = useHydrated();
+  const prefersReducedMotion = useReducedMotion() ?? false;
+  // The server can't read the media query, so until hydration the client renders what the server did
+  // (the `autoplay` attribute from the block) and the preference takes over on the next render.
+  const reducedMotion = hydrated && prefersReducedMotion;
   return { reducedMotion, playing: autoplayMotion(reducedMotion, autoPlay ?? true) };
 };
 
@@ -161,9 +166,7 @@ interface ClipProps {
 const Clip = ({ src, playing, loop, reducedMotion, className }: ClipProps) => {
   const ref = React.useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = React.useState(true);
-  const [mounted, setMounted] = React.useState(false);
 
-  React.useEffect(() => setMounted(true), []);
   React.useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -194,7 +197,8 @@ const Clip = ({ src, playing, loop, reducedMotion, className }: ClipProps) => {
         onPause={() => setPaused(true)}
         className={cn('block object-cover', className)}
       />
-      {mounted && reducedMotion && (
+      {/* `reducedMotion` is false until hydration (usePlayback), so the server never renders the button. */}
+      {reducedMotion && (
         <button
           type='button'
           onClick={toggle}

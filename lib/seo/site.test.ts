@@ -12,6 +12,8 @@ function jpegDimensions(bytes: Buffer): { width: number; height: number } {
   let offset = 2;
   while (offset + 9 < bytes.length) {
     if (bytes[offset] !== 0xff) throw new Error(`bad marker at ${offset}`);
+    // Encoders may pad with 0xFF fill bytes before a marker.
+    while (bytes[offset + 1] === 0xff) offset += 1;
     const marker = bytes[offset + 1];
     const isSof = marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker);
     if (isSof) return { height: bytes.readUInt16BE(offset + 5), width: bytes.readUInt16BE(offset + 7) };

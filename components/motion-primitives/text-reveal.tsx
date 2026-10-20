@@ -1,8 +1,9 @@
 'use client';
 import { motion, useReducedMotion } from 'motion/react';
-import { type ElementType, Fragment, useSyncExternalStore } from 'react';
+import { type ElementType, Fragment } from 'react';
 import { cn } from '@/lib/utils';
 import { textRevealMotion, type TextRevealOptions } from '@/lib/motion/reduced-motion';
+import { useHydrated } from './use-hydrated';
 
 export type TextRevealProps = TextRevealOptions & {
   children: string;
@@ -12,10 +13,6 @@ export type TextRevealProps = TextRevealOptions & {
   /** Animate per word or per character. Default 'word'. */
   per?: 'word' | 'char';
 };
-
-const noop = () => () => {};
-/** False in server-rendered and hydrating markup, true once the client owns the tree. */
-const useHydrated = () => useSyncExternalStore(noop, () => true, () => false);
 
 const splitWords = (text: string) => text.split(/\s+/).filter((s) => s.length > 0);
 
