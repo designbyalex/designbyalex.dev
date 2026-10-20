@@ -320,34 +320,34 @@
           "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 6 }
         },
         "Section Clients": {
-          "390": { "Copy": 0, "Media": 3, "Layout": 1, "Type": 11 },
-          "768": { "Copy": 0, "Media": 3, "Layout": 1, "Type": 11 },
-          "1440": { "Copy": 0, "Media": 3, "Layout": 1, "Type": 11 }
+          "390": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 11 },
+          "768": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 11 },
+          "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 11 }
         },
         "Section UX": {
           "390": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 5 },
           "768": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 5 },
-          "1440": { "Copy": 4, "Media": 6, "Layout": 1, "Type": 7 }
+          "1440": { "Copy": 4, "Media": 1, "Layout": 1, "Type": 7 }
         },
         "Section Brand": {
-          "390": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 3 },
-          "768": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 3 },
-          "1440": { "Copy": 1, "Media": 2, "Layout": 1, "Type": 3 }
+          "390": { "Copy": 1, "Media": 1, "Layout": 1, "Type": 3 },
+          "768": { "Copy": 1, "Media": 1, "Layout": 1, "Type": 3 },
+          "1440": { "Copy": 1, "Media": 1, "Layout": 1, "Type": 3 }
         },
         "Section Identity": {
-          "390": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 9 },
-          "768": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 9 },
-          "1440": { "Copy": 2, "Media": 3, "Layout": 1, "Type": 9 }
+          "390": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 9 },
+          "768": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 9 },
+          "1440": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 9 }
         },
         "Section Assets": {
-          "390": { "Copy": 1, "Media": 6, "Layout": 1, "Type": 9 },
-          "768": { "Copy": 1, "Media": 6, "Layout": 1, "Type": 9 },
-          "1440": { "Copy": 1, "Media": 4, "Layout": 1, "Type": 9 }
+          "390": { "Copy": 1, "Media": 2, "Layout": 1, "Type": 9 },
+          "768": { "Copy": 1, "Media": 2, "Layout": 1, "Type": 9 },
+          "1440": { "Copy": 1, "Media": 2, "Layout": 1, "Type": 9 }
         },
         "Section Years": {
-          "390": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 8 },
-          "768": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 8 },
-          "1440": { "Copy": 1, "Media": 3, "Layout": 1, "Type": 8 }
+          "390": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 8 },
+          "768": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 8 },
+          "1440": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 8 }
         },
         "Section Outcome": {
           "390": { "Copy": 8, "Media": 0, "Layout": 1, "Type": 0 },
@@ -424,11 +424,6 @@
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
         },
-        "video": {
-          "390": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 }
-        },
         "text 6": {
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
@@ -454,10 +449,10 @@
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
         },
-        "video 2": {
-          "390": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 }
+        "video": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
         },
         "feature-deep-dive 3": {
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
@@ -474,10 +469,10 @@
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
         },
-        "video 3": {
-          "390": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 0 }
+        "video 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
         },
         "text 8": {
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
@@ -487,6 +482,11 @@
         "(none)": {
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "video 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
         },
         "project-nav": {

@@ -22,8 +22,9 @@ export const ImageBlock = ({ data }: { data: PageBlocksImage }) => {
     <Section sectionId="image" background={data.background!}>
       <ScrollReveal>
         <figure className={cn('mx-auto', widthClasses[width] ?? widthClasses.wide)}>
+          {/* Framer's wide case-study images: 20px corners, cover, no border (docs/parity-audit.md §2.4). */}
           <div
-            className="overflow-hidden rounded-2xl border border-border bg-background"
+            className="overflow-hidden rounded-[20px] bg-background"
             data-tina-field={tinaField(data, 'src')}
           >
             <Image
@@ -31,7 +32,7 @@ export const ImageBlock = ({ data }: { data: PageBlocksImage }) => {
               alt={data.alt || ''}
               width={2400}
               height={1600}
-              className="h-auto w-full"
+              className="h-auto w-full object-cover"
             />
           </div>
           {data.caption && (
