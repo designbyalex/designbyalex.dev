@@ -69,6 +69,8 @@ describe('the Deviation list', () => {
       'mos-last-list-item-ux',
       'mos-last-list-item-brand',
       'mos-last-list-item-outcome',
+      // Approved by the owner during the AFK run (#54): curly quotes throughout, per story 29.
+      'curly-quotes',
     ]);
   });
 

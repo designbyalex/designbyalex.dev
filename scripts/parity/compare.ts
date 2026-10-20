@@ -140,6 +140,7 @@ export function compare(input: CompareInput): Comparison {
   const copyGaps = (section: string, expected: string, actual: string) => {
     const d = copyDifference(expected, actual);
     if (d.punctuation) gap(section, 'punctuation', expected, expected, actual, `punctuation "${short(actual)}", expected "${short(expected)}"`);
+    if (d.quoteStyle) gap(section, 'quote-style', expected, expected, actual, `quote style "${short(actual)}", expected "${short(expected)}"`);
     if (d.case) gap(section, 'case', expected, expected, actual, `case "${short(actual)}", expected "${short(expected)}"`);
   };
 

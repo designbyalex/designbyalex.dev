@@ -38,15 +38,20 @@ export function wordKey(text: string): string {
 export interface CopyDifference {
   /** Letters and digits differ only in case. */
   case: boolean;
-  /** Punctuation differs (quotes, dashes, symbols); whitespace is ignored. */
+  /** Punctuation differs (quotes, dashes, symbols) beyond quote style alone; whitespace is ignored. */
   punctuation: boolean;
+  /** The only punctuation difference is curly versus straight quotes. */
+  quoteStyle: boolean;
 }
 
 /** How two rendered texts that share a letterKey differ. */
 export function copyDifference(expected: string, actual: string): CopyDifference {
   const letters = (s: string) => s.normalize('NFKC').replace(/[^\p{L}\p{N}]+/gu, '');
   const punct = (s: string) => s.normalize('NFKC').toLowerCase().replace(/\s+/g, '');
-  return { case: letters(expected) !== letters(actual), punctuation: punct(expected) !== punct(actual) };
+  const unquoted = (s: string) => punct(s).replace(QUOTES_SINGLE, "'").replace(QUOTES_DOUBLE, '"');
+  const differs = punct(expected) !== punct(actual);
+  const onlyQuotes = differs && unquoted(expected) === unquoted(actual);
+  return { case: letters(expected) !== letters(actual), punctuation: differs && !onlyQuotes, quoteStyle: onlyQuotes };
 }
 
 /** Dice coefficient over the two texts' word multisets, 0..1. */
