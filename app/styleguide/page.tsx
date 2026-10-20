@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
@@ -69,6 +70,8 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 }
 
 export default function StyleguidePage() {
+  // Internal page: available in development only. Production builds 404 here, as the Reference site does (#66).
+  if (process.env.NODE_ENV === "production") notFound();
   return (
     <main className="min-h-screen bg-background py-16 text-foreground">
       <Container className="space-y-16">

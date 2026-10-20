@@ -510,9 +510,9 @@
           "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "(none)": {
-          "390": { "Copy": 4, "Media": 0, "Layout": 0, "Type": 0 },
-          "768": { "Copy": 4, "Media": 0, "Layout": 0, "Type": 0 },
-          "1440": { "Copy": 4, "Media": 0, "Layout": 0, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         }
       }
     },
@@ -520,14 +520,14 @@
       "page": "not-found",
       "sections": {
         "(page)": {
-          "390": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 },
-          "768": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 },
-          "1440": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "(none)": {
-          "390": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 },
-          "768": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 },
-          "1440": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         }
       }
     },
@@ -535,14 +535,14 @@
       "page": "not-found",
       "sections": {
         "(page)": {
-          "390": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 },
-          "768": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 },
-          "1440": { "Copy": 1, "Media": 0, "Layout": 0, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "(none)": {
-          "390": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 },
-          "768": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 },
-          "1440": { "Copy": 3, "Media": 0, "Layout": 0, "Type": 0 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         }
       }
     }
