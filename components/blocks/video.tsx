@@ -20,8 +20,40 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
  * 16px-gutter width under it), 1.67419 ratio at xl (1.6729 under), 20px corners, the video at 101%
  * inside so the clip itself carries no radius. Framed: the frame image at 780px at most, the video in a
  * mask 16/780 of the width in from the left, right and top at a 1.78351 ratio, which is the Studio
- * Display component's "Mask".
+ * Display component's "Mask". Slide: the framed clip on Framer's carousel slide ("Carousel Wrapper" on
+ * /mosurban): 720px tall at xl on the card colour with 20px corners and 24px padding, the 780×453
+ * Studio Display box bottom-right so the slide clips the monitor's stand, a 56×47 Next pill with a
+ * 10×16 chevron centred at the right edge and five pagination dots at the bottom. The chrome is
+ * decorative: Framer's carousel has one page.
  */
+
+/** Framer's chevron: a CSS background on the pill's arrow, as the Reference records it. */
+const CHEVRON =
+  "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9.42 16' overflow='visible'><path d='M 8 16 L 0 8 L 8 0 L 9.42 1.42 L 2.84 8 L 9.42 14.58 Z' fill='white'/></svg>\")";
+const SLIDE_PAGES = 5;
+
+/** The slide's Next pill and pagination, positioned over the slide. */
+const SlideChrome = () => (
+  <div aria-hidden='true'>
+    <div className='absolute top-1/2 right-6 z-[1] flex h-[47px] w-14 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full bg-scrim/40 backdrop-blur-[2px]'>
+      <div className='pl-px'>
+        <div className='h-4 w-[10px] rotate-180 bg-[length:100%_100%] bg-no-repeat' style={{ backgroundImage: CHEVRON }} />
+      </div>
+    </div>
+    <div className='absolute inset-x-0 bottom-0 z-[1] flex justify-center p-4'>
+      <div className='flex overflow-hidden rounded-full bg-scrim/20 backdrop-blur-[2px]'>
+        {Array.from({ length: SLIDE_PAGES }, (_, i) => (
+          <div
+            key={i}
+            className={cn('py-2.5', i === 0 ? 'pr-[5px] pl-2.5' : i === SLIDE_PAGES - 1 ? 'pr-2.5 pl-[5px]' : 'px-[5px]')}
+          >
+            <div className={cn('size-2.5 rounded-[5px] bg-on-image', i > 0 && 'opacity-50')} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
 export const Video = ({ data }: { data: PageBlocksVideo }) => {
   const prefersReducedMotion = useReducedMotion() ?? false;
   const playing = autoplayMotion(prefersReducedMotion, data.autoPlay ?? true);
@@ -37,6 +69,14 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
       className={data.frame ? 'h-full w-full' : 'absolute top-[-0.5%] left-[-0.5%] h-[101%] w-[101%]'}
     />
   );
+  const framed = data.frame ? (
+    <div className='relative' data-tina-field={tinaField(data, 'frame')}>
+      <Image src={data.frame} alt='' width={2048} height={1570} sizes='(min-width: 1280px) 780px, 100vw' className='h-auto w-full' />
+      <div className='absolute inset-x-[2.0513%] top-[2.6756%] aspect-[1.78351] overflow-hidden' data-tina-field={tinaField(data, 'url')}>
+        {clip}
+      </div>
+    </div>
+  ) : null;
 
   return (
     <Section
@@ -45,15 +85,17 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
       rootClassName={cn(data.desktopOnly && 'hidden xl:block')}
       className='px-4 lg:px-6'
     >
-      {data.frame ? (
-        <ScrollReveal className='mx-auto w-full max-w-[780px]'>
-          <div className='relative' data-tina-field={tinaField(data, 'frame')}>
-            <Image src={data.frame} alt='' width={2048} height={1570} sizes='(min-width: 1280px) 780px, 100vw' className='h-auto w-full' />
-            <div className='absolute inset-x-[2.0513%] top-[2.6756%] aspect-[1.78351] overflow-hidden' data-tina-field={tinaField(data, 'url')}>
-              {clip}
+      {framed && data.slide ? (
+        <ScrollReveal>
+          <div className='relative overflow-hidden rounded-[20px] bg-card p-6 xl:h-[720px]' data-tina-field={tinaField(data, 'slide')}>
+            <div className='flex h-full items-end justify-end'>
+              <div className='w-full max-w-[780px] xl:h-[453px]'>{framed}</div>
             </div>
+            <SlideChrome />
           </div>
         </ScrollReveal>
+      ) : framed ? (
+        <ScrollReveal className='mx-auto w-full max-w-[780px]'>{framed}</ScrollReveal>
       ) : (
         <ScrollReveal className='mx-auto w-full max-w-[500px] xl:max-w-[532px]'>
           <div
@@ -167,6 +209,13 @@ export const videoBlockSchema: Template = {
       uploadDir: () => 'projects',
       description:
         'Optional frame image the video plays inside, at the Studio Display proportions: the screen starts 2% of the width in from the left, right and top. The frame renders 780px wide at most.',
+    },
+    {
+      type: 'boolean',
+      label: 'Carousel slide',
+      name: 'slide',
+      description:
+        'With a device frame: present the clip on Framer’s carousel slide, a dark 720px card with 20px corners, the frame bottom-right with the monitor’s stand clipped, a Next pill at the right and pagination dots at the bottom. The chrome is decorative (one page).',
     },
     {
       type: 'boolean',

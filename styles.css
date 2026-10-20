@@ -128,6 +128,7 @@
   --color-ring: var(--ring);
   --color-emphasis: var(--emphasis);
   --color-on-image: var(--on-image);
+  --color-scrim: var(--scrim);
   --color-status-in-development: var(--status-in-development);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -156,6 +157,8 @@
   --radius: 1rem;
   /* Text and hairlines drawn over imagery (the home hero gradient): the image is the same in both themes, so this never switches. */
   --on-image: #ffffff;
+  /* The dark overlay drawn over imagery and slides (the carousel's Next pill and pagination), used at 40% and 20%. */
+  --scrim: #000000;
 
   /* Motion — mirrors EASE_MICRO / EASE_ENTRANCE / DURATION.route* in lib/motion/reduced-motion.ts */
   --motion-ease-micro: cubic-bezier(0.2, 0, 0, 1);

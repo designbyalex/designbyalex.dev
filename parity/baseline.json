@@ -327,7 +327,7 @@
         "Section UX": {
           "390": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 5 },
           "768": { "Copy": 2, "Media": 0, "Layout": 1, "Type": 5 },
-          "1440": { "Copy": 4, "Media": 1, "Layout": 1, "Type": 7 }
+          "1440": { "Copy": 4, "Media": 0, "Layout": 1, "Type": 7 }
         },
         "Section Brand": {
           "390": { "Copy": 1, "Media": 1, "Layout": 1, "Type": 3 },
