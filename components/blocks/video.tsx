@@ -25,6 +25,9 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
  * Studio Display box bottom-right so the slide clips the monitor's stand, a 56×47 Next pill with a
  * 10×16 chevron centred at the right edge and five pagination dots at the bottom. The chrome is
  * decorative: Framer's carousel has one page.
+ *
+ * `PlainClip`, `FramedClip` and `SlideChrome` are shared with the case-study section block (#65), which
+ * places the plain clip in a section's right column and the framed clip on the UX section's slide.
  */
 
 /** Framer's chevron: a CSS background on the pill's arrow, as the Reference records it. */
@@ -33,7 +36,7 @@ const CHEVRON =
 const SLIDE_PAGES = 5;
 
 /** The slide's Next pill and pagination, positioned over the slide. */
-const SlideChrome = () => (
+export const SlideChrome = () => (
   <div aria-hidden='true'>
     <div className='absolute top-1/2 right-6 z-[1] flex h-[47px] w-14 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full bg-scrim/40 backdrop-blur-[2px]'>
       <div className='pl-px'>
@@ -54,28 +57,68 @@ const SlideChrome = () => (
     </div>
   </div>
 );
+
+interface ClipOptions {
+  src: string;
+  autoPlay?: boolean | null;
+  loop?: boolean | null;
+}
+
+/** Whether the clip plays on its own: the block's Auto Play through the reduced-motion selector. */
+const usePlayback = (autoPlay?: boolean | null) => {
+  const reducedMotion = useReducedMotion() ?? false;
+  return { reducedMotion, playing: autoplayMotion(reducedMotion, autoPlay ?? true) };
+};
+
+/** The case-study column's "Image Wrapper": a 20px-cornered box with the clip at 101% inside (so the clip carries no radius). */
+export const PlainClip = ({ src, autoPlay, loop, className, field }: ClipOptions & { className?: string; field?: string }) => {
+  const { playing, reducedMotion } = usePlayback(autoPlay);
+  return (
+    <div className={cn('relative aspect-[1.6729] overflow-clip rounded-[20px] bg-card xl:aspect-[1.67419]', className)} data-tina-field={field}>
+      <Clip
+        src={src}
+        playing={playing}
+        loop={loop ?? true}
+        reducedMotion={reducedMotion}
+        className='absolute top-[-0.5%] left-[-0.5%] h-[101%] w-[101%]'
+      />
+    </div>
+  );
+};
+
+/** The Studio Display frame at 780px at most, the clip in its screen mask. */
+export const FramedClip = ({
+  src,
+  frame,
+  autoPlay,
+  loop,
+  frameField,
+  urlField,
+}: ClipOptions & { frame: string; frameField?: string; urlField?: string }) => {
+  const { playing, reducedMotion } = usePlayback(autoPlay);
+  return (
+    <div className='relative' data-tina-field={frameField}>
+      <Image src={frame} alt='' width={2048} height={1570} sizes='(min-width: 1280px) 780px, 100vw' className='h-auto w-full' />
+      <div className='absolute inset-x-[2.0513%] top-[2.6756%] aspect-[1.78351] overflow-clip' data-tina-field={urlField}>
+        <Clip src={src} playing={playing} loop={loop ?? true} reducedMotion={reducedMotion} className='h-full w-full' />
+      </div>
+    </div>
+  );
+};
+
 export const Video = ({ data }: { data: PageBlocksVideo }) => {
-  const prefersReducedMotion = useReducedMotion() ?? false;
-  const playing = autoplayMotion(prefersReducedMotion, data.autoPlay ?? true);
   if (!data.url) {
     return null;
   }
-  const clip = (
-    <Clip
-      src={data.url}
-      playing={playing}
-      loop={data.loop ?? true}
-      reducedMotion={prefersReducedMotion}
-      className={data.frame ? 'h-full w-full' : 'absolute top-[-0.5%] left-[-0.5%] h-[101%] w-[101%]'}
-    />
-  );
   const framed = data.frame ? (
-    <div className='relative' data-tina-field={tinaField(data, 'frame')}>
-      <Image src={data.frame} alt='' width={2048} height={1570} sizes='(min-width: 1280px) 780px, 100vw' className='h-auto w-full' />
-      <div className='absolute inset-x-[2.0513%] top-[2.6756%] aspect-[1.78351] overflow-hidden' data-tina-field={tinaField(data, 'url')}>
-        {clip}
-      </div>
-    </div>
+    <FramedClip
+      src={data.url}
+      frame={data.frame}
+      autoPlay={data.autoPlay}
+      loop={data.loop}
+      frameField={tinaField(data, 'frame')}
+      urlField={tinaField(data, 'url')}
+    />
   ) : null;
 
   return (
@@ -87,7 +130,8 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
     >
       {framed && data.slide ? (
         <ScrollReveal>
-          <div className='relative overflow-hidden rounded-[20px] bg-card p-6 xl:h-[720px]' data-tina-field={tinaField(data, 'slide')}>
+          {/* `overflow-clip`, not `hidden`: the monitor's stand overflows the slide, and a scroll container would scroll when the clip is scrolled into view. */}
+          <div className='relative overflow-clip rounded-[20px] bg-card p-6 xl:h-[720px]' data-tina-field={tinaField(data, 'slide')}>
             <div className='flex h-full items-end justify-end'>
               <div className='w-full max-w-[780px] xl:h-[453px]'>{framed}</div>
             </div>
@@ -98,12 +142,7 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
         <ScrollReveal className='mx-auto w-full max-w-[780px]'>{framed}</ScrollReveal>
       ) : (
         <ScrollReveal className='mx-auto w-full max-w-[500px] xl:max-w-[532px]'>
-          <div
-            className='relative aspect-[1.6729] overflow-hidden rounded-[20px] bg-card xl:aspect-[1.67419]'
-            data-tina-field={tinaField(data, 'url')}
-          >
-            {clip}
-          </div>
+          <PlainClip src={data.url} autoPlay={data.autoPlay} loop={data.loop} field={tinaField(data, 'url')} />
         </ScrollReveal>
       )}
     </Section>

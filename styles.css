@@ -99,6 +99,16 @@
   --text-icon-lg--line-height: 1.2;
   --text-icon-lg--letter-spacing: 0em;
   --text-icon-lg--font-weight: 400;
+  /* The case-study carousel slide's caption: 32 on a 1.2 line, the heading tier's tracking (desktop only, #65) */
+  --text-slide-heading: 2rem;
+  --text-slide-heading--line-height: 1.2;
+  --text-slide-heading--letter-spacing: -0.01em;
+  --text-slide-heading--font-weight: 400;
+  /* The slide's step numeral ("01"): 232 on a 0.8 line, no tracking, as Framer's carousel (#65) */
+  --text-slide-number: 14.5rem;
+  --text-slide-number--line-height: 0.8;
+  --text-slide-number--letter-spacing: 0em;
+  --text-slide-number--font-weight: 400;
 }
 
 @theme inline {
@@ -110,6 +120,7 @@
   --color-foreground: var(--foreground);
   --color-foreground-soft: var(--foreground-soft);
   --color-foreground-dim: var(--foreground-dim);
+  --color-foreground-faint: var(--foreground-faint);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -173,6 +184,8 @@
   --foreground-soft: #1a1a1a;
   /* Text on translucent chrome pills (the case-study Back pill: the Reference's #ededed) */
   --foreground-dim: #262626;
+  /* Decorative large numerals on a card (the carousel slide's "01": the Reference's #474747 on #131313) */
+  --foreground-faint: #c9c9c9;
   --card: #ffffff;
   --card-foreground: #080808;
   --popover: #ffffff;
@@ -218,6 +231,7 @@
   --foreground: #ffffff;
   --foreground-soft: #f7f7f7;
   --foreground-dim: #ededed;
+  --foreground-faint: #474747;
   --card: #131313;
   --card-foreground: #ffffff;
   --popover: #131313;

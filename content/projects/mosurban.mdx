@@ -35,164 +35,228 @@ coverImageAlt: The redesigned Mos Urban website on a phone, showing the landing 
 thumbnail: /uploads/home/mosurban-thumbnail.png
 thumbnailAlt: The redesigned Mos Urban website on a phone, showing the Verge seating pods project.
 blocks:
-  - _template: featureDeepDive
-    eyebrow: Where it all started
-    heading: Pitching for and winning an agency-scale project
-    mediaSide: right
-    body: |-
-      I previously worked at Mos Urban for 5 years as a carpenter, I knew their products like the palm of my hand. Seeing an opportunity to help them, I reached out and presented my pitch to the three directors — complete with a timeline and a fee proposal.
+  - _template: caseStudySection
+    sectionId: pitch
+    heading: Where it all started
+    subheading: Pitching for and winning an agency-scale project
+    headingSize: heading
+    blocks:
+      - _template: image
+        src: /uploads/projects/mosurban/pitch.png
+        alt: Isometric illustration of the Mos factory's goods-in dock, with forklifts, pallets and shipping containers.
+        ratio: tall
+        leadOnPhone: true
+      - _template: body
+        body: |-
+          I previously worked at Mos Urban for 5 years as a carpenter, I knew their products like the palm of my hand. Seeing an opportunity to help them, I reached out and presented my pitch to the three directors — complete with a timeline and a fee proposal.\
+          \
+          The directors were confident I could help them establish a new vision. One that recognises their past success, and sets a bold new benchmark for tomorrow.
 
-      The directors were confident I could help them establish a new vision. One that recognises their past success, and sets a bold new benchmark for tomorrow.
-
-      The project was exciting not only because I worked with a company I cared about, but because it gave me experience in end-to-end ownership: from running workshops and defining brand strategy, through to delivering a fully functional CMS-driven website in Webflow.
+          The project was exciting not only because I worked with a company I cared about, but because it gave me experience in end-to-end ownership: from running workshops and defining brand strategy, through to delivering a fully functional CMS-driven website in Webflow.
+      - _template: statement
+        text: 'I turned my past role as a carpenter into a career-defining design opportunity — '
+        emphasis: winning the trust of Mos Urban’s founders with an ambitious pitch.
+        leadOnPhone: true
+  - _template: caseStudySection
+    sectionId: vision
+    heading: Defining the vision
+    headingSize: heading
+    columnGap: '16'
+    blocks:
+      - _template: body
+        body: |-
+          I approached every design choice through two lenses: would this help Mos Urban achieve their business goals, and would this make the experience clearer and easier for users? The right solution would be a happy compromise.
+      - _template: insights
+        label: Some business considerations
+        items:
+          - title: Identifying platform conventions
+            text: In analysing competitors, I found platform conventions Mos Urban would need to match — customisation features that gave users ownership and flexibility, efficient navigation features to streamline user's time to value, and more.
+          - title: Uncovering opportunities to shake the market
+            text: I uncovered gaps in the Australian market. Few brands positioned their products as design-focused or leaned into visual storytelling in the way successful European manufacturers did.
+          - title: Aligning stakeholders in a mess of ideas
+            text: With multiple cooks in the kitchen, low-fi prototypes became the backbone for iterative workshops with stakeholders. Helping me test website architecture before investing in high-fidelity and building stakeholder confidence in the process.
+  - _template: caseStudySection
+    sectionId: users
+    heading: Establishing user assumptions
+    headingSize: heading
+    columnGap: '20'
+    blocks:
+      - _template: body
+        body: |-
+          In the early stages, I needed to understand who Mos Urban’s most critical users were and what they expected from a manufacturer. Through stakeholder workshops and research, I discovered there were three key user groups: 1) architects, 2) landscape architects, and 3) contractors.
+      - _template: insights
+        label: Some user considerations
+        items:
+          - title: Delivering results without data
+            text: By combining insights from stakeholders, comparative analysis, and a heuristic review of Mos Urban’s existing website, I could make education assumptions on the user needs and pain points.
+          - title: Uncovering the genuine needs
+            text: The decision-makers who ultimately specify furniture products into projects. These professionals often struggle to find manufacturers who are transparent, cooperative, and flexible, and they tend to return to those they trust. They look for evidence of credibility and experience, and as a secondary priority, evidence of environmental management plans.
+          - title: Putting our users at the centre
+            text: To ensure we're solving for the genuine needs of users, I mapped the distinct pain points and motivations of each group — aligning them with business goals to uncover opportunities, and guide each user toward successful outcomes.
+  - _template: caseStudySection
+    sectionId: clients
+    heading: Building stakeholder confidence
+    headingSize: heading
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          To establish a starting point for the website, I defined the information architecture through a card-sorting activity with the client, validating it against comparative sites and user assumptions. I then translated the IA into low-fidelity wireframes to test navigation and flows, facilitating feedback workshops with stakeholders to refine the direction collaboratively.
+      - _template: statement
+        text: 'Involving the directors in the design process gave them a shared sense of ownership, from the drawing board to the final polished design. '
+        emphasis: This was critical for keeping within scope and maintaining client satisfaction.
+        leadOnPhone: true
+      - _template: iconList
+        label: Some defining moments of collaboration
+        items:
+          - icon: module
+            text: Strategy, design and feedback workshops
+          - icon: progress
+            text: Low-fidelity design iterations
+          - icon: lock
+            text: Card sorting and IA
+          - icon: house
+            text: Prototyping and testing
     image:
-      src: /uploads/projects/mosurban/pitch.png
-      alt: Isometric illustration of the Mos factory's goods-in dock, with forklifts, pallets and shipping containers.
-  - _template: quote
-    quote: I turned my past role as a carpenter into a career-defining design opportunity — winning the trust of Mos Urban's founders with an ambitious pitch.
-  - _template: text
-    body: |-
-      ## Defining the vision
+      src: /uploads/projects/mosurban/collaboration.png
+      alt: Low-fidelity wireframes of the Mos Urban website, from product listings and detail pages to project galleries and a map-based search.
+    imageStyle: card
+  - _template: caseStudySection
+    sectionId: ux
+    heading: UX design and low-code development
+    headingSize: heading
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          When moving into high-fidelity design, I prioritised simplicity first, then added features only where they directly supported user needs. The final design remained clear and usable while leaving space for visual storytelling and beautiful brand expression.
 
-      I approached every design choice through two lenses: would this help Mos Urban achieve their business goals, and would this make the experience clearer and easier for users? The right solution would be a happy compromise.
-
-      ### Some business considerations
-
-      **Identifying platform conventions**
-
-      In analysing competitors, I found platform conventions Mos Urban would need to match — customisation features that gave users ownership and flexibility, efficient navigation features to streamline user's time to value, and more.
-
-      **Uncovering opportunities to shake the market**
-
-      I uncovered gaps in the Australian market. Few brands positioned their products as design-focused or leaned into visual storytelling in the way successful European manufacturers did.
-
-      **Aligning stakeholders in a mess of ideas**
-
-      With multiple cooks in the kitchen, low-fi prototypes became the backbone for iterative workshops with stakeholders. Helping me test website architecture before investing in high-fidelity and building stakeholder confidence in the process.
-  - _template: text
-    body: |-
-      ## Establishing user assumptions
-
-      In the early stages, I needed to understand who Mos Urban's most critical users were and what they expected from a manufacturer. Through stakeholder workshops and research, I discovered there were three key user groups: 1) architects, 2) landscape architects, and 3) contractors.
-
-      ### Some user considerations
-
-      **Delivering results without data**
-
-      By combining insights from stakeholders, comparative analysis, and a heuristic review of Mos Urban's existing website, I could make education assumptions on the user needs and pain points.
-
-      **Uncovering the genuine needs**
-
-      The decision-makers who ultimately specify furniture products into projects. These professionals often struggle to find manufacturers who are transparent, cooperative, and flexible, and they tend to return to those they trust. They look for evidence of credibility and experience, and as a secondary priority, evidence of environmental management plans.
-
-      **Putting our users at the centre**
-
-      To ensure we're solving for the genuine needs of users, I mapped the distinct pain points and motivations of each group — aligning them with business goals to uncover opportunities, and guide each user toward successful outcomes.
-  - _template: text
-    body: |-
-      ## Building stakeholder confidence
-
-      To establish a starting point for the website, I defined the information architecture through a card-sorting activity with the client, validating it against comparative sites and user assumptions. I then translated the IA into low-fidelity wireframes to test navigation and flows, facilitating feedback workshops with stakeholders to refine the direction collaboratively.
-
-      Involving the directors in the design process gave them a shared sense of ownership, from the drawing board to the final polished design. This was critical for keeping within scope and maintaining client satisfaction.
-
-      ### Some defining moments of collaboration
-
-      - Strategy, design and feedback workshops
-      - Low-fidelity design iterations
-      - Card sorting and IA
-      - Prototyping and testing
-  - _template: image
-    src: /uploads/projects/mosurban/collaboration.png
-    alt: Low-fidelity wireframes of the Mos Urban website, from product listings and detail pages to project galleries and a map-based search.
-    width: wide
-  - _template: text
-    body: |-
-      ## UX design and low-code development
-
-      When moving into high-fidelity design, I prioritised simplicity first, then added features only where they directly supported user needs. The final design remained clear and usable while leaving space for visual storytelling and beautiful brand expression.
-
-      The redesigned Mos Urban website introduces a suite of UX enhancements to support specifiers, streamline exploration, build trust, and showcase the brand's product ecosystem. Each feature was designed to solve a real user or business challenge.
-  - _template: quote
-    quote: The website's primary functionality and goals were never clouded by secondary features.
-  - _template: text
-    body: |-
-      ### Some key features I designed + developed
-
-      - Landing page carousel slider
-      - 3D product configurator
-      - Map-based search tool
-      - Gated resource access
-      - Dynamic search filters
-  - _template: quote
-    quote: Building trust through real-world outcomes, by visually demonstrating the breadth and quality of Mos Urban's work.
-  - _template: video
-    url: /uploads/projects/mosurban/website-walkthrough.mp4
-    autoPlay: true
-    loop: true
-    frame: /uploads/projects/mosurban/studio-display.png
-    slide: true
-    desktopOnly: true
-  - _template: text
-    body: |-
-      ## Executing the rebrand
-
-      The brand platform became the foundation, and the website its most visible interface. By aligning strategy, identity, design, and development under one framework, I built an ecosystem that could flex with the business and grow with its audience.
-  - _template: quote
-    quote: Bringing order to the chaos with a cohesive brand ecosystem across digital and print.
-  - _template: text
-    body: |-
-      ### Some key brand deliverables
-
-      - Brand strategy & identity
-      - Branding assets and applications
-      - 10-year anniversary assets
-  - _template: image
-    src: /uploads/projects/mosurban/brand-deliverables.png
-    alt: Isometric illustration of the whole Mos factory, from the design department and production floor to the loading dock and R&D lab.
-    width: wide
-  - _template: featureDeepDive
-    eyebrow: Brand strategy & identity
-    heading: The brand from the inside-out
-    mediaSide: right
-    body: |-
-      Through collaborative workshops with the founders, I uncovered the beliefs, history, and aspirations behind the brand. These insights shaped the tone, structure, and visual direction of every deliverable. The result was a brand identity that not only reflected Mos Urban's credibility in the market but positioned them as an inclusive, conscientious, and design-led partner.
-  - _template: video
-    url: /uploads/projects/mosurban/brand-identity.mp4
-    autoPlay: true
-    loop: true
-  - _template: featureDeepDive
-    eyebrow: Branding assets and applications
-    heading: Brand cohesive facelifts
-    mediaSide: right
-    body: |-
-      Maintained a consistent branded language across collateral, redesigning technical sheets with updated visual style. Delivered templates across each product category and range-specific marketing brochures. Rolled out the identity into practical applications, from a corporate branding suite to a full-page ad in *Landscape Architecture Magazine*.
-  - _template: gallery
-    columns: "2"
-    items:
+          The redesigned Mos Urban website introduces a suite of UX enhancements to support specifiers, streamline exploration, build trust, and showcase the brand’s product ecosystem. Each feature was designed to solve a real user or business challenge.
+      - _template: statement
+        text: 'The website’s primary functionality and goals '
+        emphasis: were never clouded by secondary features.
+        leadOnPhone: true
+      - _template: iconList
+        label: Some key features I designed + developed
+        tone: bright
+        items:
+          - icon: module
+            text: Landing page carousel slider
+          - icon: progress
+            text: 3D product configurator
+          - icon: lock
+            text: Map-based search tool
+          - icon: house
+            text: Gated resource access
+          - icon: house
+            text: Dynamic search filters
+    carouselSlide:
+      quote: Building trust through real-world outcomes, by visually demonstrating the breadth and quality of Mos Urban’s work.
+      number: '01'
+      video: /uploads/projects/mosurban/website-walkthrough.mp4
+      frame: /uploads/projects/mosurban/studio-display.png
+      autoPlay: true
+  - _template: caseStudySection
+    sectionId: brand
+    heading: Executing the rebrand
+    headingSize: heading
+    blocks:
+      - _template: body
+        body: |-
+          The brand platform became the foundation, and the website its most visible interface. By aligning strategy, identity, design, and development under one framework, I built an ecosystem that could flex with the business and grow with its audience.
+      - _template: statement
+        text: 'Bringing order to the chaos '
+        emphasis: with a cohesive brand ecosystem across digital and print.
+        leadOnPhone: true
+      - _template: iconList
+        label: Some key brand deliverables
+        items:
+          - icon: module
+            text: Brand strategy & identity
+          - icon: module
+            text: Branding assets and applications
+          - icon: module
+            text: 10-year anniversary assets
+    image:
+      src: /uploads/projects/mosurban/brand-deliverables.png
+      alt: Isometric illustration of the whole Mos factory, from the design department and production floor to the loading dock and R&D lab.
+    imageStyle: card
+  - _template: caseStudySection
+    sectionId: identity
+    heading: Brand strategy & identity
+    subheading: The brand from the inside-out
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          Through collaborative workshops with the founders, I uncovered the beliefs, history, and aspirations behind the brand. These insights shaped the tone, structure, and visual direction of every deliverable. The result was a brand identity that not only reflected Mos Urban’s credibility in the market but positioned them as an inclusive, conscientious, and design-led partner.
+      - _template: video
+        url: /uploads/projects/mosurban/brand-identity.mp4
+        autoPlay: true
+        loop: true
+  - _template: caseStudySection
+    sectionId: assets
+    heading: Branding assets and applications
+    subheading: Brand cohesive facelifts
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          Maintained a consistent branded language across collateral, redesigning technical sheets with updated visual style. Delivered templates across each product category and range-specific marketing brochures. Rolled out the identity into practical applications, from a corporate branding suite to a full-page ad in *Landscape Architecture Magazine*.
+    imageGrid:
       - src: /uploads/projects/mosurban/brand-assets-1.png
         alt: Mos Urban brand guidelines page presenting Suisse Int'l as the primary typeface.
       - src: /uploads/projects/mosurban/brand-assets-2.png
         alt: Mos Urban brand guidelines page presenting Lyon as the secondary typeface.
-  - _template: featureDeepDive
-    eyebrow: 10-year anniversary assets
-    heading: Teaming up with sales
-    mediaSide: right
-    body: |-
-      Developed promotional materials to celebrate Mos Urban's milestone anniversary, creating collateral that was celebratory while still aligned with the brand's identity. Using the milestone as an opportunity to drive traffic through marketing on diverse platforms, including a 10-year anniversary and launch party.
-  - _template: video
-    url: /uploads/projects/mosurban/anniversary.mp4
-    autoPlay: true
-    loop: true
-  - _template: text
-    body: |-
-      ## Outcome
-
-      Coming Soon…
-
-      ## What's next for Mos?
-
-      Coming Soon…
+    imageGridStyle: cards
+  - _template: caseStudySection
+    sectionId: years
+    heading: 10-year anniversary assets
+    subheading: Teaming up with sales
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          Developed promotional materials to celebrate Mos Urban’s milestone anniversary, creating collateral that was celebratory while still aligned with the brand’s identity. Using the milestone as an opportunity to drive traffic through marketing on diverse platforms, including a 10-year anniversary and launch party.
+      - _template: video
+        url: /uploads/projects/mosurban/anniversary.mp4
+        autoPlay: true
+        loop: true
+  - _template: caseStudySection
+    sectionId: outcome
+    heading: Outcome
+    headingSize: heading
+    rhythm: uniform
+    blocks:
+      - _template: statement
+        text: Coming Soon…
+        muted: true
+    metrics:
+      - value: 100
+        kind: percentage
+        label: '________________'
+      - value: 100
+        kind: percentage
+        label: '________________'
+      - value: 100
+        kind: percentage
+        label: '________________'
+      - value: 100
+        kind: percentage
+        label: '________________'
+  - _template: caseStudySection
+    sectionId: whats-next
+    heading: What's next for Mos?
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: statement
+        text: Coming Soon…
+        muted: true
+    placeholderPattern: /uploads/projects/mosurban/placeholder-hatch.svg
   - _template: caseStudyCta
     heading: Want the full story?
     description: |-
