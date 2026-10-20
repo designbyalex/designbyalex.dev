@@ -62,6 +62,8 @@ describe('the Deviation list', () => {
       'dynamic-footer-year',
       // Approved by the owner during the AFK run (#59): a Reference capture artefact at 1440.
       'cv-link-capture-1440',
+      // Approved by the owner during the AFK run (#61): Framer's fifth key feature never fades in.
+      'solution-fifth-key-feature',
     ]);
   });
 
