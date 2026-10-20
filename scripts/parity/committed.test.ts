@@ -64,6 +64,11 @@ describe('the Deviation list', () => {
       'cv-link-capture-1440',
       // Approved by the owner during the AFK run (#61): Framer's fifth key feature never fades in.
       'solution-fifth-key-feature',
+      // Approved by the owner during the AFK run (#65): staggered fade-ins the capture missed.
+      'mos-last-list-item-clients',
+      'mos-last-list-item-ux',
+      'mos-last-list-item-brand',
+      'mos-last-list-item-outcome',
     ]);
   });
 
