@@ -110,29 +110,29 @@
           "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Section Onboarding": {
-          "390": { "Copy": 3, "Media": 6, "Layout": 1, "Type": 9 },
-          "768": { "Copy": 3, "Media": 6, "Layout": 1, "Type": 9 },
-          "1440": { "Copy": 3, "Media": 6, "Layout": 1, "Type": 9 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Section Consent": {
-          "390": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 9 },
-          "768": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 9 },
-          "1440": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 9 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Section Modules": {
-          "390": { "Copy": 4, "Media": 3, "Layout": 1, "Type": 13 },
-          "768": { "Copy": 4, "Media": 3, "Layout": 1, "Type": 13 },
-          "1440": { "Copy": 4, "Media": 2, "Layout": 1, "Type": 13 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Section Profile": {
-          "390": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 8 },
-          "768": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 8 },
-          "1440": { "Copy": 3, "Media": 3, "Layout": 1, "Type": 8 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Section Outcome": {
-          "390": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 13 },
-          "768": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 13 },
-          "1440": { "Copy": 1, "Media": 0, "Layout": 1, "Type": 1 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Section Next": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
@@ -159,46 +159,6 @@
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
         },
-        "feature-deep-dive": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
-        "gallery": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
-        "feature-deep-dive 2": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
-        "feature-deep-dive 3": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
-        "feature-deep-dive 4": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
-        "text": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
-        "quote": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
-        "metrics": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
         "project-nav": {
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
@@ -208,6 +168,46 @@
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "feature-deep-dive": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "gallery": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "feature-deep-dive 2": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "feature-deep-dive 3": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "feature-deep-dive 4": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "text": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "quote": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
+        },
+        "metrics": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "text 2": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
