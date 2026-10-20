@@ -11,7 +11,7 @@ const defaults = {
 const withSiteImage = {
   ...defaults,
   siteTitle: 'Alexander Blum | UX • Product Design',
-  defaultImage: '/uploads/home/og.png',
+  defaultImage: '/uploads/home/og.jpg',
 };
 
 describe('buildProjectMetadata', () => {
@@ -65,7 +65,7 @@ describe('buildProjectMetadata', () => {
   it('uses the site share image when a project has no cover image', () => {
     const meta = buildProjectMetadata({ title: 'Acacia', slug: 'acacia' }, withSiteImage);
     const ogImages = meta.openGraph?.images as { url: string }[];
-    expect(ogImages[0].url).toBe('https://designbyalex.dev/uploads/home/og.png');
+    expect(ogImages[0].url).toBe('https://designbyalex.dev/uploads/home/og.jpg');
   });
 });
 
@@ -94,9 +94,9 @@ describe('buildPageMetadata', () => {
   it('resolves the site share image for OG and Twitter', () => {
     const meta = buildPageMetadata({ title: 'Home', slug: 'home' }, withSiteImage);
     const ogImages = meta.openGraph?.images as { url: string; alt: string }[];
-    expect(ogImages[0].url).toBe('https://designbyalex.dev/uploads/home/og.png');
+    expect(ogImages[0].url).toBe('https://designbyalex.dev/uploads/home/og.jpg');
     expect(ogImages[0].alt).toBe('Alexander Blum | UX • Product Design');
-    expect(meta.twitter?.images).toEqual(['https://designbyalex.dev/uploads/home/og.png']);
+    expect(meta.twitter?.images).toEqual(['https://designbyalex.dev/uploads/home/og.jpg']);
   });
 
   it('falls back to the site name as title when no site title is set', () => {

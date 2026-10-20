@@ -13,6 +13,7 @@ export const siteDefaults: SiteSeoDefaults & { baseUrl: string } = {
   titleTemplate: '%s · Alexander Blum',
   defaultDescription:
     'Alex is a Sydney-based product designer with 3+ years’ experience crafting human-centred products.',
-  defaultImage: '/uploads/home/og.png',
+  // Framer's share image resized to 1200×630 (#66); `site.test.ts` holds its byte budget.
+  defaultImage: '/uploads/home/og.jpg',
   baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://designbyalex.dev',
 };
