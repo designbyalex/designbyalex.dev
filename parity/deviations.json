@@ -78,6 +78,14 @@
         "download"
       ],
       "decision": "Reference capture artefact, not a design difference. Framer's text-roll on the \"DOWNLOAD FULL CV\" link re-hides the label and its download icon once they scroll out of view, and the extractor collects with the page scrolled back to the top, so the frozen 1440 snapshot and screenshot miss them. The live site shows both at 1440 (checked 2026-10-19), 390 and 768 captured them, and PRD story 44 requires the link. Approved by the owner during the AFK run (#59)."
+    },
+    {
+      "id": "solution-fifth-key-feature",
+      "page": "acacia",
+      "section": "Section Solution",
+      "check": "copy-extra",
+      "anchor": "Energy profile & insights",
+      "decision": "The Build shows all five key features in Solution. Framer's list has the same fifth item, \"Energy profile & insights\", and keeps its row, but the item's appear animation never fires, so it stays at opacity 0 for every visitor (checked live 2026-10-20, with and without reduced motion) and the Reference snapshot drops it. Showing it fixes a Framer bug: it is a key feature with its own deep-dive Section further down. Layout is unchanged, since the row exists on both sites. Approved by the owner during the AFK run (#61)."
     }
   ]
 }
