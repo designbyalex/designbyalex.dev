@@ -43,7 +43,7 @@ A Gap message names the page, Section, width and element text, then gives actual
 
 Text runs are matched by their rendered text (after CSS `text-transform`), first as whole paragraphs and then as single runs. A match ignores quote style, dash style, spacing and case, and is searched in the mapped Section first, then anywhere on the page. Each Gap has a check and a Dimension (`scripts/parity/checks.ts`):
 
-- **Copy**: `copy-missing` (Reference text with no Build match), `copy-changed` (the same element with edited words), `copy-extra`, `punctuation` and `case` (reported apart from word changes), links (`link-missing`, `link-extra`, `link-target`), and the route (`status`, `title`).
+- **Copy**: `copy-missing` (Reference text with no Build match), `copy-changed` (the same element with edited words), `copy-extra`, `punctuation`, `quote-style` (curly against straight quotes and nothing else) and `case` (reported apart from word changes), links (`link-missing`, `link-extra`, `link-target`), and the route (`status`, `title`).
 - **Type**, per matched run: `font-family` (next/font names and `fontFamilyAliases` resolved), `font-size`, `line-height`, `font-weight`, `tracking`, `color` (OKLab distance, so `oklch()` and `rgb()` compare), `font-style`.
 - **Layout**: `position` within the Section (never absolute page y), `width` of wrapping runs, `lines`, `opacity`, `wrong-section`, and per Section `section-missing`, `section-extra` and `section-size`.
 - **Media**: `media-host` (any `forbiddenMediaHosts` source, subdomains included), `media-missing`, `media-extra`, `media-size`, `media-position`, `media-radius`, `media-fit`, `video-autoplay`, `video-attributes`.

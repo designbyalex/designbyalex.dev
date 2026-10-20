@@ -2,7 +2,7 @@
 // with punctuation-only differences listed apart and Deviation suppressions counted.
 import { type Comparison, DIMENSIONS, type Gap } from './compare.ts';
 
-const isPunctuation = (g: Gap) => g.check === 'punctuation';
+const isPunctuation = (g: Gap) => g.check === 'punctuation' || g.check === 'quote-style';
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 const summary = (gaps: Gap[], suppressed: number) =>
   `${plural(gaps.filter((g) => !isPunctuation(g)).length, 'Gap')}, ${gaps.filter(isPunctuation).length} punctuation-only, ${suppressed} suppressed`;

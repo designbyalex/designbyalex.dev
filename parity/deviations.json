@@ -118,6 +118,14 @@
       "check": "copy-extra",
       "anchor": "Coming Soon…",
       "decision": "Reference capture artefact, not a design difference. On Framer the last item of each of these lists fades in on a staggered delay once in view. The extractor scrolls through in short steps and collects at the top, so these items had not appeared yet and the frozen snapshot holds them at opacity 0. On the live site all four are visible after a few seconds in view, with and without reduced motion (checked 2026-10-21). Approved by the owner during the AFK run (#65)."
+    },
+    {
+      "id": "curly-quotes",
+      "page": "*",
+      "section": "*",
+      "check": "quote-style",
+      "anchor": "*",
+      "decision": "Curly apostrophes and quotes throughout (PRD #46 story 29), where the Reference mixes straight and curly ones (\"I'm\", \"Let's talk\" beside \"Acacia’s\"). Suppresses quote-style Gaps only: a text that differs from the Reference in any other punctuation, its words or its case is still a Gap. Approved by the owner during the AFK run (#54)."
     }
   ]
 }
