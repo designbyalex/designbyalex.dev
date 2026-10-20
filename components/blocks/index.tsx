@@ -10,6 +10,7 @@ import { Metrics } from "./metrics";
 import { Quote } from "./quote";
 import { CallToAction } from "./call-to-action";
 import { CaseStudySection } from "./case-study-section";
+import { CaseStudyCta } from "./case-study-cta";
 import { SelectedProjects } from "./selected-projects";
 import { About } from "./about";
 import { resolveBlockComponent } from "./resolve";
@@ -31,6 +32,7 @@ export const blockComponents: Record<string, ComponentType<{ data: any }>> = {
   Cta: CallToAction,
   // Case-study sections (registered on the `project` collection only).
   CaseStudySection,
+  CaseStudyCta,
   // Homepage sections (registered on the `page` collection only).
   SelectedProjects,
   About,

@@ -140,9 +140,9 @@
           "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Section CTA": {
-          "390": { "Copy": 4, "Media": 1, "Layout": 5, "Type": 6 },
-          "768": { "Copy": 4, "Media": 1, "Layout": 5, "Type": 6 },
-          "1440": { "Copy": 4, "Media": 1, "Layout": 8, "Type": 6 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Footer": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
@@ -154,15 +154,15 @@
           "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
-        "project-nav": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
         "(none)": {
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "project-nav": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "image": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
@@ -360,9 +360,9 @@
           "1440": { "Copy": 0, "Media": 1, "Layout": 1, "Type": 6 }
         },
         "Section CTA": {
-          "390": { "Copy": 4, "Media": 1, "Layout": 5, "Type": 6 },
-          "768": { "Copy": 4, "Media": 1, "Layout": 5, "Type": 6 },
-          "1440": { "Copy": 4, "Media": 1, "Layout": 8, "Type": 6 }
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "Footer": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
@@ -484,15 +484,15 @@
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
         },
-        "project-nav": {
-          "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
-          "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
-        },
         "(none)": {
           "390": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "768": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 },
           "1440": { "Copy": 0, "Media": 0, "Layout": 1, "Type": 0 }
+        },
+        "project-nav": {
+          "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "768": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },
+          "1440": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 }
         },
         "image 3": {
           "390": { "Copy": 0, "Media": 0, "Layout": 0, "Type": 0 },

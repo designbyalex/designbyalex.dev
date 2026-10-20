@@ -7,8 +7,8 @@ import { videoBlockSchema } from '@/components/blocks/video';
 import { featureDeepDiveBlockSchema } from '@/components/blocks/feature-deep-dive';
 import { metricsBlockSchema } from '@/components/blocks/metrics';
 import { quoteBlockSchema } from '@/components/blocks/quote';
-import { ctaBlockSchema } from '@/components/blocks/call-to-action';
 import { caseStudySectionBlockSchema } from '@/components/blocks/case-study-section';
+import { caseStudyCtaBlockSchema } from '@/components/blocks/case-study-cta';
 import { metricFields } from '@/tina/fields/metric';
 
 const Project: Collection = {
@@ -159,6 +159,21 @@ const Project: Collection = {
       ui: { component: 'textarea' },
     },
     {
+      type: 'image',
+      label: 'Thumbnail',
+      name: 'thumbnail',
+      description: 'The card image for this project where another case study links to it as the next project (the homepage uses its own).',
+      // @ts-ignore
+      uploadDir: () => 'projects',
+    },
+    {
+      type: 'string',
+      label: 'Thumbnail alt text',
+      name: 'thumbnailAlt',
+      description: 'Describe the thumbnail for screen readers.',
+      ui: { component: 'textarea' },
+    },
+    {
       type: 'object',
       list: true,
       name: 'blocks',
@@ -176,7 +191,7 @@ const Project: Collection = {
         featureDeepDiveBlockSchema,
         metricsBlockSchema,
         quoteBlockSchema,
-        ctaBlockSchema,
+        caseStudyCtaBlockSchema,
       ],
     },
   ],
