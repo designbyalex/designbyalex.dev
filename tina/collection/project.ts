@@ -55,14 +55,21 @@ const Project: Collection = {
       type: 'rich-text',
       label: 'Intro',
       name: 'intro',
-      description: 'Lead paragraphs shown under the tagline, before the overview. Highlight the green key phrases with the editor’s highlighter.',
+      description:
+        'Lead paragraphs of the Overview, set as large white statements beside the metadata list. Highlight the green key phrases with the editor’s highlighter.',
     },
     {
       type: 'string',
       label: 'Typology',
       name: 'typology',
-      description: 'Project category / discipline (e.g. Product Design, Brand).',
+      description: 'Project category / discipline (e.g. Fintech & Sustainability). First row of the Overview list.',
       list: true,
+    },
+    {
+      type: 'string',
+      label: 'Product',
+      name: 'product',
+      description: 'What was built (e.g. B2B2C SaaS Platform). Its own Overview row, after Typology.',
     },
     {
       type: 'string',
@@ -110,7 +117,7 @@ const Project: Collection = {
       type: 'string',
       label: 'Deliverables',
       name: 'deliverables',
-      description: 'What was delivered, one item per entry.',
+      description: 'What was delivered, one item per entry. A trailing parenthetical, e.g. "(WCAG AA)", is set in grey after the item.',
       list: true,
     },
     {
@@ -129,8 +136,16 @@ const Project: Collection = {
       type: 'image',
       label: 'Cover Image',
       name: 'coverImage',
+      description: 'The full-bleed hero image under the title row; also the share image.',
       // @ts-ignore
       uploadDir: () => 'projects',
+    },
+    {
+      type: 'string',
+      label: 'Cover image alt text',
+      name: 'coverImageAlt',
+      description: 'Describe the hero image for screen readers.',
+      ui: { component: 'textarea' },
     },
     {
       type: 'object',

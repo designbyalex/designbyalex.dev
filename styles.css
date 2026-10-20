@@ -94,6 +94,11 @@
   --text-icon--line-height: 1.2;
   --text-icon--letter-spacing: 0em;
   --text-icon--font-weight: 400;
+  /* The larger ligature glyph: 20 on a 24px line, as the Reference's "arrow_back" in the case-study Back pill (#62) */
+  --text-icon-lg: 1.25rem;
+  --text-icon-lg--line-height: 1.2;
+  --text-icon-lg--letter-spacing: 0em;
+  --text-icon-lg--font-weight: 400;
 }
 
 @theme inline {
@@ -104,6 +109,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-foreground-soft: var(--foreground-soft);
+  --color-foreground-dim: var(--foreground-dim);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -162,6 +168,8 @@
   --foreground: #080808;
   /* Second-level text (the Reference's #f7f7f7 insight titles and overview values) */
   --foreground-soft: #1a1a1a;
+  /* Text on translucent chrome pills (the case-study Back pill: the Reference's #ededed) */
+  --foreground-dim: #262626;
   --card: #ffffff;
   --card-foreground: #080808;
   --popover: #ffffff;
@@ -206,6 +214,7 @@
   --background: #080808;
   --foreground: #ffffff;
   --foreground-soft: #f7f7f7;
+  --foreground-dim: #ededed;
   --card: #131313;
   --card-foreground: #ffffff;
   --popover: #131313;
