@@ -13,6 +13,14 @@ export interface ProjectRef {
   order?: number | null;
 }
 
+/** What the next-project card shows: a `ProjectRef` plus the project's status, tagline and thumbnail. */
+export interface ProjectCardRef extends ProjectRef {
+  status?: string | null;
+  tagline?: string | null;
+  thumbnail?: string | null;
+  thumbnailAlt?: string | null;
+}
+
 export interface AdjacentProjects {
   next: ProjectRef | null;
   prev: ProjectRef | null;

@@ -8,13 +8,13 @@ import PageClientPage from './client-page';
 import ProjectClientPage from './project-page';
 import { buildPageMetadata, buildProjectMetadata } from '@/lib/seo/metadata';
 import { siteDefaults } from '@/lib/seo/site';
-import type { ProjectRef } from '@/lib/case-study/next-project';
+import type { ProjectCardRef } from '@/lib/case-study/next-project';
 
 export const revalidate = 300;
 
-/** Collect a minimal {slug, title, order} list of every project for next/prev nav. */
-async function fetchAllProjects(): Promise<ProjectRef[]> {
-  const out: ProjectRef[] = [];
+/** Collect every project's slug, title and order (for the next-project resolver) and what its card shows. */
+async function fetchAllProjects(): Promise<ProjectCardRef[]> {
+  const out: ProjectCardRef[] = [];
   let after: string | undefined;
   while (true) {
     const res = await client.queries.projectConnection({ after });
@@ -26,6 +26,10 @@ async function fetchAllProjects(): Promise<ProjectRef[]> {
           slug: node._sys.breadcrumbs.join('/'),
           title: node.title,
           order: node.order ?? null,
+          status: node.status ?? null,
+          tagline: node.tagline ?? null,
+          thumbnail: node.thumbnail ?? null,
+          thumbnailAlt: node.thumbnailAlt ?? null,
         });
       }
     }

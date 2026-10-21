@@ -4,6 +4,113 @@
 @custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
+/*
+ * Fonts (ADR 0003, #53). The Reference site sets body and UI in Inter and headings in
+ * Inter Display; both are the one variable Inter, told apart by its optical-size axis
+ * (opsz 14 = text, opsz 32 = display). next/font loads Inter with that axis and exposes it
+ * as --font-inter (app/layout.tsx); Space Mono stays for labels.
+ */
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans--font-variation-settings: "opsz" 14;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display--font-variation-settings: "opsz" 32;
+  /*
+   * Space Mono first, then real monospace faces before next/font's Arial-based
+   * "Space Mono Fallback": glyphs Space Mono lacks (the footer's ♥) then keep a
+   * monospace advance, as on the Reference, instead of a 137%-scaled Arial one.
+   */
+  --font-mono: "Space Mono", ui-monospace, Menlo, var(--font-space-mono), monospace;
+  /* Material Icons ligatures (#59): the CV link's "download" glyph, as on the Reference. No fallback: the word must never show. */
+  --font-icons: var(--font-material-icons);
+}
+
+/*
+ * Type ramp (#53): one canonical size per tier, measured on the Reference snapshot at the
+ * Checkpoint widths (docs/parity-audit.md §2.1, parity/reference/*.json). Sizes are fixed
+ * below 768px and above 1440px and run linearly between (100vw from 48rem to 90rem);
+ * line-heights are ratios and tracking is in em, so both scale with the size.
+ * `text-<tier>` applies size, line-height, tracking and weight 400; pair the display
+ * tiers with `font-display`. Static so the variables exist for styles.css rules too.
+ */
+@theme static {
+  /* Home hero headline: 42 → 75 */
+  --text-display: clamp(2.625rem, calc(2.625rem + 2.0625 * (100vw - 48rem) / 42), 4.6875rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 400;
+  /* Case-study title: 48 → 58 */
+  --text-h1: clamp(3rem, calc(3rem + 0.625 * (100vw - 48rem) / 42), 3.625rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 400;
+  /* Outcome metric-card numbers: 58 at every width (the Reference doesn't scale them, #61) */
+  --text-metric: 3.625rem;
+  --text-metric--line-height: 1.1;
+  --text-metric--letter-spacing: -0.02em;
+  --text-metric--font-weight: 400;
+  /* Footer invitation ("Let's talk" / "Get in touch"): 28 → 48 */
+  --text-h2: clamp(1.75rem, calc(1.75rem + 1.25 * (100vw - 48rem) / 42), 3rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 400;
+  /* Section headings and their grey subheadings: 30 → 40 */
+  --text-heading: clamp(1.875rem, calc(1.875rem + 0.625 * (100vw - 48rem) / 42), 2.5rem);
+  --text-heading--line-height: 1.2;
+  --text-heading--letter-spacing: -0.01em;
+  --text-heading--font-weight: 400;
+  /* Case-study tagline: 24 → 32 */
+  --text-lead: clamp(1.5rem, calc(1.5rem + 0.5 * (100vw - 48rem) / 42), 2rem);
+  --text-lead--line-height: 1.2;
+  --text-lead--letter-spacing: -0.01em;
+  --text-lead--font-weight: 400;
+  /* Pull-statements, case-study intro, about paragraphs, deep-dive subtitles: 22 → 28 */
+  --text-statement: clamp(1.375rem, calc(1.375rem + 0.375 * (100vw - 48rem) / 42), 1.75rem);
+  --text-statement--line-height: 1.4;
+  --text-statement--letter-spacing: -0.02em;
+  --text-statement--font-weight: 400;
+  /* UI text: experience rows, header link, CTA subline: 20 */
+  --text-body-lg: 1.25rem;
+  --text-body-lg--line-height: 1.4;
+  --text-body-lg--letter-spacing: 0em;
+  --text-body-lg--font-weight: 400;
+  /* Hero tagline, project-row title and tagline, links: 18 */
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.4;
+  --text-body--letter-spacing: 0em;
+  --text-body--font-weight: 400;
+  /* Case-study body copy, overview fields, dates, small labels: 14 */
+  --text-caption: 0.875rem;
+  --text-caption--line-height: 1.6;
+  --text-caption--letter-spacing: -0.02em;
+  --text-caption--font-weight: 400;
+  /* Space Mono status pills and footer bar (uppercase via text-transform): 11 */
+  --text-mono: 0.6875rem;
+  --text-mono--line-height: 1;
+  --text-mono--letter-spacing: 0em;
+  --text-mono--font-weight: 400;
+  /* Material Icons glyphs set as text (`font-icons`): 16, as the Reference's download icon */
+  --text-icon: 1rem;
+  --text-icon--line-height: 1.2;
+  --text-icon--letter-spacing: 0em;
+  --text-icon--font-weight: 400;
+  /* The larger ligature glyph: 20 on a 24px line, as the Reference's "arrow_back" in the case-study Back pill (#62) */
+  --text-icon-lg: 1.25rem;
+  --text-icon-lg--line-height: 1.2;
+  --text-icon-lg--letter-spacing: 0em;
+  --text-icon-lg--font-weight: 400;
+  /* The case-study carousel slide's caption: 32 on a 1.2 line, the heading tier's tracking (desktop only, #65) */
+  --text-slide-heading: 2rem;
+  --text-slide-heading--line-height: 1.2;
+  --text-slide-heading--letter-spacing: -0.01em;
+  --text-slide-heading--font-weight: 400;
+  /* The slide's step numeral ("01"): 232 on a 0.8 line, no tracking, as Framer's carousel (#65) */
+  --text-slide-number: 14.5rem;
+  --text-slide-number--line-height: 0.8;
+  --text-slide-number--letter-spacing: 0em;
+  --text-slide-number--font-weight: 400;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -11,6 +118,9 @@
   --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-foreground-soft: var(--foreground-soft);
+  --color-foreground-dim: var(--foreground-dim);
+  --color-foreground-faint: var(--foreground-faint);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -28,6 +138,8 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-emphasis: var(--emphasis);
+  --color-on-image: var(--on-image);
+  --color-scrim: var(--scrim);
   --color-status-in-development: var(--status-in-development);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -54,6 +166,10 @@
   --highlight-text-dark: #000000;
   --highlight-text-light: #ffffff;
   --radius: 1rem;
+  /* Text and hairlines drawn over imagery (the home hero gradient): the image is the same in both themes, so this never switches. */
+  --on-image: #ffffff;
+  /* The dark overlay drawn over imagery and slides (the carousel's Next pill and pagination), used at 40% and 20%. */
+  --scrim: #000000;
 
   /* Motion — mirrors EASE_MICRO / EASE_ENTRANCE / DURATION.route* in lib/motion/reduced-motion.ts */
   --motion-ease-micro: cubic-bezier(0.2, 0, 0, 1);
@@ -64,6 +180,12 @@
   /* Light theme (proposed, net-new) */
   --background: #ffffff;
   --foreground: #080808;
+  /* Second-level text (the Reference's #f7f7f7 insight titles and overview values) */
+  --foreground-soft: #1a1a1a;
+  /* Text on translucent chrome pills (the case-study Back pill: the Reference's #ededed) */
+  --foreground-dim: #262626;
+  /* Decorative large numerals on a card (the carousel slide's "01": the Reference's #474747 on #131313) */
+  --foreground-faint: #c9c9c9;
   --card: #ffffff;
   --card-foreground: #080808;
   --popover: #ffffff;
@@ -107,6 +229,9 @@
   /* Dark theme (faithful reproduction of designbyalex.dev — primary) */
   --background: #080808;
   --foreground: #ffffff;
+  --foreground-soft: #f7f7f7;
+  --foreground-dim: #ededed;
+  --foreground-faint: #474747;
   --card: #131313;
   --card-foreground: #ffffff;
   --popover: #131313;
@@ -158,6 +283,53 @@
     outline: 2px solid var(--ring);
     outline-offset: 3px;
   }
+}
+
+/*
+ * Case-study rich text (#53): the Tina `text` and `featureDeepDive` bodies render through
+ * Tailwind's `prose`, whose defaults (bold 700 headings, a blue-grey body, 18px at `prose-lg`)
+ * are not the Reference. `.prose-case-study` points every prose colour at a theme token (so
+ * both themes work without `prose-invert`) and sets the elements to the ramp: body at the
+ * caption tier in grey, `##` headings at the heading tier in weight 400, `###` labels as the
+ * Reference's small green labels ("Some user insights"), and bold runs as weight-400 near-white
+ * (the Reference tells insight titles apart by colour, not weight). Unlayered so it beats the
+ * plugin's layered utilities.
+ */
+.prose-case-study {
+  --tw-prose-body: var(--muted-foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
+  --tw-prose-links: var(--emphasis);
+  --tw-prose-bold: var(--foreground-soft);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-kbd: var(--foreground);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-pre-code: var(--foreground);
+  --tw-prose-pre-bg: var(--card);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+  @apply text-caption;
+}
+
+.prose-case-study :where(h1, h2) {
+  @apply font-display text-heading;
+}
+
+.prose-case-study :where(h3, h4) {
+  @apply text-caption text-emphasis;
+}
+
+.prose-case-study :where(strong) {
+  @apply font-normal text-foreground-soft;
+}
+
+.prose-case-study :where(blockquote) {
+  @apply font-display text-statement not-italic;
 }
 
 /*

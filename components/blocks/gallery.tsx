@@ -23,7 +23,7 @@ export const Gallery = ({ data }: { data: PageBlocksGallery }) => {
       <div className="mx-auto max-w-6xl space-y-8">
         {data.title && (
           <h2
-            className="text-3xl font-medium tracking-tight md:text-4xl"
+            className="font-display text-heading"
             data-tina-field={tinaField(data, 'title')}
           >
             {data.title}
@@ -33,8 +33,9 @@ export const Gallery = ({ data }: { data: PageBlocksGallery }) => {
           {items.map((item, i) =>
             item?.src ? (
               <ScrollReveal key={i} delay={i * 0.05} as="figure">
+                {/* Framer's cards: 20px corners via clip-path (the Reference reads the image's radius as 0, as in case-study-section.tsx), cover, no border. */}
                 <div
-                  className="overflow-hidden rounded-xl border border-border bg-background"
+                  className="bg-background [clip-path:inset(0_round_20px)]"
                   data-tina-field={tinaField(item, 'src')}
                 >
                   <Image
@@ -42,12 +43,12 @@ export const Gallery = ({ data }: { data: PageBlocksGallery }) => {
                     alt={item.alt || ''}
                     width={1200}
                     height={900}
-                    className="h-auto w-full"
+                    className="h-auto w-full object-cover"
                   />
                 </div>
                 {item.caption && (
                   <figcaption
-                    className="mt-2 text-sm text-muted-foreground"
+                    className="mt-2 text-caption text-muted-foreground"
                     data-tina-field={tinaField(item, 'caption')}
                   >
                     {item.caption}

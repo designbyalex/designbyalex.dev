@@ -14,7 +14,7 @@ export const Quote = ({ data }: { data: PageBlocksQuote }) => {
     <Section sectionId="quote" background={data.background!}>
       <ScrollReveal as="figure" className="mx-auto max-w-3xl text-center">
         <blockquote
-          className="text-balance text-2xl font-medium leading-snug tracking-tight md:text-3xl"
+          className="font-display text-statement text-balance"
           data-tina-field={tinaField(data, 'quote')}
         >
           <span aria-hidden className="text-primary">“</span>
@@ -22,9 +22,9 @@ export const Quote = ({ data }: { data: PageBlocksQuote }) => {
           <span aria-hidden className="text-primary">”</span>
         </blockquote>
         {(data.attribution || data.role) && (
-          <figcaption className="mt-6 text-sm text-muted-foreground">
+          <figcaption className="mt-6 text-caption text-muted-foreground">
             {data.attribution && (
-              <span className="font-medium text-foreground" data-tina-field={tinaField(data, 'attribution')}>
+              <span className="text-foreground" data-tina-field={tinaField(data, 'attribution')}>
                 {data.url ? (
                   <Link href={data.url} className="hover:text-emphasis">
                     {data.attribution}

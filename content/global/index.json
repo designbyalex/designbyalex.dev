@@ -1,28 +1,40 @@
 {
   "header": {
     "icon": {
-      "name": "Mark",
-      "color": "green",
+      "name": "MarkGlyph",
+      "color": "white",
       "style": "regular"
     },
-    "name": "Alexander Blum",
     "color": "default",
     "nav": [
       {
         "href": "mailto:ablumeinfeld@gmail.com",
-        "label": "Let's talk"
+        "label": "Let’s talk"
       }
     ]
   },
   "footer": {
-    "social": [
+    "cta": {
+      "heading": "Let’s talk",
+      "label": "Get in touch",
+      "href": "mailto:ablumeinfeld@gmail.com"
+    },
+    "links": [
       {
-        "icon": {
-          "name": "FaLinkedin"
-        },
-        "url": "https://www.linkedin.com/in/alexanderblumeinfeld/"
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "Linkedin",
+        "href": "https://www.linkedin.com/in/alexanderblumeinfeld/"
+      },
+      {
+        "label": "See full CV",
+        "href": "https://drive.google.com/file/d/15URS3xgdTp0vah7PuTuKfOPp4TZH_wph/view?usp=sharing"
       }
-    ]
+    ],
+    "name": "Alexander Blum",
+    "tagline": "♥  Made with love  ♥"
   },
   "theme": {
     "color": "green",

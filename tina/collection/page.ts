@@ -10,8 +10,6 @@ import { quoteBlockSchema } from '@/components/blocks/quote';
 import { ctaBlockSchema } from '@/components/blocks/call-to-action';
 import { selectedProjectsBlockSchema } from '@/components/blocks/selected-projects';
 import { aboutBlockSchema } from '@/components/blocks/about';
-import { experienceBlockSchema } from '@/components/blocks/experience';
-import { contactBlockSchema } from '@/components/blocks/contact';
 
 const Page: Collection = {
   label: 'Pages',
@@ -55,8 +53,6 @@ const Page: Collection = {
         heroBlockSchema,
         selectedProjectsBlockSchema,
         aboutBlockSchema,
-        experienceBlockSchema,
-        contactBlockSchema,
         textBlockSchema,
         imageBlockSchema,
         galleryBlockSchema,

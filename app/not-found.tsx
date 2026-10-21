@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Layout from "@/components/layout/layout"
 import { TransitionLink as Link } from "@/components/motion-primitives/route-transitions"
 
 interface NotFoundProps {
@@ -17,24 +18,32 @@ export function Illustration(props: React.ComponentPropsWithoutRef<"svg">) {
   )
 }
 
-export default function NotFound({
+export function NotFoundContent({
   title = "Page not found",
-  description = "Lost, this page is. In another system, it may be.",
+  description = "This page doesn’t exist or has moved.",
 }: NotFoundProps) {
   return (
-    <div data-section="not-found" className="relative text-center z-[1] pt-52">
-      <h1 className="mt-4 text-balance text-5xl font-semibold tracking-tight text-emphasis sm:text-7xl">
+    <div data-section="not-found" className="relative text-center z-[1] pt-52 pb-40">
+      <h1 className="mt-4 font-display text-h1 text-balance text-emphasis">
         {title}
       </h1>
-      <p className="mt-6 text-pretty text-lg font-medium text-muted-foreground sm:text-xl/8">
+      <p className="mt-6 text-pretty text-body text-muted-foreground">
         {description}
       </p>
       <div className="mt-10 mx-auto">
         <Button asChild>
-          <Link href="/">Take me home</Link>
+          <Link href="/">Back to home</Link>
         </Button>
       </div>
     </div>
   )
 }
 
+/** The 404 carries the site chrome (header and footer), an approved Deviation (`themed-404`). */
+export default async function NotFound() {
+  return (
+    <Layout>
+      <NotFoundContent />
+    </Layout>
+  )
+}

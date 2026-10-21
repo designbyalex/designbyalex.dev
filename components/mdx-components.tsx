@@ -7,16 +7,6 @@ import { Video } from './blocks/video';
 import { PageBlocksVideo } from '@/tina/__generated__/types';
 import { Mermaid } from './blocks/mermaid';
 
-function getContrastColor(hex: string): string {
-  const c = hex.replace('#', '');
-  const r = parseInt(c.substring(0, 2), 16);
-  const g = parseInt(c.substring(2, 4), 16);
-  const b = parseInt(c.substring(4, 6), 16);
-  // Perceived luminance (WCAG formula)
-  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return luminance > 0.5 ? 'var(--highlight-text-dark)' : 'var(--highlight-text-light)';
-}
-
 export const components: Components<{
   BlockQuote: {
     children: TinaMarkdownContent;
@@ -119,10 +109,11 @@ export const components: Components<{
       </span>
     );
   },
+  // Tina's own highlight mark (the editor's highlighter), rendered as the Reference's green key
+  // phrases (#60): a span in the emphasis colour, no background. The highlighter's colour is ignored
+  // so every highlight is the one brand green in both themes.
   highlight: (props: { children: React.ReactNode; color?: string } | undefined) => (
-    <mark style={{ backgroundColor: props?.color, color: getContrastColor(props?.color ?? '') }}>
-      {props?.children}
-    </mark>
+    <span className='text-emphasis'>{props?.children}</span>
   ),
   mermaid: (props: any) => <Mermaid {...props} />,
   video: (props) => {

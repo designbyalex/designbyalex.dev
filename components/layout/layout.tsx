@@ -26,12 +26,14 @@ export default async function Layout({ children, rawPageData }: LayoutProps) {
       {/* Keyboard users can jump past the fixed header; parked above the viewport until focused. */}
       <a
         href="#main"
-        className="fixed left-4 top-4 z-30 -translate-y-[200%] rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground focus:translate-y-0"
+        className="fixed left-4 top-4 z-30 -translate-y-[200%] rounded-md bg-primary px-4 py-2 text-caption text-primary-foreground focus:translate-y-0"
       >
         Skip to content
       </a>
       <Header />
-      <main id="main" tabIndex={-1} className="overflow-x-hidden pt-20 outline-none">
+      {/* Offset by the header's height (88px, 96px at ≥1024). The home hero and the Project Hero pull themselves back up under the header with the matching negative margin; the offset serves every other page (the 404). */}
+      {/* overflow-x-clip, not -hidden: hidden would make <main> the scrollport for position: sticky, and the About heading sticks to the viewport. */}
+      <main id="main" tabIndex={-1} className="overflow-x-clip pt-22 outline-none lg:pt-24">
         {children}
       </main>
       <Footer />

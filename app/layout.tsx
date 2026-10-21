@@ -1,6 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
-import { Inter_Tight, Space_Mono } from "next/font/google";
+import { Inter, Space_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { cn } from "@/lib/utils";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
@@ -13,15 +14,36 @@ import { RouteTransitions } from "@/components/motion-primitives/route-transitio
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { siteDefaults } from "@/lib/seo/site";
 
-const fontSans = Inter_Tight({
+// Inter with its optical-size axis (ADR 0003): styles.css pins opsz 14 for text
+// (`font-sans`) and opsz 32 for headings (`font-display`), the Reference's
+// "Inter" and "Inter Display". Tailwind's --font-sans/--font-display/--font-mono
+// are built from these two variables.
+const fontInter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter",
+  axes: ["opsz"],
 });
 
 const fontMono = Space_Mono({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-space-mono",
   weight: ["400", "700"],
+});
+
+// Material Icons, for the one ligature glyph the Reference draws with it: the
+// "download" icon beside the CV link (docs/parity-audit.md H13). Self-hosted from
+// app/fonts (OFL; Google's v145 build via @fontsource/material-icons 5.3.0) under
+// its real family name, which the Fidelity gate compares with the Reference's. Not
+// preloaded: only the homepage uses it. `block` hides the ligature text until the
+// glyphs arrive, and an icon font needs no fallback metrics.
+const fontIcons = localFont({
+  src: "./fonts/material-icons-400.woff2",
+  variable: "--font-material-icons",
+  weight: "400",
+  display: "block",
+  preload: false,
+  adjustFontFallback: false,
+  declarations: [{ prop: "font-family", value: "Material Icons" }],
 });
 
 // Site-wide fallback (S9 / #13): every route overrides this via generateMetadata;
@@ -49,7 +71,7 @@ export default function RootLayout({
       <html
         lang="en"
         suppressHydrationWarning
-        className={cn(fontSans.variable, fontMono.variable)}
+        className={cn(fontInter.variable, fontMono.variable, fontIcons.variable)}
       >
         <body className="min-h-screen bg-background font-sans antialiased">
           <ThemeProvider

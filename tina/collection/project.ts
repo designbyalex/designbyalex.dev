@@ -7,7 +7,8 @@ import { videoBlockSchema } from '@/components/blocks/video';
 import { featureDeepDiveBlockSchema } from '@/components/blocks/feature-deep-dive';
 import { metricsBlockSchema } from '@/components/blocks/metrics';
 import { quoteBlockSchema } from '@/components/blocks/quote';
-import { ctaBlockSchema } from '@/components/blocks/call-to-action';
+import { caseStudySectionBlockSchema } from '@/components/blocks/case-study-section';
+import { caseStudyCtaBlockSchema } from '@/components/blocks/case-study-cta';
 import { metricFields } from '@/tina/fields/metric';
 
 const Project: Collection = {
@@ -54,14 +55,32 @@ const Project: Collection = {
       type: 'rich-text',
       label: 'Intro',
       name: 'intro',
-      description: 'Lead paragraphs shown under the tagline, before the overview.',
+      description:
+        'Lead paragraphs of the Overview, set as large white statements beside the metadata list. Highlight the green key phrases with the editor’s highlighter.',
+    },
+    {
+      type: 'string',
+      label: 'Overview spacing',
+      name: 'overviewStyle',
+      description:
+        'Rhythm of the Overview. Compact (the default): each value straight under its label, paragraphs 30px apart on desktop. Relaxed: 4px between label and value, the Role set as a white paragraph with 4px below, paragraphs 40px apart on desktop.',
+      options: [
+        { label: 'Compact', value: 'compact' },
+        { label: 'Relaxed', value: 'relaxed' },
+      ],
     },
     {
       type: 'string',
       label: 'Typology',
       name: 'typology',
-      description: 'Project category / discipline (e.g. Product Design, Brand).',
+      description: 'Project category / discipline (e.g. Fintech & Sustainability). First row of the Overview list.',
       list: true,
+    },
+    {
+      type: 'string',
+      label: 'Product',
+      name: 'product',
+      description: 'What was built (e.g. B2B2C SaaS Platform). Its own Overview row, after Typology.',
     },
     {
       type: 'string',
@@ -109,7 +128,7 @@ const Project: Collection = {
       type: 'string',
       label: 'Deliverables',
       name: 'deliverables',
-      description: 'What was delivered, one item per entry.',
+      description: 'What was delivered, one item per entry. A trailing parenthetical, e.g. "(WCAG AA)", is set in grey after the item.',
       list: true,
     },
     {
@@ -128,8 +147,31 @@ const Project: Collection = {
       type: 'image',
       label: 'Cover Image',
       name: 'coverImage',
+      description: 'The full-bleed hero image under the title row; also the share image.',
       // @ts-ignore
       uploadDir: () => 'projects',
+    },
+    {
+      type: 'string',
+      label: 'Cover image alt text',
+      name: 'coverImageAlt',
+      description: 'Describe the hero image for screen readers.',
+      ui: { component: 'textarea' },
+    },
+    {
+      type: 'image',
+      label: 'Thumbnail',
+      name: 'thumbnail',
+      description: 'The card image for this project where another case study links to it as the next project (the homepage uses its own).',
+      // @ts-ignore
+      uploadDir: () => 'projects',
+    },
+    {
+      type: 'string',
+      label: 'Thumbnail alt text',
+      name: 'thumbnailAlt',
+      description: 'Describe the thumbnail for screen readers.',
+      ui: { component: 'textarea' },
     },
     {
       type: 'object',
@@ -140,6 +182,7 @@ const Project: Collection = {
         visualSelector: true,
       },
       templates: [
+        caseStudySectionBlockSchema,
         heroBlockSchema,
         textBlockSchema,
         imageBlockSchema,
@@ -148,7 +191,7 @@ const Project: Collection = {
         featureDeepDiveBlockSchema,
         metricsBlockSchema,
         quoteBlockSchema,
-        ctaBlockSchema,
+        caseStudyCtaBlockSchema,
       ],
     },
   ],

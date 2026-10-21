@@ -27,7 +27,7 @@ export const FeatureDeepDive = ({ data }: { data: PageBlocksFeatureDeepDive }) =
         >
           {data.eyebrow && (
             <p
-              className="font-mono text-xs uppercase tracking-widest text-emphasis"
+              className="font-mono text-mono uppercase text-emphasis"
               data-tina-field={tinaField(data, 'eyebrow')}
             >
               {data.eyebrow}
@@ -35,14 +35,14 @@ export const FeatureDeepDive = ({ data }: { data: PageBlocksFeatureDeepDive }) =
           )}
           {data.heading && (
             <h2
-              className="text-3xl font-medium tracking-tight md:text-4xl"
+              className="font-display text-heading"
               data-tina-field={tinaField(data, 'heading')}
             >
               {data.heading}
             </h2>
           )}
           {data.body && (
-            <div className="prose prose-lg dark:prose-invert max-w-none" data-tina-field={tinaField(data, 'body')}>
+            <div className="prose prose-case-study max-w-none" data-tina-field={tinaField(data, 'body')}>
               <TinaMarkdown content={data.body} components={components} />
             </div>
           )}
