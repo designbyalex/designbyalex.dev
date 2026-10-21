@@ -4,12 +4,14 @@
 //   node scripts/parity/extract.ts <url> [--width 1440] [--sections build|reference] [--light] [--out snap.json] [--screenshot shot.jpg]
 import { writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
-import { type Browser, chromium } from 'playwright';
+import { type Browser, type Page, chromium } from 'playwright';
 import { buildSnapshot } from './build-snapshot.ts';
-import { collectInPage, probeVideosInPage } from './collect.ts';
+import { collectInPage, contrastInPage, probeVideosInPage } from './collect.ts';
+import { toSrgb } from './colour.ts';
 import type { SectionRule } from './raw.ts';
 import { BUILD_SECTIONS, REFERENCE_SECTIONS } from './sections.ts';
 import { type CheckpointWidth, type PageSnapshot, VIEWPORT_HEIGHT } from './snapshot.ts';
+import type { RunContrast } from './theme.ts';
 
 export interface ExtractOptions {
   url: string;
@@ -18,13 +20,23 @@ export interface ExtractOptions {
   colorScheme?: 'dark' | 'light';
   /** Also take a full-page JPEG, downscaled to this width (default: the page width). */
   screenshot?: { width?: number; quality?: number };
+  /** Also measure each text run's contrast against its rendered background (theme.ts). */
+  contrast?: boolean;
 }
 
 export interface Extraction {
   snapshot: PageSnapshot;
   /** JPEG bytes when a screenshot was requested. */
   screenshot: Buffer | null;
+  /** Per snapshot run, when contrast was requested. */
+  contrast: (RunContrast | null)[] | null;
 }
+
+// Text made transparent everywhere, so a screenshot shows only what renders behind it. Transitions off, so a
+// link's colour transition can't leave text half-faded when the shot is taken.
+const HIDE_TEXT = `*, *::before, *::after { color: transparent !important; -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important; text-decoration-color: transparent !important; caret-color: transparent !important;
+  transition: none !important; }`;
 
 // System Google Chrome, not Playwright's Chromium: Chromium lacks the H.264 codec, so it can't play the
 // Framer videos and would misreport playback. The Reference and every Build run use the same browser.
@@ -90,16 +102,37 @@ export async function extractPage(browser: Browser, opts: ExtractOptions): Promi
       const png = await page.screenshot({ fullPage: true, type: 'png' });
       screenshot = await toJpeg(browser, png, opts.screenshot.width ?? opts.width, opts.screenshot.quality ?? 0.6);
     }
-    return { snapshot, screenshot };
+    let contrast: (RunContrast | null)[] | null = null;
+    if (opts.contrast) {
+      const style = await page.addStyleTag({ content: HIDE_TEXT });
+      await page.waitForTimeout(SCROLL_STEP_WAIT_MS);
+      const png = await page.screenshot({ fullPage: true, type: 'png' });
+      await style.evaluate((el) => (el as Element).remove());
+      const runs = snapshot.runs.map((r) => {
+        const c = toSrgb(r.style.color);
+        return { box: r.box, fg: c ? ([c[0], c[1], c[2], c[3] * r.opacity] as [number, number, number, number]) : null };
+      });
+      contrast = await inBlankPage(browser, (p) => p.evaluate(contrastInPage, { png: `data:image/png;base64,${png.toString('base64')}`, runs }));
+    }
+    return { snapshot, screenshot, contrast };
   } finally {
     await context.close();
   }
 }
 
-// Downscale and re-encode in the browser itself, so the harness needs no image library.
-async function toJpeg(browser: Browser, png: Buffer, width: number, quality: number): Promise<Buffer> {
+// Image work happens in a browser page, so the harness needs no image library.
+async function inBlankPage<T>(browser: Browser, work: (page: Page) => Promise<T>): Promise<T> {
   const page = await browser.newPage();
   try {
+    return await work(page);
+  } finally {
+    await page.close();
+  }
+}
+
+// Downscale and re-encode in the browser itself.
+async function toJpeg(browser: Browser, png: Buffer, width: number, quality: number): Promise<Buffer> {
+  return inBlankPage(browser, async (page) => {
     const dataUrl = await page.evaluate(
       async ({ src, width, quality }) => {
         const img = new Image();
@@ -117,9 +150,7 @@ async function toJpeg(browser: Browser, png: Buffer, width: number, quality: num
       { src: `data:image/png;base64,${png.toString('base64')}`, width, quality }
     );
     return Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64');
-  } finally {
-    await page.close();
-  }
+  });
 }
 
 if (import.meta.main) {

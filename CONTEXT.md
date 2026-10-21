@@ -23,7 +23,7 @@ The bar the Build must clear before Cutover, set per dimension: Copy verbatim, M
 _Avoid_: fidelity (as a goal), "meets or beats" (as the whole bar)
 
 **Dimension**:
-One axis of Parity: Copy, Media, Layout, Type or Motion. Each has its own bar and its own judge.
+One axis of Parity: Copy, Media, Layout, Type or Motion. Each has its own bar and its own judge. The Fidelity gate counts two more for the Net-new theme: Theme (light against dark) and Contrast (WCAG AA in light).
 
 **Gap**:
 A place where the Build falls short of Parity on some Dimension.

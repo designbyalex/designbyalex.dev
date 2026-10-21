@@ -5,9 +5,9 @@
 // rise. A Section the Baseline has never seen starts at its first count. On a pass the new counts become the
 // Baseline, committed with the change (parity/baseline.json). A Section the run no longer has stays in it at
 // 0, so the Baseline never loses a key and the loop can check a committed Baseline with baselineRaised.
-import { DIMENSIONS, type Dimension } from './checks.ts';
+import { DIMENSIONS, type Dimension, zeroCounts } from './checks.ts';
 import type { Comparison } from './compare.ts';
-import { fail, num, obj, oneOf, type ShapeCheck, str } from './validate.ts';
+import { type ShapeCheck, fail, num, obj, oneOf, str } from './validate.ts';
 
 /** One `page · Section · Dimensions` line of a ticket's `## Parity scope`. */
 export interface ScopeLine {
@@ -111,7 +111,7 @@ export function countGaps(comparisons: Comparison[], sectionsOf: (c: Comparison)
     const page = (out[c.path] ??= { page: c.page, sections: {} });
     const at = (section: string) => {
       const widths = (page.sections[section] ??= {});
-      return (widths[c.width] ??= { Copy: 0, Media: 0, Layout: 0, Type: 0 });
+      return (widths[c.width] ??= zeroCounts());
     };
     for (const s of sectionsOf(c)) at(s);
     for (const g of c.gaps) at(g.section)[g.dimension]++;
@@ -147,8 +147,16 @@ const baselineFile = obj({
   counts: record(obj({ page: str, sections: record(record(obj(Object.fromEntries(DIMENSIONS.map((d) => [d, num]))))) })),
 });
 
+/** Dimensions a Baseline written before they existed lacks; read as 0. */
+const LATER_DIMENSIONS: Dimension[] = ['Theme', 'Contrast'];
+
 /** Throws, naming the first bad field, unless `json` is a Baseline file; returns its counts. */
 export function parseBaseline(json: unknown): Counts {
+  const counts = (json as { counts?: unknown } | null)?.counts;
+  if (counts && typeof counts === 'object')
+    for (const p of Object.values(counts as Record<string, { sections?: Record<string, Record<string, Record<string, number>>> }>))
+      for (const widths of Object.values(p?.sections ?? {}))
+        for (const c of Object.values(widths ?? {})) if (c && typeof c === 'object') for (const d of LATER_DIMENSIONS) c[d] ??= 0;
   baselineFile(json, '');
   return (json as { counts: Counts }).counts;
 }
@@ -230,7 +238,7 @@ export function ratchet({ baseline, counts, scope }: RatchetInput): RatchetResul
     news > 0 ? `, ${plural(news, 'new Section')}` : ''
   }`;
   const next = structuredClone(counts);
-  for (const [path, section, w] of vanished) (next[path].sections[section] ??= {})[w] = { Copy: 0, Media: 0, Layout: 0, Type: 0 };
+  for (const [path, section, w] of vanished) (next[path].sections[section] ??= {})[w] = zeroCounts();
   return { pass: true, baseline: next, reason, failures };
 }
 

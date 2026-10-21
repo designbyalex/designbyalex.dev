@@ -126,6 +126,14 @@
       "check": "quote-style",
       "anchor": "*",
       "decision": "Curly apostrophes and quotes throughout (PRD #46 story 29), where the Reference mixes straight and curly ones (\"I'm\", \"Let's talk\" beside \"Acacia’s\"). Suppresses quote-style Gaps only: a text that differs from the Reference in any other punctuation, its words or its case is still a Gap. Approved by the owner during the AFK run (#54)."
+    },
+    {
+      "id": "about-heading-phones",
+      "page": "home",
+      "section": "Project Overview",
+      "check": "copy-extra",
+      "anchor": "About",
+      "decision": "Reference capture artefact, not a design difference. At 390 and 768 Framer's \"Sticky Wrapper\" with the \"About\" heading fades in once in view; the frozen snapshot caught it at opacity 0, so it has no text run there, though its 84px of space is in the layout. The live site shows the heading at every width, and so does the Build. Approved by the owner at Parity sign-off (#52)."
     }
   ]
 }

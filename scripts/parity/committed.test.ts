@@ -71,6 +71,7 @@ describe('the Deviation list', () => {
       'mos-last-list-item-outcome',
       // Approved by the owner during the AFK run (#54): curly quotes throughout, per story 29.
       'curly-quotes',
+      'about-heading-phones',
     ]);
   });
 

@@ -1,6 +1,7 @@
 // The Fidelity gate (PRD #46, ADR 0002): production build (offline Tina) → local `next start` → extractor at
 // every Reference page × Checkpoint width → comparator → Baseline ratchet. The AFK loop runs it per ticket
-// through scripts/afk/check.sh.
+// through scripts/afk/check.sh. Each target is extracted twice: in dark for the comparison with the
+// Reference, and in light for the Net-new theme's Theme and Contrast checks (#67, theme.ts).
 //
 //   node scripts/parity/gate.ts [--ticket body.md] [--skip-build] [--page acacia] [--width 1440]
 //
@@ -10,8 +11,9 @@
 //               never writes the Baseline
 //
 // Writes the run folder .afk/parity/ (gitignored, replaced each run): report.txt, gaps.json, counts.json,
-// ratchet.json, shots/ (Reference and Build screenshots), sheets/ (per page and width, Reference left,
-// Build right), sections/ (the same per Section) and server.log. On a full passing run it rewrites
+// ratchet.json, shots/ (Reference and Build screenshots, the Build in dark and light), sheets/ (per page
+// and width, Reference left, Build right; `-light` sheets Build dark left, light right), sections/ (the
+// same per Section) and server.log. On a full passing run it rewrites
 // parity/baseline.json when the counts moved; commit it with the change.
 //
 // Exit 0 = pass, 1 = fail (the reasons and the Gap messages behind them are the last lines printed).
@@ -21,14 +23,15 @@ import { createServer } from 'node:net';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { type Comparison, compare } from './compare.ts';
-import { parseDeviations, parseGateConfig, NO_SECTION, PAGE_SECTION } from './config.ts';
+import { NO_SECTION, PAGE_SECTION, parseDeviations, parseGateConfig } from './config.ts';
 import { sideBySide } from './contact-sheet.ts';
 import { extractPage, launchBrowser } from './extract.ts';
-import { type Counts, countGaps, describeFailure, type Failure, formatBaseline, parseBaseline, parseParityScope, ratchet, type ScopeLine } from './ratchet.ts';
+import { type Counts, type Failure, type ScopeLine, countGaps, describeFailure, formatBaseline, parseBaseline, parseParityScope, ratchet } from './ratchet.ts';
 import { formatReport } from './report.ts';
 import { BUILD_SECTIONS } from './sections.ts';
 import type { PageSnapshot } from './snapshot.ts';
 import { parityTargets, pathSlug } from './targets.ts';
+import { applyDeviations, compareThemes, contrastGaps } from './theme.ts';
 import { parseManifest, parsePageSnapshot } from './validate.ts';
 
 const ROOT = new URL('../../', import.meta.url).pathname;
@@ -169,6 +172,30 @@ try {
       comparisons.push(comparison);
       sectionsCompared.set(comparison, referenceSections(reference));
 
+      // The Net-new theme: the same page in light, against the dark Build and for contrast.
+      const {
+        snapshot: light,
+        screenshot: lightShot,
+        contrast,
+      } = await extractPage(browser, {
+        url: new URL(path, server.origin).href,
+        width: capture.width,
+        sections: BUILD_SECTIONS,
+        colorScheme: 'light',
+        screenshot: { width: Math.round(capture.width * capture.screenshotScale) },
+        contrast: true,
+      });
+      writeFileSync(join(RUN, 'build', `${slug}-light.json`), `${JSON.stringify(light, null, 2)}\n`);
+      const themed = applyDeviations(
+        [
+          ...compareThemes({ page: capture.page, reference, dark: build, light, config }),
+          ...contrastGaps({ page: capture.page, reference, light, config, contrast: contrast! }),
+        ],
+        deviations
+      );
+      comparison.gaps.push(...themed.open);
+      comparison.suppressed.push(...themed.suppressed);
+
       const refJpeg = readFileSync(join(PARITY, 'reference', capture.screenshot));
       const buildJpeg = screenshot!;
       writeFileSync(join(RUN, 'shots', `${slug}-reference.jpg`), refJpeg);
@@ -177,6 +204,11 @@ try {
       writeFileSync(
         join(RUN, 'sheets', `${slug}.jpg`),
         await sideBySide(browser, { jpeg: refJpeg, label: `Reference ${title}` }, { jpeg: buildJpeg, label: `Build ${title}` })
+      );
+      writeFileSync(join(RUN, 'shots', `${slug}-build-light.jpg`), lightShot!);
+      writeFileSync(
+        join(RUN, 'sheets', `${slug}-light.jpg`),
+        await sideBySide(browser, { jpeg: buildJpeg, label: `Build dark ${title}` }, { jpeg: lightShot!, label: `Build light ${title}` })
       );
       const k = capture.screenshotScale;
       const crop = (b: { x: number; y: number; w: number; h: number }) => ({ x: b.x * k, y: b.y * k, w: b.w * k, h: b.h * k });
@@ -192,7 +224,10 @@ try {
           )
         );
       }
-      say(`  ${title}: ${comparison.gaps.length} Gaps (${comparison.matched.runs}/${comparison.matched.of} runs matched)`);
+      const inLight = (d: string) => themed.open.filter((g) => g.dimension === d).length;
+      say(
+        `  ${title}: ${comparison.gaps.length} Gaps (${comparison.matched.runs}/${comparison.matched.of} runs matched; light: ${inLight('Theme')} Theme, ${inLight('Contrast')} Contrast)`
+      );
     }
   } finally {
     await browser.close();

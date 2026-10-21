@@ -102,9 +102,10 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
                     )}
 
                     {status && (
-                      // Over the image in both themes, so it uses the on-image tokens rather than the page's.
+                      // Over the image in both themes, so it uses the on-image tokens rather than the page's. The dark fill
+                      // (Framer's is white at 15%) keeps the label at AA over a light photo (#67).
                       <span
-                        className='absolute top-4 left-4 z-10 inline-flex h-[30px] items-center gap-2 rounded-full border border-on-image/25 bg-on-image/15 px-[13px] font-mono text-mono uppercase text-on-image'
+                        className='absolute top-4 left-4 z-10 inline-flex h-[30px] items-center gap-2 rounded-full border border-on-image/25 bg-scrim/60 px-[13px] font-mono text-mono uppercase text-on-image'
                         data-tina-field={tinaField(project!, 'status')}
                       >
                         <span aria-hidden className={cn('size-2 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />

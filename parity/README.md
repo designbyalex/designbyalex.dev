@@ -20,9 +20,9 @@ pnpm parity:gate --page acacia --width 1440    # partial: report and ratchet wha
 
 `scripts/parity/gate.ts` builds the site for production with offline Tina, serves it with `next start` on a free port (Tina's local GraphQL stays up beside it, on free ports too), extracts every page × Checkpoint width, runs the comparator and then the **Baseline ratchet** (`scripts/parity/ratchet.ts`, pure). The ratchet fails when a Section in the ticket's Parity scope still has Gaps, or when any other count rose above the Baseline. A Section the Baseline has never seen starts at its first count. On a full passing run the gate rewrites `baseline.json` if the counts moved. It exits 1 on a failure, and its last lines are the failures with their Gap messages. In the AFK loop it runs inside `scripts/afk/check.sh --ticket N`, not in CI.
 
-A ticket's Parity scope is its `## Parity scope` list of `page · Section · Dimensions` lines. A page is a Build path (`/acacia`), a Reference page key or `404` (every route compared with the 404). A Section is a Reference Section name (`Mission` for `Section Mission`, `Project Row` for every row, `Hero` for `Hero Content`). Dimensions are Copy, Media, Layout and Type. `all` works for each part.
+A ticket's Parity scope is its `## Parity scope` list of `page · Section · Dimensions` lines. A page is a Build path (`/acacia`), a Reference page key or `404` (every route compared with the 404). A Section is a Reference Section name (`Mission` for `Section Mission`, `Project Row` for every row, `Hero` for `Hero Content`). Dimensions are Copy, Media, Layout and Type against the Reference, and Theme and Contrast for the Net-new (light) theme (below). `all` works for each part.
 
-Each run replaces the gitignored run folder `.afk/parity/`: `report.txt` (every Gap and the verdict), `gaps.json`, `counts.json`, `ratchet.json`, `sheets/<page>-<width>.jpg` (whole-page contact sheets, Reference left, Build right), `sections/<page>-<width>--<section>.jpg` (the same per Section), `shots/` (the screenshot pairs), `build/` (the Build snapshots) and `server.log`.
+Each run replaces the gitignored run folder `.afk/parity/`: `report.txt` (every Gap and the verdict), `gaps.json`, `counts.json`, `ratchet.json`, `sheets/<page>-<width>.jpg` (whole-page contact sheets, Reference left, Build right), `sheets/<page>-<width>-light.jpg` (the Build in dark left, in light right), `sections/<page>-<width>--<section>.jpg` (the same per Section), `shots/` (the screenshot pairs), `build/` (the Build snapshots, `-light` for light) and `server.log`.
 
 ## Comparing a Build
 
@@ -47,6 +47,13 @@ Text runs are matched by their rendered text (after CSS `text-transform`), first
 - **Type**, per matched run: `font-family` (next/font names and `fontFamilyAliases` resolved), `font-size`, `line-height`, `font-weight`, `tracking`, `color` (OKLab distance, so `oklch()` and `rgb()` compare), `font-style`.
 - **Layout**: `position` within the Section (never absolute page y), `width` of wrapping runs, `lines`, `opacity`, `wrong-section`, and per Section `section-missing`, `section-extra` and `section-size`.
 - **Media**: `media-host` (any `forbiddenMediaHosts` source, subdomains included), `media-missing`, `media-extra`, `media-size`, `media-position`, `media-radius`, `media-fit`, `video-autoplay`, `video-attributes`.
+
+The gate also extracts every target in light (`scripts/parity/theme.ts`, #67), for two Dimensions with no Reference to match:
+
+- **Theme**: the Build in light against the Build in dark, with the checks above and the dark value as expected. `theme-layout` (any Layout check), `theme-media` (artwork missing, extra or moved) and `theme-copy` (text or a link in one theme only). Type isn't compared: the colours differ by design.
+- **Contrast**: `contrast`, a text run in light below WCAG AA against what renders behind it: 4.5:1, or 3:1 for large text (24px, or 18.66px bold). The background is sampled from a screenshot with all text made transparent, so gradients and images count; the ratio is the 5th percentile from the worst over the run's box. Visually hidden runs (under 2px) are skipped.
+
+Both report under the Reference Section the dark comparison uses, so each Baseline row holds all six Dimensions. A Baseline written before Theme and Contrast existed reads them as 0.
 
 ## Section map
 

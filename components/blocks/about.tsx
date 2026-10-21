@@ -1,17 +1,19 @@
 'use client';
-import React from 'react';
+import { cn } from '@/lib/utils';
+import { PageBlocksAbout } from '@/tina/__generated__/types';
 import Image from 'next/image';
+import React from 'react';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { PageBlocksAbout } from '@/tina/__generated__/types';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 /**
  * The Reference's "Project Overview" Section as one block: About, Experience and the CV link.
  *
- * Left column: a sticky "About" heading under a hairline, at desktop widths only (the Reference never
- * shows it on phones or tablets; see the #59 notes). Right column: the statements (green lead-in,
+ * Left column: the "About" heading under a hairline, sticky from lg up. On phones and tablets it sits above
+ * the statements, as on the live Framer site (the Reference snapshot missed it there: it captured the
+ * heading before its appear animation ran; Deviation `about-heading-phones`). Right column: the statements (green lead-in,
  * white continuation), the portrait, then the small green "Experience" label with one hairline row per
  * role (company / role / period stacked, a decorative "+" on the right) and "DOWNLOAD FULL CV" with
  * the Material Icons download glyph, right-aligned.
@@ -20,8 +22,7 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
  * at xl; the columns are 60px apart, the right one 60% wide at lg and 50% at xl, and both start 120px
  * down. Statements are 40px apart with 100px below them (64px on phones), 10px to the portrait (aspect
  * 0.890323, 20px corners), 110px to the label; rows are 16px apart and padded 16px; the CV row is 40px
- * tall. On phones the column keeps the 84px the Reference's unseen heading occupies, so the statements
- * start at the same height.
+ * tall. On phones the heading takes the 84px Framer gives it, so the statements start at the same height.
  */
 export const About = ({ data }: { data: PageBlocksAbout }) => {
   const parts = data.parts?.filter(Boolean) ?? [];
@@ -35,7 +36,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
         {data.heading && (
           // Sticky within the section, so it stays put while the right column scrolls past. Needs no
           // overflow-hidden ancestor, hence `overflow-x-clip` on <main>.
-          <div className='hidden lg:sticky lg:top-0 lg:block lg:min-w-0 lg:flex-1 lg:pt-[120px] lg:pb-[150px]'>
+          <div className='h-[84px] lg:sticky lg:top-0 lg:h-auto lg:min-w-0 lg:flex-1 lg:pt-[120px] lg:pb-[150px]'>
             <ScrollReveal className='border-t border-border pt-[9px]'>
               <h2 className='font-display text-heading' data-tina-field={tinaField(data, 'heading')}>
                 {data.heading}
@@ -44,7 +45,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
           </div>
         )}
 
-        <div className='flex w-full flex-col gap-[10px] pt-[84px] pb-16 lg:w-[60%] lg:pt-[120px] lg:pb-0 xl:w-1/2'>
+        <div className={cn('flex w-full flex-col gap-[10px] pb-16 lg:w-[60%] lg:pt-[120px] lg:pb-0 xl:w-1/2', !data.heading && 'pt-[84px]')}>
           {parts.length > 0 && (
             <div className='flex flex-col gap-10 pb-16 lg:pb-[100px]'>
               {parts.map((part, i) => (

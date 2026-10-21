@@ -73,6 +73,17 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         </ScrollReveal>
       )}
 
+      {/*
+       * Scrims under the text, not on the Reference: white on the bright gradient is about 1.7:1, so the
+       * headline's side (on phones, the band under the header, which stays on the bright gradient) and the bottom row sit on darkened gradient, enough for WCAG AA
+       * in both themes (#67: 3:1 for the headline, 4.5:1 for the tagline and the link).
+       */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_bottom,transparent_88px,color-mix(in_srgb,var(--scrim)_45%,transparent)_130px,color-mix(in_srgb,var(--scrim)_30%,transparent)_35%,transparent_60%)] lg:bg-[linear-gradient(to_right,color-mix(in_srgb,var(--scrim)_45%,transparent),color-mix(in_srgb,var(--scrim)_35%,transparent)_55%,transparent_80%)]"
+      />
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-linear-to-t from-scrim/60 via-scrim/45 via-20% to-transparent to-45%" />
+
       {/* Text Wrapper → Container: headline at the top, the bottom row pushed to the fold. */}
       <div className="relative z-10 flex w-full max-w-[1920px] flex-1 flex-col items-center overflow-hidden px-4 pb-8 pt-30 lg:px-6 lg:pb-16 lg:pt-40 xl:px-16">
         <div className="flex w-full max-w-[1440px] flex-1 flex-col items-start justify-between">

@@ -184,8 +184,8 @@
   --foreground-soft: #1a1a1a;
   /* Text on translucent chrome pills (the case-study Back pill: the Reference's #ededed) */
   --foreground-dim: #262626;
-  /* Decorative large numerals on a card (the carousel slide's "01": the Reference's #474747 on #131313) */
-  --foreground-faint: #c9c9c9;
+  /* Decorative large numerals on a card (the carousel slide's "01": the Reference's #474747 on #131313); 3.3:1 on white, AA for large text */
+  --foreground-faint: #8f8f8f;
   --card: #ffffff;
   --card-foreground: #080808;
   --popover: #ffffff;
