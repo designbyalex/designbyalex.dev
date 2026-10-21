@@ -35,9 +35,11 @@ export const DURATION = {
   routeIn: 0.42,
   /** header sliding out of / back into view on scroll */
   hideOnScroll: 0.3,
+  /** a carousel slide's content appearing in place */
+  slideAppear: 0.6,
 } as const;
 
-export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition' | 'autoplay' | 'hide-on-scroll';
+export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition' | 'autoplay' | 'hide-on-scroll' | 'slide-appear';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -240,6 +242,31 @@ export function routeTransitionMotion(prefersReducedMotion: boolean): RouteTrans
 export function autoplayMotion(prefersReducedMotion: boolean, autoPlay: boolean | null | undefined): boolean {
   if (prefersReducedMotion) return false;
   return Boolean(autoPlay);
+}
+
+// ─── slide-appear ─────────────────────────────────────────────────────────────
+
+export interface SlideAppearMotion {
+  initial: TargetAndTransition | false;
+  animate: TargetAndTransition;
+  transition: Transition;
+}
+
+/**
+ * Props for a carousel slide's content appearing in place when the visitor changes slide: Framer's
+ * appear effect, a fade-and-rise from 60px below. Reduced motion → no initial state, so the new slide
+ * is simply there.
+ */
+export function slideAppearMotion(prefersReducedMotion: boolean): SlideAppearMotion {
+  if (prefersReducedMotion) {
+    return { initial: false, animate: { opacity: 1, y: 0 }, transition: INSTANT };
+  }
+
+  return {
+    initial: { opacity: 0, y: 60 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: DURATION.slideAppear, ease: EASE_ENTRANCE },
+  };
 }
 
 // ─── hide-on-scroll ───────────────────────────────────────────────────────────

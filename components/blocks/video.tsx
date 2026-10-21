@@ -7,6 +7,7 @@ import { tinaField } from 'tinacms/dist/react';
 import type { PageBlocksVideo } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
 import { autoplayMotion } from '@/lib/motion/reduced-motion';
+import { carouselNav } from '@/lib/case-study/carousel';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { useHydrated } from '../motion-primitives/use-hydrated';
@@ -21,42 +22,106 @@ import { useHydrated } from '../motion-primitives/use-hydrated';
  * 16px-gutter width under it), 1.67419 ratio at xl (1.6729 under), 20px corners, the video at 101%
  * inside so the clip itself carries no radius. Framed: the frame image at 780px at most, the video in a
  * mask 16/780 of the width in from the left, right and top at a 1.78351 ratio, which is the Studio
- * Display component's "Mask". Slide: the framed clip on Framer's carousel slide ("Carousel Wrapper" on
- * /mosurban): 720px tall at xl on the card colour with 20px corners and 24px padding, the 780×453
- * Studio Display box bottom-right so the slide clips the monitor's stand, a 56×47 Next pill with a
- * 10×16 chevron centred at the right edge and five pagination dots at the bottom. The chrome is
- * decorative: Framer's carousel has one page.
+ * Display component's "Mask". Slide: the framed clip on a single slide of Framer's carousel ("Carousel
+ * Wrapper" on /mosurban): 720px tall at xl on the card colour with 20px corners and 24px padding, the
+ * 780×453 Studio Display box bottom-right so the slide clips the monitor's stand. One slide has nowhere
+ * to go, so it carries no arrows or dots.
  *
  * `PlainClip`, `FramedClip` and `SlideChrome` are shared with the case-study section block (#65), which
- * places the plain clip in a section's right column and the framed clip on the UX section's slide.
+ * places the plain clip in a section's right column and the framed clips on the UX section's carousel.
+ * `SlideChrome` is that carousel's navigation: a 56×47 pill with a 10×16 chevron centred at the right
+ * edge (Next) and, past the first slide, its mirror at the left (Back), and a pagination dot per slide
+ * at the bottom.
  */
 
-/** Framer's chevron: a CSS background on the pill's arrow, as the Reference records it. */
+/** Framer's chevron: a CSS background on the pill's arrow, as the Reference records it. It points left (Back); Next turns it round. */
 const CHEVRON =
   "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9.42 16' overflow='visible'><path d='M 8 16 L 0 8 L 8 0 L 9.42 1.42 L 2.84 8 L 9.42 14.58 Z' fill='white'/></svg>\")";
-const SLIDE_PAGES = 5;
 
-/** The slide's Next pill and pagination, positioned over the slide. */
-export const SlideChrome = () => (
-  <div aria-hidden='true'>
-    <div className='absolute top-1/2 right-6 z-[1] flex h-[47px] w-14 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full bg-scrim/40 backdrop-blur-[2px]'>
-      <div className='pl-px'>
-        <div className='h-4 w-[10px] rotate-180 bg-[length:100%_100%] bg-no-repeat' style={{ backgroundImage: CHEVRON }} />
+interface SlideChromeProps {
+  /** The slide showing, from 0. */
+  index: number;
+  count: number;
+  /** Asks for a slide, from 0. */
+  onSelect: (index: number) => void;
+}
+
+/** The carousel's Back and Next pills and its pagination, positioned over the slide. Nothing for a single slide. */
+export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
+  const { hasPrev, hasNext } = carouselNav(index, count);
+  const prevRef = React.useRef<HTMLButtonElement>(null);
+  const nextRef = React.useRef<HTMLButtonElement>(null);
+  const refocus = React.useRef<'prev' | 'next' | null>(null);
+
+  // The pill just pressed goes away at either end; hand focus to the other one so a keyboard user isn't
+  // dropped back to the top of the page.
+  React.useEffect(() => {
+    const target = refocus.current === 'prev' ? prevRef.current : refocus.current === 'next' ? nextRef.current : null;
+    refocus.current = null;
+    target?.focus();
+  }, [index]);
+
+  if (count < 2) {
+    return null;
+  }
+
+  const step = (delta: 1 | -1) => {
+    const target = index + delta;
+    if (delta > 0 && target >= count - 1) refocus.current = 'prev';
+    if (delta < 0 && target <= 0) refocus.current = 'next';
+    onSelect(target);
+  };
+
+  return (
+    <>
+      {hasPrev && <SlideArrow buttonRef={prevRef} direction='prev' onClick={() => step(-1)} />}
+      {hasNext && <SlideArrow buttonRef={nextRef} direction='next' onClick={() => step(1)} />}
+      <div className='absolute inset-x-0 bottom-0 z-[1] flex justify-center p-4'>
+        <div className='flex overflow-hidden rounded-full bg-scrim/20 backdrop-blur-[2px]'>
+          {Array.from({ length: count }, (_, i) => (
+            // The ring goes on the dot: the pill clips anything drawn outside the button.
+            <button
+              key={i}
+              type='button'
+              onClick={() => onSelect(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              aria-current={i === index ? 'true' : undefined}
+              className={cn(
+                'group cursor-pointer py-2.5 outline-none',
+                i === 0 ? 'pr-[5px] pl-2.5' : i === count - 1 ? 'pr-2.5 pl-[5px]' : 'px-[5px]',
+              )}
+            >
+              <div
+                className={cn(
+                  'size-2.5 rounded-[5px] bg-on-image group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-ring',
+                  i !== index && 'opacity-50',
+                )}
+              />
+            </button>
+          ))}
+        </div>
       </div>
+    </>
+  );
+};
+
+/** One 56×47 pill, vertically centred 24px in from its edge. */
+const SlideArrow = ({ buttonRef, direction, onClick }: { buttonRef: React.Ref<HTMLButtonElement>; direction: 'prev' | 'next'; onClick: () => void }) => (
+  <button
+    ref={buttonRef}
+    type='button'
+    onClick={onClick}
+    aria-label={direction === 'next' ? 'Next slide' : 'Previous slide'}
+    className={cn(
+      'absolute top-1/2 z-[1] flex h-[47px] w-14 -translate-y-1/2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-scrim/40 backdrop-blur-[2px]',
+      'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+      direction === 'next' ? 'right-6' : 'left-6',
+    )}
+  >
+    <div className={direction === 'next' ? 'pl-px' : 'pr-px'}>
+      <div className={cn('h-4 w-[10px] bg-[length:100%_100%] bg-no-repeat', direction === 'next' && 'rotate-180')} style={{ backgroundImage: CHEVRON }} />
     </div>
-    <div className='absolute inset-x-0 bottom-0 z-[1] flex justify-center p-4'>
-      <div className='flex overflow-hidden rounded-full bg-scrim/20 backdrop-blur-[2px]'>
-        {Array.from({ length: SLIDE_PAGES }, (_, i) => (
-          <div
-            key={i}
-            className={cn('py-2.5', i === 0 ? 'pr-[5px] pl-2.5' : i === SLIDE_PAGES - 1 ? 'pr-2.5 pl-[5px]' : 'px-[5px]')}
-          >
-            <div className={cn('size-2.5 rounded-[5px] bg-on-image', i > 0 && 'opacity-50')} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
+  </button>
 );
 
 interface ClipOptions {
@@ -140,7 +205,6 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
             <div className='flex h-full items-end justify-end'>
               <div className='w-full max-w-[780px] xl:h-[453px]'>{framed}</div>
             </div>
-            <SlideChrome />
           </div>
         </ScrollReveal>
       ) : framed ? (
@@ -258,7 +322,7 @@ export const videoBlockSchema: Template = {
       label: 'Carousel slide',
       name: 'slide',
       description:
-        'With a device frame: present the clip on Framer’s carousel slide, a dark 720px card with 20px corners, the frame bottom-right with the monitor’s stand clipped, a Next pill at the right and pagination dots at the bottom. The chrome is decorative (one page).',
+        'With a device frame: present the clip on a single slide of Framer’s carousel, a dark 720px card with 20px corners and the frame bottom-right with the monitor’s stand clipped. One slide has no arrows or dots; for a carousel of several, use a case-study section’s Carousel slides.',
     },
     {
       type: 'boolean',

@@ -8,6 +8,7 @@ import {
   hoverMotion,
   routeTransitionMotion,
   scrollRevealMotion,
+  slideAppearMotion,
   textRevealMotion,
 } from './reduced-motion';
 
@@ -241,6 +242,23 @@ describe('hideOnScrollMotion', () => {
   it('reduced motion: both variants rest at y 0 with an instant transition', () => {
     const m = hideOnScrollMotion(true);
     expect(m.variants).toEqual({ shown: { y: 0 }, hidden: { y: 0 } });
+    expect(m.transition.duration).toBe(0);
+  });
+});
+
+describe('slideAppearMotion', () => {
+  it('fades and rises the new slide from 60px below over the entrance easing', () => {
+    const m = slideAppearMotion(false);
+    expect(m.initial).toEqual({ opacity: 0, y: 60 });
+    expect(m.animate).toEqual({ opacity: 1, y: 0 });
+    expect(m.transition.duration).toBe(DURATION.slideAppear);
+    expect(m.transition.ease).toBe(EASE_ENTRANCE);
+  });
+
+  it('swaps instantly under reduced motion', () => {
+    const m = slideAppearMotion(true);
+    expect(m.initial).toBe(false);
+    expect(m.animate).toEqual({ opacity: 1, y: 0 });
     expect(m.transition.duration).toBe(0);
   });
 });

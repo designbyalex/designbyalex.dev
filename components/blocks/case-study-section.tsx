@@ -21,13 +21,14 @@ import { components } from '../mdx-components';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { FeatureIcon, featureIconOptions } from './case-study-icons';
-import { FramedClip, PlainClip, SlideChrome } from './video';
+import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
+import { PlainClip } from './video';
 
 /**
  * One case-study section, as the Reference composes them (#60, docs/parity-audit.md §2.4): the heading
  * (white) with its grey subheading on the next line in the left column, a column of nested blocks on
  * the right (body copy, statements, labelled lists, the Mission logo card, images, videos), and below
- * both an optional carousel slide, full-width image, two-up image grid, row of metric cards (#61) or
+ * both an optional carousel of slides, full-width image, two-up image grid, row of metric cards (#61) or
  * hatched placeholder panel (#65). A hairline runs above the columns, so sections read as separated.
  *
  * Boxes are Framer's. Section: 1440px max, padded 48/48/100 at xl (24/24/64 at lg, 32/16/64 under
@@ -68,7 +69,7 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
   const uniform = data.rhythm === 'uniform';
   const cardImage = data.imageStyle === 'card';
   const cardGrid = data.imageGridStyle === 'cards';
-  const slide = data.carouselSlide;
+  const slides = (data.carouselSlides?.filter((item) => item?.video && item.frame) ?? []) as CarouselSlide[];
 
   return (
     <Section
@@ -112,41 +113,7 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
         )}
       </div>
 
-      {slide?.video && slide.frame && (
-        /*
-         * Framer's "Carousel Wrapper" (desktop only): a 720px slide on the card colour with 20px corners
-         * and 24px padding; the caption top-left in a 10px-padded row at 70% width, the step numeral
-         * bottom-left and the 780×453 Studio Display box bottom-right (the slide clips the monitor's
-         * stand), with the decorative Next pill and pagination dots over it. `overflow-clip`, as Framer's
-         * slide wrap: `hidden` would make the slide a scroll container, and scrolling the clip into view
-         * (as the Fidelity gate's extractor does) would scroll the slide's content up by the stand's overflow.
-         */
-        <ScrollReveal className='hidden w-full xl:block'>
-          <div className='relative flex h-[720px] flex-col justify-between overflow-clip rounded-[20px] bg-card p-6' data-tina-field={tinaField(slide)}>
-            <div className='w-full p-2.5'>
-              <p className='w-[70%] whitespace-pre-wrap font-display text-slide-heading text-foreground' data-tina-field={tinaField(slide, 'quote')}>
-                {slide.quote}
-              </p>
-            </div>
-            <div className='flex min-h-0 w-full flex-1 items-end justify-between'>
-              <p className='whitespace-pre font-display text-slide-number text-foreground-faint' data-tina-field={tinaField(slide, 'number')}>
-                {slide.number}
-              </p>
-              <div className='h-[453px] w-[780px] shrink-0'>
-                <FramedClip
-                  src={slide.video}
-                  frame={slide.frame}
-                  autoPlay={slide.autoPlay}
-                  loop
-                  frameField={tinaField(slide, 'frame')}
-                  urlField={tinaField(slide, 'video')}
-                />
-              </div>
-            </div>
-            <SlideChrome />
-          </div>
-        </ScrollReveal>
-      )}
+      {slides.length > 0 && <CaseStudyCarousel slides={slides} label={data.heading || 'Carousel'} />}
 
       {data.image?.src && (
         <ScrollReveal className='w-full'>
@@ -694,10 +661,15 @@ export const caseStudySectionBlockSchema: Template = {
     },
     {
       type: 'object',
-      name: 'carouselSlide',
-      label: 'Carousel slide',
+      list: true,
+      name: 'carouselSlides',
+      label: 'Carousel slides',
       description:
-        'Desktop only (from 1280px): Framer’s one-page carousel below the columns, a 720px card with the caption top-left, a large faint step numeral bottom-left and the clip inside its device frame bottom-right, with a decorative Next pill and pagination dots.',
+        'Desktop only (from 1280px): Framer’s carousel below the columns, a 720px card showing one slide at a time with its caption top-left, a large faint step numeral bottom-left and its clip inside the device frame bottom-right. Next and Back pills and a dot per slide change slide in place; the first slide has no Back, the last no Next.',
+      ui: {
+        itemProps: (item) => ({ label: [item?.number, item?.quote].filter(Boolean).join(' · ') || 'Slide' }),
+        defaultItem: { frame: '/uploads/projects/mosurban/studio-display.png', autoPlay: true },
+      },
       fields: [
         { type: 'string', name: 'quote', label: 'Caption', ui: { component: 'textarea' }, description: 'White, 32px, in the top-left 70% of the slide.' },
         { type: 'string', name: 'number', label: 'Step numeral', description: 'The 232px faint numeral bottom-left, e.g. 01.' },
@@ -705,7 +677,7 @@ export const caseStudySectionBlockSchema: Template = {
           type: 'string',
           name: 'video',
           label: 'Video file',
-          description: 'A committed mp4 under /uploads (ADR 0001). Plays muted, inline and looping inside the frame.',
+          description: 'A committed mp4 under /uploads (ADR 0001). Plays muted, inline and looping inside the frame while its slide shows.',
         },
         { ...projectImageField('frame', 'Device frame'), description: 'The Studio Display frame image (2048×1570) the clip plays inside, 780px wide on the slide.' },
         {
