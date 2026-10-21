@@ -9,6 +9,9 @@
 #                                      #   (body from .afk/tickets/58.md, written by the loop, or gh)
 #   scripts/afk/check.sh --no-gate     # quick check: skip the Fidelity gate (verification never skips it)
 #   scripts/afk/check.sh --full        # final pass: also build-local + vitest; the gate reuses that build
+#
+# The Tina step normally takes ~16 s but can hang. After AFK_TINA_TIMEOUT seconds (default 120) it is
+# killed and run once more; a second hang fails the gate.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 mkdir -p .afk
@@ -28,9 +31,51 @@ done
 base=$(git merge-base origin/main HEAD)
 
 step() { printf '\n▶ %s\n' "$1"; }
+say() { echo "$*"; }
+# shellcheck source=scripts/afk/retry.sh
+source scripts/afk/retry.sh
 
+# Kill process $1 and everything under it (pnpm exec runs tinacms as a child).
+kill_tree() {
+  local child
+  for child in $(pgrep -P "$1"); do kill_tree "$child"; done
+  kill -TERM "$1" 2>/dev/null || true
+}
+
+# with_timeout <seconds> <command...>: run the command, killing it after <seconds>. Exit 124 on a timeout,
+# else the command's own status.
+with_timeout() {
+  local secs=$1 pid dog rc
+  shift
+  rm -f .afk/timed-out
+  "$@" &
+  pid=$!
+  # The marker is written before the kill, so it exists once `wait` returns. Output closed, so a lingering
+  # sleep can't hold a pipe open.
+  (sleep "$secs" && touch .afk/timed-out && kill_tree "$pid") >/dev/null 2>&1 &
+  dog=$!
+  wait "$pid" 2>/dev/null && rc=0 || rc=$?
+  kill_tree "$dog"
+  wait "$dog" 2>/dev/null || true
+  if [[ -f .afk/timed-out ]]; then
+    rm -f .afk/timed-out
+    return 124
+  fi
+  return "$rc"
+}
+
+tina_timeout=${AFK_TINA_TIMEOUT:-120}
 step "tina: schema compile + generated types"
-if ! pnpm exec tinacms build --local --skip-cloud-checks >.afk/check-tina.log 2>&1; then
+for try in 1 2; do
+  with_timeout "$tina_timeout" pnpm exec tinacms build --local --skip-cloud-checks >.afk/check-tina.log 2>&1 && rc=0 || rc=$?
+  [[ $rc == 124 && $try == 1 ]] || break
+  echo "⚠ tina build hung for ${tina_timeout}s (it normally takes ~16 s); killed it, running it once more"
+done
+if [[ $rc == 124 ]]; then
+  tail -20 .afk/check-tina.log
+  echo "✗ tina build hung: no result after ${tina_timeout}s, twice (AFK_TINA_TIMEOUT; full log: .afk/check-tina.log)"
+  exit 1
+elif [[ $rc != 0 ]]; then
   tail -40 .afk/check-tina.log
   echo "✗ tina build failed (full log: .afk/check-tina.log)"
   exit 1
@@ -72,7 +117,11 @@ if [[ $gate == 1 ]]; then
       ticket_file=.afk/tickets/$ticket.md
       if [[ ! -f $ticket_file ]]; then
         mkdir -p .afk/tickets
-        gh issue view "$ticket" --json body -q .body >"$ticket_file"
+        if ! retry "gh issue view #$ticket" gh issue view "$ticket" --json body -q .body; then
+          echo "✗ network unavailable: gh issue view #$ticket still failing ($RETRY_ERR)"
+          exit 1
+        fi
+        printf '%s\n' "$RETRY_OUT" >"$ticket_file"
       fi
     fi
     gate_args+=(--ticket "$ticket_file")
