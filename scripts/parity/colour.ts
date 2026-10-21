@@ -95,3 +95,9 @@ export function formatColour(input: string): string {
   const rgb = oklabToSrgb(c).map(hex).join('');
   return `#${rgb}${c.alpha < 1 ? hex(c.alpha) : ''}`;
 }
+
+/** sRGB channels and alpha, each 0–1, or null for a syntax it doesn't know. */
+export function toSrgb(input: string): [number, number, number, number] | null {
+  const c = parseColour(input);
+  return c ? [...oklabToSrgb(c), c.alpha] : null;
+}

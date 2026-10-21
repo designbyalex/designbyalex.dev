@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { type Dimension, zeroCounts } from './checks';
 import type { Comparison, Gap } from './compare';
-import { baselineRaised, type Counts, countGaps, formatBaseline, parseBaseline, parseParityScope, ratchet } from './ratchet';
+import { type Counts, baselineRaised, countGaps, formatBaseline, parseBaseline, parseParityScope, ratchet } from './ratchet';
 
 const ticket = (scope: string) => `## What to build
 
@@ -24,7 +25,7 @@ describe('parseParityScope', () => {
 
   it('reads `all` for the page, the Section or the Dimensions', () => {
     expect(parseParityScope(ticket('- all · all · all'))).toEqual([
-      { text: 'all · all · all', pages: 'all', sections: 'all', dimensions: ['Copy', 'Media', 'Layout', 'Type'] },
+      { text: 'all · all · all', pages: 'all', sections: 'all', dimensions: ['Copy', 'Media', 'Layout', 'Type', 'Theme', 'Contrast'] },
     ]);
   });
 
@@ -46,13 +47,17 @@ describe('parseParityScope', () => {
   });
 
   it('rejects a Dimension the gate does not check', () => {
-    expect(() => parseParityScope(ticket('- all · all · Layout (light vs dark), contrast'))).toThrow(
-      /unknown Dimension "contrast" \(the gate checks Copy, Media, Layout, Type\)/
+    expect(() => parseParityScope(ticket('- all · all · Layout, motion'))).toThrow(
+      /unknown Dimension "motion" \(the gate checks Copy, Media, Layout, Type, Theme, Contrast\)/
     );
+  });
+
+  it('reads the Net-new theme Dimensions', () => {
+    expect(parseParityScope(ticket('- all · all · Theme (light vs dark), contrast'))[0].dimensions).toEqual(['Theme', 'Contrast']);
   });
 });
 
-type Row = [path: string, section: string, width: number, counts: Partial<Record<'Copy' | 'Media' | 'Layout' | 'Type', number>>];
+type Row = [path: string, section: string, width: number, counts: Partial<Record<Dimension, number>>];
 const PAGES: Record<string, string> = { '/': 'home', '/acacia': 'acacia', '/about': 'not-found', '/parity-reference-missing-page': 'not-found' };
 
 /** Gap counts from rows; a Dimension a row leaves out is 0. */
@@ -60,7 +65,7 @@ const counts = (...rows: Row[]): Counts => {
   const out: Counts = {};
   for (const [path, section, width, c] of rows) {
     const page = (out[path] ??= { page: PAGES[path], sections: {} });
-    (page.sections[section] ??= {})[width] = { Copy: 0, Media: 0, Layout: 0, Type: 0, ...c };
+    (page.sections[section] ??= {})[width] = { ...zeroCounts(), ...c };
   }
   return out;
 };
@@ -73,9 +78,7 @@ describe('ratchet', () => {
     const now = counts(['/acacia', 'Section Mission', 1440, { Type: 1 }], ['/acacia', 'Section Trust', 1440, { Layout: 2 }]);
     const result = ratchet({ baseline, counts: now, scope: scope('/acacia · Mission · Type, Copy') });
     expect(result.pass).toBe(false);
-    expect(result.failures).toEqual([
-      { kind: 'scoped', path: '/acacia', section: 'Section Mission', width: 1440, dimension: 'Type', baseline: 3, count: 1 },
-    ]);
+    expect(result.failures).toEqual([{ kind: 'scoped', path: '/acacia', section: 'Section Mission', width: 1440, dimension: 'Type', baseline: 3, count: 1 }]);
     expect(result.reason).toContain('/acacia Section Mission @1440 Type: 1 Gap left, the Parity scope needs 0');
     expect(result.baseline).toBe(baseline);
   });
@@ -84,9 +87,7 @@ describe('ratchet', () => {
     const now = counts(['/acacia', 'Section Mission', 1440, {}], ['/acacia', 'Section Trust', 1440, { Layout: 3 }]);
     const result = ratchet({ baseline, counts: now, scope: scope('/acacia · Mission · all') });
     expect(result.pass).toBe(false);
-    expect(result.failures).toEqual([
-      { kind: 'rose', path: '/acacia', section: 'Section Trust', width: 1440, dimension: 'Layout', baseline: 2, count: 3 },
-    ]);
+    expect(result.failures).toEqual([{ kind: 'rose', path: '/acacia', section: 'Section Trust', width: 1440, dimension: 'Layout', baseline: 2, count: 3 }]);
     expect(result.reason).toContain('/acacia Section Trust @1440 Layout: 3 Gaps, the Baseline allows 2');
   });
 

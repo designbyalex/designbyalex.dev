@@ -260,3 +260,50 @@ export function collectInPage(rules: SectionRule[]): RawCapture {
     media,
   };
 }
+
+/**
+ * Each text run's contrast against what renders behind it. `png` is a full-page screenshot taken with all
+ * text transparent; `runs` are page boxes with the run's colour (sRGB 0–1, alpha times its opacity). Every
+ * sampled pixel under a box is a candidate background; the ratio reported is the 5th percentile from the
+ * worst, so a stray edge pixel doesn't decide it but a gradient's dark end does. Runs in a blank page.
+ */
+export async function contrastInPage(input: {
+  png: string;
+  runs: { box: { x: number; y: number; w: number; h: number }; fg: [number, number, number, number] | null }[];
+}): Promise<({ ratio: number; background: string } | null)[]> {
+  const img = new Image();
+  img.src = input.png;
+  await img.decode();
+  const canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
+  ctx.drawImage(img, 0, 0);
+  const lin = (c: number) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const lum = (r: number, g: number, b: number) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+  const hex = (v: number) => v.toString(16).padStart(2, '0');
+  const MAX_SAMPLES = 1600;
+  return input.runs.map(({ box, fg }) => {
+    if (!fg) return null;
+    const x0 = Math.max(0, Math.floor(box.x));
+    const y0 = Math.max(0, Math.floor(box.y));
+    const x1 = Math.min(canvas.width, Math.ceil(box.x + box.w));
+    const y1 = Math.min(canvas.height, Math.ceil(box.y + box.h));
+    if (x1 - x0 < 1 || y1 - y0 < 1) return null;
+    const data = ctx.getImageData(x0, y0, x1 - x0, y1 - y0).data;
+    const pixels = data.length / 4;
+    const stride = Math.max(1, Math.floor(pixels / MAX_SAMPLES));
+    const samples: { ratio: number; p: number }[] = [];
+    for (let p = 0; p < pixels; p += stride) {
+      const [r, g, b] = [data[p * 4] / 255, data[p * 4 + 1] / 255, data[p * 4 + 2] / 255];
+      const a = fg[3];
+      const over = lum(fg[0] * a + r * (1 - a), fg[1] * a + g * (1 - a), fg[2] * a + b * (1 - a));
+      const back = lum(r, g, b);
+      samples.push({ ratio: (Math.max(over, back) + 0.05) / (Math.min(over, back) + 0.05), p });
+    }
+    samples.sort((s, t) => s.ratio - t.ratio);
+    const pick = samples[Math.floor(samples.length * 0.05)];
+    const o = pick.p * 4;
+    return { ratio: pick.ratio, background: `#${hex(data[o])}${hex(data[o + 1])}${hex(data[o + 2])}` };
+  });
+}
