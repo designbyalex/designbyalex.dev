@@ -310,23 +310,26 @@ if [[ $PUSH != 1 ]]; then
 fi
 
 net "git push" git push -q -u origin "$BRANCH"
+# NOTES.md outgrows GitHub's body limit over a run, so the body links to it and quotes the Proposed
+# deviations and the last Final pass (scripts/afk/pr-body.ts).
+net "gh repo view" gh repo view --json url -q .url
 body=.afk/pr-body.md
-{
-  echo "Unattended build of the migration tickets. **Draft until visually QA'd**: see the final checklist in the notes below."
-  echo
-  for n in "${done_tickets[@]}"; do echo "Closes #$n"; done
-  echo
-  cat docs/afk/NOTES.md
-  echo
-  echo "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
-} >"$body"
-# Retried as a whole: a create that reached GitHub before the connection dropped is found by the view.
+node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON "$DIR/pr-body.ts" "$RETRY_OUT/blob/$BRANCH/docs/afk/NOTES.md" \
+  "${done_tickets[@]}" <docs/afk/NOTES.md >"$body"
+# Open PRs only: `gh pr view <branch>` also matches a merged or closed one. Retried as a whole: a create
+# that reached GitHub before the connection dropped is found by the list.
 open_pr() {
-  if gh pr view "$BRANCH" --json url -q .url 2>/dev/null; then return 0; fi
-  gh pr create --draft --base main --head "$BRANCH" \
+  local url
+  url=$(gh pr list --head "$BRANCH" --state open --json url --jq '.[0].url // empty') || return
+  if [[ -n $url ]]; then
+    echo "PR already open for $BRANCH: $url"
+    return 0
+  fi
+  url=$(gh pr create --draft --base main --head "$BRANCH" \
     --title "AFK: migration tickets $(printf '#%s, ' "${done_tickets[@]}" | sed 's/, $//')" \
-    --body-file "$body"
+    --body-file "$body") || return
+  echo "draft PR open: ${url##*$'\n'}"
 }
 net "gh pr create" open_pr
-say "✓ done. Draft PR open: $RETRY_OUT. The Vercel preview is the run's only build"
+say "✓ done. $RETRY_OUT. The Vercel preview is the run's only build"
 notify "Done: draft PR open"
