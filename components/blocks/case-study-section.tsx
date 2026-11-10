@@ -19,6 +19,7 @@ import { formatMetric, type MetricKind } from '@/lib/case-study/format';
 import { metricFields } from '@/tina/fields/metric';
 import { components } from '../mdx-components';
 import { Section, sectionBlockSchemaField } from '../layout/section';
+import { CountUp } from '../motion-primitives/count-up';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
@@ -207,12 +208,18 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
                 className='flex h-full flex-col items-start justify-end gap-2 rounded-[20px] bg-card p-8 xl:h-[310px] xl:gap-4'
               >
                 <p className='font-display text-metric text-foreground' data-tina-field={tinaField(metric, 'value')}>
-                  {formatMetric({
-                    value: metric.value ?? Number.NaN,
-                    kind: metric.kind as MetricKind | null,
-                    to: metric.to,
-                    suffix: metric.suffix,
-                  })}
+                  {/* Framer counts the number up from 0 over a 1s spring when the card scrolls in. */}
+                  <CountUp
+                    end={metric.value ?? Number.NaN}
+                    format={(value) =>
+                      formatMetric({
+                        value,
+                        kind: metric.kind as MetricKind | null,
+                        to: metric.to,
+                        suffix: metric.suffix,
+                      })
+                    }
+                  />
                 </p>
                 <p className='w-[90%] text-caption text-muted-foreground xl:w-full' data-tina-field={tinaField(metric, 'label')}>
                   {metric.label}

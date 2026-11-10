@@ -626,6 +626,25 @@ Page-specific:
   - [ ] Reduced motion: card and mark at rest from first paint.
   - [ ] Tina admin → Projects → Acacia → Section: What's Acacia's mission? → Logo card: Grid background and Alt fields only; editing still works.
 
+## #95 P30: Metric-card count-up on both case studies
+- Built: the metric cards' numbers now count up once when they scroll into view, on both case studies. A new `CountUp` motion primitive (`components/motion-primitives/count-up.tsx`) wraps the value inside the metric `<p>` in `case-study-section.tsx`; the timing lives in `countUpMotion` in `lib/motion/reduced-motion.ts` (with unit tests), following the selector convention. The settings are rebuilt from Framer's "Number Counter" component in `.afk/cache/mod-yjxw.mjs` (scope `L0Nfar6rj`, external module `ljzv3ywxn`): **start 0 → end, `{ type: 'spring', duration: 1, bounce: 0, delay: 0 }`, trigger `layerInView`, `replay: false`, 0 decimals, commas on, suffix after the number** — the property controls decode as Dpb2EpRMw=Start(0), eBxVYvoSF=End(25/40/20/15; MOS 100), jqemv1kFu=Decimals(0), BQKtsYjVm=Commas, PMwTn8ibB=Prefix, vsnxezqOH=Suffix(`%`). The Build uses the same spring via motion's `animate()` (motion 12 supports duration+bounce springs), `useInView(ref, { once: true })` for the trigger, and `Math.round` for the 0-decimal steps, formatted through the existing `formatMetric` (commas via `toLocaleString('en-US')`).
+- Decisions made without a human:
+  - **Server/no-JS/reduced motion render the final value.** The server renders `format(end)`; the client's first (hydration) render matches it via `useHydrated`, so there is no mismatch. Only after hydration, with motion allowed, does the number rest at `0%` until its first scroll into view — which is what Framer's `layerInView` trigger shows too. Reduced motion (`useReducedMotion` via `countUpMotion`) never leaves the final value, so the gate — which runs reduced motion — sees exactly the pre-#95 markup.
+  - **No layout shift:** `font-variant-numeric: tabular-nums` is applied **only while the count runs**, then removed on completion. During the count the digits hold a fixed width (no jitter of the `%`); at rest the number renders with the font's default figures, identical to the Reference capture, so the gate's Layout widths can't move. The number is a single-line, left-aligned block in its own card row, so the `0%` ↔ `25%` width difference moves nothing else.
+  - The animation is per-card (each number its own `useInView`, like each Framer counter instance), on top of the existing staggered `ScrollReveal` of the cards; Framer's counter also runs while its card's appear effect plays.
+  - `CountUp` guards non-finite and `start === end` values (renders them statically), so a half-filled Tina metric can't animate `NaN`.
+  - The unused project-level `metrics` field (dead path since #62, see the review findings) was left alone — the ticket's scope is the case-study Outcome cards, which all flow through `caseStudySection`.
+- Stubbed: none.
+- Fidelity gate: Parity scope `acacia · Outcome · Copy, Layout`; `mosurban · Outcome · Copy, Layout`. Before **0** → after **0** at 390/768/1440 (the scope was already 0; the bug was motion the gate can't see). Full run green: 112/112 acacia and 118–120/118–120 mosurban runs matched, light Theme/Contrast 0 everywhere, "Baseline held: none lower (9 → 9 Gaps), none rose"; **`parity/baseline.json` unchanged**. Outcome section JPGs at all three widths match the Reference on both pages (MOS's "Coming Soon…" difference is the approved `mos-last-list-item-outcome` Deviation).
+- Verify visually:
+  - [ ] `/acacia` Outcome with motion allowed: scroll the four cards in — 25% / 40% / 20% / 15% each count up from 0 over ~1s (decelerating, no bounce), once; scrolling away and back does not replay.
+  - [ ] `/mosurban` Outcome: the four 100% cards count 0 → 100 the same way.
+  - [ ] No jitter of the `%` while counting (tabular figures), and no visible snap when the count settles.
+  - [ ] Reduced motion: the final values are there from first paint, nothing ticks.
+  - [ ] JavaScript disabled: view source / first paint shows 25% / 40% / 20% / 15% and 100%.
+  - [ ] Both themes: the count is text-only, so colour comes from the existing tokens; check light theme reads as before.
+  - [ ] Tina admin: editing a metric's Value still live-updates the card (the editor sees the final value; the count only replays on a fresh scroll into view).
+
 ## Proposed deviations
 Status at the final pass (2026-10-21, `parity/deviations.json` on `origin/main`): **approved** — `curly-quotes` (#54), `mos-last-list-item-clients` / `-ux` / `-brand` / `-outcome` (#65), `solution-fifth-key-feature` (#61), `cv-link-capture-1440` (#59); **resolved without a Deviation** — `/styleguide` (option (a): `notFound()` outside development, #54/#66), MOS Overview (`overviewStyle`, #62), the carousel arrow (#64); **still open, no Gap today** — the About heading on phones and the portrait's radius (#59), both informational.
 

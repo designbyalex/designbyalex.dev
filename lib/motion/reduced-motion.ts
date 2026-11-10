@@ -37,9 +37,19 @@ export const DURATION = {
   hideOnScroll: 0.3,
   /** a carousel slide's content appearing in place */
   slideAppear: 0.6,
+  /** a metric card's number counting up (Framer's Number Counter: a 1s spring) */
+  countUp: 1,
 } as const;
 
-export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition' | 'autoplay' | 'hide-on-scroll' | 'slide-appear';
+export type MotionCategory =
+  | 'scroll-reveal'
+  | 'text-reveal'
+  | 'hover'
+  | 'route-transition'
+  | 'autoplay'
+  | 'hide-on-scroll'
+  | 'slide-appear'
+  | 'count-up';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -266,6 +276,32 @@ export function slideAppearMotion(prefersReducedMotion: boolean): SlideAppearMot
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: DURATION.slideAppear, ease: EASE_ENTRANCE },
+  };
+}
+
+// ─── count-up ─────────────────────────────────────────────────────────────────
+
+export interface CountUpMotion {
+  /** Whether the number ticks up at all; false → it rests on the final value. */
+  animate: boolean;
+  /** Framer's Number Counter transition: a 1s zero-bounce spring, no delay. */
+  transition: Transition;
+}
+
+/**
+ * Decision for a metric card's number counting up when it scrolls into view
+ * (Framer's "Number Counter": start → end on `layerInView`, once, over a
+ * `{ type: 'spring', duration: 1, bounce: 0, delay: 0 }` transition).
+ * Reduced motion → no count; the number shows its final value from first paint.
+ */
+export function countUpMotion(prefersReducedMotion: boolean): CountUpMotion {
+  if (prefersReducedMotion) {
+    return { animate: false, transition: INSTANT };
+  }
+
+  return {
+    animate: true,
+    transition: { type: 'spring', duration: DURATION.countUp, bounce: 0, delay: 0 },
   };
 }
 

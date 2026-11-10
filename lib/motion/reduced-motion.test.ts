@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   autoplayMotion,
+  countUpMotion,
   DURATION,
   EASE_ENTRANCE,
   EASE_MICRO,
@@ -242,6 +243,20 @@ describe('hideOnScrollMotion', () => {
   it('reduced motion: both variants rest at y 0 with an instant transition', () => {
     const m = hideOnScrollMotion(true);
     expect(m.variants).toEqual({ shown: { y: 0 }, hidden: { y: 0 } });
+    expect(m.transition.duration).toBe(0);
+  });
+});
+
+describe('countUpMotion', () => {
+  it('counts over Framer’s 1s zero-bounce spring with no delay', () => {
+    const m = countUpMotion(false);
+    expect(m.animate).toBe(true);
+    expect(m.transition).toEqual({ type: 'spring', duration: DURATION.countUp, bounce: 0, delay: 0 });
+  });
+
+  it('reduced motion: never counts, instant transition', () => {
+    const m = countUpMotion(true);
+    expect(m.animate).toBe(false);
     expect(m.transition.duration).toBe(0);
   });
 });
