@@ -72,6 +72,8 @@ describe('the Deviation list', () => {
       // Approved by the owner during the AFK run (#54): curly quotes throughout, per story 29.
       'curly-quotes',
       'about-heading-phones',
+      // Approved by the owner at Parity sign-off (#52): plain CSS corners on the portrait (#92).
+      'portrait-radius-capture',
     ]);
   });
 
