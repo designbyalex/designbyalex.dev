@@ -611,6 +611,21 @@ Page-specific:
   - [ ] Light theme and reduced motion: unchanged (no page content touched).
   - [ ] `pnpm test` in the final pass: the new "1200×630 and under its byte budget" test passes.
 
+## #94 P29: Acacia Mission card missing its logo
+- Built: the Acacia mark on the Mission logo card is now an inline SVG (`AcaciaMark` in `components/blocks/case-study-icons.tsx`, beside the key-feature icons that already use this pattern), filled with `currentColor` via `text-foreground`: white in dark, near-black (#080808) in light. It replaces the CSS `mask-image` span that painted `bg-foreground` through `/uploads/projects/acacia/acacia-logo.svg`. The `logo` image field came off the `logoCard` template and `content/projects/acacia.mdx` (the mark is drawn by the component now); `tina/tina-lock.json` regenerated.
+- Decisions made without a human:
+  - **Cause.** The ticket's hypothesis (white asset on a light card) was not the mechanism in the code: the logo was already painted token-aware through a CSS mask, and the gate renders it correctly in both themes in headless Chromium — the gate was green at HEAD before any change, with Mission at 0 everywhere. What the owner saw cannot be reproduced in the gate's browser. The credible cause is the mask itself: a `mask-image` span inside the card's radius-clipped (`overflow-clip` + `rounded-[16px]`), transform-animated (`ScrollReveal`) box is a known Safari compositing failure (masked content renders blank), which reduced-motion headless Chromium never exercises. An inline SVG cannot fail that way in any engine, needs no external fetch, and is how the Reference itself draws this logo (Framer inlines it: the Reference's Mission section has **no** media entry for the logo, only the grid background — and the gate's collector likewise records neither masks nor inline SVGs, so the Media dimension is untouched by the swap).
+  - **The `logo` field was removed** rather than left as a dead control: a visible "Logo" image field that no longer renders anything would be worse for the editor than no field. Consequence: the `logoCard` template now always draws the Acacia mark, so a third project wanting its own logo card needs a new variant (recorded here; the template is used by Acacia only). The Tina admin's "Logo card" group now shows Grid background + Alt only.
+  - `public/uploads/projects/acacia/acacia-logo.svg` stays in the media library (now unreferenced) — it is the source drawing and deleting assets is not this ticket's call.
+- Stubbed: none.
+- Fidelity gate: Parity scope `acacia · Mission · Media, Theme`. Before **0** → after **0** at 390/768/1440 (the scope was already 0 in the gate's browser; the bug lived outside what the gate can see). Full run green twice (before the change as diagnosis, after as verification), 112/112 acacia runs matched, light Theme and Contrast 0 everywhere; "Baseline held: none lower (9 → 9 Gaps), none rose"; **`parity/baseline.json` unchanged** (the 9 are the pre-existing per-page `(none)` Layout cells). Section JPGs for Mission at all three widths match the Reference (ring + glyph centred on the grid), and the 1440 light-theme shot shows the dark mark on the light card.
+- Verify visually:
+  - [ ] **In Safari specifically** (the suspected engine, with motion allowed): `/acacia` Mission card shows the Acacia ring + A glyph after the section's scroll reveal, in dark and light, at 1440/768/390.
+  - [ ] Dark theme: white mark on the green grid, identical to the live Framer site's Mission card.
+  - [ ] Light theme: near-black mark, faint green grid, green hairline border.
+  - [ ] Reduced motion: card and mark at rest from first paint.
+  - [ ] Tina admin → Projects → Acacia → Section: What's Acacia's mission? → Logo card: Grid background and Alt fields only; editing still works.
+
 ## Proposed deviations
 Status at the final pass (2026-10-21, `parity/deviations.json` on `origin/main`): **approved** — `curly-quotes` (#54), `mos-last-list-item-clients` / `-ux` / `-brand` / `-outcome` (#65), `solution-fifth-key-feature` (#61), `cv-link-capture-1440` (#59); **resolved without a Deviation** — `/styleguide` (option (a): `notFound()` outside development, #54/#66), MOS Overview (`overviewStyle`, #62), the carousel arrow (#64); **still open, no Gap today** — the About heading on phones and the portrait's radius (#59), both informational.
 

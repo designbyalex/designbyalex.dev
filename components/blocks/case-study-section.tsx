@@ -20,7 +20,7 @@ import { metricFields } from '@/tina/fields/metric';
 import { components } from '../mdx-components';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
-import { FeatureIcon, featureIconOptions } from './case-study-icons';
+import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
 import { PlainClip } from './video';
 
@@ -348,19 +348,8 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
               style={{ backgroundImage: `url(${card.grid})` }}
             />
           )}
-          {card.logo && (
-            // A mask filled with the foreground colour: white on the dark theme, as live; near-black on light.
-            <span
-              aria-hidden
-              className='absolute top-[calc(50.1149%-55.5px)] left-[calc(50%-55.5px)] block size-[111px] bg-foreground'
-              style={{
-                maskImage: `url(${card.logo})`,
-                WebkitMaskImage: `url(${card.logo})`,
-                maskSize: '100% 100%',
-                WebkitMaskSize: '100% 100%',
-              }}
-            />
-          )}
+          {/* The foreground colour token: white on the dark theme, as live; near-black on light. */}
+          <AcaciaMark className='absolute top-[calc(50.1149%-55.5px)] left-[calc(50%-55.5px)] block size-[111px] text-foreground' />
         </div>
       </ScrollReveal>
     );
@@ -537,8 +526,7 @@ const logoCardTemplate: Template = {
   label: 'Logo card',
   ui: { itemProps: () => ({ label: 'Logo card' }) },
   fields: [
-    { ...projectImageField('grid', 'Grid background'), description: 'A 524×522 drawing placed behind the logo (an SVG, as the Acacia grid).' },
-    { ...projectImageField('logo', 'Logo'), description: 'An SVG silhouette, drawn 111px wide in the page foreground colour and centred.' },
+    { ...projectImageField('grid', 'Grid background'), description: 'A 524×522 drawing placed behind the logo (an SVG, as the Acacia grid). The Acacia mark itself is drawn by the component, in the page foreground colour.' },
     altField,
   ],
 };
