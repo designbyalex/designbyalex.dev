@@ -2,7 +2,7 @@
 
 The order the master follows when it starts the next writer, and the map of what blocks what. The master owns this file: on `DONE` it deletes the row, starts the next, and updates *Last reviewed*. Re-ordering happens only on Alex's call, noted on the PBI.
 
-**Last reviewed:** 2026-11-11 18:05 AEDT. AFK batch #91, #92, #93, #110, #111 running on battery on Alex's call (terminal tab "AFK batch 91-111"; Alex plugs in when the battery is lower; closing the lid stops it). Hero lane: #108 rendering, nothing on Alex until the renders land. Two Off product side workers running. Waiting on Alex: 0.
+**Last reviewed:** 2026-11-11 18:05 AEDT. AFK batch #91, #92, #93, #110, #111 running on battery on Alex's call (terminal tab "AFK batch 91-111"; Alex plugs in when the battery is lower; closing the lid stops it). Hero lane: #108 rendering, nothing on Alex until the renders land. Two Off product side workers running. Waiting on Alex: 1.
 
 ## Priority
 
@@ -38,7 +38,7 @@ Standing calls:
 | #108 animatic scene renders | hero-frames `local_1593e98f-c058-4e96-80bb-f82d6b0567ec` | Alex OK'd the gooey melt on CAM_anim_b ("Approved, render it"); re-rendering now; new setup queued for its next turn |
 | #108 animatic preview | hero-frames-preview `local_4ccc9c64-19ef-4a01-87fc-7afe68144153` | READY: d0057d1 on `claude/hero-piece-anim-preview` (98/98 contrast checks); waits for the pilot's merge into `prototype/hero-piece` |
 | AFK checks + Tina ports (Off product) | afk-checks-ports `local_c3b28f8a-cec5-4ffb-a584-9ab478de3aa5` | one PR: confirm the light per-ticket gate, pass free `--port` / `--datalayer-port` in `check.sh` and `build-local` |
-| `reference/` cache (Off product) | reference-cache `local_c9938ae1-1aaa-494c-b4fd-a283b8968e9e` | writes `reference/` per orchestration.md → Cached facts, credential names only |
+| `reference/` cache (Off product) | reference-cache `local_c9938ae1-1aaa-494c-b4fd-a283b8968e9e` | NEEDS ALEX: yes to merge PR #115 (d04df3c); read back 2026-11-11: 8 docs files, no secrets, facts sourced and dated |
 
 ## Waiting on Alex
 
@@ -46,8 +46,7 @@ The one live list of what only Alex can move, with rows as the `orchestrate` ski
 
 | # | Kind | Do | Min | Where |
 |---|---|---|---|---|
-
-None right now.
+| 1 | Yes | say yes to merge PR #115 (reference/ cache, docs only) | 2 | [👷 🔴 Reference cache](https://github.com/designbyalex/designbyalex.dev/pull/115) |
 
 ## Waiting on the client
 
