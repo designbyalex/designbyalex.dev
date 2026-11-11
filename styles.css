@@ -140,6 +140,7 @@
   --color-emphasis: var(--emphasis);
   --color-on-image: var(--on-image);
   --color-scrim: var(--scrim);
+  --color-hero-ground: var(--hero-ground);
   --color-status-in-development: var(--status-in-development);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -182,6 +183,8 @@
   --on-image: #ffffff;
   /* The dark overlay drawn over imagery and slides (the carousel's Next pill and pagination), used at 40% and 20%. */
   --scrim: #000000;
+  /* The home hero's ground under its 90% gradient: the dark page colour in both themes, so the hero never changes with the theme. */
+  --hero-ground: #080808;
 
   /* Motion — mirrors EASE_MICRO / EASE_ENTRANCE / DURATION.route* in lib/motion/reduced-motion.ts */
   --motion-ease-micro: cubic-bezier(0.2, 0, 0, 1);

@@ -31,7 +31,10 @@ import { TextReveal } from '../motion-primitives/text-reveal';
  * 60px rise + fade over 1s on the appear curve, lines staggered 0.25s), then
  * the tagline, the hairline divider and the link rise together as one group
  * (60px, 1s delay, 1.2s — the Reference's own tagline/link appear settings).
- * Everything routes through the motion primitives, so `prefers-reduced-motion`
+ * The hero renders identically in light and dark (owner's #89 review): its own
+ * dark ground, the theme-independent `on-image`/`scrim` tokens, no light-only
+ * layers. Only the Scroll Overlay below follows the theme, since it is the page
+ * colour arriving. Everything routes through the motion primitives, so `prefers-reduced-motion`
  * renders it at rest, and the headline and tagline are plain text in the
  * server-rendered HTML, visible without JavaScript.
  */
@@ -44,7 +47,9 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
       background={data.background!}
       // The header overlays the hero as on the Reference: pull the block up by `main`'s header offset (layout.tsx).
       rootClassName="-mt-22 lg:-mt-24"
-      className="relative flex h-svh max-w-none flex-col items-center overflow-hidden p-0"
+      // `bg-hero-ground`: the hero is the same in both themes (owner's #89 review). The gradient sits on
+      // the dark page colour at 90% and the mark overlay-blends onto it, so neither may see the light page through.
+      className="relative flex h-svh max-w-none flex-col items-center overflow-hidden bg-hero-ground p-0"
     >
       {/* Background Colour: the gradient fills the viewport at 90% opacity. */}
       {data.gradient?.src && (
@@ -86,16 +91,6 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_bottom,transparent_88px,color-mix(in_srgb,var(--scrim)_45%,transparent)_130px,color-mix(in_srgb,var(--scrim)_30%,transparent)_35%,transparent_60%)] lg:bg-[linear-gradient(to_right,color-mix(in_srgb,var(--scrim)_45%,transparent),color-mix(in_srgb,var(--scrim)_35%,transparent)_55%,transparent_80%)]"
       />
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-linear-to-t from-scrim/60 via-scrim/45 via-20% to-transparent to-45%" />
-      {/*
-       * Light theme only: the header stays white over the hero (#89), and white on the bright top edge
-       * is ~1.7:1, so the header band darkens enough for AA ("Let's talk" at 20px needs 4.5:1). Dark
-       * keeps Framer's bright top edge: there the white header is the Reference's own composition.
-       */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-48 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--scrim)_80%,transparent),color-mix(in_srgb,var(--scrim)_55%,transparent)_35%,transparent)] dark:hidden"
-      />
-
       {/* Text Wrapper → Container: headline at the top, the bottom row pushed to the fold. */}
       <div className="relative z-10 flex w-full max-w-[1920px] flex-1 flex-col items-center overflow-hidden px-4 pb-8 pt-30 lg:px-6 lg:pb-16 lg:pt-40 xl:px-16">
         <div className="flex w-full max-w-[1440px] flex-1 flex-col items-start justify-between">
