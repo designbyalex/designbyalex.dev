@@ -6,6 +6,7 @@ import {
   EASE_MICRO,
   autoplayMotion,
   countUpMotion,
+  decodeScrambleMotion,
   hideOnScrollMotion,
   hoverMotion,
   lineRevealMotion,
@@ -323,6 +324,17 @@ describe('slideAppearMotion', () => {
     expect(m.initial).toBe(false);
     expect(m.animate).toEqual({ opacity: 1, y: 0 });
     expect(m.transition.duration).toBe(0);
+  });
+});
+
+describe('decodeScrambleMotion', () => {
+  it('scrambles on the 404 timings: 45ms re-rolls, character i settles at 250 + i × 38 ms', () => {
+    expect(decodeScrambleMotion(false)).toEqual({ animate: true, interval: 45, delay: 250, step: 38 });
+  });
+
+  it('reduced motion: never scrambles — the server-rendered plain text stands', () => {
+    const m = decodeScrambleMotion(true);
+    expect(m.animate).toBe(false);
   });
 });
 

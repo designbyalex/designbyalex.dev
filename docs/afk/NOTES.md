@@ -1056,3 +1056,28 @@ Alex reviewed the motion against live Framer and marked four items Needs work. F
   - [ ] `/` · About portrait: 20px corners, image clipped to them, identical crop (aspect 0.890323) — same rendering as before the swap, in light and dark.
   - [ ] No scrollbars or scroll-chaining on the portrait wrapper (the reason for `overflow-clip`).
   - [ ] Reduced motion: the portrait rests in place from first paint (ScrollReveal unchanged).
+
+## #93 P32: 404 redesign
+- Built: the picked "Quiet type" 404 in `app/not-found.tsx` (`NotFoundContent`), chrome unchanged (`Layout`), `/about` and `/styleguide` still reach it through the catch-all's `notFound()`.
+  - **Layout**: `data-section="not-found"` section, `overflow-clip`, `min-h-[calc(100svh-5.5rem)]`/`lg:6rem` under the header, `px-6 py-8` / `lg:px-12 lg:py-16`. Inner grid `grid-rows-[auto_1fr_auto]`, two columns with `gap-x-10` from `lg`: headline spans both at `lg:w-[55%]` (`max-w-[450px]` below), project rows bottom-aligned in row 2 col 1 (`mb-8`), and the bottom hairline row (description `lg:w-[80%]` left, "Back to home" right, `border-b border-border` 19px below the text) — the home hero's bottom row without the image.
+  - **Copy**: Framer's three lines verbatim; the rows label "Or see a selected project" as per the ticket.
+  - **Call to action**: `TransitionLink` to `/` with the header's "Let's talk" classes verbatim (40px `bg-primary` circle, two `ArrowRight`s, scale-110 + roll hover).
+  - **Project rows**: `selectedProjects()` in the async `NotFound` reads `content/pages/home.mdx` through the Tina client and keeps `(title, href)` pairs in order, skipping entries without either — adding a project to home.mdx adds a row with no code change. Rows are `border-t` hairlines (last also `border-b`), title left, green `ArrowUpRight` right, `hover:text-emphasis`.
+  - **Mark**: the `MarkGlyph` path split into three `<path>`s at the ` Z M` boundaries (left, right, top) in an inline `aria-hidden` SVG — green outline (`stroke="currentColor" text-emphasis`, `strokeWidth 0.12`, `fill-none`, `opacity-50`), 360×341 at right −90/bottom 120 below `lg`, 640×607 at right −40/bottom 40 from `lg`, cropped by the section's `overflow-clip`.
+  - **Motion**: mark assembly as CSS keyframes in `styles.css` (`not-found-piece-*`: 1.2s on `--motion-ease-entrance`, delays 200/280/360ms, `transform-box: fill-box`), applied only under `prefers-reduced-motion: no-preference`. Headline decode scramble as a new motion primitive `components/motion-primitives/decode-text.tsx` + `decodeScrambleMotion` in `lib/motion/reduced-motion.ts` (45ms re-rolls, char *i* settles at 250 + i × 38 ms, `aria-label` while scrambling, timer cleared on unmount, plain server HTML). Rows/description/CTA rise in via `ScrollReveal` `y={24}`, 700ms, delays 740/500/620ms, all `staticUntilHydrated` so the page is whole without JavaScript.
+- Decisions made without a human:
+  - **The Deviation step is moot per ADR 0005** (same call as #92): no `parity/` tree exists on `origin/main` — `404-project-links` has nothing to be added to, and "Fidelity gate passes" is `scripts/afk/check.sh`, which is green.
+  - **Only the left mark piece fades from `opacity: 0`** — the ticket specifies opacity for the left piece alone, so the right and top pieces slide in visible (reads as pieces assembling); flip them to fade too if that's not the intent.
+  - The ticket's mobile rows `auto / 1fr / auto / auto` are built as `grid-rows-[auto_1fr_auto]` with the description and call to action sharing a row-3 wrapper that carries the full-width hairline (`border-b`, description `pb-6`, CTA `pb-[19px]` above it) — same geometry, one row template for both breakpoints, and the bottom row stays pinned to the fold even if home.mdx ever had no linked projects.
+  - The CTA duplicates the header's classes with a comment pointing at `header.tsx` rather than extracting a shared component — smallest change; extract if a third copy appears.
+  - After the scramble settles, the `<h1>` returns to the plain text node (identical to the server render), dropping the per-character spans.
+  - `selectedProjects()` catches a failed Tina query and renders the 404 without rows — a 404 must never 500 over content plumbing. Rows also require a `title` (nothing to label a row with otherwise).
+  - The old boilerplate `Illustration` SVG and the shadcn `Button` CTA were removed with the design they belonged to (`Illustration` had no other importers).
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] Dark + light at 1440, 768, 390: headline top-left, rows bottom-left above the hairline row, description left / "Back to home" right on the hairline, mark outline bottom-right cropped by the section edge (green #3cda64 dark / #0f7a35 light at 50%).
+  - [ ] On load with motion allowed: headline decodes (mono green glyphs settling left→right, ~0.75s), the three mark pieces slide/rotate together (left fades in), then description → CTA → rows rise in; nothing replays on scroll.
+  - [ ] Reduced motion: everything at rest from first paint — plain headline, assembled mark, no rises; view-source/no-JS shows the plain headline and full content.
+  - [ ] Production build: `/about`, `/styleguide` and a bad URL all show the new 404 with header/footer; project rows show Acacia → MOS in home.mdx order and the links navigate.
+  - [ ] Hover: "Back to home" matches the header's "Let's talk" exactly (circle to 110%, arrow roll); rows turn green with the arrow already green; Tab reaches rows and CTA with visible end states.
+  - [ ] Add a temporary third project to home.mdx locally: a third row appears, list stays tidy at 6+ rows (520px max width, hairlines).

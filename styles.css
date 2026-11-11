@@ -491,6 +491,57 @@
 }
 
 /*
+ * 404 mark assembly (#93), app/not-found.tsx. The brand mark's three pieces
+ * slide and rotate into place on mount over the entrance curve (1.2s, staggered
+ * 200/280/360ms). Pure CSS with no scripting gate: the animation ends at rest,
+ * so without JavaScript it simply plays, and under reduced motion this block
+ * never applies — the mark is assembled from first paint.
+ */
+@keyframes not-found-piece-left {
+  from {
+    opacity: 0;
+    transform: translateX(-45%) rotate(-18deg);
+  }
+}
+
+@keyframes not-found-piece-right {
+  from {
+    transform: translateX(45%) rotate(18deg);
+  }
+}
+
+@keyframes not-found-piece-top {
+  from {
+    transform: translateY(-45%) rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .not-found-piece-left,
+  .not-found-piece-right,
+  .not-found-piece-top {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: 1.2s var(--motion-ease-entrance) both;
+  }
+
+  .not-found-piece-left {
+    animation-name: not-found-piece-left;
+    animation-delay: 200ms;
+  }
+
+  .not-found-piece-right {
+    animation-name: not-found-piece-right;
+    animation-delay: 280ms;
+  }
+
+  .not-found-piece-top {
+    animation-name: not-found-piece-top;
+    animation-delay: 360ms;
+  }
+}
+
+/*
  * Route transitions (S8 / #12, choreography #68) — View Transitions API.
  * Started by components/motion-primitives/route-transitions.tsx (TransitionLink +
  * the RouteTransitions provider). The old page fades out on the micro curve over

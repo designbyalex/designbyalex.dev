@@ -53,7 +53,8 @@ export type MotionCategory =
   | 'slide-appear'
   | 'count-up'
   | 'scroll-parallax'
-  | 'scroll-hero';
+  | 'scroll-hero'
+  | 'decode-scramble';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -354,6 +355,36 @@ export function countUpMotion(prefersReducedMotion: boolean): CountUpMotion {
     animate: true,
     transition: { type: 'spring', duration: DURATION.countUp, bounce: 0, delay: 0 },
   };
+}
+
+// ─── decode-scramble ──────────────────────────────────────────────────────────
+
+/** Glyph pool a still-decoding character cycles through (the 404 headline, #93). */
+export const DECODE_GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#/_*<>';
+
+export interface DecodeScrambleMotion {
+  /** Whether the text scrambles at all; false → it rests as plain text. */
+  animate: boolean;
+  /** ms between glyph re-rolls. */
+  interval: number;
+  /** ms before the first character settles. */
+  delay: number;
+  /** ms between one character settling and the next. */
+  step: number;
+}
+
+/**
+ * Decision for a decode scramble: each character shows random glyphs that
+ * settle left to right into the real text (character i settles at
+ * `delay + i × step` ms). Reduced motion → no scramble, so the text stays
+ * exactly as the server rendered it.
+ */
+export function decodeScrambleMotion(prefersReducedMotion: boolean): DecodeScrambleMotion {
+  if (prefersReducedMotion) {
+    return { animate: false, interval: 0, delay: 0, step: 0 };
+  }
+
+  return { animate: true, interval: 45, delay: 250, step: 38 };
 }
 
 // ─── scroll-parallax ──────────────────────────────────────────────────────────
