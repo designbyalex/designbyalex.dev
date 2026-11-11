@@ -338,20 +338,22 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     const card = block as ProjectBlocksCaseStudySectionBlocksLogoCard;
     // The Mission card: a 435px bordered card with 16px corners clipping a 524×522 grid drawn from 43px
     // above its top edge (so the grid's frame line sits just inside the card), the logo centred over it.
+    // The grid asset is a mask filled with the grid-line token: its own green in dark, #0f7a35 in light (#91);
+    // the border takes the emphasis green the same way.
     return (
       <ScrollReveal delay={delay} className='w-full'>
         <div
           role={card.alt ? 'img' : undefined}
           aria-label={card.alt || undefined}
           aria-hidden={card.alt ? undefined : true}
-          className='relative h-[435px] w-full overflow-clip rounded-[16px] border border-primary/50'
+          className='relative h-[435px] w-full overflow-clip rounded-[16px] border border-emphasis/50'
           data-tina-field={tinaField(card, 'grid')}
         >
           {card.grid && (
             <span
               aria-hidden
-              className='absolute -top-[43px] -left-px block h-[522px] w-[524px] bg-[length:100%_100%] bg-no-repeat'
-              style={{ backgroundImage: `url(${card.grid})` }}
+              className='absolute -top-[43px] -left-px block h-[522px] w-[524px] bg-grid-line'
+              style={{ maskImage: `url(${card.grid})`, maskSize: '100% 100%', maskRepeat: 'no-repeat' }}
             />
           )}
           {/* The foreground colour token: white on the dark theme, as live; near-black on light. */}

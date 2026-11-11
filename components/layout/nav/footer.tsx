@@ -89,7 +89,7 @@ export const Footer = () => {
                 return (
                   <li key={`${link!.href}${index}`} className="flex h-[27px] items-center">
                     {/*
-                     * Reference hover (Framer's "Link Small", #90): a 5px brand-green dot
+                     * Reference hover (Framer's "Link Small", #90): a 5px emphasis-green dot (brand green in dark, #0f7a35 in light, owner pick 2026-11-12)
                      * appears at the left and the label slides 13px right to make room for
                      * it (dot + the variant's 8px gap); the text colour never changes. The
                      * dot is absolute, so the resting layout is exactly the Reference's.
@@ -102,7 +102,7 @@ export const Footer = () => {
                     >
                       <span
                         aria-hidden
-                        className="absolute left-0 size-[5px] rounded-full bg-primary opacity-0 transition-opacity duration-500 ease-hover-link group-hover:opacity-100 group-focus-visible:opacity-100"
+                        className="absolute left-0 size-[5px] rounded-full bg-emphasis opacity-0 transition-opacity duration-500 ease-hover-link group-hover:opacity-100 group-focus-visible:opacity-100"
                       />
                       <span className="transition-transform duration-500 ease-hover-link group-hover:translate-x-[13px] group-focus-visible:translate-x-[13px]">
                         {link!.label}

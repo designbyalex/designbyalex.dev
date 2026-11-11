@@ -30,7 +30,7 @@ import { useHydrated } from '../motion-primitives/use-hydrated';
  *
  * `PlainClip`, `FramedClip` and `SlideChrome` are shared with the case-study section block (#65), which
  * places the plain clip in a section's right column and the framed clips on the UX section's carousel.
- * `SlideChrome` is that carousel's navigation: a 56×47 pill with a 16px chevron centred at the right
+ * `SlideChrome` is that carousel's navigation: a 47px glass circle (owner pick 2026-11-12; Framer's was a 56×47 pill) with a 16px chevron centred at the right
  * edge (Next) and, past the first slide, its mirror at the left (Back), and a pagination dot per slide
  * at the bottom.
  */
@@ -102,7 +102,7 @@ export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
   );
 };
 
-/** One 56×47 pill, vertically centred 24px in from its edge. */
+/** One 47px circle, vertically centred 24px in from its edge. */
 const SlideArrow = ({ buttonRef, direction, onClick }: { buttonRef: React.Ref<HTMLButtonElement>; direction: 'prev' | 'next'; onClick: () => void }) => (
   <button
     ref={buttonRef}
@@ -111,7 +111,7 @@ const SlideArrow = ({ buttonRef, direction, onClick }: { buttonRef: React.Ref<HT
     aria-label={direction === 'next' ? 'Next slide' : 'Previous slide'}
     className={cn(
       // The light hairline is an inset ring (transparent in dark), so the borderless dark pill keeps its exact geometry (#91).
-      'absolute top-1/2 z-[1] flex h-[47px] w-14 -translate-y-1/2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-glass-arrow text-glass-ink inset-ring inset-ring-glass-border-bare shadow-glass glass-blur-nav',
+      'absolute top-1/2 z-[1] flex size-[47px] -translate-y-1/2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-glass-arrow text-glass-ink inset-ring inset-ring-glass-border-bare shadow-glass glass-blur-nav',
       'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
       direction === 'next' ? 'right-6' : 'left-6',
     )}

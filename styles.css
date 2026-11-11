@@ -156,6 +156,7 @@
   --color-glass-border-bare: var(--glass-border-bare);
   --color-glass-ink: var(--glass-ink);
   --shadow-glass: var(--glass-shadow);
+  --color-grid-line: var(--grid-line);
 
   /*
    * Hover motion, measured from the Reference's hover variants (#90).
@@ -247,24 +248,27 @@
   --sidebar-ring: #3cda64;
 
   /*
-   * Glass chrome (#91, owner pick 2026-11-11): frosted pills in light. One fill, border,
-   * shadow and ink for every pill; per-pill backdrop filters because dark keeps today's
-   * distinct blurs. `-bare` is the arrows' and dots' edge, drawn as an inset ring so the
-   * borderless dark pills keep their exact geometry. `-photo` is the dark-glass status
-   * pill over photography (both themes keep its scrim fill; light adds the blur).
+   * Glass chrome (#91; owner picks 2026-11-11 and 2026-11-12, "Clear with a lit rim"): one
+   * fill, hairline, shadow and ink for every page pill, the carousel arrows and dots pill.
+   * The shadow carries the rim: a lit top edge and a soft inner shade inside the hairline,
+   * then a small drop. The fill is white at 50% so the near-black label keeps AA over a dark
+   * photo (it reads as clear on the white page). `-photo` is the dark-glass status pill over
+   * photography (both themes keep its scrim fill; light adds the blur).
    */
-  --glass-chrome: rgb(255 255 255 / 0.6);
-  --glass-chrome-hover: rgb(255 255 255 / 0.75);
-  --glass-arrow: rgb(255 255 255 / 0.6);
-  --glass-dots: rgb(255 255 255 / 0.6);
-  --glass-border: rgb(255 255 255 / 0.7);
-  --glass-border-bare: rgb(255 255 255 / 0.7);
+  --glass-chrome: rgb(255 255 255 / 0.5);
+  --glass-chrome-hover: rgb(255 255 255 / 0.65);
+  --glass-arrow: var(--glass-chrome);
+  --glass-dots: var(--glass-chrome);
+  --glass-border: rgb(0 0 0 / 0.1);
+  --glass-border-bare: rgb(0 0 0 / 0.1);
   --glass-ink: #080808;
-  --glass-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 6px 20px rgb(0 0 0 / 0.08);
-  --glass-blur-chrome: blur(16px) saturate(180%);
-  --glass-blur-status: blur(16px) saturate(180%);
-  --glass-blur-nav: blur(16px) saturate(180%);
+  --glass-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.95), inset 0 -3px 6px rgb(0 0 0 / 0.05), 0 2px 8px rgb(0 0 0 / 0.06);
+  --glass-blur-chrome: blur(6px) saturate(180%);
+  --glass-blur-status: blur(6px) saturate(180%);
+  --glass-blur-nav: blur(6px) saturate(180%);
   --glass-blur-photo: blur(12px) saturate(160%);
+  /* The Mission card grid lines (case-study-section.tsx LogoCard): the light brand green (owner pick 2026-11-12). */
+  --grid-line: #0f7a35;
 }
 
 .dark {
@@ -308,24 +312,25 @@
   --sidebar-ring: #3cda64;
 
   /*
-   * Glass chrome (#91) in dark: exactly what rendered before the tokens existed.
-   * Page pills were `bg-foreground/15 border-border backdrop-blur-[7px]` (hero
-   * status: no blur), the carousel arrows `bg-scrim/40 backdrop-blur-[2px]`, the
-   * dots pill `bg-scrim/20 backdrop-blur-[2px]`, both borderless and unshadowed,
-   * with on-image (#ffffff) ink. `0 0 #0000` is the composable no-shadow value.
+   * Glass chrome (#91) in dark, "Clear with a lit rim" (owner pick 2026-11-12): a faint white
+   * over a black base, so the white label keeps AA over a light photo while the pill reads as
+   * clear glass on the near-black page; a lit top edge, an inner shade and a drop shadow.
+   * The photo pill keeps its scrim fill and no blur.
    */
-  --glass-chrome: rgb(255 255 255 / 0.15);
-  --glass-chrome-hover: rgb(255 255 255 / 0.25);
-  --glass-arrow: rgb(0 0 0 / 0.4);
-  --glass-dots: rgb(0 0 0 / 0.2);
-  --glass-border: var(--border);
-  --glass-border-bare: transparent;
+  --glass-chrome: rgb(29 29 29 / 0.53);
+  --glass-chrome-hover: rgb(56 56 56 / 0.56);
+  --glass-arrow: var(--glass-chrome);
+  --glass-dots: var(--glass-chrome);
+  --glass-border: rgb(255 255 255 / 0.13);
+  --glass-border-bare: rgb(255 255 255 / 0.13);
   --glass-ink: #ffffff;
-  --glass-shadow: 0 0 #0000;
-  --glass-blur-chrome: blur(7px);
-  --glass-blur-status: none;
-  --glass-blur-nav: blur(2px);
+  --glass-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.4), inset 0 -3px 8px rgb(0 0 0 / 0.35), 0 4px 14px rgb(0 0 0 / 0.4);
+  --glass-blur-chrome: blur(6px) saturate(180%);
+  --glass-blur-status: blur(6px) saturate(180%);
+  --glass-blur-nav: blur(6px) saturate(180%);
   --glass-blur-photo: none;
+  /* The Mission card grid lines, as the live dark card draws them (the grid asset's own stroke colour). */
+  --grid-line: rgb(65 194 73);
 }
 
 /*
