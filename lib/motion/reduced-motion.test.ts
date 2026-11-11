@@ -3,16 +3,12 @@ import {
   DURATION,
   EASE_APPEAR,
   EASE_ENTRANCE,
-  EASE_HERO_MASK,
   EASE_MICRO,
   autoplayMotion,
   countUpMotion,
-  heroImageAppearMotion,
-  heroMaskRevealMotion,
   hideOnScrollMotion,
   hoverMotion,
   lineRevealMotion,
-  maskedRiseMotion,
   routeTransitionMotion,
   scrollHeroPinMotion,
   scrollHeroZoomMotion,
@@ -358,62 +354,6 @@ describe('scrollHeroZoomMotion', () => {
 
   it('reduced motion: the wrapper never leaves 1, so only the static CSS crop renders', () => {
     expect(scrollHeroZoomMotion(true)).toEqual({ from: 1, to: 1 });
-  });
-});
-
-describe('maskedRiseMotion', () => {
-  it("rises out of the clip at constant opacity on Framer's appear tween", () => {
-    const m = maskedRiseMotion(false);
-    expect(m.initial).toEqual({ y: 60 });
-    expect(m.animate).toEqual({ y: 0 });
-    // Constant opacity is the mask effect: the element emerges, it never fades.
-    expect('opacity' in (m.initial as object)).toBe(false);
-    expect(m.transition).toEqual({ duration: DURATION.appear, delay: 0, ease: EASE_APPEAR });
-  });
-
-  it("honours the tagline's longer rise and an optional delay", () => {
-    const m = maskedRiseMotion(false, { y: 80, delay: 0.1 });
-    expect(m.initial).toEqual({ y: 80 });
-    expect(m.transition.delay).toBe(0.1);
-  });
-
-  it('reduced motion: at rest from the start, instant', () => {
-    const m = maskedRiseMotion(true, { y: 80 });
-    expect(m.initial).toBe(false);
-    expect(m.animate).toEqual({ y: 0 });
-    expect(m.transition.duration).toBe(0);
-  });
-});
-
-describe('heroMaskRevealMotion', () => {
-  it("slides the page-coloured layer its own height down off the band (Framer's Load → Out)", () => {
-    const m = heroMaskRevealMotion(false);
-    expect(m.initial).toEqual({ y: '0%' });
-    expect(m.animate).toEqual({ y: '100%' });
-    expect(m.transition).toEqual({ duration: DURATION.heroMask, delay: 0.25, ease: EASE_HERO_MASK });
-  });
-
-  it('reduced motion: rests fully slid off, so the image is simply there', () => {
-    const m = heroMaskRevealMotion(true);
-    expect(m.initial).toBe(false);
-    expect(m.animate).toEqual({ y: '100%' });
-    expect(m.transition.duration).toBe(0);
-  });
-});
-
-describe('heroImageAppearMotion', () => {
-  it("fades the phone hero image in while rising 60px (Framer's mobile appear)", () => {
-    const m = heroImageAppearMotion(false);
-    expect(m.from).toEqual({ y: 60, opacity: 0 });
-    expect(m.to).toEqual({ y: 0, opacity: 1 });
-    expect(m.transition).toEqual({ duration: DURATION.appear, ease: EASE_APPEAR });
-  });
-
-  it('reduced motion: from and to are both the resting state', () => {
-    const m = heroImageAppearMotion(true);
-    expect(m.from).toEqual(m.to);
-    expect(m.to).toEqual({ y: 0, opacity: 1 });
-    expect(m.transition.duration).toBe(0);
   });
 });
 
