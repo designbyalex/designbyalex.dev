@@ -11,7 +11,8 @@
     "lint": "biome lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "dev:build": "next build"
+    "dev:build": "next build",
+    "og:preview": "OG_PREVIEW_DIR=.afk/og vitest run lib/seo/share-card.test.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -49,6 +50,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-use-measure": "^2.1.7",
+    "sharp": "^0.35.5",
     "shiki": "^3.13.0",
     "styled-jsx": "^5.1.7",
     "tailwind-merge": "^2.6.0",

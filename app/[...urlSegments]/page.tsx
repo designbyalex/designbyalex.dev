@@ -54,7 +54,6 @@ export async function generateMetadata({
       {
         title: project.title,
         tagline: project.tagline,
-        coverImage: project.coverImage,
         slug: filepath,
       },
       siteDefaults

@@ -8,7 +8,6 @@ import type { Metadata } from 'next';
 export interface ProjectSeoInput {
   title?: string | null;
   tagline?: string | null;
-  coverImage?: string | null;
   /** URL path segment, e.g. "acacia". */
   slug?: string | null;
 }
@@ -57,18 +56,24 @@ function absoluteUrl(path: string | null | undefined, baseUrl?: string): string 
 
 const isHomeSlug = (slug: string | null | undefined) => !slug || slug === 'home';
 
+interface SeoImage {
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
+
 interface ResolvedSeo {
   title: string;
   description: string;
   url?: string;
-  image?: string;
-  imageAlt: string;
+  image?: SeoImage;
 }
 
 /** Shared assembly: resolved strings → Next `Metadata` with OG/Twitter/canonical. */
 function assemble(seo: ResolvedSeo, type: 'website' | 'article', defaults: SiteSeoDefaults): Metadata {
-  const { title, description, url, image, imageAlt } = seo;
-  const images = image ? [{ url: image, alt: imageAlt }] : undefined;
+  const { title, description, url, image } = seo;
+  const images = image ? [image] : undefined;
 
   return {
     title,
@@ -85,7 +90,8 @@ function assemble(seo: ResolvedSeo, type: 'website' | 'article', defaults: SiteS
       card: 'summary_large_image',
       title,
       description,
-      ...(images ? { images: images.map((i) => i.url) } : {}),
+      // Dimension-less images stay plain URLs, as every page emitted before #111.
+      ...(images ? { images: images.map((i) => (i.width ? i : i.url)) } : {}),
     },
     ...(url ? { alternates: { canonical: url } } : {}),
   };
@@ -104,9 +110,22 @@ export function buildProjectMetadata(
   const description = project.tagline?.trim() || defaults.defaultDescription;
 
   const url = project.slug && defaults.baseUrl ? absoluteUrl(project.slug, defaults.baseUrl) : undefined;
-  const image = absoluteUrl(project.coverImage || defaults.defaultImage, defaults.baseUrl);
+  // Each project has a build-time share card at /og/<slug>.jpg (#111); only a
+  // slug-less document falls back to the site default image.
+  let image: SeoImage | undefined;
+  if (project.slug) {
+    image = {
+      url: absoluteUrl(`/og/${project.slug}.jpg`, defaults.baseUrl) as string,
+      alt: title,
+      width: 1200,
+      height: 630,
+    };
+  } else {
+    const fallback = absoluteUrl(defaults.defaultImage, defaults.baseUrl);
+    image = fallback ? { url: fallback, alt: baseTitle } : undefined;
+  }
 
-  return assemble({ title, description, url, image, imageAlt: baseTitle }, 'article', defaults);
+  return assemble({ title, description, url, image }, 'article', defaults);
 }
 
 /**
@@ -124,7 +143,8 @@ export function buildPageMetadata(page: PageSeoInput, defaults: SiteSeoDefaults)
   if (defaults.baseUrl) {
     url = home ? `${defaults.baseUrl.replace(/\/$/, '')}/` : absoluteUrl(page.slug, defaults.baseUrl);
   }
-  const image = absoluteUrl(page.image || defaults.defaultImage, defaults.baseUrl);
+  const imageUrl = absoluteUrl(page.image || defaults.defaultImage, defaults.baseUrl);
+  const image = imageUrl ? { url: imageUrl, alt: home ? title : baseTitle } : undefined;
 
-  return assemble({ title, description, url, image, imageAlt: home ? title : baseTitle }, 'website', defaults);
+  return assemble({ title, description, url, image }, 'website', defaults);
 }

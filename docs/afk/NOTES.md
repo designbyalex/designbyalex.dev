@@ -1105,3 +1105,28 @@ Alex reviewed the motion against live Framer and marked four items Needs work. F
   - [ ] Network tab: no Material Icons font request on any page.
   - [ ] Tina admin: the key-feature Icon select shows the five new labels; the Global icon picker lists whole names ("Mark Glyph" selected) and the curated lucide set renders in the grid.
   - [ ] Owner accepts the icons on `/`, `/acacia`, `/mosurban` in both themes.
+
+## #111 P35: Case-study share cards (green duotone)
+- Built: each case study now has a build-time 1200×630 JPEG share card in the owner's picked design (Green duotone, giant title, round-2 refinement), served statically at `/og/<slug>.jpg`.
+  - **Renderer** (`lib/seo/share-card.ts`): `sharp` pre-composes the duotone ground — `public/uploads/home/hero-gradient.png` covered to 1200×630, the project's `coverImage` zoomed by `shareZoom` (default 1.15), centre-cropped, greyscaled, `linear(1.1, -12.8)`, brightness ×1.15, multiplied over the gradient — then `ImageResponse` (`next/og`) draws the wash, tagline (Inter 30), white `MarkGlyph` (42×40), the giant Inter Display title and the `designbyalex.dev/{slug}` line, and `sharp` converts to JPEG (quality 82, mozjpeg). Both cards land ~50KB, well under the 300KB budget.
+  - **Title never crops** (`lib/seo/font-metrics.ts`): a minimal TTF reader (head/hhea/hmtx/cmap formats 4+12) measures the one-line width; 144px when it fits 1128px, shrunk proportionally down to 96px, then wrapped to two bottom-anchored lines at 96px. Kerning is ignored, which only over-estimates — safe for never-crop.
+  - **Route** (`app/og/[file]/route.ts`): `force-static`, `dynamicParams = false`, `generateStaticParams` pages `projectConnection` via the existing `collectBreadcrumbs`; GET returns `image/jpeg`. A temporary local project (`temp-check.mdx`, deleted, never committed) confirmed a new Tina project gets `/og/temp-check.jpg` with no code change.
+  - **Fonts** (`lib/seo/fonts/`): `InterDisplay-Regular.ttf` converted once from `inter-ui@4.1.1`'s woff2 with `wawoff2` (installed as a temporary dev dep, removed after), `Inter-Regular.woff` from `@fontsource/inter@5.3.0`, OFL licence beside them — the site's own faces (ADR 0003). `sharp@0.35.5` added as a direct dependency.
+  - **Schema**: optional `shareZoom` number on the project collection (range 1–2.5 via `ui.validate`); Acacia `1.12`, MOS `1.75` set in content; `tina/tina-lock.json` regenerated and committed.
+  - **Metadata** (`lib/seo/metadata.ts`): `buildProjectMetadata` now points OG and Twitter at the absolute `/og/<slug>.jpg` with `width`/`height`/alt "<templated title>"; the site default image is the fallback only when there's no slug, and `coverImage` was removed from `ProjectSeoInput` (the card, not the raw hero, is now the share image). Page metadata and the home card are unchanged (dimension-less images still emit plain Twitter URLs). `assemble` now carries one image descriptor instead of url+alt pairs.
+  - **Tests**: `lib/seo/share-card.test.ts` renders both real projects from their committed frontmatter (JPEG, 1200×630, ≤300KB) plus a 42-char title that shrinks and wraps; `jpegDimensions` and `SHARE_IMAGE_MAX_BYTES` moved from `site.test.ts` into `lib/seo/jpeg.ts`, shared by both.
+- Decisions made without a human:
+  - **The picker side-by-side could not be run**: the artifact URL needs an authenticated browser and this run has no WebFetch permission. The card is built to the ticket's exact measures and the named constants (contrast 1.1 / offset −12.8 / brightness 1.15) untouched; the match is under *Verify visually* and the two knobs are one-line edits in `share-card.ts`.
+  - **Satori quirks worked around**: undefined style values crash Satori, so the title's wrap styles spread conditionally; and the wrapped title needs an explicit `width` (not `maxWidth`) or Satori measures the text unwrapped and the bottom anchoring breaks (the second line cropped out — the exact bug the round-2 refinement was about).
+  - The mark's path is duplicated in `share-card.ts` with a keep-in-sync comment: `components/icon.tsx` is `'use client'` and imports lucide-react, which doesn't belong in the OG bundle.
+  - A `pnpm og:preview` script stays in package.json: it re-renders the cards to `.afk/og/` for review (that's how the attached JPEGs were made and how they'll be remade when #100 swaps the heroes).
+  - The rendered cards are committed under `docs/review/share-cards-2026-11-11/` (motion-review precedent) so the PR can attach them and Alex can review without running anything.
+  - Fallbacks: a project with no `coverImage` still gets a card (gradient ground alone); a missing `tagline` just omits that layer.
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] `docs/review/share-cards-2026-11-11/{acacia,mosurban}.jpg` side by side with the picker frame ("Green duotone, giant title", round-2): duotone depth, green tinge mid-card, small-text legibility. Tune only `HERO_CONTRAST` / `HERO_BRIGHTNESS` in `lib/seo/share-card.ts` if it's off.
+  - [ ] Titles whole, taglines and `designbyalex.dev/<slug>` legible, white mark top-right, on both cards.
+  - [ ] Share `/acacia` and `/mosurban` in a validator (opengraph.xyz or a Slack/iMessage preview): card appears, 1.91:1, no crop surprise.
+  - [ ] Home page share still shows `uploads/home/og.jpg`.
+  - [ ] Tina admin: "Share card zoom" edits on a project, rejects 0.5 and 3.
+  - [ ] Owner accepts both cards.
