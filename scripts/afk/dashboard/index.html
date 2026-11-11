@@ -3,13 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AFK Run</title>
+<title>AFK batch</title>
 <style>
   :root {
-    --bg: #0b0b0c; --panel: #141416; --line: #26262a; --text: #ededed; --muted: #8d8d93;
-    --green: #38dc77; --amber: #f5b544; --red: #ff6464; --blue: #6aa7ff;
+    --bg: #f5f5f6; --panel: #ffffff; --line: #e2e2e6; --text: #18181b; --muted: #66666e;
+    --green: #17803f; --amber: #9a5b00; --red: #c42b2b; --blue: #2563c9;
     --mono: ui-monospace, "SF Mono", Menlo, monospace;
-    color-scheme: dark;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0b0c; --panel: #141416; --line: #26262a; --text: #ededed; --muted: #8d8d93;
+      --green: #38dc77; --amber: #f5b544; --red: #ff6464; --blue: #6aa7ff;
+    }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
@@ -26,6 +32,7 @@
   .mono { font-family: var(--mono); font-size: 12px; }
   .bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 12px; }
   .bar > i { display: block; height: 100%; background: var(--green); transition: width .4s; }
+  @media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
   .stats { display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: 10px; }
   .stats b { font-weight: 600; font-variant-numeric: tabular-nums; }
   .grid2 { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; }
@@ -39,7 +46,7 @@
   .s-running { color: var(--blue); background: color-mix(in srgb, var(--blue) 14%, transparent); }
   .s-unverified { color: var(--amber); background: color-mix(in srgb, var(--amber) 14%, transparent); }
   .s-failed { color: var(--red); background: color-mix(in srgb, var(--red) 14%, transparent); }
-  .s-queued { color: var(--muted); background: var(--line); }
+  .s-queued, .s-skipped { color: var(--muted); background: var(--line); }
   .feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
   .feed li { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 8px; }
   .feed .t { color: var(--muted); font: 12px var(--mono); padding-top: 1px; }
@@ -47,15 +54,6 @@
   .feed .tool { font: 11px var(--mono); color: var(--muted); margin-right: 6px; }
   .phase { font-size: 15px; margin: 4px 0 12px; }
   .say { color: var(--muted); border-left: 2px solid var(--line); padding-left: 10px; margin: 12px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 140px; overflow: auto; }
-  .trend { display: flex; align-items: flex-end; gap: 6px; height: 120px; overflow-x: auto; padding-bottom: 2px; }
-  .trend .c { flex: 0 0 auto; width: 46px; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
-  .trend .b { width: 100%; background: color-mix(in srgb, var(--green) 55%, transparent); border-radius: 4px 4px 0 0; min-height: 2px; }
-  .trend .v { font: 11px var(--mono); font-variant-numeric: tabular-nums; }
-  .trend .l { font: 11px var(--mono); color: var(--muted); }
-  .dims { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; font-size: 12px; }
-  .sheets { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-  .sheets a { display: block; color: var(--muted); text-decoration: none; font: 11px var(--mono); }
-  .sheets img { width: 100%; height: 150px; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid var(--line); display: block; margin-bottom: 4px; background: #000; }
   pre.log { margin: 0; font: 12px/1.5 var(--mono); color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; }
   .err { color: var(--red); }
 </style>
@@ -64,7 +62,7 @@
 <main>
   <section class="panel">
     <div class="top">
-      <h1>AFK run · parity queue</h1>
+      <h1>AFK batch</h1>
       <span id="loop" class="pill">…</span>
       <span id="power" class="pill">…</span>
       <span id="updated" class="muted mono"></span>
@@ -92,18 +90,7 @@
   </div>
 
   <section class="panel">
-    <h2>Open Gaps after each ticket (committed Baseline)</h2>
-    <div class="trend" id="trend"></div>
-    <div class="dims muted" id="dims"></div>
-  </section>
-
-  <section class="panel">
-    <h2>Latest gate run · contact sheets (Reference left, Build right)</h2>
-    <div class="sheets" id="sheets"><span class="muted">No gate run yet.</span></div>
-  </section>
-
-  <section class="panel">
-    <h2>run.log</h2>
+    <h2>Loop log</h2>
     <pre class="log" id="log"></pre>
   </section>
 </main>
@@ -116,8 +103,8 @@
     return m >= 60 ? `${Math.floor(m / 60)}h ${String(m % 60).padStart(2, '0')}m` : `${m}m`;
   };
   const hhmm = (iso) => (iso ? new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '');
-  const gateLine = (g) =>
-    `${g.by === 'loop verification' ? 'Loop is verifying' : g.by === 'manual gate run' ? 'Manual gate run' : 'Agent is running the gate'}: <b>${esc(g.step)}</b>${g.detail ? ` · ${esc(g.detail)}` : ''} <span class="muted">(${esc(g.etime)})</span>`;
+  const GATE_BY = { 'loop verification': 'Loop is verifying', 'loop full check': 'Loop is running the full check', 'manual gate run': 'Manual gate run' };
+  const gateLine = (g) => `${GATE_BY[g.by] ?? 'Agent is running the gate'}: <b>${esc(g.step)}</b> <span class="muted">(${esc(g.etime)})</span>`;
 
   async function tick() {
     let s;
@@ -130,8 +117,8 @@
     if (s.error) { $('stopped').textContent = s.error; return; }
 
     const alive = s.loop.loopAlive;
-    $('loop').className = 'pill ' + (alive ? 'ok' : 'bad');
-    $('loop').textContent = alive ? `running · up ${s.loop.loopUptime}` : 'loop stopped';
+    $('loop').className = 'pill ' + (alive ? 'ok' : s.stopped ? 'bad' : '');
+    $('loop').textContent = alive ? `running · up ${s.loop.loopUptime}` : s.stopped ? 'loop stopped' : 'loop ended';
     $('power').className = 'pill ' + (s.power === 'AC' ? 'ok' : 'warn');
     $('power').textContent = s.power === 'AC' ? 'on AC power' : 'on battery: may sleep';
     $('updated').textContent = 'updated ' + hhmm(s.now);
@@ -147,7 +134,7 @@
 
     $('queue').innerHTML = s.rows.map((r) => `<tr>
       <td class="num mono">${r.n}</td>
-      <td>${esc(r.title)}${r.verify.filter((v) => v !== 'pass').map((v) => `<div class="muted mono" style="font-size:11px">✗ ${esc(v.replace(/^✗\s*/, ''))}</div>`).join('')}</td>
+      <td>${esc(r.title)}${r.skipped ? `<div class="muted mono" style="font-size:11px">${esc(r.skipped)}</div>` : ''}${r.verify.filter((v) => v !== 'pass').map((v) => `<div class="muted mono" style="font-size:11px">✗ ${esc(v.replace(/^✗\s*/, ''))}</div>`).join('')}</td>
       <td><span class="state s-${r.state}">${r.state}</span></td>
       <td class="num">${r.attempts || ''}</td>
       <td class="num">${r.cost ? '$' + r.cost.toFixed(2) : ''}</td></tr>`).join('');
@@ -167,17 +154,6 @@
       $('now').innerHTML = `<span class="muted">${alive ? 'Between tickets…' : 'Nothing running.'}</span>`;
     }
 
-    const pts = s.baseline.filter((b) => b.total != null);
-    const max = Math.max(1, ...pts.map((b) => b.total));
-    $('trend').innerHTML = pts.map((b) => `<div class="c" title="${esc(b.subject)}">
-      <span class="v">${b.total}</span><div class="b" style="height:${Math.max(2, (90 * b.total) / max)}px"></div><span class="l">${esc(b.label)}</span></div>`).join('');
-    const last = pts.at(-1);
-    $('dims').innerHTML = last ? Object.entries(last.dims).map(([k, v]) => `<span>${k} <b style="color:var(--text)">${v}</b></span>`).join('') : '';
-
-    if (s.sheets.length) {
-      $('sheets').innerHTML = s.sheets.map((f) => `<a href="/sheets/${encodeURIComponent(f.f)}?t=${Math.round(f.t)}" target="_blank" rel="noopener">
-        <img loading="lazy" src="/sheets/${encodeURIComponent(f.f)}?t=${Math.round(f.t)}" alt="Contact sheet ${esc(f.f)}" />${esc(f.f.replace('.jpg', ''))}</a>`).join('');
-    }
     $('log').textContent = s.tail.join('\n');
   }
   tick();
