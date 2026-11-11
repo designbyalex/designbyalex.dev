@@ -48,9 +48,9 @@
   .s-failed { color: var(--red); background: color-mix(in srgb, var(--red) 14%, transparent); }
   .s-queued, .s-skipped { color: var(--muted); background: var(--line); }
   .feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-  .feed li { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 8px; }
-  .feed .t { color: var(--muted); font: 12px var(--mono); padding-top: 1px; }
-  .feed .w { overflow-wrap: anywhere; }
+  .feed li { display: flex; gap: 8px; }
+  .feed .t { flex: 0 0 62px; color: var(--muted); font: 12px var(--mono); padding-top: 1px; }
+  .feed .w { flex: 1; min-width: 0; overflow-wrap: anywhere; }
   .feed .tool { font: 11px var(--mono); color: var(--muted); margin-right: 6px; }
   .phase { font-size: 15px; margin: 4px 0 12px; }
   .say { color: var(--muted); border-left: 2px solid var(--line); padding-left: 10px; margin: 12px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 140px; overflow: auto; }
@@ -146,7 +146,7 @@
       $('now').innerHTML = `
         <div><b>#${c.n}</b> ${esc(c.title)} <span class="muted">· attempt ${c.attempt}/${c.of} · ${dur(elapsed)} in</span></div>
         <div class="phase">${phase}</div>
-        <ul class="feed">${(c.recent || []).map((a) => `<li><span class="t">${hhmm(a.at)}</span><span class="w"><span class="tool">${esc(a.tool)}</span>${esc(a.what)}</span></li>`).join('')}</ul>
+        <ul class="feed">${(c.recent || []).map((a) => `<li>${a.at ? `<span class="t">${hhmm(a.at)}</span>` : ''}<span class="w"><span class="tool">${esc(a.tool)}</span>${esc(a.what)}</span></li>`).join('')}</ul>
         ${c.lastText ? `<div class="say">${esc(c.lastText)}</div>` : ''}`;
     } else if (s.loop.gate) {
       $('now').innerHTML = `<div class="phase">${gateLine(s.loop.gate)}</div>`;
