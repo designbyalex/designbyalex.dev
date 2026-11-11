@@ -45,7 +45,7 @@ The one live list of what only Alex can move, with rows as the `orchestrate` ski
 
 | # | Kind | Do | Min | Where |
 |---|---|---|---|---|
-| 1 | Yes | say yes to merge the master's docs PR (queue, watcher rule) | 2 | here |
+| 1 | Yes | say yes to merge PR #117 (master's queue and the AFK watcher rule, docs only) | 2 | [PR #117](https://github.com/designbyalex/designbyalex.dev/pull/117) |
 
 ## Waiting on the client
 
