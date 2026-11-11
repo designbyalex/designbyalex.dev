@@ -1,10 +1,11 @@
 'use client';
-import React from 'react';
-import Image from 'next/image';
-import { tinaField } from 'tinacms/dist/react';
-import type { ProjectQuery } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
+import type { ProjectQuery } from '@/tina/__generated__/types';
+import Image from 'next/image';
+import React from 'react';
+import { tinaField } from 'tinacms/dist/react';
 import { Section } from '../layout/section';
+import { ScrollHeroPin, ScrollHeroZoom } from '../motion-primitives/scroll-hero';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 type Project = ProjectQuery['project'];
@@ -31,8 +32,11 @@ const statusDotClasses: Record<string, string> = {
  * on the page colour; the image fills the whole section behind it (cover), so it shows from
  * 350px down. Under 1280 (Framer's phone variant): the headline block is 450px tall, padded
  * 0/24/32, content bottom-aligned; the image follows at the viewport width in a 26:29 box,
- * zoomed to 120% (Framer's scroll zoom at rest). The Reference's scroll-linked mask expansion
- * is not reproduced here: the image is static.
+ * zoomed to 120% (Framer's scroll zoom at rest). The scroll-linked mask expansion (#69) rides
+ * the ScrollHero primitives: at xl the image pins to the viewport inside the section's clip
+ * (Framer's fixed layer at parallax speed 140 plus the page-long −800px drift), under xl the
+ * 120% crop relaxes as the box scrolls out. At rest, and under reduced motion, both render
+ * exactly the static boxes above.
  *
  * Status pill: 30px, 14px side padding (13 + the 1px border), an 8px dot 8px before the mono
  * label; 7px above it. Title at the h1 tier 16px below; tagline at the lead tier in a column
@@ -64,16 +68,13 @@ export const ProjectHero = ({ project }: { project: Project }) => {
                 </p>
               </ScrollReveal>
             )}
-            <ScrollReveal as='h1' delay={0.06} className='pt-4 font-display text-h1' >
+            <ScrollReveal as='h1' delay={0.06} className='pt-4 font-display text-h1'>
               <span data-tina-field={tinaField(project, 'title')}>{project.title}</span>
             </ScrollReveal>
           </div>
 
           {project.tagline && (
-            <ScrollReveal
-              delay={0.12}
-              className='flex w-full flex-col pt-4 xl:h-[83px] xl:min-w-0 xl:flex-1 xl:justify-center xl:overflow-hidden xl:pb-2'
-            >
+            <ScrollReveal delay={0.12} className='flex w-full flex-col pt-4 xl:h-[83px] xl:min-w-0 xl:flex-1 xl:justify-center xl:overflow-hidden xl:pb-2'>
               <p className='font-display text-lead text-muted-foreground' data-tina-field={tinaField(project, 'tagline')}>
                 {project.tagline}
               </p>
@@ -87,14 +88,25 @@ export const ProjectHero = ({ project }: { project: Project }) => {
           className='relative aspect-[26/29] w-full overflow-hidden xl:absolute xl:inset-0 xl:aspect-auto'
           data-tina-field={tinaField(project, 'coverImage')}
         >
-          <Image
-            src={project.coverImage}
-            alt={project.coverImageAlt || ''}
-            fill
-            priority
-            sizes='(min-width: 1280px) 100vw, 120vw'
-            className='scale-[1.2] object-cover xl:scale-100'
-          />
+          {/* Scroll-linked mask expansion (#69, audit A2). Desktop: the pin
+              variable holds the image to the viewport inside this clipped box,
+              so the visible band grows to the full viewport as the headline
+              scrolls away, then the next section's edge scrolls over it.
+              Under xl the image is in flow, so the zoom variable relaxes the
+              120% crop instead as the box scrolls out. Both rest at identity,
+              and only one applies per breakpoint via the CSS transforms below. */}
+          <ScrollHeroPin className='absolute inset-0 xl:[transform:translateY(var(--scroll-hero-pin,0px))]'>
+            <ScrollHeroZoom className='absolute inset-0 max-xl:[transform:scale(var(--scroll-hero-zoom,1))]'>
+              <Image
+                src={project.coverImage}
+                alt={project.coverImageAlt || ''}
+                fill
+                priority
+                sizes='(min-width: 1280px) 100vw, 120vw'
+                className='scale-[1.2] object-cover xl:scale-100'
+              />
+            </ScrollHeroZoom>
+          </ScrollHeroPin>
         </div>
       )}
     </Section>

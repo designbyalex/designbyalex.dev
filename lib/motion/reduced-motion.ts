@@ -52,7 +52,8 @@ export type MotionCategory =
   | 'hide-on-scroll'
   | 'slide-appear'
   | 'count-up'
-  | 'scroll-parallax';
+  | 'scroll-parallax'
+  | 'scroll-hero';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -90,10 +91,7 @@ export interface ScrollRevealMotion {
  * Props for an element that fades/rises into view on scroll.
  * Reduced motion → starts at its final state (`initial: false`) and snaps in.
  */
-export function scrollRevealMotion(
-  prefersReducedMotion: boolean,
-  options: ScrollRevealOptions = {}
-): ScrollRevealMotion {
+export function scrollRevealMotion(prefersReducedMotion: boolean, options: ScrollRevealOptions = {}): ScrollRevealMotion {
   const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3, scale = 1, ease = EASE_ENTRANCE } = options;
   const viewport = { once, amount };
 
@@ -138,10 +136,7 @@ export interface TextRevealMotion {
  * Reduced motion → no stagger and identical hidden/visible states, so the text
  * renders fully visible and still.
  */
-export function textRevealMotion(
-  prefersReducedMotion: boolean,
-  options: TextRevealOptions = {}
-): TextRevealMotion {
+export function textRevealMotion(prefersReducedMotion: boolean, options: TextRevealOptions = {}): TextRevealMotion {
   const { stagger = 0.05, delay = 0, duration = DURATION.segment } = options;
 
   if (prefersReducedMotion) {
@@ -199,10 +194,7 @@ export interface LineRevealMotion {
  * wrap by the primitive. Reduced motion → identical hidden/visible states, so
  * the text renders fully visible and still.
  */
-export function lineRevealMotion(
-  prefersReducedMotion: boolean,
-  options: LineRevealOptions = {}
-): LineRevealMotion {
+export function lineRevealMotion(prefersReducedMotion: boolean, options: LineRevealOptions = {}): LineRevealMotion {
   const { stagger = 0.25, delay = 0, duration = 1, y = 60 } = options;
 
   if (prefersReducedMotion) {
@@ -390,10 +382,7 @@ export interface ScrollParallaxMotion {
  * wave rides it at speed 150, melting the hero into the projects).
  * Reduced motion → factor 0, so the layer sits still in its layout position.
  */
-export function scrollParallaxMotion(
-  prefersReducedMotion: boolean,
-  options: ScrollParallaxOptions = {}
-): ScrollParallaxMotion {
+export function scrollParallaxMotion(prefersReducedMotion: boolean, options: ScrollParallaxOptions = {}): ScrollParallaxMotion {
   const { speed = 100 } = options;
 
   if (prefersReducedMotion) {
@@ -401,6 +390,89 @@ export function scrollParallaxMotion(
   }
 
   return { factor: speed / 100 - 1 };
+}
+
+// ─── scroll-hero ──────────────────────────────────────────────────────────────
+
+export interface ScrollHeroPinOptions {
+  /**
+   * Scroll speed of the pinned hero image as a percentage of the page's,
+   * Framer's parallax unit (the Reference's case-study "Hero Image" rides at
+   * 140). Default 140.
+   */
+  speed?: number;
+  /**
+   * Extra translateY (px) the image accrues across the page's *full* scroll
+   * (the Reference's page-long scroll transform: y 0 → −800 from page top to
+   * page bottom). Default −800.
+   */
+  pageDrift?: number;
+}
+
+export interface ScrollHeroPinMotion {
+  /**
+   * Multiplier on `scrollY` for the image inside its clipping section:
+   * `y = scrollY × pin + pageDrift × pageProgress`. The Reference renders the
+   * image as a viewport-fixed 130vh layer drifting at
+   * `-scrollY × (speed/100 − 1)` under the in-flow headline; translating the
+   * in-section layer by `scrollY × (2 − speed/100)` instead paints the same
+   * pixels while the section's own clip ends the effect. 0 → the image rests
+   * in its layout position.
+   */
+  pin: number;
+  /** px of extra drift across the page's full scroll progress. 0 → none. */
+  pageDrift: number;
+}
+
+/**
+ * Decision for the case-study hero image that stays pinned to the viewport
+ * while the title scrolls away, so its visible band grows to fill the viewport
+ * before the content scrolls over it (`docs/parity-audit.md` §2.5, A2).
+ * Reduced motion → both terms 0: a static full-bleed image.
+ */
+export function scrollHeroPinMotion(prefersReducedMotion: boolean, options: ScrollHeroPinOptions = {}): ScrollHeroPinMotion {
+  const { speed = 140, pageDrift = -800 } = options;
+
+  if (prefersReducedMotion) {
+    return { pin: 0, pageDrift: 0 };
+  }
+
+  return { pin: 2 - speed / 100, pageDrift };
+}
+
+export interface ScrollHeroZoomOptions {
+  /**
+   * Zoom the image rests at inside its clipped box (the phone hero's 120%
+   * crop, applied by CSS). Default 1.2.
+   */
+  restZoom?: number;
+}
+
+export interface ScrollHeroZoomMotion {
+  /** Wrapper scale while the box is below the top of the viewport: 1, the CSS crop alone. */
+  from: number;
+  /**
+   * Wrapper scale by the time the box leaves the viewport: `1 / restZoom`
+   * relaxes the crop to the full image; 1 under reduced motion, so the crop
+   * never moves.
+   */
+  to: number;
+}
+
+/**
+ * Decision for the phone-width hero image un-zooming as it scrolls out: the
+ * 120% resting crop relaxes toward the full image, so the visible image grows
+ * with scroll where the viewport-pinned expansion has no room. Reduced motion
+ * → the wrapper stays at 1 and only the static CSS crop renders.
+ */
+export function scrollHeroZoomMotion(prefersReducedMotion: boolean, options: ScrollHeroZoomOptions = {}): ScrollHeroZoomMotion {
+  const { restZoom = 1.2 } = options;
+
+  if (prefersReducedMotion) {
+    return { from: 1, to: 1 };
+  }
+
+  return { from: 1, to: 1 / restZoom };
 }
 
 // ─── hide-on-scroll ───────────────────────────────────────────────────────────

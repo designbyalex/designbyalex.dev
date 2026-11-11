@@ -1,15 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import {
-  autoplayMotion,
-  countUpMotion,
   DURATION,
   EASE_APPEAR,
   EASE_ENTRANCE,
   EASE_MICRO,
+  autoplayMotion,
+  countUpMotion,
   hideOnScrollMotion,
   hoverMotion,
   lineRevealMotion,
   routeTransitionMotion,
+  scrollHeroPinMotion,
+  scrollHeroZoomMotion,
   scrollParallaxMotion,
   scrollRevealMotion,
   slideAppearMotion,
@@ -321,6 +323,37 @@ describe('slideAppearMotion', () => {
     expect(m.initial).toBe(false);
     expect(m.animate).toEqual({ opacity: 1, y: 0 });
     expect(m.transition.duration).toBe(0);
+  });
+});
+
+describe('scrollHeroPinMotion', () => {
+  it("pins the hero image inside its clip at Framer's speed: y = scrollY × (2 − speed/100), plus the page drift", () => {
+    // The Reference's "Hero Image" is a fixed 130vh layer at speed 140 with a
+    // page-long 0 → −800 transform; in-section that is +0.6 × scrollY − 800 × progress.
+    const m = scrollHeroPinMotion(false);
+    expect(m.pin).toBeCloseTo(0.6);
+    expect(m.pageDrift).toBe(-800);
+  });
+
+  it('a layer at speed 200 would leave with the page: pin 0', () => {
+    expect(scrollHeroPinMotion(false, { speed: 200 }).pin).toBe(0);
+  });
+
+  it('reduced motion: both terms 0 — a static full-bleed image', () => {
+    const m = scrollHeroPinMotion(true);
+    expect(m).toEqual({ pin: 0, pageDrift: 0 });
+  });
+});
+
+describe('scrollHeroZoomMotion', () => {
+  it('relaxes the resting 120% crop to the full image as the box scrolls out', () => {
+    const m = scrollHeroZoomMotion(false);
+    expect(m.from).toBe(1);
+    expect(m.to).toBeCloseTo(1 / 1.2);
+  });
+
+  it('reduced motion: the wrapper never leaves 1, so only the static CSS crop renders', () => {
+    expect(scrollHeroZoomMotion(true)).toEqual({ from: 1, to: 1 });
   });
 });
 
