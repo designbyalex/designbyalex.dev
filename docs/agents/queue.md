@@ -2,7 +2,7 @@
 
 The order the master follows when it starts the next writer, and the map of what blocks what. The master owns this file: on `DONE` it deletes the row, starts the next, and updates *Last reviewed*. Re-ordering happens only on Alex's call, noted on the PBI.
 
-**Last reviewed:** 2026-11-11 18:10 AEDT. PRs #115 (reference/) and #116 (AFK gate on free ports, merged-PR blockers) merged by Alex; their sessions archived and branches deleted. AFK batch running, building #91 (light-theme surfaces) now; it ends in one draft PR for the batch review. Hero lane: #108 rendering. Waiting on Alex: 0.
+**Last reviewed:** 2026-11-11 18:20 AEDT. AFK batch running (#91, #92 done; #93 building), shown in the watcher session afk-batch and the live dashboard at http://127.0.0.1:4789. A side worker is making the dashboard open with every batch. Hero lane: #108 rendering. Waiting on Alex: 1 (the list is below).
 
 ## Priority
 
@@ -25,7 +25,7 @@ Standing calls:
 
 | # | Lane | PBI | Why here |
 |---|---|---|---|
-| 1 | Site | AFK batch: #91, #92, #93, #110, #111 (RUNNING since 18:04; watcher session afk-batch `local_259c4470-ee7b-4f45-95ab-23ee25324c7b`; #91 done 553043f) | Alex, 2026-11-11: "continue with afk batch" without waiting for the checks/ports PR, on battery. #93 and #110's Blocked by reworded (their blockers were merged PRs, which the guard counted as open). Ends in one draft PR from `afk/migration`, then the batch review |
+| 1 | Site | AFK batch: #91, #92, #93, #110, #111 (RUNNING since 18:04; watcher session afk-batch `local_259c4470-ee7b-4f45-95ab-23ee25324c7b`; dashboard http://127.0.0.1:4789; #91 553043f and #92 cfbf10a done) | Alex, 2026-11-11: "continue with afk batch" without waiting for the checks/ports PR, on battery. #93 and #110's Blocked by reworded (their blockers were merged PRs, which the guard counted as open). Ends in one draft PR from `afk/migration`, then the batch review |
 | 2 | Off product | Dependabot #85 and #86 | admin, after the batch per `Prefer:`; check `tina/tina-lock.json` is regenerated |
 | 3 | Content | #100 content refresh | needs Alex's assets |
 | 4 | Site | #15 cutover | after the batch and its review; HITL |
@@ -36,6 +36,7 @@ Standing calls:
 |---|---|---|
 | Hero piece #101 → #109 lead (Hero piece lane) | hero-piece-pilot `local_fe36df13-fb11-40de-8c45-c3a1221e4224` | adopted the setup (2026-11-11 18:15). #103 → #107 closed; #108 in progress; next: on Alex's yes, merge both #108 branches into `prototype/hero-piece`, re-run the harness, then Alex's checkpoint 2 in the hero; #109 after |
 | #108 animatic scene renders | hero-frames `local_1593e98f-c058-4e96-80bb-f82d6b0567ec` | Alex OK'd the gooey melt on CAM_anim_b ("Approved, render it"); re-rendering now; new setup queued for its next turn |
+| AFK dashboard autostart (Off product) | afk-dashboard `local_967ef96a-6e0b-456b-8ceb-541c86d6ac1d` | Alex, 2026-11-11: the dashboard should run with every AFK batch. Moving it into `scripts/afk/dashboard/`, started and opened by the loop; merges only after the current batch ends |
 | #108 animatic preview | hero-frames-preview `local_4ccc9c64-19ef-4a01-87fc-7afe68144153` | READY: d0057d1 on `claude/hero-piece-anim-preview` (98/98 contrast checks); waits for the pilot's merge into `prototype/hero-piece` |
 
 ## Waiting on Alex
@@ -44,8 +45,7 @@ The one live list of what only Alex can move, with rows as the `orchestrate` ski
 
 | # | Kind | Do | Min | Where |
 |---|---|---|---|---|
-
-None right now.
+| 1 | Yes | say yes to merge the master's docs PR (queue, watcher rule) | 2 | here |
 
 ## Waiting on the client
 
