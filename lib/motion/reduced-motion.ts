@@ -22,6 +22,8 @@ export const EASE_MICRO: CubicBezier = [0.2, 0, 0, 1];
 export const EASE_ENTRANCE: CubicBezier = [0.16, 1, 0.3, 1];
 /** The Reference's appear curve (Framer's rise-into-place entrances on the home hero). */
 export const EASE_APPEAR: CubicBezier = [0.2, 0.8, 0.2, 0.8];
+/** The Reference's hero-mask curve (the page-coloured layer sliding off the case-study hero band). */
+export const EASE_HERO_MASK: CubicBezier = [1, 0, 0.5, 1];
 
 /** Default durations, in seconds. */
 export const DURATION = {
@@ -41,6 +43,10 @@ export const DURATION = {
   slideAppear: 0.6,
   /** a metric card's number counting up (Framer's Number Counter: a 1s spring) */
   countUp: 1,
+  /** a case-study headline element rising out of its clipped wrapper (Framer's appear tween) */
+  appear: 1,
+  /** the page-coloured mask sliding off the hero band (Framer's "Hero Image Mask" Load → Out) */
+  heroMask: 0.75,
 } as const;
 
 export type MotionCategory =
@@ -53,7 +59,8 @@ export type MotionCategory =
   | 'slide-appear'
   | 'count-up'
   | 'scroll-parallax'
-  | 'scroll-hero';
+  | 'scroll-hero'
+  | 'case-entrance';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -473,6 +480,94 @@ export function scrollHeroZoomMotion(prefersReducedMotion: boolean, options: Scr
   }
 
   return { from: 1, to: 1 / restZoom };
+}
+
+// ─── case-entrance ────────────────────────────────────────────────────────────
+
+export interface MaskedRiseOptions {
+  /**
+   * Vertical offset (px) the element rises from inside its clipped wrapper
+   * (Framer's case-study appear distances: 60 for the status pill and title,
+   * 80 for the tagline). Default 60.
+   */
+  y?: number;
+  /** Rise duration in seconds. Default {@link DURATION.appear}. */
+  duration?: number;
+  /** Delay before the rise, in seconds. Default 0. */
+  delay?: number;
+}
+
+export interface MaskedRiseMotion {
+  initial: TargetAndTransition | false;
+  animate: TargetAndTransition;
+  transition: Transition;
+}
+
+/**
+ * Props for a case-study headline element that rises out of a mask on load and
+ * on every navigation to the page: Framer's appear tween at constant opacity
+ * (y 60/80 → 0, 1s, the appear curve), clipped by the block's `overflow-clip`
+ * wrapper so the element emerges rather than slides. Reduced motion → starts
+ * at rest and never moves.
+ */
+export function maskedRiseMotion(prefersReducedMotion: boolean, options: MaskedRiseOptions = {}): MaskedRiseMotion {
+  const { y = 60, duration = DURATION.appear, delay = 0 } = options;
+
+  if (prefersReducedMotion) {
+    return { initial: false, animate: { y: 0 }, transition: INSTANT };
+  }
+
+  return { initial: { y }, animate: { y: 0 }, transition: { duration, delay, ease: EASE_APPEAR } };
+}
+
+export interface HeroMaskRevealMotion {
+  initial: TargetAndTransition | false;
+  animate: TargetAndTransition;
+  transition: Transition;
+}
+
+/**
+ * Props for the page-coloured layer covering the desktop hero band: it slides
+ * down off the image 0.25s after mount (0.75s, the hero-mask curve), opening
+ * the image from the horizontal line under the title into its band — Framer's
+ * "Hero Image Mask" Load → Out. Reduced motion → the layer rests fully slid
+ * off, so the image is simply there.
+ */
+export function heroMaskRevealMotion(prefersReducedMotion: boolean): HeroMaskRevealMotion {
+  if (prefersReducedMotion) {
+    return { initial: false, animate: { y: '100%' }, transition: INSTANT };
+  }
+
+  return {
+    initial: { y: '0%' },
+    animate: { y: '100%' },
+    transition: { duration: DURATION.heroMask, delay: 0.25, ease: EASE_HERO_MASK },
+  };
+}
+
+export interface HeroImageAppearMotion {
+  /** Offset (px) and opacity the phone hero image starts from. At rest under reduced motion. */
+  from: { y: number; opacity: number };
+  /** The settled state: in place, fully opaque. */
+  to: { y: number; opacity: number };
+  transition: Transition;
+}
+
+/**
+ * Decision for the phone-width hero image's entrance, where the Reference has
+ * no mask layer: the image fades in while rising 60px (1s, the appear curve) —
+ * Framer's phone "Hero Image (Mobile)" appear. The primitive writes the values
+ * to CSS variables so only the phone breakpoint applies them. Reduced motion →
+ * from and to are both the resting state.
+ */
+export function heroImageAppearMotion(prefersReducedMotion: boolean): HeroImageAppearMotion {
+  const to = { y: 0, opacity: 1 };
+
+  if (prefersReducedMotion) {
+    return { from: to, to, transition: INSTANT };
+  }
+
+  return { from: { y: 60, opacity: 0 }, to, transition: { duration: DURATION.appear, ease: EASE_APPEAR } };
 }
 
 // ─── hide-on-scroll ───────────────────────────────────────────────────────────

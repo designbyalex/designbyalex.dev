@@ -362,22 +362,31 @@
 }
 
 /*
- * Route transitions (S8 / #12) — View Transitions API.
+ * Route transitions (S8 / #12, choreography #68) — View Transitions API.
  * Started by components/motion-primitives/route-transitions.tsx (TransitionLink +
- * the RouteTransitions provider). The old page fades out on the micro curve while
- * the new page fades and rises in on the entrance curve; the fixed site header is
- * its own group so it stays put while the page crossfades beneath it.
+ * the RouteTransitions provider). The old page fades out on the micro curve over
+ * the backdrop below (the Reference's "page goes black" frame) and the new page
+ * fades in on the entrance curve — a plain fade, because the incoming page's own
+ * entrance choreography (the case-study title rising out of its mask and the hero
+ * band opening, components/motion-primitives/masked-appear.tsx) plays live inside
+ * the new snapshot and owns the motion. The fixed site header is its own group so
+ * it stays put while the page changes beneath it.
  */
+::view-transition {
+  /* Near-black in dark (the Reference's transition frame); the light theme keeps
+     its own ground rather than flashing black between two light pages. */
+  background-color: var(--background);
+}
+
 @keyframes route-fade-out {
   to {
     opacity: 0;
   }
 }
 
-@keyframes route-rise-in {
+@keyframes route-fade-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
   }
 }
 
@@ -386,7 +395,7 @@
 }
 
 ::view-transition-new(root) {
-  animation: route-rise-in var(--motion-duration-route-in) var(--motion-ease-entrance) both;
+  animation: route-fade-in var(--motion-duration-route-in) var(--motion-ease-entrance) both;
 }
 
 .site-header {
