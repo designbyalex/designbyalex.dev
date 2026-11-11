@@ -14,7 +14,7 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
  * a CSS transition, so the sitewide reduced-motion rule makes it instant. The pill's own
  * entrance goes through `ScrollReveal`.
  *
- * The root carries `data-section="back"`: the Fidelity gate's "Back" Section.
+ * The root carries `data-section="back"`, its stable Section id.
  */
 export const BackLink = () => (
   <ScrollReveal className='fixed top-[86px] right-[15px] z-10 lg:top-[106px] lg:right-auto lg:left-6 xl:left-[46px]'>

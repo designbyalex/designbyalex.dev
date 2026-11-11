@@ -1,5 +1,7 @@
 # Fidelity gate: text-anchored diff against a frozen Reference snapshot
 
+> **Superseded (2026-11-11)** by `docs/adr/0005-retire-fidelity-gate-before-cutover.md`: the gate was removed before Cutover, on the site owner's call.
+
 The first unattended loop gated each ticket on tsc, Tina schema and biome only, and left visual checks to a final pass with no browser. Nothing compared the Build with the Reference site, so it drifted while every gate stayed green. Unattended tickets are now gated on a **Fidelity gate**. Playwright renders the Build (dark theme, reduced motion, at 390 / 768 / 1440) and matches its text runs to a committed **Reference snapshot** of the Framer site by their verbatim text. It then fails on differences in geometry and computed style, and on reference text the Build lacks. A prototype (branch `prototype/fidelity-gate`) found real Gaps this way with no false positives on `/` and `/acacia`.
 
 ## Considered options

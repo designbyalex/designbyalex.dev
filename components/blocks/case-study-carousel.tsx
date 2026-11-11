@@ -19,8 +19,7 @@ import { FramedClip, SlideChrome } from './video';
  * plays. The server renders the first slide; the rest exist only once someone navigates.
  *
  * `overflow-clip`, as Framer's slide wrap: `hidden` would make the card a scroll container, and scrolling
- * the clip into view (as the Fidelity gate's extractor does) would scroll its content up by the stand's
- * overflow.
+ * the clip into view would scroll its content up by the stand's overflow.
  */
 
 export type CarouselSlide = ProjectBlocksCaseStudySectionCarouselSlides;

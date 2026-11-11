@@ -5,8 +5,7 @@ import type { SVGProps } from 'react';
  * draws them inline from an Iconify mix (tdesign:module, a progress ring, material-symbols:lock-outline,
  * a house with a sun, a user outline), each at its own size inside a 30px column; the paths and sizes
  * below are those SVGs, filled and stroked with `currentColor` so they follow the page foreground in
- * both themes. Inline SVG, not `<img>`, so they don't enter the Fidelity gate's media inventory, as on
- * the Reference.
+ * both themes. Inline SVG, as on the Reference.
  */
 
 export type FeatureIconName = 'module' | 'progress' | 'lock' | 'house' | 'user';
