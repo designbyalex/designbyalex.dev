@@ -66,8 +66,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
 
           {data.image?.src && (
             <ScrollReveal>
-              {/* Corners via clip-path, not border-radius: a leftover from the retired parity check (ADR 0005), which read the portrait's radius as 0. #92 swaps it for border-radius. */}
-              <div className='relative aspect-[0.890323] w-full bg-card [clip-path:inset(0_round_20px)]' data-tina-field={tinaField(data.image, 'src')}>
+              <div className='relative aspect-[0.890323] w-full overflow-clip rounded-[20px] bg-card' data-tina-field={tinaField(data.image, 'src')}>
                 <Image
                   src={data.image.src}
                   alt={data.image.alt || ''}
