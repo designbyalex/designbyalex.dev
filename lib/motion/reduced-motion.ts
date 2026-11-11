@@ -20,6 +20,8 @@ type CubicBezier = [number, number, number, number];
 export const EASE_MICRO: CubicBezier = [0.2, 0, 0, 1];
 /** Expressive ease-out for entrance choreography (scroll + text reveals). */
 export const EASE_ENTRANCE: CubicBezier = [0.16, 1, 0.3, 1];
+/** The Reference's appear curve (Framer's rise-into-place entrances on the home hero). */
+export const EASE_APPEAR: CubicBezier = [0.2, 0.8, 0.2, 0.8];
 
 /** Default durations, in seconds. */
 export const DURATION = {
@@ -72,6 +74,8 @@ export interface ScrollRevealOptions {
    * image). Default 1, which leaves scale untouched.
    */
   scale?: number;
+  /** Entrance easing. Default {@link EASE_ENTRANCE}. */
+  ease?: CubicBezier;
 }
 
 export interface ScrollRevealMotion {
@@ -89,7 +93,7 @@ export function scrollRevealMotion(
   prefersReducedMotion: boolean,
   options: ScrollRevealOptions = {}
 ): ScrollRevealMotion {
-  const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3, scale = 1 } = options;
+  const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3, scale = 1, ease = EASE_ENTRANCE } = options;
   const viewport = { once, amount };
 
   if (prefersReducedMotion) {
@@ -105,7 +109,7 @@ export function scrollRevealMotion(
   return {
     initial: { opacity: 0, y, ...(scaled ? { scale } : {}) },
     whileInView: { opacity: 1, y: 0, ...(scaled ? { scale: 1 } : {}) },
-    transition: { duration, delay, ease: EASE_ENTRANCE },
+    transition: { duration, delay, ease },
     viewport,
   };
 }
@@ -159,6 +163,60 @@ export function textRevealMotion(
     item: {
       hidden: { opacity: 0, y: '0.4em', filter: 'blur(6px)' },
       visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration, ease: EASE_ENTRANCE } },
+    },
+    animate: true,
+  };
+}
+
+// ─── line-reveal ──────────────────────────────────────────────────────────────
+
+export interface LineRevealOptions {
+  /** Seconds between each line entering. Default 0.25. */
+  stagger?: number;
+  /** Delay before the first line, in seconds. Default 0. */
+  delay?: number;
+  /** Per-line animation duration in seconds. Default 1 (the Reference's headline appear). */
+  duration?: number;
+  /** Vertical offset (px) each line rises from. Default 60 (the Reference's appear distance). */
+  y?: number;
+}
+
+export interface LineRevealMotion {
+  /**
+   * Variants for each word span; `custom` is the word's rendered line index,
+   * so every word on a line shares one delay and the line moves as a unit.
+   */
+  item: Variants;
+  /** True when the text actually animates; false under reduced motion. */
+  animate: boolean;
+}
+
+/**
+ * Variants for a line-by-line fade-up: each rendered line rises into place in
+ * order (the Reference's appear settings: y 60 → 0, 1s, the appear curve).
+ * The line index arrives per word via `custom`, measured from the rendered
+ * wrap by the primitive. Reduced motion → identical hidden/visible states, so
+ * the text renders fully visible and still.
+ */
+export function lineRevealMotion(
+  prefersReducedMotion: boolean,
+  options: LineRevealOptions = {}
+): LineRevealMotion {
+  const { stagger = 0.25, delay = 0, duration = 1, y = 60 } = options;
+
+  if (prefersReducedMotion) {
+    const shown: TargetAndTransition = { opacity: 1, y: 0, transition: INSTANT };
+    return { item: { hidden: shown, visible: shown }, animate: false };
+  }
+
+  return {
+    item: {
+      hidden: { opacity: 0, y },
+      visible: (line: number = 0) => ({
+        opacity: 1,
+        y: 0,
+        transition: { duration, delay: delay + line * stagger, ease: EASE_APPEAR },
+      }),
     },
     animate: true,
   };

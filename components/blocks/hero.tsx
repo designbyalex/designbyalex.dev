@@ -5,6 +5,7 @@ import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { ArrowDown } from 'lucide-react';
 import { PageBlocksHero } from '../../tina/__generated__/types';
+import { EASE_APPEAR } from '../../lib/motion/reduced-motion';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { TextReveal } from '../motion-primitives/text-reveal';
@@ -26,11 +27,15 @@ const SCROLL_OVERLAY = '/uploads/home/hero-scroll-overlay.svg';
  * two equal columns 40px apart, the tagline 80% of its column, closed by a 1px
  * hairline 20px below the text.
  *
- * Entrance (Framer's appear animations): the gradient settles from a 1.5× zoom
- * in 1s, the mark fades in over 1.5s, the headline reveals per character, and
- * the tagline and link rise 60px after a 1s delay. Everything routes through
- * the motion primitives, so `prefers-reduced-motion` renders it at rest, and
- * the headline is plain text in the server-rendered HTML.
+ * Entrance (Framer's appear animations, plus the #87 line-by-line direction):
+ * the gradient settles from a 1.5× zoom in 1s, the mark fades in over 1.5s,
+ * the headline rises into place line by line in rendered-wrap order (per line:
+ * 60px rise + fade over 1s on the appear curve, lines staggered 0.25s), then
+ * the tagline, the hairline divider and the link rise together as one group
+ * (60px, 1s delay, 1.2s — the Reference's own tagline/link appear settings).
+ * Everything routes through the motion primitives, so `prefers-reduced-motion`
+ * renders it at rest, and the headline and tagline are plain text in the
+ * server-rendered HTML, visible without JavaScript.
  */
 export const Hero = ({ data }: { data: PageBlocksHero }) => {
   const actions = (data.actions ?? []).filter((a): a is NonNullable<typeof a> & { link: string } => Boolean(a?.link));
@@ -98,23 +103,30 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         <div className="flex w-full max-w-[1440px] flex-1 flex-col items-start justify-between">
           {data.headline && (
             <div className="w-full max-w-[450px] lg:w-[55%] lg:max-w-none" data-tina-field={tinaField(data, 'headline')}>
-              <TextReveal as="h1" per="char" stagger={0.012} className="font-display text-display text-on-image">
+              <TextReveal as="h1" per="line" className="font-display text-display text-on-image">
                 {data.headline}
               </TextReveal>
             </div>
           )}
 
-          <div className="flex w-full flex-col items-start gap-16 border-b border-on-image/50 pb-[19px] lg:flex-row lg:items-end lg:gap-10">
+          {/* Tagline, hairline and link appear together after the headline (owner's #87 direction). */}
+          <ScrollReveal
+            y={60}
+            delay={1}
+            duration={1.2}
+            ease={EASE_APPEAR}
+            amount={0}
+            staticUntilHydrated
+            className="flex w-full flex-col items-start gap-16 border-b border-on-image/50 pb-[19px] lg:flex-row lg:items-end lg:gap-10"
+          >
             {data.tagline && (
               <div className="hidden min-w-0 flex-1 lg:block" data-tina-field={tinaField(data, 'tagline')}>
-                <TextReveal as="p" per="word" stagger={0.02} delay={1} className="w-[70%] text-body text-on-image xl:w-[80%]">
-                  {data.tagline}
-                </TextReveal>
+                <p className="w-[70%] text-body text-on-image xl:w-[80%]">{data.tagline}</p>
               </div>
             )}
 
             {actions.length > 0 && (
-              <ScrollReveal y={60} delay={1} duration={1.2} amount={0} className="flex w-full flex-col items-end gap-4 lg:w-auto lg:flex-1">
+              <div className="flex w-full flex-col items-end gap-4 lg:w-auto lg:flex-1">
                 {actions.map((action) => (
                   <a
                     key={action.link}
@@ -132,9 +144,9 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                     </span>
                   </a>
                 ))}
-              </ScrollReveal>
+              </div>
             )}
-          </div>
+          </ScrollReveal>
         </div>
       </div>
 
