@@ -2,7 +2,7 @@
 
 The order the master follows when it starts the next writer, and the map of what blocks what. The master owns this file: on `DONE` it deletes the row, starts the next, and updates *Last reviewed*. Re-ordering happens only on Alex's call, noted on the PBI.
 
-**Last reviewed:** 2026-11-11 18:00 AEDT. Set up today. #112 merged (8 motion tickets and the 4 review fixes), so the Site lane and `afk/migration` are free for the next batch. Waiting on Alex: 1 (the list is below).
+**Last reviewed:** 2026-11-11 18:10 AEDT. Master adopted the running Hero piece sessions and sent them the new setup. The next Site batch (#91, #92, #93, #110, #111) waits on AC power and the AFK checks/ports PR; two Off product side workers are running. Waiting on Alex: 2 (the list is below).
 
 ## Priority
 
@@ -25,7 +25,7 @@ Standing calls:
 
 | # | Lane | PBI | Why here |
 |---|---|---|---|
-| 1 | Site | next AFK batch: #91, #92, #93, #110, #111 | all `ready-for-agent`; the lane is free since #112 merged |
+| 1 | Site | next AFK batch: #91, #92, #93, #110, #111 | all `ready-for-agent`, nothing open under Blocked by (#93's #97 merged); the lane is free since #112 merged. Starts once the AFK checks/ports PR merges (so the loop gets the port fix) and the Mac is on AC power. `afk/migration` is 8 behind `origin/main`: merge it first |
 | 2 | Off product | Dependabot #85 and #86 | admin, after the batch per `Prefer:`; check `tina/tina-lock.json` is regenerated |
 | 3 | Content | #100 content refresh | needs Alex's assets |
 | 4 | Site | #15 cutover | after the batch and its review; HITL |
@@ -34,7 +34,12 @@ Standing calls:
 
 | Work | Session | Status |
 |---|---|---|
-| Hero piece #108 animatic (Hero piece lane) | hero-piece-pilot and its scene/preview sessions | B close-up picked; new melt loaded in Alex's Blender, waiting on his OK before re-rendering; "Let's talk" contrast fixed (d0057d1) |
+| Hero piece #101 → #109 lead (Hero piece lane) | hero-piece-pilot `local_fe36df13-fb11-40de-8c45-c3a1221e4224` | lane lead on `prototype/hero-piece` (never merged); runs its own children; new setup sent |
+| #108 animatic scene renders | hero-frames `local_1593e98f-c058-4e96-80bb-f82d6b0567ec` | Alex OK'd the gooey melt on CAM_anim_b ("Approved, render it"); re-rendering now; new setup queued for its next turn |
+| #108 animatic preview | hero-frames-preview `local_4ccc9c64-19ef-4a01-87fc-7afe68144153` | "Let's talk" contrast fixed, d0057d1 on `claude/hero-piece-anim-preview`, not pushed; idle |
+| #103 Blender MCP proof | 103-h1-blender-mcp-proof `local_31f4bcc9-404d-4e8a-8caa-96bd9e93d808` | #103 closed, nothing open; shares the pilot's folder; archive once Alex agrees |
+| AFK checks + Tina ports (Off product) | afk-checks-ports `local_c3b28f8a-cec5-4ffb-a584-9ab478de3aa5` | one PR: confirm the light per-ticket gate, pass free `--port` / `--datalayer-port` in `check.sh` and `build-local` |
+| `reference/` cache (Off product) | reference-cache `local_c9938ae1-1aaa-494c-b4fd-a283b8968e9e` | writes `reference/` per orchestration.md → Cached facts, credential names only |
 
 ## Waiting on Alex
 
@@ -42,7 +47,8 @@ The one live list of what only Alex can move, with rows as the `orchestrate` ski
 
 | # | Kind | Do | Min | Where |
 |---|---|---|---|---|
-| 1 | Yes | merge the agency workflow setup PR | 1 | here |
+| 1 | Admin | plug the Mac into AC power (the AFK batch needs it) | 1 | here |
+| 2 | Answer | OK to archive the finished #103 session? | 1 | here |
 
 ## Waiting on the client
 
@@ -54,5 +60,4 @@ None: Alex is the client.
 
 ## Small items and candidate PBIs
 
-- Pass `--datalayer-port` (and `--port`) in `scripts/afk/check.sh` and `build-local`, so builds don't clash with other sessions' Tina servers.
-- Lighter AFK loop checks: tsc and biome per ticket, the build and vitest only in the final pass.
+- In progress as one PR (afk-checks-ports): `--port` / `--datalayer-port` in `scripts/afk/check.sh` and `build-local`, and lighter AFK loop checks (tsc and biome per ticket, build and vitest only in the final pass; mostly in place already).
