@@ -21,8 +21,6 @@
    * monospace advance, as on the Reference, instead of a 137%-scaled Arial one.
    */
   --font-mono: "Space Mono", ui-monospace, Menlo, var(--font-space-mono), monospace;
-  /* Material Icons ligatures (#59): the CV link's "download" glyph, as on the Reference. No fallback: the word must never show. */
-  --font-icons: var(--font-material-icons);
 }
 
 /*
@@ -89,16 +87,6 @@
   --text-mono--line-height: 1;
   --text-mono--letter-spacing: 0em;
   --text-mono--font-weight: 400;
-  /* Material Icons glyphs set as text (`font-icons`): 16, as the Reference's download icon */
-  --text-icon: 1rem;
-  --text-icon--line-height: 1.2;
-  --text-icon--letter-spacing: 0em;
-  --text-icon--font-weight: 400;
-  /* The larger ligature glyph: 20 on a 24px line, as the Reference's "arrow_back" in the case-study Back pill (#62) */
-  --text-icon-lg: 1.25rem;
-  --text-icon-lg--line-height: 1.2;
-  --text-icon-lg--letter-spacing: 0em;
-  --text-icon-lg--font-weight: 400;
   /* The case-study carousel slide's caption: 32 on a 1.2 line, the heading tier's tracking (desktop only, #65) */
   --text-slide-heading: 2rem;
   --text-slide-heading--line-height: 1.2;

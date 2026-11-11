@@ -1,4 +1,5 @@
 'use client';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import React from 'react';
 import Image from 'next/image';
 import { useReducedMotion } from 'motion/react';
@@ -29,13 +30,10 @@ import { useHydrated } from '../motion-primitives/use-hydrated';
  *
  * `PlainClip`, `FramedClip` and `SlideChrome` are shared with the case-study section block (#65), which
  * places the plain clip in a section's right column and the framed clips on the UX section's carousel.
- * `SlideChrome` is that carousel's navigation: a 56×47 pill with a 10×16 chevron centred at the right
+ * `SlideChrome` is that carousel's navigation: a 56×47 pill with a 16px chevron centred at the right
  * edge (Next) and, past the first slide, its mirror at the left (Back), and a pagination dot per slide
  * at the bottom.
  */
-
-/** Framer's chevron path (the Reference records it as a data URI); inline so it takes the glass ink via currentColor (#91). It points left (Back); Next turns it round. */
-const CHEVRON_PATH = 'M 8 16 L 0 8 L 8 0 L 9.42 1.42 L 2.84 8 L 9.42 14.58 Z';
 
 interface SlideChromeProps {
   /** The slide showing, from 0. */
@@ -118,11 +116,8 @@ const SlideArrow = ({ buttonRef, direction, onClick }: { buttonRef: React.Ref<HT
       direction === 'next' ? 'right-6' : 'left-6',
     )}
   >
-    <div className={direction === 'next' ? 'pl-px' : 'pr-px'}>
-      <svg viewBox='0 0 9.42 16' aria-hidden='true' className={cn('h-4 w-[10px] fill-current', direction === 'next' && 'rotate-180')}>
-        <path d={CHEVRON_PATH} />
-      </svg>
-    </div>
+    {/* lucide's chevron in place of Framer's data-URI drawing (#110); it takes the glass ink via currentColor (#91). */}
+    {direction === 'next' ? <ChevronRight aria-hidden className='size-4 shrink-0' /> : <ChevronLeft aria-hidden className='size-4 shrink-0' />}
   </button>
 );
 
@@ -271,9 +266,7 @@ const Clip = ({ src, playing, loop, reducedMotion, className }: ClipProps) => {
           aria-label={paused ? 'Play video' : 'Pause video'}
           className='absolute right-3 bottom-3 flex size-10 items-center justify-center rounded-full border border-glass-border bg-glass-chrome text-glass-ink shadow-glass glass-blur-chrome hover:bg-glass-chrome-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
         >
-          <svg viewBox='0 0 24 24' className='size-5' fill='currentColor' aria-hidden='true'>
-            {paused ? <path d='M8 5v14l11-7z' /> : <path d='M6 5h4v14H6zM14 5h4v14h-4z' />}
-          </svg>
+          {paused ? <Play aria-hidden className='size-5 shrink-0' /> : <Pause aria-hidden className='size-5 shrink-0' />}
         </button>
       )}
     </>

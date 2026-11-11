@@ -1,9 +1,27 @@
 'use client';
 //TODO: Fix Types in this file
 //
-import * as BoxIcons from 'react-icons/bi';
-import { FaFacebookF, FaGithub, FaLinkedin, FaXTwitter, FaYoutube } from 'react-icons/fa6';
-import { AiFillInstagram } from 'react-icons/ai';
+import {
+  ArrowDown,
+  ArrowDownToLine,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  HousePlug,
+  LayoutPanelLeft,
+  LoaderCircle,
+  LockKeyhole,
+  Mail,
+  Moon,
+  Pause,
+  Play,
+  Sun,
+  User,
+  X,
+} from 'lucide-react';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useLayout } from './layout/layout-context';
@@ -44,13 +62,26 @@ export const IconOptions = {
       />
     </svg>
   ),
-  ...BoxIcons,
-  FaFacebookF,
-  FaGithub,
-  FaLinkedin,
-  FaXTwitter,
-  FaYoutube,
-  AiFillInstagram,
+  // The lucide icons the site itself uses (#110), plus Mail and Download for content links.
+  ArrowRight,
+  ArrowUpRight,
+  ArrowDown,
+  ArrowLeft,
+  ArrowDownToLine,
+  ChevronLeft,
+  ChevronRight,
+  LayoutPanelLeft,
+  LoaderCircle,
+  LockKeyhole,
+  HousePlug,
+  User,
+  Play,
+  Pause,
+  Sun,
+  Moon,
+  X,
+  Mail,
+  Download,
 };
 
 const iconColorClass: {
