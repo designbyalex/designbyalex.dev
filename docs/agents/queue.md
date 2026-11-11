@@ -2,7 +2,7 @@
 
 The order the master follows when it starts the next writer, and the map of what blocks what. The master owns this file: on `DONE` it deletes the row, starts the next, and updates *Last reviewed*. Re-ordering happens only on Alex's call, noted on the PBI.
 
-**Last reviewed:** 2026-11-11 18:10 AEDT. Master adopted the running Hero piece sessions and sent them the new setup. The next Site batch (#91, #92, #93, #110, #111) waits on AC power and the AFK checks/ports PR; two Off product side workers are running. Waiting on Alex: 2 (the list is below).
+**Last reviewed:** 2026-11-11 18:15 AEDT. Hero lane reported in (#108 rendering; nothing on Alex until the renders land). Master adopted the running Hero piece sessions and sent them the new setup. The next Site batch (#91, #92, #93, #110, #111) waits on AC power and the AFK checks/ports PR; two Off product side workers are running. Waiting on Alex: 2 (the list is below).
 
 ## Priority
 
@@ -34,10 +34,10 @@ Standing calls:
 
 | Work | Session | Status |
 |---|---|---|
-| Hero piece #101 → #109 lead (Hero piece lane) | hero-piece-pilot `local_fe36df13-fb11-40de-8c45-c3a1221e4224` | lane lead on `prototype/hero-piece` (never merged); runs its own children; new setup sent |
+| Hero piece #101 → #109 lead (Hero piece lane) | hero-piece-pilot `local_fe36df13-fb11-40de-8c45-c3a1221e4224` | adopted the setup (2026-11-11 18:15). #103 → #107 closed; #108 in progress; next: on Alex's yes, merge both #108 branches into `prototype/hero-piece`, re-run the harness, then Alex's checkpoint 2 in the hero; #109 after |
 | #108 animatic scene renders | hero-frames `local_1593e98f-c058-4e96-80bb-f82d6b0567ec` | Alex OK'd the gooey melt on CAM_anim_b ("Approved, render it"); re-rendering now; new setup queued for its next turn |
-| #108 animatic preview | hero-frames-preview `local_4ccc9c64-19ef-4a01-87fc-7afe68144153` | "Let's talk" contrast fixed, d0057d1 on `claude/hero-piece-anim-preview`, not pushed; idle |
-| #103 Blender MCP proof | 103-h1-blender-mcp-proof `local_31f4bcc9-404d-4e8a-8caa-96bd9e93d808` | #103 closed, nothing open; shares the pilot's folder; archive once Alex agrees |
+| #108 animatic preview | hero-frames-preview `local_4ccc9c64-19ef-4a01-87fc-7afe68144153` | READY: d0057d1 on `claude/hero-piece-anim-preview` (98/98 contrast checks); waits for the pilot's merge into `prototype/hero-piece` |
+| #103 Blender MCP proof | 103-h1-blender-mcp-proof `local_31f4bcc9-404d-4e8a-8caa-96bd9e93d808` | DONE (read back: #103 closed with its outcome comment); shares the pilot's folder; archive once Alex agrees |
 | AFK checks + Tina ports (Off product) | afk-checks-ports `local_c3b28f8a-cec5-4ffb-a584-9ab478de3aa5` | one PR: confirm the light per-ticket gate, pass free `--port` / `--datalayer-port` in `check.sh` and `build-local` |
 | `reference/` cache (Off product) | reference-cache `local_c9938ae1-1aaa-494c-b4fd-a283b8968e9e` | writes `reference/` per orchestration.md → Cached facts, credential names only |
 
