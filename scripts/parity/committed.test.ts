@@ -74,6 +74,8 @@ describe('the Deviation list', () => {
       'about-heading-phones',
       // Approved by the owner in the 404 design-picker round (#93): the 404 lists the selected projects.
       '404-project-links',
+      // Approved by the owner at Parity sign-off (#52): plain CSS corners on the portrait (#92).
+      'portrait-radius-capture',
     ]);
   });
 
