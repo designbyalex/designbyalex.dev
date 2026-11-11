@@ -136,6 +136,17 @@
       "decision": "Reference capture artefact, not a design difference. At 390 and 768 Framer's \"Sticky Wrapper\" with the \"About\" heading fades in once in view; the frozen snapshot caught it at opacity 0, so it has no text run there, though its 84px of space is in the layout. The live site shows the heading at every width, and so does the Build. Approved by the owner at Parity sign-off (#52)."
     },
     {
+      "id": "404-project-links",
+      "page": "not-found",
+      "section": "*",
+      "check": [
+        "copy-extra",
+        "link-extra"
+      ],
+      "anchor": "*",
+      "decision": "The redesigned 404 (#93) lists the case studies from the home page's Selected projects under \"Or see a selected project\", one row and link each. New case studies add rows, so any anchor. Framer's three lines stay and are still checked (copy-missing, copy-changed, links to /). Approved in #93."
+    },
+    {
       "id": "portrait-radius-capture",
       "page": "home",
       "section": "Project Overview",
