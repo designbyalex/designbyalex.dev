@@ -2,12 +2,24 @@
 
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { tinaField } from "tinacms/dist/react";
+import { cn } from "@/lib/utils";
 import { TransitionLink } from "../../motion-primitives/route-transitions";
 import { HideOnScroll } from "../../motion-primitives/hide-on-scroll";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
 import { ThemeToggle } from "../../theme/theme-toggle";
+import { useIsServerRender } from "@/lib/use-is-server-render";
+import { HEADER_PRE_HYDRATION_STOP, isOverHero, trackHeaderOverHeroScript } from "./header-over-hero";
+
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
+
+/** The mark and "Let's talk": the page foreground, white over the home hero. */
+const overHeroText = "text-foreground group-data-[over-hero=true]/header:text-on-image";
+/** Over the hero in light, the toggle takes the dark theme's translucent look; dark keeps its own. */
+const overHeroToggle =
+  "group-data-[over-hero=true]/header:not-dark:border-on-image/25 group-data-[over-hero=true]/header:not-dark:bg-scrim/20 group-data-[over-hero=true]/header:not-dark:text-on-image group-data-[over-hero=true]/header:not-dark:hover:bg-scrim/35 group-data-[over-hero=true]/header:not-dark:hover:text-on-image";
 
 /** mailto:, tel: and http(s) links leave the site: open them in a new tab, as the Reference does. */
 const isExternal = (href: string) => /^(https?:|mailto:|tel:)/i.test(href);
@@ -26,25 +38,78 @@ const isExternal = (href: string) => /^(https?:|mailto:|tel:)/i.test(href);
 export const Header = () => {
   const { globalSettings } = useLayout();
   const header = globalSettings!.header!;
+  const pathname = usePathname();
+  const headerRef = React.useRef<HTMLElement>(null);
+  const serverRender = useIsServerRender();
+
+  // While the header overlaps the home hero it keeps the dark theme's white
+  // chrome whatever the theme (#89, the owner's #52 sign-off): near-black on
+  // the gradient doesn't read. The styling hangs off `data-over-hero`
+  // (header-over-hero.ts): the server renders it `true` on / so a light-theme
+  // load never shows a near-black header over the hero, an inline script keeps
+  // it right until hydration, and this listener owns it after. It writes the
+  // attribute directly: the scroll position never re-renders the header.
+  // `[data-section="hero"]` only renders on /, so every other page keeps the
+  // theme's own styling. The swap is a colour transition below; the sitewide
+  // reduced-motion rule makes it instant.
+  useIsomorphicLayoutEffect(() => {
+    (window as unknown as Record<string, (() => void) | undefined>)[HEADER_PRE_HYDRATION_STOP]?.();
+    const header = headerRef.current;
+    if (!header) return;
+    const setOverHero = (over: boolean) => header.setAttribute("data-over-hero", over ? "true" : "false");
+    const hero = document.querySelector('[data-section="hero"]');
+    if (!hero) {
+      setOverHero(false);
+      return;
+    }
+    let heroBottom = 0;
+    let frame = 0;
+    const sample = () => {
+      frame = 0;
+      setOverHero(isOverHero(window.scrollY, header.offsetHeight, heroBottom));
+    };
+    const measure = () => {
+      heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+      sample();
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(sample);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [pathname]);
 
   return (
     <HideOnScroll className="fixed inset-x-0 top-0 z-20">
-      <header data-section="header" className="flex items-center justify-between px-6 pb-4 pt-6 lg:px-12 lg:pb-6">
+      <header
+        ref={headerRef}
+        data-section="header"
+        // The server's guess; the scripts below correct it outside React (hence the hydration warning suppression).
+        data-over-hero={pathname === "/" ? "true" : "false"}
+        suppressHydrationWarning
+        className="group/header flex items-center justify-between px-6 pb-4 pt-6 lg:px-12 lg:pb-6"
+      >
         <TransitionLink
           href="/"
           aria-label="Homepage"
           className="flex size-12 shrink-0 items-center justify-center rounded-md"
         >
-          {/* The mark follows the page foreground: white in dark (as live), near-black in light. */}
+          {/* The mark follows the page foreground — white in dark (as live), near-black in light — except over the home hero, where it stays white. */}
           <Icon
             parentColor={header.color!}
             data={{ name: header.icon!.name, color: header.icon!.color, style: header.icon!.style, size: "custom" }}
-            className="h-[33px] w-[35px] text-foreground opacity-100"
+            className={cn("h-[33px] w-[35px] opacity-100 transition-colors duration-300", overHeroText)}
           />
         </TransitionLink>
 
         <div className="flex items-center gap-6">
-          <ThemeToggle />
+          <ThemeToggle className={overHeroToggle} />
           <nav aria-label="Main navigation">
             <ul className="flex items-center gap-6">
               {header.nav!.map((item, index) => {
@@ -56,22 +121,23 @@ export const Header = () => {
                     <LinkTag
                       href={href}
                       {...(external ? { target: "_blank", rel: "noopener" } : {})}
-                      className="group flex items-center gap-3 rounded-full text-body-lg text-foreground"
+                      className={cn("group flex items-center gap-3 rounded-full text-body-lg transition-colors duration-300", overHeroText)}
                       data-tina-field={tinaField(item!, "label")}
                     >
                       <span>{item!.label}</span>
                       {/* Reference hover: the circle grows 40→44px and the arrow rolls out to the right as a second one enters from the left. */}
+                      {/* The arrow is black on the green circle in both themes (#89 sign-off; the Reference's white is a deliberate departure). */}
                       <span
                         aria-hidden
-                        className="relative size-10 shrink-0 overflow-hidden rounded-full bg-primary text-foreground transition-transform duration-300 ease-out group-hover:scale-110"
+                        className="relative size-10 shrink-0 overflow-hidden rounded-full bg-primary text-primary-foreground transition-transform duration-500 ease-hover-link group-hover:scale-110 group-focus-visible:scale-110"
                       >
                         <ArrowRight
                           strokeWidth={1.6}
-                          className="absolute inset-0 m-auto size-6 transition-transform duration-300 ease-out group-hover:translate-x-10"
+                          className="absolute inset-0 m-auto size-6 transition-transform duration-500 ease-hover-link group-hover:translate-x-10 group-focus-visible:translate-x-10"
                         />
                         <ArrowRight
                           strokeWidth={1.6}
-                          className="absolute inset-0 m-auto size-6 -translate-x-10 transition-transform duration-300 ease-out group-hover:translate-x-0"
+                          className="absolute inset-0 m-auto size-6 -translate-x-10 transition-transform duration-500 ease-hover-link group-hover:translate-x-0 group-focus-visible:translate-x-0"
                         />
                       </span>
                     </LinkTag>
@@ -82,6 +148,7 @@ export const Header = () => {
           </nav>
         </div>
       </header>
+      {serverRender && <script dangerouslySetInnerHTML={{ __html: trackHeaderOverHeroScript }} />}
     </HideOnScroll>
   );
 };

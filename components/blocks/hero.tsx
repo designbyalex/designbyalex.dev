@@ -5,12 +5,11 @@ import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { ArrowDown } from 'lucide-react';
 import { PageBlocksHero } from '../../tina/__generated__/types';
+import { EASE_APPEAR } from '../../lib/motion/reduced-motion';
 import { Section, sectionBlockSchemaField } from '../layout/section';
+import { ScrollParallax } from '../motion-primitives/scroll-parallax';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { TextReveal } from '../motion-primitives/text-reveal';
-
-/** The Reference's "Scroll Overlay": a page-coloured wave parked just under the fold (see below). */
-const SCROLL_OVERLAY = '/uploads/home/hero-scroll-overlay.svg';
 
 /**
  * Homepage hero, faithful to the Reference (`docs/parity-audit.md` H1–H6): a
@@ -26,11 +25,18 @@ const SCROLL_OVERLAY = '/uploads/home/hero-scroll-overlay.svg';
  * two equal columns 40px apart, the tagline 80% of its column, closed by a 1px
  * hairline 20px below the text.
  *
- * Entrance (Framer's appear animations): the gradient settles from a 1.5× zoom
- * in 1s, the mark fades in over 1.5s, the headline reveals per character, and
- * the tagline and link rise 60px after a 1s delay. Everything routes through
- * the motion primitives, so `prefers-reduced-motion` renders it at rest, and
- * the headline is plain text in the server-rendered HTML.
+ * Entrance (Framer's appear animations, plus the #87 line-by-line direction):
+ * the gradient settles from a 1.5× zoom in 1s, the mark fades in over 1.5s,
+ * the headline rises into place line by line in rendered-wrap order (per line:
+ * 60px rise + fade over 1s on the appear curve, lines staggered 0.25s), then
+ * the tagline, the hairline divider and the link rise together as one group
+ * (60px, 1s delay, 1.2s — the Reference's own tagline/link appear settings).
+ * The hero renders identically in light and dark (owner's #89 review): its own
+ * dark ground, the theme-independent `on-image`/`scrim` tokens, no light-only
+ * layers. Only the Scroll Overlay below follows the theme, since it is the page
+ * colour arriving. Everything routes through the motion primitives, so `prefers-reduced-motion`
+ * renders it at rest, and the headline and tagline are plain text in the
+ * server-rendered HTML, visible without JavaScript.
  */
 export const Hero = ({ data }: { data: PageBlocksHero }) => {
   const actions = (data.actions ?? []).filter((a): a is NonNullable<typeof a> & { link: string } => Boolean(a?.link));
@@ -41,7 +47,9 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
       background={data.background!}
       // The header overlays the hero as on the Reference: pull the block up by `main`'s header offset (layout.tsx).
       rootClassName="-mt-22 lg:-mt-24"
-      className="relative flex h-svh max-w-none flex-col items-center overflow-hidden p-0"
+      // `bg-hero-ground`: the hero is the same in both themes (owner's #89 review). The gradient sits on
+      // the dark page colour at 90% and the mark overlay-blends onto it, so neither may see the light page through.
+      className="relative flex h-svh max-w-none flex-col items-center overflow-hidden bg-hero-ground p-0"
     >
       {/* Background Colour: the gradient fills the viewport at 90% opacity. */}
       {data.gradient?.src && (
@@ -83,29 +91,35 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_bottom,transparent_88px,color-mix(in_srgb,var(--scrim)_45%,transparent)_130px,color-mix(in_srgb,var(--scrim)_30%,transparent)_35%,transparent_60%)] lg:bg-[linear-gradient(to_right,color-mix(in_srgb,var(--scrim)_45%,transparent),color-mix(in_srgb,var(--scrim)_35%,transparent)_55%,transparent_80%)]"
       />
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-linear-to-t from-scrim/60 via-scrim/45 via-20% to-transparent to-45%" />
-
       {/* Text Wrapper → Container: headline at the top, the bottom row pushed to the fold. */}
       <div className="relative z-10 flex w-full max-w-[1920px] flex-1 flex-col items-center overflow-hidden px-4 pb-8 pt-30 lg:px-6 lg:pb-16 lg:pt-40 xl:px-16">
         <div className="flex w-full max-w-[1440px] flex-1 flex-col items-start justify-between">
           {data.headline && (
             <div className="w-full max-w-[450px] lg:w-[55%] lg:max-w-none" data-tina-field={tinaField(data, 'headline')}>
-              <TextReveal as="h1" per="char" stagger={0.012} className="font-display text-display text-on-image">
+              <TextReveal as="h1" per="line" className="font-display text-display text-on-image">
                 {data.headline}
               </TextReveal>
             </div>
           )}
 
-          <div className="flex w-full flex-col items-start gap-16 border-b border-on-image/50 pb-[19px] lg:flex-row lg:items-end lg:gap-10">
+          {/* Tagline, hairline and link appear together after the headline (owner's #87 direction). */}
+          <ScrollReveal
+            y={60}
+            delay={1}
+            duration={1.2}
+            ease={EASE_APPEAR}
+            amount={0}
+            staticUntilHydrated
+            className="flex w-full flex-col items-start gap-16 border-b border-on-image/50 pb-[19px] lg:flex-row lg:items-end lg:gap-10"
+          >
             {data.tagline && (
               <div className="hidden min-w-0 flex-1 lg:block" data-tina-field={tinaField(data, 'tagline')}>
-                <TextReveal as="p" per="word" stagger={0.02} delay={1} className="w-[70%] text-body text-on-image xl:w-[80%]">
-                  {data.tagline}
-                </TextReveal>
+                <p className="w-[70%] text-body text-on-image xl:w-[80%]">{data.tagline}</p>
               </div>
             )}
 
             {actions.length > 0 && (
-              <ScrollReveal y={60} delay={1} duration={1.2} amount={0} className="flex w-full flex-col items-end gap-4 lg:w-auto lg:flex-1">
+              <div className="flex w-full flex-col items-end gap-4 lg:w-auto lg:flex-1">
                 {actions.map((action) => (
                   <a
                     key={action.link}
@@ -116,30 +130,34 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                     <span>{action.label}</span>
                     {/* Reference hover: the arrow rolls down out of view as a second one enters from above. */}
                     <span aria-hidden className="relative size-5 shrink-0 overflow-hidden">
-                      <span className="flex -translate-y-5 flex-col transition-transform duration-300 ease-out group-hover:translate-y-0">
+                      <span className="flex -translate-y-5 flex-col transition-transform duration-500 ease-hover-link group-hover:translate-y-0 group-focus-visible:translate-y-0">
                         <ArrowDown strokeWidth={2} className="size-5 shrink-0" />
                         <ArrowDown strokeWidth={2} className="size-5 shrink-0" />
                       </span>
                     </span>
                   </a>
                 ))}
-              </ScrollReveal>
+              </div>
             )}
-          </div>
+          </ScrollReveal>
         </div>
       </div>
 
       {/*
        * Scroll Overlay: the Reference parks a page-coloured wave (3000×2575 at desktop, 1350×1159 at
-       * tablet, 1200×1030 on phones) 10px under the fold, clipped by the section, for its scroll
-       * choreography. Reproduced at rest so the Build's media inventory matches; the scroll motion is
-       * not reproduced.
+       * tablet, 1200×1030 on phones) 10px under the fold, clipped by the section, and scrolls it at
+       * 1.5× the page (the "Mid" parallax layer, `__framer__speed: 150`). Scrolling down, the wave's
+       * curved edge sweeps up over the hero faster than the hero leaves, melting the gradient into
+       * the page colour just as Selected projects arrives. The row is 1px tall and z-10 after the
+       * text wrapper, so the wave rides over everything in the hero, exactly as the Reference stacks
+       * it. At rest (and under reduced motion) nothing is visible and the media inventory matches.
+       * The wave's fill is the page background, and a file can't read the token, so each theme gets
+       * its own copy of the asset (#080808 dark, #ffffff light).
        */}
       <div aria-hidden className="relative z-10 flex h-px w-full shrink-0 justify-center">
-        <div
-          className="mt-2.5 h-[1030px] w-[1200px] shrink-0 lg:h-[1159px] lg:w-[1350px] xl:h-[2575px] xl:w-[3000px]"
-          style={{ backgroundImage: `url(${SCROLL_OVERLAY})`, backgroundSize: '100% 100%' }}
-        />
+        <ScrollParallax speed={150} className="flex shrink-0 justify-center pt-2.5">
+          <div className="h-[1030px] w-[1200px] shrink-0 bg-[length:100%_100%] bg-[url(/uploads/home/hero-scroll-overlay-light.svg)] lg:h-[1159px] lg:w-[1350px] xl:h-[2575px] xl:w-[3000px] dark:bg-[url(/uploads/home/hero-scroll-overlay.svg)]" />
+        </ScrollParallax>
       </div>
     </Section>
   );

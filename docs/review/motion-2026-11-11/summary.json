@@ -1,0 +1,247 @@
+{
+  "base": "http://localhost:3211",
+  "entrance": [
+    {
+      "width": "1440",
+      "theme": "dark",
+      "revealStartMs": 840,
+      "revealMs": 440,
+      "midFrames": 10,
+      "maxJumpPct": 34,
+      "strip": "docs/review/motion-2026-11-11/cold-acacia-1440-dark.jpg"
+    },
+    {
+      "width": "1440",
+      "theme": "light",
+      "revealStartMs": 880,
+      "revealMs": 480,
+      "midFrames": 11,
+      "maxJumpPct": 24,
+      "strip": "docs/review/motion-2026-11-11/cold-acacia-1440-light.jpg"
+    },
+    {
+      "width": "768",
+      "theme": "dark",
+      "revealStartMs": 800,
+      "revealMs": 480,
+      "midFrames": 11,
+      "maxJumpPct": 25,
+      "strip": "docs/review/motion-2026-11-11/cold-acacia-768-dark.jpg"
+    },
+    {
+      "width": "768",
+      "theme": "light",
+      "revealStartMs": 840,
+      "revealMs": 480,
+      "midFrames": 11,
+      "maxJumpPct": 25,
+      "strip": "docs/review/motion-2026-11-11/cold-acacia-768-light.jpg"
+    },
+    {
+      "width": "390",
+      "theme": "dark",
+      "revealStartMs": 840,
+      "revealMs": 520,
+      "midFrames": 12,
+      "maxJumpPct": 34,
+      "strip": "docs/review/motion-2026-11-11/cold-acacia-390-dark.jpg"
+    },
+    {
+      "width": "390",
+      "theme": "light",
+      "revealStartMs": 840,
+      "revealMs": 520,
+      "midFrames": 12,
+      "maxJumpPct": 21,
+      "strip": "docs/review/motion-2026-11-11/cold-acacia-390-light.jpg"
+    }
+  ],
+  "navigation": [
+    {
+      "width": "1440",
+      "theme": "dark",
+      "revealStartMs": 6480,
+      "revealMs": 440,
+      "midFrames": 10,
+      "maxJumpPct": 24,
+      "strip": "docs/review/motion-2026-11-11/nav-home-to-acacia-1440-dark.jpg"
+    },
+    {
+      "width": "1440",
+      "theme": "light",
+      "revealStartMs": 6320,
+      "revealMs": 480,
+      "midFrames": 11,
+      "maxJumpPct": 24,
+      "strip": "docs/review/motion-2026-11-11/nav-home-to-acacia-1440-light.jpg"
+    },
+    {
+      "width": "768",
+      "theme": "dark",
+      "revealStartMs": 6200,
+      "revealMs": 480,
+      "midFrames": 11,
+      "maxJumpPct": 37,
+      "strip": "docs/review/motion-2026-11-11/nav-home-to-acacia-768-dark.jpg"
+    },
+    {
+      "width": "768",
+      "theme": "light",
+      "revealStartMs": 6200,
+      "revealMs": 480,
+      "midFrames": 11,
+      "maxJumpPct": 25,
+      "strip": "docs/review/motion-2026-11-11/nav-home-to-acacia-768-light.jpg"
+    },
+    {
+      "width": "390",
+      "theme": "dark",
+      "revealStartMs": 6240,
+      "revealMs": 480,
+      "midFrames": 11,
+      "maxJumpPct": 24,
+      "strip": "docs/review/motion-2026-11-11/nav-home-to-acacia-390-dark.jpg"
+    },
+    {
+      "width": "390",
+      "theme": "light",
+      "revealStartMs": 6240,
+      "revealMs": 520,
+      "midFrames": 12,
+      "maxJumpPct": 27,
+      "strip": "docs/review/motion-2026-11-11/nav-home-to-acacia-390-light.jpg"
+    }
+  ],
+  "noJs": [
+    {
+      "width": "1440",
+      "route": "acacia",
+      "maskDisplay": "none",
+      "titleTransform": "none",
+      "titleAnimations": 0,
+      "imageLoaded": true,
+      "screenshot": "docs/review/motion-2026-11-11/nojs-acacia-1440.jpg"
+    },
+    {
+      "width": "1440",
+      "route": "mosurban",
+      "maskDisplay": "none",
+      "titleTransform": "none",
+      "titleAnimations": 0,
+      "imageLoaded": true,
+      "screenshot": "docs/review/motion-2026-11-11/nojs-mosurban-1440.jpg"
+    },
+    {
+      "width": "768",
+      "route": "acacia",
+      "maskDisplay": "none",
+      "titleTransform": "none",
+      "titleAnimations": 0,
+      "imageLoaded": true,
+      "screenshot": "docs/review/motion-2026-11-11/nojs-acacia-768.jpg"
+    },
+    {
+      "width": "768",
+      "route": "mosurban",
+      "maskDisplay": "none",
+      "titleTransform": "none",
+      "titleAnimations": 0,
+      "imageLoaded": true,
+      "screenshot": "docs/review/motion-2026-11-11/nojs-mosurban-768.jpg"
+    },
+    {
+      "width": "390",
+      "route": "acacia",
+      "maskDisplay": "none",
+      "titleTransform": "none",
+      "titleAnimations": 0,
+      "imageLoaded": true,
+      "screenshot": "docs/review/motion-2026-11-11/nojs-acacia-390.jpg"
+    },
+    {
+      "width": "390",
+      "route": "mosurban",
+      "maskDisplay": "none",
+      "titleTransform": "none",
+      "titleAnimations": 0,
+      "imageLoaded": true,
+      "screenshot": "docs/review/motion-2026-11-11/nojs-mosurban-390.jpg"
+    }
+  ],
+  "reducedMotion": [
+    {
+      "width": "1440",
+      "states": [
+        "none|none"
+      ]
+    },
+    {
+      "width": "768",
+      "states": [
+        "none|none"
+      ]
+    },
+    {
+      "width": "390",
+      "states": [
+        "none|none"
+      ]
+    }
+  ],
+  "header": [
+    {
+      "width": "1440",
+      "top": {
+        "overHero": "true",
+        "linkColour": "rgb(255, 255, 255)",
+        "scrollY": 0
+      },
+      "scrolled": {
+        "overHero": "false",
+        "linkColour": "rgb(37, 37, 37)",
+        "scrollY": 2000
+      },
+      "reloaded": {
+        "overHero": "false",
+        "linkColour": "rgb(8, 8, 8)",
+        "scrollY": 2000
+      }
+    },
+    {
+      "width": "768",
+      "top": {
+        "overHero": "true",
+        "linkColour": "rgb(255, 255, 255)",
+        "scrollY": 0
+      },
+      "scrolled": {
+        "overHero": "false",
+        "linkColour": "rgb(37, 37, 37)",
+        "scrollY": 2000
+      },
+      "reloaded": {
+        "overHero": "false",
+        "linkColour": "rgb(8, 8, 8)",
+        "scrollY": 2000
+      }
+    },
+    {
+      "width": "390",
+      "top": {
+        "overHero": "true",
+        "linkColour": "rgb(255, 255, 255)",
+        "scrollY": 0
+      },
+      "scrolled": {
+        "overHero": "false",
+        "linkColour": "rgb(37, 37, 37)",
+        "scrollY": 2000
+      },
+      "reloaded": {
+        "overHero": "false",
+        "linkColour": "rgb(8, 8, 8)",
+        "scrollY": 2000
+      }
+    }
+  ]
+}

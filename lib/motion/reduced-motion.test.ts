@@ -1,12 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import {
-  autoplayMotion,
   DURATION,
+  EASE_APPEAR,
   EASE_ENTRANCE,
   EASE_MICRO,
+  autoplayMotion,
+  countUpMotion,
   hideOnScrollMotion,
   hoverMotion,
+  lineRevealMotion,
   routeTransitionMotion,
+  scrollHeroPinMotion,
+  scrollHeroZoomMotion,
+  scrollParallaxMotion,
   scrollRevealMotion,
   slideAppearMotion,
   textRevealMotion,
@@ -29,11 +35,12 @@ describe('scrollRevealMotion', () => {
       expect(m.transition.ease).toBe(EASE_ENTRANCE);
     });
 
-    it('honours overrides for distance, duration and delay', () => {
-      const o = scrollRevealMotion(false, { y: 80, duration: 1, delay: 0.2 });
+    it('honours overrides for distance, duration, delay and easing', () => {
+      const o = scrollRevealMotion(false, { y: 80, duration: 1, delay: 0.2, ease: EASE_APPEAR });
       expect(o.initial).toEqual({ opacity: 0, y: 80 });
       expect(o.transition.duration).toBe(1);
       expect(o.transition.delay).toBe(0.2);
+      expect(o.transition.ease).toBe(EASE_APPEAR);
     });
 
     it('adds a settle-from scale only when one is requested', () => {
@@ -124,6 +131,48 @@ describe('textRevealMotion', () => {
       const o = textRevealMotion(true, { stagger: 0.2, delay: 0.5 });
       const transition = (o.container.visible as { transition: { staggerChildren: number } }).transition;
       expect(transition.staggerChildren).toBe(0);
+    });
+  });
+});
+
+describe('lineRevealMotion', () => {
+  type VisibleFn = (line?: number) => { opacity: number; y: number; transition: { duration: number; delay: number; ease: unknown } };
+
+  describe('motion allowed', () => {
+    const m = lineRevealMotion(false);
+
+    it('flags the reveal as animating', () => {
+      expect(m.animate).toBe(true);
+    });
+
+    it("hides each word 60px below its place (the Reference's appear distance)", () => {
+      expect(m.item.hidden).toEqual({ opacity: 0, y: 60 });
+    });
+
+    it('delays each line by its index on the appear curve over 1s', () => {
+      const visible = m.item.visible as VisibleFn;
+      expect(visible(0)).toEqual({ opacity: 1, y: 0, transition: { duration: 1, delay: 0, ease: EASE_APPEAR } });
+      expect(visible(3).transition.delay).toBeCloseTo(0.75);
+    });
+
+    it('honours stagger, delay, duration and distance overrides', () => {
+      const o = lineRevealMotion(false, { stagger: 0.5, delay: 0.3, duration: 2, y: 40 });
+      expect(o.item.hidden).toEqual({ opacity: 0, y: 40 });
+      const visible = o.item.visible as VisibleFn;
+      expect(visible(2).transition).toEqual({ duration: 2, delay: 1.3, ease: EASE_APPEAR });
+    });
+  });
+
+  describe('reduced motion', () => {
+    const m = lineRevealMotion(true);
+
+    it('flags the reveal as not animating', () => {
+      expect(m.animate).toBe(false);
+    });
+
+    it('keeps hidden and visible states identical, fully shown and instant', () => {
+      expect(m.item.hidden).toEqual(m.item.visible);
+      expect(m.item.visible).toMatchObject({ opacity: 1, y: 0, transition: { duration: 0 } });
     });
   });
 });
@@ -246,6 +295,20 @@ describe('hideOnScrollMotion', () => {
   });
 });
 
+describe('countUpMotion', () => {
+  it('counts over Framer’s 1s zero-bounce spring with no delay', () => {
+    const m = countUpMotion(false);
+    expect(m.animate).toBe(true);
+    expect(m.transition).toEqual({ type: 'spring', duration: DURATION.countUp, bounce: 0, delay: 0 });
+  });
+
+  it('reduced motion: never counts, instant transition', () => {
+    const m = countUpMotion(true);
+    expect(m.animate).toBe(false);
+    expect(m.transition.duration).toBe(0);
+  });
+});
+
 describe('slideAppearMotion', () => {
   it('fades and rises the new slide from 60px below over the entrance easing', () => {
     const m = slideAppearMotion(false);
@@ -260,5 +323,52 @@ describe('slideAppearMotion', () => {
     expect(m.initial).toBe(false);
     expect(m.animate).toEqual({ opacity: 1, y: 0 });
     expect(m.transition.duration).toBe(0);
+  });
+});
+
+describe('scrollHeroPinMotion', () => {
+  it("pins the hero image inside its clip at Framer's speed: y = scrollY × (2 − speed/100), plus the page drift", () => {
+    // The Reference's "Hero Image" is a fixed 130vh layer at speed 140 with a
+    // page-long 0 → −800 transform; in-section that is +0.6 × scrollY − 800 × progress.
+    const m = scrollHeroPinMotion(false);
+    expect(m.pin).toBeCloseTo(0.6);
+    expect(m.pageDrift).toBe(-800);
+  });
+
+  it('a layer at speed 200 would leave with the page: pin 0', () => {
+    expect(scrollHeroPinMotion(false, { speed: 200 }).pin).toBe(0);
+  });
+
+  it('reduced motion: both terms 0 — a static full-bleed image', () => {
+    const m = scrollHeroPinMotion(true);
+    expect(m).toEqual({ pin: 0, pageDrift: 0 });
+  });
+});
+
+describe('scrollHeroZoomMotion', () => {
+  it('relaxes the resting 120% crop to the full image as the box scrolls out', () => {
+    const m = scrollHeroZoomMotion(false);
+    expect(m.from).toBe(1);
+    expect(m.to).toBeCloseTo(1 / 1.2);
+  });
+
+  it('reduced motion: the wrapper never leaves 1, so only the static CSS crop renders', () => {
+    expect(scrollHeroZoomMotion(true)).toEqual({ from: 1, to: 1 });
+  });
+});
+
+describe('scrollParallaxMotion', () => {
+  it("maps Framer's speed percentage to an extra translate per scrolled pixel", () => {
+    // The Reference's Scroll Overlay rides the "Mid" layer at speed 150: y = -scrollY × 0.5.
+    expect(scrollParallaxMotion(false, { speed: 150 }).factor).toBe(0.5);
+    expect(scrollParallaxMotion(false, { speed: 50 }).factor).toBe(-0.5);
+  });
+
+  it('defaults to speed 100 — scrolling with the page, no extra motion', () => {
+    expect(scrollParallaxMotion(false).factor).toBe(0);
+  });
+
+  it('reduced motion: the layer rests in its layout position at any speed', () => {
+    expect(scrollParallaxMotion(true, { speed: 150 }).factor).toBe(0);
   });
 });

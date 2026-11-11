@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import type { ProjectBlocksCaseStudyCta } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
 import { Section, sectionBlockSchemaField } from '../layout/section';
@@ -30,8 +30,8 @@ const withBreaks = (text: string) =>
  * The case-study ending (`docs/parity-audit.md` A11, M12), one Section with two columns. Left: the
  * "Want the full story?" heading, the grey sub-line and the Calendly text link with its green arrow
  * circle. Right: the "Next project" heading and a card for the project the next-project resolver
- * names (thumbnail, status pill over it, title, tagline; a green arrow circle appears on hover and
- * the image zooms 2%). Only "next", never "previous", as the Reference.
+ * names (thumbnail, status pill over it, title, tagline; on hover the whole thumbnail grows 2% and
+ * a green arrow circle slides in top-right). Only "next", never "previous", as the Reference.
  *
  * Boxes are Framer's. Section: 1440px max, padded 48/48/100 at xl (24/24/64 at lg, 32/16/64 under
  * it, where it is a 532px-max column), at least 605px tall. Columns: side by side at xl, the left
@@ -84,15 +84,15 @@ export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
               <span className='whitespace-nowrap text-body-lg text-foreground'>{data.linkLabel}</span>
               <span
                 aria-hidden
-                className='relative size-10 shrink-0 overflow-hidden rounded-full bg-primary text-foreground transition-transform duration-300 ease-out group-hover:scale-110'
+                className='relative size-10 shrink-0 overflow-hidden rounded-full bg-primary text-primary-foreground transition-transform duration-500 ease-hover-link group-hover:scale-110 group-focus-visible:scale-110'
               >
                 <ArrowRight
                   strokeWidth={1.6}
-                  className='absolute inset-0 m-auto size-6 transition-transform duration-300 ease-out group-hover:translate-x-10'
+                  className='absolute inset-0 m-auto size-6 transition-transform duration-500 ease-hover-link group-hover:translate-x-10 group-focus-visible:translate-x-10'
                 />
                 <ArrowRight
                   strokeWidth={1.6}
-                  className='absolute inset-0 m-auto size-6 -translate-x-10 transition-transform duration-300 ease-out group-hover:translate-x-0'
+                  className='absolute inset-0 m-auto size-6 -translate-x-10 transition-transform duration-500 ease-hover-link group-hover:translate-x-0 group-focus-visible:translate-x-0'
                 />
               </span>
             </a>
@@ -111,9 +111,10 @@ export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
               href={`/${next.slug}`}
               className='group flex aspect-[0.842353] w-full flex-col justify-end gap-[15px] rounded-[20px] lg:aspect-[1.79294] xl:aspect-[1.37647]'
             >
-              <div className='relative min-h-0 w-full flex-1 rounded-[20px]'>
+              {/* Reference hover (#90): the whole thumbnail — image, status pill and arrow — grows 2% as one box (Framer's Image Wrapper at 102%), a 200ms tween. */}
+              <div className='relative min-h-0 w-full flex-1 rounded-[20px] transition-transform duration-200 ease-hover-card group-hover:scale-[1.02] group-focus-visible:scale-[1.02]'>
                 {next.thumbnail && (
-                  <div className='absolute inset-0 overflow-hidden rounded-[20px] bg-card transition-transform duration-300 ease-out group-hover:scale-[1.02]'>
+                  <div className='absolute inset-0 overflow-hidden rounded-[20px] bg-card'>
                     <Image
                       src={next.thumbnail}
                       alt={next.thumbnailAlt || ''}
@@ -133,11 +134,12 @@ export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
                   </span>
                 )}
 
+                {/* The arrow (Reference: a black → on the brand green) fades in top-right and slides left to right, 48px in to 24px. */}
                 <span
                   aria-hidden
-                  className='absolute top-6 right-12 z-10 flex size-16 items-center justify-center rounded-full bg-primary text-foreground opacity-0 transition-[opacity,translate] duration-300 ease-out group-hover:translate-x-6 group-hover:opacity-100 group-focus-visible:translate-x-6 group-focus-visible:opacity-100'
+                  className='absolute top-6 right-12 z-10 flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 transition-[opacity,translate] duration-200 ease-hover-card group-hover:translate-x-6 group-hover:opacity-100 group-focus-visible:translate-x-6 group-focus-visible:opacity-100'
                 >
-                  <ArrowUpRight className='size-6' />
+                  <ArrowRight className='size-6' />
                 </span>
               </div>
 

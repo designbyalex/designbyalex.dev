@@ -19,8 +19,9 @@ import { formatMetric, type MetricKind } from '@/lib/case-study/format';
 import { metricFields } from '@/tina/fields/metric';
 import { components } from '../mdx-components';
 import { Section, sectionBlockSchemaField } from '../layout/section';
+import { CountUp } from '../motion-primitives/count-up';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
-import { FeatureIcon, featureIconOptions } from './case-study-icons';
+import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
 import { PlainClip } from './video';
 
@@ -206,12 +207,18 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
                 className='flex h-full flex-col items-start justify-end gap-2 rounded-[20px] bg-card p-8 xl:h-[310px] xl:gap-4'
               >
                 <p className='font-display text-metric text-foreground' data-tina-field={tinaField(metric, 'value')}>
-                  {formatMetric({
-                    value: metric.value ?? Number.NaN,
-                    kind: metric.kind as MetricKind | null,
-                    to: metric.to,
-                    suffix: metric.suffix,
-                  })}
+                  {/* Framer counts the number up from 0 over a 1s spring when the card scrolls in. */}
+                  <CountUp
+                    end={metric.value ?? Number.NaN}
+                    format={(value) =>
+                      formatMetric({
+                        value,
+                        kind: metric.kind as MetricKind | null,
+                        to: metric.to,
+                        suffix: metric.suffix,
+                      })
+                    }
+                  />
                 </p>
                 <p className='w-[90%] text-caption text-muted-foreground xl:w-full' data-tina-field={tinaField(metric, 'label')}>
                   {metric.label}
@@ -347,19 +354,8 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
               style={{ backgroundImage: `url(${card.grid})` }}
             />
           )}
-          {card.logo && (
-            // A mask filled with the foreground colour: white on the dark theme, as live; near-black on light.
-            <span
-              aria-hidden
-              className='absolute top-[calc(50.1149%-55.5px)] left-[calc(50%-55.5px)] block size-[111px] bg-foreground'
-              style={{
-                maskImage: `url(${card.logo})`,
-                WebkitMaskImage: `url(${card.logo})`,
-                maskSize: '100% 100%',
-                WebkitMaskSize: '100% 100%',
-              }}
-            />
-          )}
+          {/* The foreground colour token: white on the dark theme, as live; near-black on light. */}
+          <AcaciaMark className='absolute top-[calc(50.1149%-55.5px)] left-[calc(50%-55.5px)] block size-[111px] text-foreground' />
         </div>
       </ScrollReveal>
     );
@@ -536,8 +532,7 @@ const logoCardTemplate: Template = {
   label: 'Logo card',
   ui: { itemProps: () => ({ label: 'Logo card' }) },
   fields: [
-    { ...projectImageField('grid', 'Grid background'), description: 'A 524×522 drawing placed behind the logo (an SVG, as the Acacia grid).' },
-    { ...projectImageField('logo', 'Logo'), description: 'An SVG silhouette, drawn 111px wide in the page foreground colour and centred.' },
+    { ...projectImageField('grid', 'Grid background'), description: 'A 524×522 drawing placed behind the logo (an SVG, as the Acacia grid). The Acacia mark itself is drawn by the component, in the page foreground colour.' },
     altField,
   ],
 };

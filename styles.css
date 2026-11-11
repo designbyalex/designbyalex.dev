@@ -140,6 +140,7 @@
   --color-emphasis: var(--emphasis);
   --color-on-image: var(--on-image);
   --color-scrim: var(--scrim);
+  --color-hero-ground: var(--hero-ground);
   --color-status-in-development: var(--status-in-development);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -154,6 +155,18 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /*
+   * Hover motion, measured from the Reference's hover variants (#90).
+   * Links and arrow circles (header, footer, CTA, CV) run Framer's
+   * spring(stiffness 500, damping 60, mass 1): overdamped, ~500ms to rest —
+   * pair `ease-hover-link` with `duration-500`. The Back pill runs a 300ms
+   * tween over cubic-bezier(0.12, 0.23, 0.5, 1); the project cards (card grow
+   * and arrow slide) a 200ms tween over cubic-bezier(0.44, 0, 0.56, 1).
+   */
+  --ease-hover-link: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-hover-back: cubic-bezier(0.12, 0.23, 0.5, 1);
+  --ease-hover-card: cubic-bezier(0.44, 0, 0.56, 1);
 }
 
 /*
@@ -170,12 +183,19 @@
   --on-image: #ffffff;
   /* The dark overlay drawn over imagery and slides (the carousel's Next pill and pagination), used at 40% and 20%. */
   --scrim: #000000;
+  /* The home hero's ground under its 90% gradient: the dark page colour in both themes, so the hero never changes with the theme. */
+  --hero-ground: #080808;
 
   /* Motion — mirrors EASE_MICRO / EASE_ENTRANCE / DURATION.route* in lib/motion/reduced-motion.ts */
   --motion-ease-micro: cubic-bezier(0.2, 0, 0, 1);
   --motion-ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
   --motion-duration-route-out: 180ms;
   --motion-duration-route-in: 420ms;
+  /* The case-study hero entrance (#68): Framer's appear tween (EASE_APPEAR) and its "Hero Image Mask" curve */
+  --motion-ease-appear: cubic-bezier(0.2, 0.8, 0.2, 0.8);
+  --motion-ease-hero-mask: cubic-bezier(1, 0, 0.5, 1);
+  --motion-duration-appear: 1s;
+  --motion-duration-hero-mask: 750ms;
 
   /* Light theme (proposed, net-new) */
   --background: #ffffff;
@@ -350,22 +370,72 @@
 }
 
 /*
- * Route transitions (S8 / #12) — View Transitions API.
- * Started by components/motion-primitives/route-transitions.tsx (TransitionLink +
- * the RouteTransitions provider). The old page fades out on the micro curve while
- * the new page fades and rises in on the entrance curve; the fixed site header is
- * its own group so it stays put while the page crossfades beneath it.
+ * Case-study hero entrance (#68), components/case-study/project-hero.tsx. The
+ * pill, title and tagline (`.hero-rise`) rise out of their clipped boxes from
+ * the first paint; the page-coloured `.hero-mask` covers the image until
+ * `data-hero-ready` lands (lib/motion/hero-entrance.ts: once the image has
+ * decoded), then slides its own height down off it. CSS rather than motion/react
+ * so it runs on the compositor, smooth through a cold load's hydration. The
+ * server HTML is the resting state: the start state only applies when scripting
+ * is on and motion isn't reduced, so without JavaScript, with reduced motion, or
+ * in a browser without the `scripting` media feature, the hero is simply there.
  */
+@keyframes hero-rise {
+  from {
+    transform: translateY(var(--hero-rise-from, 60px));
+  }
+}
+
+@keyframes hero-mask-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.hero-mask {
+  display: none;
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise var(--motion-duration-appear) var(--motion-ease-appear) both;
+  }
+
+  .hero-mask {
+    display: block;
+  }
+
+  [data-hero-ready] .hero-mask {
+    animation: hero-mask-out var(--motion-duration-hero-mask) var(--motion-ease-hero-mask) 250ms both;
+  }
+}
+
+/*
+ * Route transitions (S8 / #12, choreography #68) — View Transitions API.
+ * Started by components/motion-primitives/route-transitions.tsx (TransitionLink +
+ * the RouteTransitions provider). The old page fades out on the micro curve over
+ * the backdrop below (the Reference's "page goes black" frame) and the new page
+ * fades in on the entrance curve — a plain fade, because the incoming page's own
+ * entrance choreography (the case-study title rising out of its mask and the hero
+ * band opening, "Case-study hero entrance" above) plays live inside
+ * the new snapshot and owns the motion. The fixed site header is its own group so
+ * it stays put while the page changes beneath it.
+ */
+::view-transition {
+  /* Near-black in dark (the Reference's transition frame); the light theme keeps
+     its own ground rather than flashing black between two light pages. */
+  background-color: var(--background);
+}
+
 @keyframes route-fade-out {
   to {
     opacity: 0;
   }
 }
 
-@keyframes route-rise-in {
+@keyframes route-fade-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
   }
 }
 
@@ -374,7 +444,7 @@
 }
 
 ::view-transition-new(root) {
-  animation: route-rise-in var(--motion-duration-route-in) var(--motion-ease-entrance) both;
+  animation: route-fade-in var(--motion-duration-route-in) var(--motion-ease-entrance) both;
 }
 
 .site-header {

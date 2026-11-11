@@ -20,6 +20,8 @@ type CubicBezier = [number, number, number, number];
 export const EASE_MICRO: CubicBezier = [0.2, 0, 0, 1];
 /** Expressive ease-out for entrance choreography (scroll + text reveals). */
 export const EASE_ENTRANCE: CubicBezier = [0.16, 1, 0.3, 1];
+/** The Reference's appear curve (Framer's rise-into-place entrances on the home hero). */
+export const EASE_APPEAR: CubicBezier = [0.2, 0.8, 0.2, 0.8];
 
 /** Default durations, in seconds. */
 export const DURATION = {
@@ -37,9 +39,21 @@ export const DURATION = {
   hideOnScroll: 0.3,
   /** a carousel slide's content appearing in place */
   slideAppear: 0.6,
+  /** a metric card's number counting up (Framer's Number Counter: a 1s spring) */
+  countUp: 1,
 } as const;
 
-export type MotionCategory = 'scroll-reveal' | 'text-reveal' | 'hover' | 'route-transition' | 'autoplay' | 'hide-on-scroll' | 'slide-appear';
+export type MotionCategory =
+  | 'scroll-reveal'
+  | 'text-reveal'
+  | 'hover'
+  | 'route-transition'
+  | 'autoplay'
+  | 'hide-on-scroll'
+  | 'slide-appear'
+  | 'count-up'
+  | 'scroll-parallax'
+  | 'scroll-hero';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -62,6 +76,8 @@ export interface ScrollRevealOptions {
    * image). Default 1, which leaves scale untouched.
    */
   scale?: number;
+  /** Entrance easing. Default {@link EASE_ENTRANCE}. */
+  ease?: CubicBezier;
 }
 
 export interface ScrollRevealMotion {
@@ -75,11 +91,8 @@ export interface ScrollRevealMotion {
  * Props for an element that fades/rises into view on scroll.
  * Reduced motion → starts at its final state (`initial: false`) and snaps in.
  */
-export function scrollRevealMotion(
-  prefersReducedMotion: boolean,
-  options: ScrollRevealOptions = {}
-): ScrollRevealMotion {
-  const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3, scale = 1 } = options;
+export function scrollRevealMotion(prefersReducedMotion: boolean, options: ScrollRevealOptions = {}): ScrollRevealMotion {
+  const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3, scale = 1, ease = EASE_ENTRANCE } = options;
   const viewport = { once, amount };
 
   if (prefersReducedMotion) {
@@ -95,7 +108,7 @@ export function scrollRevealMotion(
   return {
     initial: { opacity: 0, y, ...(scaled ? { scale } : {}) },
     whileInView: { opacity: 1, y: 0, ...(scaled ? { scale: 1 } : {}) },
-    transition: { duration, delay, ease: EASE_ENTRANCE },
+    transition: { duration, delay, ease },
     viewport,
   };
 }
@@ -123,10 +136,7 @@ export interface TextRevealMotion {
  * Reduced motion → no stagger and identical hidden/visible states, so the text
  * renders fully visible and still.
  */
-export function textRevealMotion(
-  prefersReducedMotion: boolean,
-  options: TextRevealOptions = {}
-): TextRevealMotion {
+export function textRevealMotion(prefersReducedMotion: boolean, options: TextRevealOptions = {}): TextRevealMotion {
   const { stagger = 0.05, delay = 0, duration = DURATION.segment } = options;
 
   if (prefersReducedMotion) {
@@ -149,6 +159,57 @@ export function textRevealMotion(
     item: {
       hidden: { opacity: 0, y: '0.4em', filter: 'blur(6px)' },
       visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration, ease: EASE_ENTRANCE } },
+    },
+    animate: true,
+  };
+}
+
+// ─── line-reveal ──────────────────────────────────────────────────────────────
+
+export interface LineRevealOptions {
+  /** Seconds between each line entering. Default 0.25. */
+  stagger?: number;
+  /** Delay before the first line, in seconds. Default 0. */
+  delay?: number;
+  /** Per-line animation duration in seconds. Default 1 (the Reference's headline appear). */
+  duration?: number;
+  /** Vertical offset (px) each line rises from. Default 60 (the Reference's appear distance). */
+  y?: number;
+}
+
+export interface LineRevealMotion {
+  /**
+   * Variants for each word span; `custom` is the word's rendered line index,
+   * so every word on a line shares one delay and the line moves as a unit.
+   */
+  item: Variants;
+  /** True when the text actually animates; false under reduced motion. */
+  animate: boolean;
+}
+
+/**
+ * Variants for a line-by-line fade-up: each rendered line rises into place in
+ * order (the Reference's appear settings: y 60 → 0, 1s, the appear curve).
+ * The line index arrives per word via `custom`, measured from the rendered
+ * wrap by the primitive. Reduced motion → identical hidden/visible states, so
+ * the text renders fully visible and still.
+ */
+export function lineRevealMotion(prefersReducedMotion: boolean, options: LineRevealOptions = {}): LineRevealMotion {
+  const { stagger = 0.25, delay = 0, duration = 1, y = 60 } = options;
+
+  if (prefersReducedMotion) {
+    const shown: TargetAndTransition = { opacity: 1, y: 0, transition: INSTANT };
+    return { item: { hidden: shown, visible: shown }, animate: false };
+  }
+
+  return {
+    item: {
+      hidden: { opacity: 0, y },
+      visible: (line: number = 0) => ({
+        opacity: 1,
+        y: 0,
+        transition: { duration, delay: delay + line * stagger, ease: EASE_APPEAR },
+      }),
     },
     animate: true,
   };
@@ -267,6 +328,151 @@ export function slideAppearMotion(prefersReducedMotion: boolean): SlideAppearMot
     animate: { opacity: 1, y: 0 },
     transition: { duration: DURATION.slideAppear, ease: EASE_ENTRANCE },
   };
+}
+
+// ─── count-up ─────────────────────────────────────────────────────────────────
+
+export interface CountUpMotion {
+  /** Whether the number ticks up at all; false → it rests on the final value. */
+  animate: boolean;
+  /** Framer's Number Counter transition: a 1s zero-bounce spring, no delay. */
+  transition: Transition;
+}
+
+/**
+ * Decision for a metric card's number counting up when it scrolls into view
+ * (Framer's "Number Counter": start → end on `layerInView`, once, over a
+ * `{ type: 'spring', duration: 1, bounce: 0, delay: 0 }` transition).
+ * Reduced motion → no count; the number shows its final value from first paint.
+ */
+export function countUpMotion(prefersReducedMotion: boolean): CountUpMotion {
+  if (prefersReducedMotion) {
+    return { animate: false, transition: INSTANT };
+  }
+
+  return {
+    animate: true,
+    transition: { type: 'spring', duration: DURATION.countUp, bounce: 0, delay: 0 },
+  };
+}
+
+// ─── scroll-parallax ──────────────────────────────────────────────────────────
+
+export interface ScrollParallaxOptions {
+  /**
+   * Scroll speed as a percentage of the page's, Framer's parallax unit: 100
+   * scrolls with the page (no extra motion), 150 moves 1.5× as fast, 50 lags
+   * at half speed. Default 100.
+   */
+  speed?: number;
+}
+
+export interface ScrollParallaxMotion {
+  /**
+   * The element's extra translateY per scrolled pixel: `y = -scrollY × factor`
+   * (Framer's page-effect transform for `adjustPosition: false`, `offset: 0`).
+   * 0 → the element rests in its layout position.
+   */
+  factor: number;
+}
+
+/**
+ * Decision for a layer that scrolls at its own speed (Framer's parallax page
+ * effect — on the Reference, the home hero's page-coloured "Scroll Overlay"
+ * wave rides it at speed 150, melting the hero into the projects).
+ * Reduced motion → factor 0, so the layer sits still in its layout position.
+ */
+export function scrollParallaxMotion(prefersReducedMotion: boolean, options: ScrollParallaxOptions = {}): ScrollParallaxMotion {
+  const { speed = 100 } = options;
+
+  if (prefersReducedMotion) {
+    return { factor: 0 };
+  }
+
+  return { factor: speed / 100 - 1 };
+}
+
+// ─── scroll-hero ──────────────────────────────────────────────────────────────
+
+export interface ScrollHeroPinOptions {
+  /**
+   * Scroll speed of the pinned hero image as a percentage of the page's,
+   * Framer's parallax unit (the Reference's case-study "Hero Image" rides at
+   * 140). Default 140.
+   */
+  speed?: number;
+  /**
+   * Extra translateY (px) the image accrues across the page's *full* scroll
+   * (the Reference's page-long scroll transform: y 0 → −800 from page top to
+   * page bottom). Default −800.
+   */
+  pageDrift?: number;
+}
+
+export interface ScrollHeroPinMotion {
+  /**
+   * Multiplier on `scrollY` for the image inside its clipping section:
+   * `y = scrollY × pin + pageDrift × pageProgress`. The Reference renders the
+   * image as a viewport-fixed 130vh layer drifting at
+   * `-scrollY × (speed/100 − 1)` under the in-flow headline; translating the
+   * in-section layer by `scrollY × (2 − speed/100)` instead paints the same
+   * pixels while the section's own clip ends the effect. 0 → the image rests
+   * in its layout position.
+   */
+  pin: number;
+  /** px of extra drift across the page's full scroll progress. 0 → none. */
+  pageDrift: number;
+}
+
+/**
+ * Decision for the case-study hero image that stays pinned to the viewport
+ * while the title scrolls away, so its visible band grows to fill the viewport
+ * before the content scrolls over it (`docs/parity-audit.md` §2.5, A2).
+ * Reduced motion → both terms 0: a static full-bleed image.
+ */
+export function scrollHeroPinMotion(prefersReducedMotion: boolean, options: ScrollHeroPinOptions = {}): ScrollHeroPinMotion {
+  const { speed = 140, pageDrift = -800 } = options;
+
+  if (prefersReducedMotion) {
+    return { pin: 0, pageDrift: 0 };
+  }
+
+  return { pin: 2 - speed / 100, pageDrift };
+}
+
+export interface ScrollHeroZoomOptions {
+  /**
+   * Zoom the image rests at inside its clipped box (the phone hero's 120%
+   * crop, applied by CSS). Default 1.2.
+   */
+  restZoom?: number;
+}
+
+export interface ScrollHeroZoomMotion {
+  /** Wrapper scale while the box is below the top of the viewport: 1, the CSS crop alone. */
+  from: number;
+  /**
+   * Wrapper scale by the time the box leaves the viewport: `1 / restZoom`
+   * relaxes the crop to the full image; 1 under reduced motion, so the crop
+   * never moves.
+   */
+  to: number;
+}
+
+/**
+ * Decision for the phone-width hero image un-zooming as it scrolls out: the
+ * 120% resting crop relaxes toward the full image, so the visible image grows
+ * with scroll where the viewport-pinned expansion has no room. Reduced motion
+ * → the wrapper stays at 1 and only the static CSS crop renders.
+ */
+export function scrollHeroZoomMotion(prefersReducedMotion: boolean, options: ScrollHeroZoomOptions = {}): ScrollHeroZoomMotion {
+  const { restZoom = 1.2 } = options;
+
+  if (prefersReducedMotion) {
+    return { from: 1, to: 1 };
+  }
+
+  return { from: 1, to: 1 / restZoom };
 }
 
 // ─── hide-on-scroll ───────────────────────────────────────────────────────────

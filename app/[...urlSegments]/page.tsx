@@ -91,7 +91,10 @@ export default async function Page({
     const allProjects = await fetchAllProjects();
     return (
       <Layout rawPageData={data}>
-        <ProjectClientPage {...data} allProjects={allProjects} />
+        {/* Keyed by path: case study → case study must remount the client tree
+            so the hero entrance (#68) replays — the App Router would otherwise
+            keep client-component state across a same-route param change. */}
+        <ProjectClientPage key={filepath} {...data} allProjects={allProjects} />
       </Layout>
     );
   } catch {

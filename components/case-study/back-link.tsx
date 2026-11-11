@@ -28,8 +28,8 @@ export const BackLink = () => (
         arrow_back
       </span>
       <span className='flex h-[25px] flex-col overflow-hidden text-body'>
-        <span className='transition-transform duration-300 ease-out group-hover:-translate-y-[25px]'>Back</span>
-        <span aria-hidden className='transition-transform duration-300 ease-out group-hover:-translate-y-[25px]'>
+        <span className='transition-transform duration-300 ease-hover-back group-hover:-translate-y-[25px] group-focus-visible:-translate-y-[25px]'>Back</span>
+        <span aria-hidden className='transition-transform duration-300 ease-hover-back group-hover:-translate-y-[25px] group-focus-visible:-translate-y-[25px]'>
           Back
         </span>
       </span>
