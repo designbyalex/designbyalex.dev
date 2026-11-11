@@ -103,7 +103,7 @@ Run by `scripts/afk/check.sh` (`--full` adds the build and vitest), each exiting
 - `pnpm build-local` (with `--full`)
 - `vitest run` (with `--full`)
 
-No new probes or test suites unless something keeps breaking. One fix, not yet made: pass `--datalayer-port` in `check.sh` and `build-local`, so builds don't fail on port 9000.
+No new probes or test suites unless something keeps breaking. `check.sh` runs Tina on the first free ports from 4100 and 9100 (override with `TINA_PORT` / `TINA_DATALAYER_PORT`) and passes them to `build-local`, which defaults to 4101 and 9101 when run on its own, so builds don't clash with another session's Tina on 4001 or 9000.
 
 ## Sweep
 

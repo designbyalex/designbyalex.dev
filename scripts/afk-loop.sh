@@ -196,9 +196,12 @@ fi
 
 # ── tickets ──────────────────────────────────────────────────────────────────
 ticket_tpl=$(cat "$DIR/ticket.md")
-# Every issue's state, fetched once, for the guard's `## Blocked by` check.
+# Every issue's state and every merged PR ("MERGED"), fetched once, for the guard's `## Blocked by` check.
+# Issues and PRs share one number space, so a blocker can be either.
 net "gh issue list" gh issue list --state all --limit 1000 --json number,state
 issue_states=$(jq -c 'map({key: (.number | tostring), value: .state}) | from_entries' <<<"$RETRY_OUT")
+net "gh pr list" gh pr list --state merged --limit 1000 --json number,state
+issue_states=$(jq -c --argjson issues "$issue_states" '$issues + (map({key: (.number | tostring), value: .state}) | from_entries)' <<<"$RETRY_OUT")
 # Finished this run. A dry run counts the tickets it would run, so later skips match a real run.
 finished=$(finished_tickets)
 for n in $TICKETS; do
