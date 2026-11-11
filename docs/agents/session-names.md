@@ -51,4 +51,4 @@ Each session keeps its own title current; the master never bulk-renames.
 
 The call is `set_session_title` with `session_id: "self"` (load it with ToolSearch `select:mcp__ccd_session_mgmt__set_session_title`). If Alex set the title themselves, their title stands.
 
-The AFK loop runs in a terminal tab, not a session, so it has no title. The master tracks it with `pgrep -f afk-loop.sh`.
+The AFK loop itself runs in a terminal tab, which has no title. So every batch also gets a watcher session, started with the loop and named for the batch's PRD, for example `✏️ 🟢 #46 AFK polish batch`. It shows the batch in the sidebar, keeps its state emoji current and hands back for the batch (see `orchestration.md` → Roles). The master also checks the loop with `pgrep -f afk-loop.sh`.

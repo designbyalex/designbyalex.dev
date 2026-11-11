@@ -28,16 +28,24 @@
 #   AFK_DRY_RUN=1                print what would run; change nothing
 #   AFK_SMOKE=1                  check the permission allowlist with one cheap headless run, then exit
 #   AFK_ALLOW_BATTERY=1          run on battery power anyway (dry and smoke runs only warn)
+#   AFK_DASHBOARD=1              start and open the live dashboard (0 = don't)
 #   AFK_NET_TRIES=5 AFK_NET_DELAY=20
 #                                tries per network call, and the first wait in seconds (it doubles)
 #
 # Before the first run: `claude auth login` (headless runs need a logged-in CLI),
 # then `AFK_SMOKE=1 scripts/afk-loop.sh`.
 #
+# Every batch opens a live dashboard (scripts/afk/dashboard/): tickets done, the current ticket's tool
+# calls, cost, a time estimate and a battery warning, on the first free port from 4789 (its URL is printed
+# and kept in .afk/dashboard.url). It is read-only and keeps serving after the run ends; stop it with
+# `kill "$(cat .afk/dashboard.pid)"`. AFK_DASHBOARD=0 turns it off; dry and smoke runs never start it.
+#
 # Safe to re-run after a stop: finished work is detected by `afk(#N):` / `afk(final):` commits.
 # Logs: .afk/logs/*.jsonl (full agent transcripts), .afk/verify.log (last gate output).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
+# The run's start stamp, in the transcripts' format: the dashboard counts only transcripts from here on.
+RUN_START=$(date +%Y%m%d-%H%M%S)
 
 BRANCH=${AFK_BRANCH:-afk/migration}
 TICKETS=${AFK_TICKETS:-"53 55 56 57 58 59 60 61 62 63 64 65 54 66"}
@@ -94,6 +102,16 @@ else
 fi
 [[ -d node_modules && $deps_changed == 0 ]] || { say "installing dependencies"; net "pnpm install" pnpm install --frozen-lockfile; }
 mkdir -p "$LOGS" .afk/cache
+
+# ── live dashboard (scripts/afk/dashboard/start.sh) ──────────────────────────
+if [[ ${AFK_DASHBOARD:-1} != 0 && $DRY != 1 && ${AFK_SMOKE:-0} != 1 ]]; then
+  if "$DIR/dashboard/start.sh" "$TICKETS" "$RUN_START" "$$" | while IFS= read -r line; do say "$line"; done; then
+    # On every exit, remind where the final state is and how to stop the server.
+    trap 'say "dashboard still serving the final state at $(cat .afk/dashboard.url 2>/dev/null); stop it: kill \"\$(cat .afk/dashboard.pid)\""' EXIT
+  else
+    say "⚠ the dashboard didn't start; the run goes on without it"
+  fi
+fi
 
 # A commit on this branch (since main) whose subject starts with $1.
 has_commit() { git log --format=%s "$(git merge-base origin/main HEAD)..HEAD" | grep "^$1" >/dev/null; }
@@ -196,9 +214,12 @@ fi
 
 # ── tickets ──────────────────────────────────────────────────────────────────
 ticket_tpl=$(cat "$DIR/ticket.md")
-# Every issue's state, fetched once, for the guard's `## Blocked by` check.
+# Every issue's state and every merged PR ("MERGED"), fetched once, for the guard's `## Blocked by` check.
+# Issues and PRs share one number space, so a blocker can be either.
 net "gh issue list" gh issue list --state all --limit 1000 --json number,state
 issue_states=$(jq -c 'map({key: (.number | tostring), value: .state}) | from_entries' <<<"$RETRY_OUT")
+net "gh pr list" gh pr list --state merged --limit 1000 --json number,state
+issue_states=$(jq -c --argjson issues "$issue_states" '$issues + (map({key: (.number | tostring), value: .state}) | from_entries)' <<<"$RETRY_OUT")
 # Finished this run. A dry run counts the tickets it would run, so later skips match a real run.
 finished=$(finished_tickets)
 for n in $TICKETS; do

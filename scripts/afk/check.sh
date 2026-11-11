@@ -6,6 +6,10 @@
 #
 # The Tina step normally takes ~16 s but can hang. After AFK_TINA_TIMEOUT seconds (default 120) it is
 # killed and run once more; a second hang fails the gate.
+#
+# Tina's local servers default to ports 4001 and 9000, which other sessions' `tinacms dev` often hold. The
+# gate takes the first free ports from 4100 and 9100 instead (or TINA_PORT / TINA_DATALAYER_PORT if set) and
+# exports them, so `pnpm build-local` uses the same pair.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 mkdir -p .afk
@@ -50,10 +54,16 @@ with_timeout() {
   return "$rc"
 }
 
+# shellcheck source=scripts/afk/ports.sh
+source scripts/afk/ports.sh
+export TINA_PORT=${TINA_PORT:-$(free_port 4100)}
+export TINA_DATALAYER_PORT=${TINA_DATALAYER_PORT:-$(free_port 9100)}
+
 tina_timeout=${AFK_TINA_TIMEOUT:-120}
-step "tina: schema compile + generated types"
+step "tina: schema compile + generated types (ports $TINA_PORT, datalayer $TINA_DATALAYER_PORT)"
 for try in 1 2; do
-  with_timeout "$tina_timeout" pnpm exec tinacms build --local --skip-cloud-checks >.afk/check-tina.log 2>&1 && rc=0 || rc=$?
+  with_timeout "$tina_timeout" pnpm exec tinacms build --local --skip-cloud-checks \
+    --port "$TINA_PORT" --datalayer-port "$TINA_DATALAYER_PORT" >.afk/check-tina.log 2>&1 && rc=0 || rc=$?
   [[ $rc == 124 && $try == 1 ]] || break
   echo "⚠ tina build hung for ${tina_timeout}s (it normally takes ~16 s); killed it, running it once more"
 done

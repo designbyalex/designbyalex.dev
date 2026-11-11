@@ -8,7 +8,7 @@ Agency mode: a master sequences and briefs the work, and each session does, chec
 
 - **Alex, director.** Decides scope, taste and approvals. Every question reaches Alex batched, in one round, with a recommendation first.
 - **Master.** Sequences and unblocks, and does no hands-on work. It owns the queue, writes every brief, reads back every hand-back, and builds the end-of-batch review page. It is the only session that may relay Alex's decisions to other sessions (see *Human gates*).
-- **Writer.** Changes one lane end to end for one PBI or one batch: build, fast checks, push, merge on Alex's yes. One writer per lane at a time. The AFK loop (`scripts/afk-loop.sh`) counts as the Site writer while it runs.
+- **Writer.** Changes one lane end to end for one PBI or one batch: build, fast checks, push, merge on Alex's yes. One writer per lane at a time. The AFK loop (`scripts/afk-loop.sh`) counts as the Site writer while it runs. The master starts it in a terminal tab and, in the same turn, a **watcher** session for the batch, so Alex sees it in the sidebar: the watcher reads the loop's commits and logs (read-only, never touching the loop or its checkout), says one line per finished ticket, and hands back `BLOCKED` if the loop stops or `READY` once the draft PR is open. Every batch also opens a live dashboard in the browser (tickets done, the current ticket's tool calls, cost, time left), at http://127.0.0.1:4789 or the next free port, printed by the loop and kept in `.afk/dashboard.url`. It is read-only and keeps showing the final state after the run; stop it with `kill "$(cat .afk/dashboard.pid)"` in the loop's checkout, or start the loop with `AFK_DASHBOARD=0` to skip it.
 - **Held writer.** The next writer on a lane, started while the current one builds. It reads the PBI, puts every question to Alex in one round, sends `READY` and waits for `go`. It is read-only on the lane until then.
 - **Side worker.** Drafts tickets, scripts, docs and research. It reads the product, writes only its own new files and merges its own branch. Any number can run in parallel.
 - **Sweeper.** Not used separately: the AFK loop's final pass is the sweep (see *Sweep*).
@@ -103,7 +103,7 @@ Run by `scripts/afk/check.sh` (`--full` adds the build and vitest), each exiting
 - `pnpm build-local` (with `--full`)
 - `vitest run` (with `--full`)
 
-No new probes or test suites unless something keeps breaking. One fix, not yet made: pass `--datalayer-port` in `check.sh` and `build-local`, so builds don't fail on port 9000.
+No new probes or test suites unless something keeps breaking. `check.sh` runs Tina on the first free ports from 4100 and 9100 (override with `TINA_PORT` / `TINA_DATALAYER_PORT`) and passes them to `build-local`, which defaults to 4101 and 9101 when run on its own, so builds don't clash with another session's Tina on 4001 or 9000.
 
 ## Sweep
 

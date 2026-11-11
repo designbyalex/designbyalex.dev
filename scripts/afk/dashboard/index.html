@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AFK batch</title>
+<style>
+  :root {
+    --bg: #f5f5f6; --panel: #ffffff; --line: #e2e2e6; --text: #18181b; --muted: #66666e;
+    --green: #17803f; --amber: #9a5b00; --red: #c42b2b; --blue: #2563c9;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0b0c; --panel: #141416; --line: #26262a; --text: #ededed; --muted: #8d8d93;
+      --green: #38dc77; --amber: #f5b544; --red: #ff6464; --blue: #6aa7ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 16px; }
+  h1 { font-size: 18px; font-weight: 600; margin: 0; }
+  h2 { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; min-width: 0; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  .pill { font: 600 12px/1 var(--mono); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); white-space: nowrap; }
+  .pill.ok { color: var(--green); border-color: color-mix(in srgb, var(--green) 40%, transparent); }
+  .pill.warn { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 40%, transparent); }
+  .pill.bad { color: var(--red); border-color: color-mix(in srgb, var(--red) 40%, transparent); }
+  .muted { color: var(--muted); }
+  .mono { font-family: var(--mono); font-size: 12px; }
+  .bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 12px; }
+  .bar > i { display: block; height: 100%; background: var(--green); transition: width .4s; }
+  @media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
+  .stats { display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: 10px; }
+  .stats b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .grid2 { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; }
+  @media (max-width: 860px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  table { width: 100%; border-collapse: collapse; }
+  td, th { text-align: left; padding: 7px 6px; border-top: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 500; color: var(--muted); border-top: 0; font-size: 12px; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .state { font: 600 11px/1 var(--mono); padding: 4px 7px; border-radius: 6px; white-space: nowrap; }
+  .s-done { color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); }
+  .s-running { color: var(--blue); background: color-mix(in srgb, var(--blue) 14%, transparent); }
+  .s-unverified { color: var(--amber); background: color-mix(in srgb, var(--amber) 14%, transparent); }
+  .s-failed { color: var(--red); background: color-mix(in srgb, var(--red) 14%, transparent); }
+  .s-queued, .s-skipped { color: var(--muted); background: var(--line); }
+  .feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .feed li { display: flex; gap: 8px; }
+  .feed .t { flex: 0 0 62px; color: var(--muted); font: 12px var(--mono); padding-top: 1px; }
+  .feed .w { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .feed .tool { font: 11px var(--mono); color: var(--muted); margin-right: 6px; }
+  .phase { font-size: 15px; margin: 4px 0 12px; }
+  .say { color: var(--muted); border-left: 2px solid var(--line); padding-left: 10px; margin: 12px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 140px; overflow: auto; }
+  pre.log { margin: 0; font: 12px/1.5 var(--mono); color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .err { color: var(--red); }
+</style>
+</head>
+<body>
+<main>
+  <section class="panel">
+    <div class="top">
+      <h1>AFK batch</h1>
+      <span id="loop" class="pill">…</span>
+      <span id="power" class="pill">…</span>
+      <span id="updated" class="muted mono"></span>
+    </div>
+    <div class="bar"><i id="bar" style="width:0"></i></div>
+    <div class="stats">
+      <span><b id="done">–</b> <span class="muted">tickets done</span></span>
+      <span><b id="avg">–</b> <span class="muted">avg per ticket</span></span>
+      <span><b id="eta">–</b> <span class="muted">est. remaining</span></span>
+      <span><b id="cost">–</b> <span class="muted">agent cost</span></span>
+      <span class="mono muted" id="head"></span>
+    </div>
+    <div id="stopped" class="err" style="margin-top:10px"></div>
+  </section>
+
+  <div class="grid2">
+    <section class="panel">
+      <h2>Now</h2>
+      <div id="now" class="muted">Nothing running.</div>
+    </section>
+    <section class="panel">
+      <h2>Queue</h2>
+      <table><thead><tr><th>#</th><th>Ticket</th><th>State</th><th>Tries</th><th>Cost</th></tr></thead><tbody id="queue"></tbody></table>
+    </section>
+  </div>
+
+  <section class="panel">
+    <h2>Loop log</h2>
+    <pre class="log" id="log"></pre>
+  </section>
+</main>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const dur = (ms) => {
+    if (ms == null || !isFinite(ms)) return '–';
+    const m = Math.round(ms / 60000);
+    return m >= 60 ? `${Math.floor(m / 60)}h ${String(m % 60).padStart(2, '0')}m` : `${m}m`;
+  };
+  const hhmm = (iso) => (iso ? new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '');
+  const GATE_BY = { 'loop verification': 'Loop is verifying', 'loop full check': 'Loop is running the full check', 'manual gate run': 'Manual gate run' };
+  const gateLine = (g) => `${GATE_BY[g.by] ?? 'Agent is running the gate'}: <b>${esc(g.step)}</b> <span class="muted">(${esc(g.etime)})</span>`;
+
+  async function tick() {
+    let s;
+    try {
+      s = await (await fetch('/api/status', { cache: 'no-store' })).json();
+    } catch (e) {
+      $('updated').textContent = 'dashboard server unreachable';
+      return;
+    }
+    if (s.error) { $('stopped').textContent = s.error; return; }
+
+    const alive = s.loop.loopAlive;
+    $('loop').className = 'pill ' + (alive ? 'ok' : s.stopped ? 'bad' : '');
+    $('loop').textContent = alive ? `running · up ${s.loop.loopUptime}` : s.stopped ? 'loop stopped' : 'loop ended';
+    $('power').className = 'pill ' + (s.power === 'AC' ? 'ok' : 'warn');
+    $('power').textContent = s.power === 'AC' ? 'on AC power' : 'on battery: may sleep';
+    $('updated').textContent = 'updated ' + hhmm(s.now);
+    $('stopped').textContent = s.stopped && !s.loop.gate ? `Stopped: ${s.stopped}` : '';
+
+    const p = s.progress;
+    $('bar').style.width = `${p.total ? (100 * p.done) / p.total : 0}%`;
+    $('done').textContent = `${p.done} / ${p.total}`;
+    $('avg').textContent = dur(p.avgTicketMs);
+    $('eta').textContent = dur(p.etaMs);
+    $('cost').textContent = `$${s.cost.toFixed(2)}`;
+    $('head').textContent = `${s.branch} @ ${s.head}`;
+
+    $('queue').innerHTML = s.rows.map((r) => `<tr>
+      <td class="num mono">${r.n}</td>
+      <td>${esc(r.title)}${r.skipped ? `<div class="muted mono" style="font-size:11px">${esc(r.skipped)}</div>` : ''}${r.verify.filter((v) => v !== 'pass').map((v) => `<div class="muted mono" style="font-size:11px">✗ ${esc(v.replace(/^✗\s*/, ''))}</div>`).join('')}</td>
+      <td><span class="state s-${r.state}">${r.state}</span></td>
+      <td class="num">${r.attempts || ''}</td>
+      <td class="num">${r.cost ? '$' + r.cost.toFixed(2) : ''}</td></tr>`).join('');
+
+    const c = s.current;
+    if (c) {
+      const elapsed = c.start ? Date.now() - new Date(c.start).getTime() : null;
+      const phase = s.loop.gate ? gateLine(s.loop.gate) : c.agentDone ? 'Agent finished; loop verifying' : `Agent working · ${c.calls} tool calls`;
+      $('now').innerHTML = `
+        <div><b>#${c.n}</b> ${esc(c.title)} <span class="muted">· attempt ${c.attempt}/${c.of} · ${dur(elapsed)} in</span></div>
+        <div class="phase">${phase}</div>
+        <ul class="feed">${(c.recent || []).map((a) => `<li>${a.at ? `<span class="t">${hhmm(a.at)}</span>` : ''}<span class="w"><span class="tool">${esc(a.tool)}</span>${esc(a.what)}</span></li>`).join('')}</ul>
+        ${c.lastText ? `<div class="say">${esc(c.lastText)}</div>` : ''}`;
+    } else if (s.loop.gate) {
+      $('now').innerHTML = `<div class="phase">${gateLine(s.loop.gate)}</div>`;
+    } else {
+      $('now').innerHTML = `<span class="muted">${alive ? 'Between tickets…' : 'Nothing running.'}</span>`;
+    }
+
+    $('log').textContent = s.tail.join('\n');
+  }
+  tick();
+  setInterval(tick, 5000);
+</script>
+</body>
+</html>
