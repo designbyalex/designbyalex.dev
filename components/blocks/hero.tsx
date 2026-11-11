@@ -137,7 +137,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                     <span>{action.label}</span>
                     {/* Reference hover: the arrow rolls down out of view as a second one enters from above. */}
                     <span aria-hidden className="relative size-5 shrink-0 overflow-hidden">
-                      <span className="flex -translate-y-5 flex-col transition-transform duration-300 ease-out group-hover:translate-y-0">
+                      <span className="flex -translate-y-5 flex-col transition-transform duration-500 ease-hover-link group-hover:translate-y-0 group-focus-visible:translate-y-0">
                         <ArrowDown strokeWidth={2} className="size-5 shrink-0" />
                         <ArrowDown strokeWidth={2} className="size-5 shrink-0" />
                       </span>

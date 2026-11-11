@@ -135,8 +135,8 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
                     </span>
                     {/* Hover rolls the label up and a second copy in from below, as Framer's link variant does. */}
                     <span className='flex h-[22px] flex-col overflow-hidden text-caption'>
-                      <span className='transition-transform duration-300 ease-out group-hover:-translate-y-[22px]'>{cv.label}</span>
-                      <span aria-hidden className='transition-transform duration-300 ease-out group-hover:-translate-y-[22px]'>
+                      <span className='transition-transform duration-500 ease-hover-link group-hover:-translate-y-[22px] group-focus-visible:-translate-y-[22px]'>{cv.label}</span>
+                      <span aria-hidden className='transition-transform duration-500 ease-hover-link group-hover:-translate-y-[22px] group-focus-visible:-translate-y-[22px]'>
                         {cv.label}
                       </span>
                     </span>

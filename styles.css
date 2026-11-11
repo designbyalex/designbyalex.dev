@@ -154,6 +154,18 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /*
+   * Hover motion, measured from the Reference's hover variants (#90).
+   * Links and arrow circles (header, footer, CTA, CV) run Framer's
+   * spring(stiffness 500, damping 60, mass 1): overdamped, ~500ms to rest —
+   * pair `ease-hover-link` with `duration-500`. The Back pill runs a 300ms
+   * tween over cubic-bezier(0.12, 0.23, 0.5, 1); the project cards (card grow
+   * and arrow slide) a 200ms tween over cubic-bezier(0.44, 0, 0.56, 1).
+   */
+  --ease-hover-link: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-hover-back: cubic-bezier(0.12, 0.23, 0.5, 1);
+  --ease-hover-card: cubic-bezier(0.44, 0, 0.56, 1);
 }
 
 /*

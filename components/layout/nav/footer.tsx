@@ -60,7 +60,7 @@ export const Footer = () => {
               {cta.label && cta.href && (
                 <a
                   href={cta.href}
-                  className="group flex h-12 items-center gap-2 rounded-md whitespace-nowrap font-display text-h2 text-foreground transition-colors duration-300 ease-out hover:text-emphasis lg:h-[57.6px]"
+                  className="group flex h-12 items-center gap-2 rounded-md whitespace-nowrap font-display text-h2 text-foreground transition-colors duration-500 ease-hover-link hover:text-emphasis focus-visible:text-emphasis lg:h-[57.6px]"
                   data-tina-field={tinaField(cta, "label")}
                 >
                   <span>{cta.label}</span>
@@ -68,11 +68,11 @@ export const Footer = () => {
                   <span aria-hidden className="relative size-12 shrink-0 overflow-hidden text-emphasis">
                     <ArrowUpRight
                       strokeWidth={2}
-                      className="absolute inset-0 m-auto size-12 transition-transform duration-300 ease-out group-hover:translate-x-12"
+                      className="absolute inset-0 m-auto size-12 transition-transform duration-500 ease-hover-link group-hover:translate-x-12 group-focus-visible:translate-x-12"
                     />
                     <ArrowUpRight
                       strokeWidth={2}
-                      className="absolute inset-0 m-auto size-12 -translate-x-12 transition-transform duration-300 ease-out group-hover:translate-x-0"
+                      className="absolute inset-0 m-auto size-12 -translate-x-12 transition-transform duration-500 ease-hover-link group-hover:translate-x-0 group-focus-visible:translate-x-0"
                     />
                   </span>
                 </a>
@@ -88,13 +88,25 @@ export const Footer = () => {
                 const LinkTag = external ? "a" : TransitionLink;
                 return (
                   <li key={`${link!.href}${index}`} className="flex h-[27px] items-center">
+                    {/*
+                     * Reference hover (Framer's "Link Small", #90): a 5px brand-green dot
+                     * appears at the left and the label slides 13px right to make room for
+                     * it (dot + the variant's 8px gap); the text colour never changes. The
+                     * dot is absolute, so the resting layout is exactly the Reference's.
+                     */}
                     <LinkTag
                       href={link!.href}
                       {...(external ? { target: "_blank", rel: "noopener" } : {})}
-                      className="rounded-sm whitespace-nowrap text-caption text-foreground transition-colors hover:text-emphasis"
+                      className="group relative flex items-center rounded-sm whitespace-nowrap text-caption text-foreground"
                       data-tina-field={tinaField(link!, "label")}
                     >
-                      {link!.label}
+                      <span
+                        aria-hidden
+                        className="absolute left-0 size-[5px] rounded-full bg-primary opacity-0 transition-opacity duration-500 ease-hover-link group-hover:opacity-100 group-focus-visible:opacity-100"
+                      />
+                      <span className="transition-transform duration-500 ease-hover-link group-hover:translate-x-[13px] group-focus-visible:translate-x-[13px]">
+                        {link!.label}
+                      </span>
                     </LinkTag>
                   </li>
                 );

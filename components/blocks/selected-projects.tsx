@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { PageBlocksSelectedProjects } from '@/tina/__generated__/types';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
@@ -28,7 +28,8 @@ const statusDotClasses: Record<string, string> = {
  * thumbnail takes what the title and tagline leave). Cards alternate between
  * the left and the right edge of the row at desktop and tablet widths; on
  * phones they fill the row. The status pill sits inside the thumbnail, and
- * hovering reveals a green arrow circle top-right while the image zooms 2%.
+ * hovering grows the whole thumbnail (image, pill and all) 2% while a green
+ * arrow circle fades in top-right and slides left to right.
  * Each row is one link to the case study. The section is anchored as `#works`
  * so the hero's "See Selected Projects" action can jump here.
  *
@@ -85,10 +86,11 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
                   href={project.href}
                   className='group flex aspect-square w-full flex-col gap-[15px] rounded-[20px] lg:aspect-[1.50633] xl:aspect-[1.60627]'
                 >
-                  <div className='relative min-h-0 flex-1 rounded-[20px]'>
+                  {/* Reference hover (#90): the whole thumbnail — image, status pill and arrow — grows 2% as one box (Framer's Image Wrapper at 102%), a 200ms tween. */}
+                  <div className='relative min-h-0 flex-1 rounded-[20px] transition-transform duration-200 ease-hover-card group-hover:scale-[1.02] group-focus-visible:scale-[1.02]'>
                     {project!.image?.src && (
                       <div
-                        className='absolute inset-0 overflow-hidden rounded-[20px] bg-card transition-transform duration-300 ease-out group-hover:scale-[1.02]'
+                        className='absolute inset-0 overflow-hidden rounded-[20px] bg-card'
                         data-tina-field={tinaField(project!.image, 'src')}
                       >
                         <Image
@@ -113,11 +115,12 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
                       </span>
                     )}
 
+                    {/* The arrow (Reference: a black → on the brand green) fades in top-right and slides left to right, 48px in to 24px. */}
                     <span
                       aria-hidden
-                      className='absolute top-6 right-12 z-10 flex size-16 items-center justify-center rounded-full bg-primary text-foreground opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100'
+                      className='absolute top-6 right-12 z-10 flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 transition-[opacity,translate] duration-200 ease-hover-card group-hover:translate-x-6 group-hover:opacity-100 group-focus-visible:translate-x-6 group-focus-visible:opacity-100'
                     >
-                      <ArrowUpRight className='size-6' />
+                      <ArrowRight className='size-6' />
                     </span>
                   </div>
 
