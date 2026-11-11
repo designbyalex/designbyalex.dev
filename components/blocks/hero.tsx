@@ -83,6 +83,15 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_bottom,transparent_88px,color-mix(in_srgb,var(--scrim)_45%,transparent)_130px,color-mix(in_srgb,var(--scrim)_30%,transparent)_35%,transparent_60%)] lg:bg-[linear-gradient(to_right,color-mix(in_srgb,var(--scrim)_45%,transparent),color-mix(in_srgb,var(--scrim)_35%,transparent)_55%,transparent_80%)]"
       />
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-linear-to-t from-scrim/60 via-scrim/45 via-20% to-transparent to-45%" />
+      {/*
+       * Light theme only: the header stays white over the hero (#89), and white on the bright top edge
+       * is ~1.7:1, so the header band darkens enough for AA ("Let's talk" at 20px needs 4.5:1). Dark
+       * keeps Framer's bright top edge: there the white header is the Reference's own composition.
+       */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-48 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--scrim)_80%,transparent),color-mix(in_srgb,var(--scrim)_55%,transparent)_35%,transparent)] dark:hidden"
+      />
 
       {/* Text Wrapper → Container: headline at the top, the bottom row pushed to the fold. */}
       <div className="relative z-10 flex w-full max-w-[1920px] flex-1 flex-col items-center overflow-hidden px-4 pb-8 pt-30 lg:px-6 lg:pb-16 lg:pt-40 xl:px-16">
