@@ -26,8 +26,8 @@
 }
 
 /*
- * Type ramp (#53): one canonical size per tier, measured on the Reference snapshot at the
- * Checkpoint widths (docs/parity-audit.md §2.1, parity/reference/*.json). Sizes are fixed
+ * Type ramp (#53): one canonical size per tier, measured on the Reference site at the
+ * Checkpoint widths (docs/parity-audit.md §2.1). Sizes are fixed
  * below 768px and above 1440px and run linearly between (100vw from 48rem to 90rem);
  * line-heights are ratios and tracking is in em, so both scale with the size.
  * `text-<tier>` applies size, line-height, tracking and weight 400; pair the display

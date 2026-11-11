@@ -22,9 +22,9 @@ Old run's final pass.
 
 Ticket notes.
 
-## Proposed deviations
+## Open questions
 
-- **home · Hero · copy-extra.** Suggested entry.
+- **Hero copy.** Suggested wording.
 
 ## Final pass (#53–#66)
 
@@ -39,7 +39,7 @@ Nothing.
 
 describe('noteSection', () => {
   it('returns a section from its heading up to the next ## heading, keeping its ### subsections', () => {
-    expect(noteSection(notes, 'Proposed deviations')).toBe('## Proposed deviations\n\n- **home · Hero · copy-extra.** Suggested entry.');
+    expect(noteSection(notes, 'Open questions')).toBe('## Open questions\n\n- **Hero copy.** Suggested wording.');
   });
 
   it('takes the last section with the heading, which runs to the end of the notes', () => {
@@ -50,12 +50,12 @@ describe('noteSection', () => {
   });
 
   it('returns undefined when there is no such section', () => {
-    expect(noteSection('# AFK run notes\n\n## #53 P6\n\nNotes.\n', 'Proposed deviations')).toBeUndefined();
+    expect(noteSection('# AFK run notes\n\n## #53 P6\n\nNotes.\n', 'Final pass')).toBeUndefined();
   });
 });
 
 describe('buildPrBody', () => {
-  it('is the intro, the Closes lines, the notes link, both sections and the attribution, in that order', () => {
+  it('is the intro, the Closes lines, the notes link, the last Final pass and the attribution, in that order', () => {
     const body = buildPrBody({ tickets: [53, 55], notes, notesUrl: url });
     expect(body).toBe(
       [
@@ -65,10 +65,6 @@ describe('buildPrBody', () => {
         'Closes #55',
         '',
         `Full run notes: [docs/afk/NOTES.md](${url}) (per-ticket builds, decisions and Verify-visually checklists).`,
-        '',
-        '## Proposed deviations',
-        '',
-        '- **home · Hero · copy-extra.** Suggested entry.',
         '',
         '## Final pass (#53–#66)',
         '',
@@ -85,10 +81,16 @@ describe('buildPrBody', () => {
     );
   });
 
-  it('leaves out a section the notes do not have', () => {
-    const body = buildPrBody({ tickets: [53], notes: '# AFK run notes\n\n## Final pass\n\nDone.\n', notesUrl: url });
-    expect(body).not.toContain('Proposed deviations');
-    expect(body).toContain('## Final pass\n\nDone.\n\n🤖');
+  it('quotes no other section', () => {
+    const body = buildPrBody({ tickets: [53], notes, notesUrl: url });
+    expect(body).not.toContain('Open questions');
+    expect(body).not.toContain("Old run's final pass");
+  });
+
+  it('is the head and the attribution when the notes have no Final pass', () => {
+    const body = buildPrBody({ tickets: [53], notes: '# AFK run notes\n\n## #53 P6\n\nNotes.\n', notesUrl: url });
+    expect(body).not.toContain('## ');
+    expect(body.endsWith(`checklists).\n\n${attribution}`)).toBe(true);
   });
 
   it('keeps a body under the limit whole', () => {
@@ -99,13 +101,12 @@ describe('buildPrBody', () => {
     const long = Array.from({ length: 4000 }, (_, i) => `- [ ] check ${i}: ${'x'.repeat(40)}`).join('\n');
     const body = buildPrBody({
       tickets: [53, 55, 66],
-      notes: `## Proposed deviations\n\nOne.\n\n## Final pass (#53–#66)\n\n${long}\n`,
+      notes: `## Final pass (#53–#66)\n\n${long}\n`,
       notesUrl: url,
     });
 
     expect(body.length).toBeLessThanOrEqual(BODY_LIMIT);
     expect(body).toContain('Closes #53\nCloses #55\nCloses #66');
-    expect(body).toContain('## Proposed deviations\n\nOne.');
     expect(body).toMatch(/- \[ \] check \d+: x{40}\n\n_Truncated to fit GitHub's limit/);
     expect(body).toContain(`the rest is in [docs/afk/NOTES.md](${url})._`);
     expect(body.endsWith(attribution)).toBe(true);

@@ -12,8 +12,7 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
  * The Reference's "Project Overview" Section as one block: About, Experience and the CV link.
  *
  * Left column: the "About" heading under a hairline, sticky from lg up. On phones and tablets it sits above
- * the statements, as on the live Framer site (the Reference snapshot missed it there: it captured the
- * heading before its appear animation ran; Deviation `about-heading-phones`). Right column: the statements (green lead-in,
+ * the statements, as on the live Framer site. Right column: the statements (green lead-in,
  * white continuation), the portrait, then the small green "Experience" label with one hairline row per
  * role (company / role / period stacked, a decorative "+" on the right) and "DOWNLOAD FULL CV" with
  * the Material Icons download glyph, right-aligned.
@@ -55,8 +54,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
                     {/*
                      * Reference: the lead-in is brand green, the continuation white. The space between them
                      * belongs to the continuation's text node, as in Framer's markup: when the continuation
-                     * starts on a new line that space hangs at the end of the lead-in's line, which is where
-                     * the Fidelity gate measures the run from.
+                     * starts on a new line that space hangs at the end of the lead-in's line.
                      */}
                     {part!.lead && <span className='text-emphasis'>{part!.lead}</span>}
                     {part!.text && <span className='text-foreground'>{part!.lead ? ` ${part!.text}` : part!.text}</span>}
@@ -68,7 +66,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
 
           {data.image?.src && (
             <ScrollReveal>
-              {/* Corners via clip-path, not border-radius: the Reference snapshot reads the portrait's radius as 0 (#59 notes). */}
+              {/* Corners via clip-path, not border-radius: a leftover from the retired parity check (ADR 0005), which read the portrait's radius as 0. #92 swaps it for border-radius. */}
               <div className='relative aspect-[0.890323] w-full bg-card [clip-path:inset(0_round_20px)]' data-tina-field={tinaField(data.image, 'src')}>
                 <Image
                   src={data.image.src}

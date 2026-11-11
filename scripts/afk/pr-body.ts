@@ -1,7 +1,7 @@
 // PR body for the AFK loop's draft PR. docs/afk/NOTES.md grows past GitHub's 65,536-character body limit
 // over a run (195 KB after #53–#66), so the body links to the notes and quotes only what the owner acts
-// on: the `## Proposed deviations` section and the last `## Final pass` section. Sections that don't
-// fit under BODY_LIMIT are cut at a line, with a note pointing to the full notes.
+// on: the last `## Final pass` section. What doesn't fit under BODY_LIMIT is cut at a line, with a note
+// pointing to the full notes.
 //
 //   node scripts/afk/pr-body.ts <notes-url> <ticket>... <docs/afk/NOTES.md
 //
@@ -48,7 +48,7 @@ export function buildPrBody({ tickets, notes, notesUrl }: PrBodyInput): string {
     tickets.map((n) => `Closes #${n}`).join('\n'),
     `Full run notes: [docs/afk/NOTES.md](${notesUrl}) (per-ticket builds, decisions and Verify-visually checklists).`,
   ].join('\n\n');
-  const excerpt = [noteSection(notes, 'Proposed deviations'), noteSection(notes, 'Final pass')].filter((s) => s !== undefined).join('\n\n');
+  const excerpt = noteSection(notes, 'Final pass') ?? '';
 
   const whole = [head, excerpt, ATTRIBUTION].filter(Boolean).join('\n\n');
   if (whole.length <= BODY_LIMIT) return whole;

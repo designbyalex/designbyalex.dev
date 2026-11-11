@@ -9,7 +9,7 @@ export type ScrollRevealProps = ScrollRevealOptions & {
   className?: string;
   /** Element to render. Default 'div'. */
   as?: ElementType;
-  /** Stable Section id for the Fidelity gate, rendered as `data-section`. */
+  /** Stable Section id, rendered as `data-section`. */
   sectionId?: string;
 };
 

@@ -19,23 +19,11 @@ _Avoid_: launch, go-live, rerouting
 ## Parity
 
 **Parity**:
-The bar the Build must clear before Cutover, set per dimension: Copy verbatim, Media the same, Layout and Type matching the Reference site within tolerance, Motion meeting or beating it.
+The bar the Build must clear before Cutover, judged by the site owner's review and set per dimension: Copy verbatim, Media the same, Layout and Type matching the Reference site closely, Motion meeting or beating it.
 _Avoid_: fidelity (as a goal), "meets or beats" (as the whole bar)
 
 **Dimension**:
-One axis of Parity: Copy, Media, Layout, Type or Motion. Each has its own bar and its own judge. The Fidelity gate counts two more for the Net-new theme: Theme (light against dark) and Contrast (WCAG AA in light).
-
-**Gap**:
-A place where the Build falls short of Parity on some Dimension.
-_Avoid_: bug, defect, drift
-
-**Deviation**:
-A known difference from the Reference site that the site owner has approved; it no longer counts as a Gap. An agent can propose a Deviation but never approve one.
-_Avoid_: accepted difference, design call
-
-**Blocking gap**:
-A Gap that must be closed (or turned into a Deviation) before Cutover.
-_Avoid_: must-fix, P0
+One axis of Parity: Copy, Media, Layout, Type or Motion. Each has its own bar.
 
 **Section**:
 One visually distinct region of a page (a homepage block, a case-study header), the unit in which the Build is compared with the Reference site.
@@ -44,19 +32,8 @@ One visually distinct region of a page (a homepage block, a case-study header), 
 One of the fixed viewport widths (390, 768, 1440) at which Layout and Type are compared.
 _Avoid_: breakpoint (those belong to the CSS)
 
-**Reference snapshot**:
-A frozen capture of the Reference site (text, geometry, computed style and screenshots per page and Checkpoint width), taken before Cutover; what the Build is compared against from then on.
-_Avoid_: golden, baseline
-
-**Deviation list**:
-The owner-maintained record of approved Deviations, read by the Fidelity gate; retired with it at Cutover.
-
-**Baseline**:
-The committed count of open Gaps per Section, which may only go down.
-_Avoid_: snapshot
-
 **Parity sign-off**:
-The site owner's final review of Motion, the Net-new theme and the Deviation list; the last step before Cutover.
+The site owner's final review of design, Motion and content in both themes, alongside a green build and tests; the last step before Cutover.
 _Avoid_: QA pass, parity review
 
 ## Themes
@@ -77,10 +54,6 @@ A ticket an unattended agent may pick up and finish without a human.
 A ticket that needs the site owner (accounts, secrets, judgement), which an unattended loop must never pick up.
 _Avoid_: manual ticket
 
-**Fidelity gate**:
-The check an unattended agent runs itself to see whether its change moved a Section towards Parity, comparing the Build with the Reference site; retired at Cutover.
-_Avoid_: visual QA (that is the human review)
-
 ## Brand motion
 
 Work that starts after Cutover and departs from the Reference site on purpose.
@@ -96,3 +69,13 @@ _Avoid_: hero (that is the block), hero animation, brand moment
 **Animated UI**:
 Product UI from a case study rebuilt as live, animated components in the page, in place of a screenshot in a device frame.
 _Avoid_: Jitter animation, UI video, mockup
+
+## Retired terms
+
+The Fidelity gate and its vocabulary were removed on 2026-11-11, before Cutover (ADR 0005). They survive only in history: older ADRs, `docs/afk/NOTES.md` and closed tickets.
+
+- **Fidelity gate**: the automatic check that compared the Build with a frozen **Reference snapshot** of the Reference site, per Section and Checkpoint width.
+- **Gap**: one difference it found. **Blocking gap**: one that had to close before Cutover.
+- **Baseline**: the committed Gap counts, which could only go down.
+- **Deviation** / **Deviation list**: an owner-approved difference that stopped counting as a Gap, and the file that held them.
+- **Parity scope**: a ticket's list of Sections whose Gaps had to reach 0.

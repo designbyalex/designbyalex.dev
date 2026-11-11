@@ -3,7 +3,7 @@ import { cn } from '../../lib/utils';
 
 interface SectionProps extends React.HTMLProps<HTMLElement> {
   background?: string;
-  /** Stable Section id for the Fidelity gate, rendered as `data-section` on the root (parity/gate-config.json sectionMap). */
+  /** Stable Section id, rendered as `data-section` on the root. */
   sectionId?: string;
   /** Classes for the root `data-section` element itself (the `className` goes on the inner `section`). */
   rootClassName?: string;
