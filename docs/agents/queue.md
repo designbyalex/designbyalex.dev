@@ -25,7 +25,7 @@ Standing calls:
 
 | # | Lane | PBI | Why here |
 |---|---|---|---|
-| 1 | Site | AFK batch: #91, #92, #93, #110, #111 (RUNNING since 18:04) | Alex, 2026-11-11: "continue with afk batch" without waiting for the checks/ports PR, on battery. #93 and #110's Blocked by reworded (their blockers were merged PRs, which the guard counted as open). Ends in one draft PR from `afk/migration`, then the batch review |
+| 1 | Site | AFK batch: #91, #92, #93, #110, #111 (RUNNING since 18:04; watcher session afk-batch `local_259c4470-ee7b-4f45-95ab-23ee25324c7b`; #91 done 553043f) | Alex, 2026-11-11: "continue with afk batch" without waiting for the checks/ports PR, on battery. #93 and #110's Blocked by reworded (their blockers were merged PRs, which the guard counted as open). Ends in one draft PR from `afk/migration`, then the batch review |
 | 2 | Off product | Dependabot #85 and #86 | admin, after the batch per `Prefer:`; check `tina/tina-lock.json` is regenerated |
 | 3 | Content | #100 content refresh | needs Alex's assets |
 | 4 | Site | #15 cutover | after the batch and its review; HITL |
