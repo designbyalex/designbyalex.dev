@@ -9,6 +9,7 @@ import ProjectClientPage from './project-page';
 import { buildPageMetadata, buildProjectMetadata } from '@/lib/seo/metadata';
 import { siteDefaults } from '@/lib/seo/site';
 import type { ProjectCardRef } from '@/lib/case-study/next-project';
+import { collectBreadcrumbs } from '@/lib/tina/collect-breadcrumbs';
 
 export const revalidate = 300;
 
@@ -113,22 +114,6 @@ export default async function Page({
       </Section>
     </Layout>
   );
-}
-
-async function collectBreadcrumbs<T extends { pageInfo: { hasNextPage: boolean; endCursor: string | null }; edges?: ({ node?: { _sys: { breadcrumbs: string[] } } | null } | null)[] | null }>(
-  fetchPage: (after?: string) => Promise<T>
-): Promise<string[][]> {
-  const out: string[][] = [];
-  let connection = await fetchPage();
-  while (true) {
-    for (const edge of connection.edges ?? []) {
-      const crumbs = edge?.node?._sys.breadcrumbs;
-      if (crumbs) out.push(crumbs);
-    }
-    if (!connection.pageInfo.hasNextPage || !connection.pageInfo.endCursor) break;
-    connection = await fetchPage(connection.pageInfo.endCursor);
-  }
-  return out;
 }
 
 export async function generateStaticParams() {
