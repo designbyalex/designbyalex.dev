@@ -34,6 +34,19 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    // Framer at designbyalex.dev only ever served /, /acacia and /mosurban (sitemap,
+    // homepage links and the Wayback Machine agree), and those keep their paths here,
+    // so no Framer URL needs a redirect (#15). /home is this site's own duplicate of
+    // the homepage: the catch-all renders home.mdx there, so send it to /.
+    return [
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

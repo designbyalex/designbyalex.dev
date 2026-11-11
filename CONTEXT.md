@@ -49,7 +49,7 @@ A frozen capture of the Reference site (text, geometry, computed style and scree
 _Avoid_: golden, baseline
 
 **Deviation list**:
-The owner-maintained record of approved Deviations, read by the Fidelity gate.
+The owner-maintained record of approved Deviations, read by the Fidelity gate; retired with it at Cutover.
 
 **Baseline**:
 The committed count of open Gaps per Section, which may only go down.
@@ -78,5 +78,21 @@ A ticket that needs the site owner (accounts, secrets, judgement), which an unat
 _Avoid_: manual ticket
 
 **Fidelity gate**:
-The check an unattended agent runs itself to see whether its change moved a Section towards Parity, comparing the Build with the Reference site.
+The check an unattended agent runs itself to see whether its change moved a Section towards Parity, comparing the Build with the Reference site; retired at Cutover.
 _Avoid_: visual QA (that is the human review)
+
+## Brand motion
+
+Work that starts after Cutover and departs from the Reference site on purpose.
+
+**Brand mark**:
+Alex's logo: an A built from three rounded triangles.
+_Avoid_: logo mark, hero mark, the A
+
+**Hero piece**:
+The animated 3D Brand mark above the fold on the homepage, made in Blender; the pilot for the Blender workflow.
+_Avoid_: hero (that is the block), hero animation, brand moment
+
+**Animated UI**:
+Product UI from a case study rebuilt as live, animated components in the page, in place of a screenshot in a device frame.
+_Avoid_: Jitter animation, UI video, mockup
