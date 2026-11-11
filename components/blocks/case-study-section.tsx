@@ -120,9 +120,8 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
         <ScrollReveal className='w-full'>
           {/*
            * Framer's "Image Full". Wide (Acacia): the content width at a 1.78065 ratio at every width,
-           * corners via clip-path, because the Reference snapshot reads that page's radius as 0 (see the
-           * #59 notes). Card (MOS Urban): 1.78065 at lg+, 1.6729 under it, 20px border-radius, which the
-           * Reference reads as 20 there.
+           * corners via clip-path (a leftover from the retired parity check, ADR 0005, which read that
+           * page's radius as 0). Card (MOS Urban): 1.78065 at lg+, 1.6729 under it, 20px border-radius.
            */}
           <div
             className={cn(
@@ -272,7 +271,7 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     // Large white text with a green ending (or a green opening, as the Outcome statement) and no quote
     // glyphs; grey when it stands in for content ("Coming Soon…"). pre-wrap as Framer's text containers:
     // the space between the parts belongs to whichever string carries it, and a space that hangs at the
-    // end of a line keeps its box, which is where the Fidelity gate measures the run from.
+    // end of a line keeps its box.
     return (
       <ScrollReveal
         as='p'
@@ -367,9 +366,9 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     if (!image.src) return null;
     const natural = image.ratio === 'natural';
     const tall = image.ratio === 'tall';
-    // Framer's "Image Right": the column's width at a 0.837097 ratio, cover, 20px corners (clip-path, as
-    // the Reference snapshot reads the radius as 0); the tall card (MOS Urban's pitch illustration) at a
-    // 0.855738 ratio at xl and 425px tall under it, with 16px border-radius (which the Reference reads);
+    // Framer's "Image Right": the column's width at a 0.837097 ratio, cover, 20px corners (clip-path, a
+    // leftover from the retired parity check, ADR 0005); the tall card (MOS Urban's pitch illustration) at a
+    // 0.855738 ratio at xl and 425px tall under it, with 16px border-radius;
     // or the image at its own ratio. "Lead on phones" keeps it above a statement that leads there.
     return (
       <ScrollReveal delay={delay} className={cn('w-full', image.leadOnPhone && 'max-lg:-order-2')}>
@@ -610,7 +609,7 @@ export const caseStudySectionBlockSchema: Template = {
       label: 'Section id',
       required: true,
       description:
-        'Stable id for the Fidelity gate (rendered as data-section), from the Section map in parity/gate-config.json: mission, credibility, trust, engagement, solution, pitch, vision, users, clients, ux, brand, identity, assets, years, outcome, whats-next…',
+        'Stable Section id, rendered as data-section on the block root. Keep existing ids: mission, credibility, trust, engagement, solution, pitch, vision, users, clients, ux, brand, identity, assets, years, outcome, whats-next…',
     },
     // Not `required`: the deep-dive block's optional `heading` shares the GraphQL union, and Tina's codegen rejects mixed nullability.
     { type: 'string', name: 'heading', label: 'Heading' },

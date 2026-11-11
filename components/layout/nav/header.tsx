@@ -19,8 +19,8 @@ const isExternal = (href: string) => /^(https?:|mailto:|tel:)/i.test(href);
  * transparent over the content, the white mark alone on the left and, on the
  * right, "Let's talk" at 20px with a 40px green arrow circle. No name, no
  * hamburger at any width. It hides on scroll down and returns on scroll up
- * through `HideOnScroll`; the theme toggle beside the call to action is an
- * approved Deviation.
+ * through `HideOnScroll`; the theme toggle beside the call to action is the
+ * Build's own addition.
  *
  * Measured box: a 48px row with 24px above; 24px below and 48px side gutters
  * at ≥1024 (96px tall), 16px below and 24px gutters under that (88px tall).

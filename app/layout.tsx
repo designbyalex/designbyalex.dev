@@ -33,8 +33,7 @@ const fontMono = Space_Mono({
 // Material Icons, for the one ligature glyph the Reference draws with it: the
 // "download" icon beside the CV link (docs/parity-audit.md H13). Self-hosted from
 // app/fonts (OFL; Google's v145 build via @fontsource/material-icons 5.3.0) under
-// its real family name, which the Fidelity gate compares with the Reference's. Not
-// preloaded: only the homepage uses it. `block` hides the ligature text until the
+// its real family name. Not preloaded: only the homepage uses it. `block` hides the ligature text until the
 // glyphs arrive, and an icon font needs no fallback metrics.
 const fontIcons = localFont({
   src: "./fonts/material-icons-400.woff2",
