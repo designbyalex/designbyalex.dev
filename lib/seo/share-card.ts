@@ -16,7 +16,7 @@ export interface ShareCardInput {
   tagline?: string | null;
   /** URL path segment, e.g. "acacia" — drawn as designbyalex.dev/{slug}. */
   slug: string;
-  /** Site-relative hero path under public/, e.g. "/uploads/projects/acacia/hero.png". */
+  /** Hero image as Tina returns it: a site path ("/uploads/…") or a TinaCloud media URL; see publicMediaPath. */
   coverImage?: string | null;
   /** How far the card zooms into the cover image (1 = whole image). */
   shareZoom?: number | null;
@@ -38,6 +38,30 @@ const HERO_CONTRAST = 1.1;
 const HERO_CONTRAST_OFFSET = -12.8;
 const HERO_BRIGHTNESS = 1.15;
 const GRADIENT_PATH = 'public/uploads/home/hero-gradient.png';
+
+/** Tina's media root under public/ (tina/config.tsx → media.tina.mediaRoot). */
+const MEDIA_ROOT = 'uploads';
+
+/**
+ * A cover image's committed file, relative to the repo root. Tina returns
+ * either a site path ("/uploads/projects/acacia/hero.png", local datalayer)
+ * or a TinaCloud media URL ("https://assets.tina.io/<id>/__staging/<branch>/
+ * __file/projects/acacia/hero.png", or "https://assets.tina.io/<id>/projects/
+ * acacia/hero.png" on the main branch); both name the same file under
+ * public/uploads, which the build reads instead of fetching.
+ */
+export function publicMediaPath(src: string): string {
+  if (!/^https?:\/\//i.test(src)) return path.posix.join('public', src);
+  const pathname = decodeURIComponent(new URL(src).pathname);
+  const fileMarker = '/__file/';
+  const marker = pathname.indexOf(fileMarker);
+  const rest =
+    marker >= 0
+      ? pathname.slice(marker + fileMarker.length)
+      : pathname.split('/').filter(Boolean).slice(1).join('/'); // drop the client id
+  const relative = rest.startsWith(`${MEDIA_ROOT}/`) ? rest : `${MEDIA_ROOT}/${rest}`;
+  return path.posix.join('public', relative);
+}
 
 // Title fitting: one line at up to 144px, shrunk to fit 1128px, wrapping to
 // two bottom-anchored lines at 96px when even that is too wide.
@@ -81,7 +105,7 @@ async function composeGround(coverImage: string | null | undefined, shareZoom: n
   const zoomedHeight = Math.round(SHARE_CARD_HEIGHT * shareZoom);
   // Two passes so the order is explicit: crop + greyscale + contrast first,
   // then the brightness lift that offsets the multiply.
-  const heroMono = await sharp(path.join(process.cwd(), 'public', coverImage))
+  const heroMono = await sharp(path.join(process.cwd(), publicMediaPath(coverImage)))
     .resize(zoomedWidth, zoomedHeight, { fit: 'cover', position: 'centre' })
     .extract({
       left: Math.floor((zoomedWidth - SHARE_CARD_WIDTH) / 2),

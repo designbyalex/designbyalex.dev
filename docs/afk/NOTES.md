@@ -1239,3 +1239,7 @@ Every page × dark/light, and each page once with `prefers-reduced-motion: reduc
 - [ ] Tina admin: key-feature Icon select shows the five new labels; Global icon picker lists whole names ("Mark Glyph") and renders the curated lucide grid; "Share card zoom" edits, rejects 0.5 and 3 (#110, #111).
 - [ ] Share cards: `docs/review/share-cards-2026-11-11/*.jpg` side by side with the picker frame; share `/acacia` and `/mosurban` in a validator (1.91:1, no crop surprise); home share still `uploads/home/og.jpg` (#111).
 - [ ] Owner accepts: light theme (#91), icons (#110), both cards (#111).
+
+## Batch fix (2026-11-12): #111 share cards on Vercel
+- The Vercel build of 6385412 failed prerendering `/og/acacia.jpg`: TinaCloud returns `coverImage` as an `assets.tina.io` URL (`…/__staging/<branch>/__file/projects/acacia/hero.png` on a branch), and `composeGround` joined it onto `public/`. The local datalayer returns `/uploads/...`, so `build-local` passed.
+- `publicMediaPath` in `lib/seo/share-card.ts` maps a site path or a TinaCloud media URL (branch or main shape) back to the committed file under `public/uploads/`; the build still reads the repo file, never the network. One unit test covers both shapes and that the file exists. This supersedes the *Absolute `coverImage` URLs would fail the build* finding above.
