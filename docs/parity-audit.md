@@ -1,5 +1,7 @@
 # Parity audit: Framer site vs migrated Next.js + TinaCMS build
 
+> **Historical (2026-11-11):** the Fidelity gate this audit proposed was built (ADR 0002) and then retired before Cutover (`docs/adr/0005-retire-fidelity-gate-before-cutover.md`). Cutover now rests on the owner's review plus build and tests. The measurements below still describe what Framer does.
+
 > **Screenshots:** `/Users/work/Freelance/Portfolio/repo/.claude/worktrees/parity-audit-9d6893/.scratch/parity-audit/screens/`
 > These are gitignored local files. Every screenshot path below is relative to that directory.
 

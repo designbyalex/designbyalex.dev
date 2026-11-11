@@ -34,10 +34,6 @@
       "Bash(pnpm exec biome:*)",
       "Bash(pnpm build-local:*)",
       "Bash(pnpm test:*)",
-      "Bash(pnpm parity:gate)",
-      "Bash(pnpm parity:gate:*)",
-      "Bash(pnpm parity:extract:*)",
-      "Bash(pnpm parity:diff:*)",
       "Bash(curl -fsSL https://designbyalex.dev -o *)",
       "Bash(curl -fsSL https://designbyalex.dev/*)",
       "Bash(curl -fsSL https://framerusercontent.com/*)",
@@ -77,8 +73,6 @@
       "Bash(gh issue edit:*)",
       "Bash(gh issue comment:*)",
       "Bash(rm -rf:*)",
-      "Bash(pnpm parity:capture-reference:*)",
-      "Bash(node scripts/parity/capture-reference.ts:*)",
       "Bash(pnpm dev:*)"
     ]
   }

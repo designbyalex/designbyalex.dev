@@ -39,7 +39,7 @@ export function NotFoundContent({
   )
 }
 
-/** The 404 carries the site chrome (header and footer), an approved Deviation (`themed-404`). */
+/** The 404 carries the site chrome (header and footer), which Framer's 404 doesn't. */
 export default async function NotFound() {
   return (
     <Layout>
