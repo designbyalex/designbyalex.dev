@@ -10,6 +10,16 @@ import { HideOnScroll } from "../../motion-primitives/hide-on-scroll";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
 import { ThemeToggle } from "../../theme/theme-toggle";
+import { useIsServerRender } from "@/lib/use-is-server-render";
+import { HEADER_PRE_HYDRATION_STOP, isOverHero, trackHeaderOverHeroScript } from "./header-over-hero";
+
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
+
+/** The mark and "Let's talk": the page foreground, white over the home hero. */
+const overHeroText = "text-foreground group-data-[over-hero=true]/header:text-on-image";
+/** Over the hero in light, the toggle takes the dark theme's translucent look; dark keeps its own. */
+const overHeroToggle =
+  "group-data-[over-hero=true]/header:not-dark:border-on-image/25 group-data-[over-hero=true]/header:not-dark:bg-scrim/20 group-data-[over-hero=true]/header:not-dark:text-on-image group-data-[over-hero=true]/header:not-dark:hover:bg-scrim/35 group-data-[over-hero=true]/header:not-dark:hover:text-on-image";
 
 /** mailto:, tel: and http(s) links leave the site: open them in a new tab, as the Reference does. */
 const isExternal = (href: string) => /^(https?:|mailto:|tel:)/i.test(href);
@@ -30,14 +40,23 @@ export const Header = () => {
   const header = globalSettings!.header!;
   const pathname = usePathname();
   const headerRef = React.useRef<HTMLElement>(null);
-  const [overHero, setOverHero] = React.useState(false);
+  const serverRender = useIsServerRender();
 
   // While the header overlaps the home hero it keeps the dark theme's white
   // chrome whatever the theme (#89, the owner's #52 sign-off): near-black on
-  // the gradient doesn't read. `[data-section="hero"]` only renders on /, so
-  // every other page keeps the theme's own styling. The swap is a colour
-  // transition below; the sitewide reduced-motion rule makes it instant.
-  React.useEffect(() => {
+  // the gradient doesn't read. The styling hangs off `data-over-hero`
+  // (header-over-hero.ts): the server renders it `true` on / so a light-theme
+  // load never shows a near-black header over the hero, an inline script keeps
+  // it right until hydration, and this listener owns it after. It writes the
+  // attribute directly: the scroll position never re-renders the header.
+  // `[data-section="hero"]` only renders on /, so every other page keeps the
+  // theme's own styling. The swap is a colour transition below; the sitewide
+  // reduced-motion rule makes it instant.
+  useIsomorphicLayoutEffect(() => {
+    (window as unknown as Record<string, (() => void) | undefined>)[HEADER_PRE_HYDRATION_STOP]?.();
+    const header = headerRef.current;
+    if (!header) return;
+    const setOverHero = (over: boolean) => header.setAttribute("data-over-hero", over ? "true" : "false");
     const hero = document.querySelector('[data-section="hero"]');
     if (!hero) {
       setOverHero(false);
@@ -47,8 +66,7 @@ export const Header = () => {
     let frame = 0;
     const sample = () => {
       frame = 0;
-      const headerHeight = headerRef.current?.offsetHeight ?? 0;
-      setOverHero(window.scrollY + headerHeight < heroBottom);
+      setOverHero(isOverHero(window.scrollY, header.offsetHeight, heroBottom));
     };
     const measure = () => {
       heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
@@ -69,7 +87,14 @@ export const Header = () => {
 
   return (
     <HideOnScroll className="fixed inset-x-0 top-0 z-20">
-      <header ref={headerRef} data-section="header" className="flex items-center justify-between px-6 pb-4 pt-6 lg:px-12 lg:pb-6">
+      <header
+        ref={headerRef}
+        data-section="header"
+        // The server's guess; the scripts below correct it outside React (hence the hydration warning suppression).
+        data-over-hero={pathname === "/" ? "true" : "false"}
+        suppressHydrationWarning
+        className="group/header flex items-center justify-between px-6 pb-4 pt-6 lg:px-12 lg:pb-6"
+      >
         <TransitionLink
           href="/"
           aria-label="Homepage"
@@ -79,16 +104,12 @@ export const Header = () => {
           <Icon
             parentColor={header.color!}
             data={{ name: header.icon!.name, color: header.icon!.color, style: header.icon!.style, size: "custom" }}
-            className={cn(
-              "h-[33px] w-[35px] opacity-100 transition-colors duration-300",
-              overHero ? "text-on-image" : "text-foreground"
-            )}
+            className={cn("h-[33px] w-[35px] opacity-100 transition-colors duration-300", overHeroText)}
           />
         </TransitionLink>
 
         <div className="flex items-center gap-6">
-          {/* Over the hero in light, the toggle takes the dark theme's translucent look (the dark: classes already win in dark). */}
-          <ThemeToggle className={cn(overHero && "border-on-image/25 bg-scrim/20 text-on-image hover:bg-scrim/35 hover:text-on-image")} />
+          <ThemeToggle className={overHeroToggle} />
           <nav aria-label="Main navigation">
             <ul className="flex items-center gap-6">
               {header.nav!.map((item, index) => {
@@ -100,10 +121,7 @@ export const Header = () => {
                     <LinkTag
                       href={href}
                       {...(external ? { target: "_blank", rel: "noopener" } : {})}
-                      className={cn(
-                        "group flex items-center gap-3 rounded-full text-body-lg transition-colors duration-300",
-                        overHero ? "text-on-image" : "text-foreground"
-                      )}
+                      className={cn("group flex items-center gap-3 rounded-full text-body-lg transition-colors duration-300", overHeroText)}
                       data-tina-field={tinaField(item!, "label")}
                     >
                       <span>{item!.label}</span>
@@ -130,6 +148,7 @@ export const Header = () => {
           </nav>
         </div>
       </header>
+      {serverRender && <script dangerouslySetInnerHTML={{ __html: trackHeaderOverHeroScript }} />}
     </HideOnScroll>
   );
 };
