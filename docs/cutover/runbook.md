@@ -114,7 +114,7 @@ Each step marked **Alex's yes** is a dashboard action only Alex takes. An agent 
 
 ### B. Answer the open questions
 
-Section 7. Search Console and Vercel Web Analytics change steps D6 and D7.
+Done 2026-11-11 (section 7). The answers shape steps D6 and D8.
 
 ### C. Switch (about 20 min)
 
@@ -156,9 +156,9 @@ Section 7. Search Console and Vercel Web Analytics change steps D6 and D7.
 3. Sitemap and canonical: `curl -s https://designbyalex.dev/sitemap.xml` lists the three pages on `https://designbyalex.dev`, and each page's `rel="canonical"` points at `designbyalex.dev`, not `vercel.app`.
 4. Email survived: `dig +short designbyalex.dev MX` still shows `mx1/mx2.hostinger.com`, and `dig +short designbyalex.dev TXT` still shows the SPF line.
 5. **Alex:** share cards. Paste `/`, `/acacia` and `/mosurban` into LinkedIn's Post Inspector; it shows the new card and clears LinkedIn's cached Framer card.
-6. **Alex:** email. Send a message to the domain mailbox and reply from it (skip if the domain has no mailbox, see section 7).
+6. **Alex:** email. If hPanel → Emails shows a designbyalex.dev mailbox, send a message to it and reply from it. Skip if there's none (section 7).
 7. **Alex:** Tina. Open https://designbyalex.dev/admin, sign in and open the home page without saving. If Tina Cloud refuses the origin, add `https://designbyalex.dev` to the Tina Cloud project's site URLs (**Alex's yes**: Tina Cloud setting). Whether that list needs it is `unverified`; the vercel.app admin keeps working either way.
-8. **Alex, if used:** Vercel → project → Analytics shows page views from `designbyalex.dev`. Search Console: resubmit `https://designbyalex.dev/sitemap.xml`.
+8. **Skipped for now:** Alex probably uses neither Vercel Web Analytics nor Search Console (section 7). If either is turned on later, check that Vercel → project → Analytics shows views from `designbyalex.dev`, or submit `https://designbyalex.dev/sitemap.xml` in Search Console.
 9. **Alex:** both themes on a phone, on mobile data, to confirm nobody is served Framer from a cached resolver.
 
 ### E. Rollback (any time before Framer is cancelled, about 5 min)
@@ -215,12 +215,12 @@ For the master to apply or pass on; this session doesn't edit #15.
 
 ## 7. Questions for Alex
 
-One round. Each has a default the runbook assumes.
+Asked in one round; Alex answered in the cutover-prep session on 2026-11-11.
 
-1. **Search Console.** Is designbyalex.dev in Google Search Console? No DNS or meta verification exists today. Default: no, so D8 skips it.
-2. **Vercel Web Analytics.** Is it on for the project? The Build ships the component; without the dashboard toggle it records nothing. Default: leave as is, and D8 checks it if on.
-3. **Email.** Is there a mailbox at the domain on Hostinger? MX, SPF, DKIM and DMARC point there. Default: yes, keep every mail record and run D6.
-4. **Ticket flags.** Accept the two new tickets' flags (section 8)?
+1. **Search Console.** Is designbyalex.dev in Google Search Console? No DNS or meta verification exists today. **Alex: "probably not."** D8 skips Search Console.
+2. **Vercel Web Analytics.** Is it on for the project? The Build ships the component; without the dashboard toggle it records nothing. **Alex: "probably not."** D8 skips it, and the cutover leaves it as is.
+3. **Email.** Is there a mailbox at the domain on Hostinger? MX, SPF, DKIM and DMARC point there. **Alex: "i think so, not sure."** Keep every mail record either way; they cost nothing if unused. Before D6, Alex checks hPanel → Emails for a designbyalex.dev mailbox and runs D6 only if one exists.
+4. **Ticket flags.** Accept the two new tickets' flags (section 8)? **Alex: "good enough."** Both flags stand.
 
 ## 8. Tickets filed from this runbook
 
