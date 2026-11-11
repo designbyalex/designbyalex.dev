@@ -36,7 +36,11 @@ export function DecodeText({ children: text, as: Tag = 'h1', className, scramble
   const [frame, setFrame] = React.useState<Frame | null>(null);
 
   useIsomorphicLayoutEffect(() => {
-    if (!animate) return;
+    if (!animate) {
+      // Reduced motion can flip on mid-scramble: rest on the plain text, never a frozen frame.
+      setFrame(null);
+      return;
+    }
     const start = performance.now();
     /** Re-roll every unsettled glyph; true once the whole text has settled back to plain. */
     const roll = (): boolean => {

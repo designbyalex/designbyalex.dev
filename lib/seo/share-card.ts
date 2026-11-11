@@ -25,6 +25,11 @@ export interface ShareCardInput {
 export const SHARE_CARD_WIDTH = 1200;
 export const SHARE_CARD_HEIGHT = 630;
 const DEFAULT_SHARE_ZOOM = 1.15;
+// The Tina field's 1–2.5 range (ui.validate in tina/collection/project.ts) only runs in the
+// editor; hand-edited frontmatter reaches this module unchecked, and a zoom under 1 would
+// hand sharp's extract() a negative offset and fail the build.
+const SHARE_ZOOM_MIN = 1;
+const SHARE_ZOOM_MAX = 2.5;
 
 // Duotone ground: greyscaled hero, multiplied over the home hero gradient.
 // Contrast/brightness offset the multiply's darkening (tuned against the
@@ -109,7 +114,7 @@ function fitTitle(title: string, interDisplay: Buffer): { fontSize: number; wrap
 export async function renderShareCard({ title, tagline, slug, coverImage, shareZoom }: ShareCardInput): Promise<Buffer> {
   const [{ interDisplay, inter }, ground] = await Promise.all([
     loadFonts(),
-    composeGround(coverImage, shareZoom ?? DEFAULT_SHARE_ZOOM),
+    composeGround(coverImage, Math.min(SHARE_ZOOM_MAX, Math.max(SHARE_ZOOM_MIN, shareZoom ?? DEFAULT_SHARE_ZOOM))),
   ]);
   const titleFit = fitTitle(title, interDisplay);
 

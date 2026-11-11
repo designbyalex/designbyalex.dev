@@ -57,6 +57,17 @@ describe('renderShareCard', () => {
   }
 
   it(
+    'clamps an out-of-range shareZoom instead of failing the build',
+    async () => {
+      // 0.5 bypasses the Tina editor's 1–2.5 validation (hand-edited frontmatter);
+      // unclamped it would hand sharp a negative extract offset and throw.
+      const jpeg = await renderShareCard({ ...projectInput('acacia'), shareZoom: 0.5, slug: 'clamped' });
+      expect(jpegDimensions(jpeg)).toEqual({ width: 1200, height: 630 });
+    },
+    RENDER_TIMEOUT_MS
+  );
+
+  it(
     'still renders when a long title has to shrink and wrap',
     async () => {
       const jpeg = await renderShareCard({
