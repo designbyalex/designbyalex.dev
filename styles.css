@@ -157,6 +157,19 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /*
+   * Glass chrome (#91): the translucent pills. Fills and inks switch with the
+   * theme; the backdrop filters live in the `glass-blur-*` utilities below.
+   */
+  --color-glass-chrome: var(--glass-chrome);
+  --color-glass-chrome-hover: var(--glass-chrome-hover);
+  --color-glass-arrow: var(--glass-arrow);
+  --color-glass-dots: var(--glass-dots);
+  --color-glass-border: var(--glass-border);
+  --color-glass-border-bare: var(--glass-border-bare);
+  --color-glass-ink: var(--glass-ink);
+  --shadow-glass: var(--glass-shadow);
+
+  /*
    * Hover motion, measured from the Reference's hover variants (#90).
    * Links and arrow circles (header, footer, CTA, CV) run Framer's
    * spring(stiffness 500, damping 60, mass 1): overdamped, ~500ms to rest —
@@ -204,9 +217,10 @@
   --foreground-soft: #1a1a1a;
   /* Text on translucent chrome pills (the case-study Back pill: the Reference's #ededed) */
   --foreground-dim: #262626;
-  /* Decorative large numerals on a card (the carousel slide's "01": the Reference's #474747 on #131313); 3.3:1 on white, AA for large text */
+  /* Decorative large numerals on a card (the carousel slide's "01": the Reference's #474747 on #131313); 3.02:1 on the #f7f7f7 card, above the 3:1 for large text (#91) */
   --foreground-faint: #8f8f8f;
-  --card: #ffffff;
+  /* Panel grey (#91, owner pick 2026-11-11): same as --muted. One token tints every bg-card surface — the footer band, metric cards, the carousel card, video slides, thumbnail and portrait grounds. */
+  --card: #f7f7f7;
   --card-foreground: #080808;
   --popover: #ffffff;
   --popover-foreground: #080808;
@@ -243,6 +257,26 @@
   --sidebar-accent-foreground: #080808;
   --sidebar-border: oklch(0 0 0 / 12%);
   --sidebar-ring: #3cda64;
+
+  /*
+   * Glass chrome (#91, owner pick 2026-11-11): frosted pills in light. One fill, border,
+   * shadow and ink for every pill; per-pill backdrop filters because dark keeps today's
+   * distinct blurs. `-bare` is the arrows' and dots' edge, drawn as an inset ring so the
+   * borderless dark pills keep their exact geometry. `-photo` is the dark-glass status
+   * pill over photography (both themes keep its scrim fill; light adds the blur).
+   */
+  --glass-chrome: rgb(255 255 255 / 0.6);
+  --glass-chrome-hover: rgb(255 255 255 / 0.75);
+  --glass-arrow: rgb(255 255 255 / 0.6);
+  --glass-dots: rgb(255 255 255 / 0.6);
+  --glass-border: rgb(255 255 255 / 0.7);
+  --glass-border-bare: rgb(255 255 255 / 0.7);
+  --glass-ink: #080808;
+  --glass-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 6px 20px rgb(0 0 0 / 0.08);
+  --glass-blur-chrome: blur(16px) saturate(180%);
+  --glass-blur-status: blur(16px) saturate(180%);
+  --glass-blur-nav: blur(16px) saturate(180%);
+  --glass-blur-photo: blur(12px) saturate(160%);
 }
 
 .dark {
@@ -284,6 +318,52 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: oklch(1 0 0 / 15%);
   --sidebar-ring: #3cda64;
+
+  /*
+   * Glass chrome (#91) in dark: exactly what rendered before the tokens existed.
+   * Page pills were `bg-foreground/15 border-border backdrop-blur-[7px]` (hero
+   * status: no blur), the carousel arrows `bg-scrim/40 backdrop-blur-[2px]`, the
+   * dots pill `bg-scrim/20 backdrop-blur-[2px]`, both borderless and unshadowed,
+   * with on-image (#ffffff) ink. `0 0 #0000` is the composable no-shadow value.
+   */
+  --glass-chrome: rgb(255 255 255 / 0.15);
+  --glass-chrome-hover: rgb(255 255 255 / 0.25);
+  --glass-arrow: rgb(0 0 0 / 0.4);
+  --glass-dots: rgb(0 0 0 / 0.2);
+  --glass-border: var(--border);
+  --glass-border-bare: transparent;
+  --glass-ink: #ffffff;
+  --glass-shadow: 0 0 #0000;
+  --glass-blur-chrome: blur(7px);
+  --glass-blur-status: none;
+  --glass-blur-nav: blur(2px);
+  --glass-blur-photo: none;
+}
+
+/*
+ * The glass pills' backdrop filters (#91). Custom utilities rather than
+ * `backdrop-blur-*` because the whole filter list switches with the theme
+ * (light frosts with blur + saturate; dark keeps today's plain blurs, or
+ * none). Both prefixes, as Tailwind's own backdrop utilities emit.
+ */
+@utility glass-blur-chrome {
+  -webkit-backdrop-filter: var(--glass-blur-chrome);
+  backdrop-filter: var(--glass-blur-chrome);
+}
+
+@utility glass-blur-status {
+  -webkit-backdrop-filter: var(--glass-blur-status);
+  backdrop-filter: var(--glass-blur-status);
+}
+
+@utility glass-blur-nav {
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+}
+
+@utility glass-blur-photo {
+  -webkit-backdrop-filter: var(--glass-blur-photo);
+  backdrop-filter: var(--glass-blur-photo);
 }
 
 @layer base {

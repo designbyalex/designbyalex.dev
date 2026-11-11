@@ -21,7 +21,7 @@ export const BackLink = () => (
     <TransitionLink
       href='/'
       data-section='back'
-      className='group flex h-[49px] items-center gap-[10px] rounded-full border border-border bg-foreground/15 px-5 text-foreground-dim backdrop-blur-[7px]'
+      className='group flex h-[49px] items-center gap-[10px] rounded-full border border-glass-border bg-glass-chrome px-5 text-foreground-dim shadow-glass glass-blur-chrome'
     >
       {/* The Reference draws the arrow with the Material Icons ligature font, as the CV link's download glyph. */}
       <span aria-hidden className='font-icons text-icon-lg'>

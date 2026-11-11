@@ -78,7 +78,7 @@ export const ProjectHero = ({ project }: { project: Project }) => {
               {status && (
                 <div className='overflow-clip pt-[7px]'>
                   <p
-                    className='hero-rise inline-flex h-[30px] items-center gap-2 rounded-full border border-border bg-foreground/15 px-[13px] font-mono text-mono uppercase text-foreground'
+                    className='hero-rise inline-flex h-[30px] items-center gap-2 rounded-full border border-glass-border bg-glass-chrome px-[13px] font-mono text-mono uppercase text-foreground shadow-glass glass-blur-status'
                     data-tina-field={tinaField(project, 'status')}
                   >
                     <span aria-hidden className={cn('size-2 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />

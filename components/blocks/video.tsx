@@ -34,9 +34,8 @@ import { useHydrated } from '../motion-primitives/use-hydrated';
  * at the bottom.
  */
 
-/** Framer's chevron: a CSS background on the pill's arrow, as the Reference records it. It points left (Back); Next turns it round. */
-const CHEVRON =
-  "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9.42 16' overflow='visible'><path d='M 8 16 L 0 8 L 8 0 L 9.42 1.42 L 2.84 8 L 9.42 14.58 Z' fill='white'/></svg>\")";
+/** Framer's chevron path (the Reference records it as a data URI); inline so it takes the glass ink via currentColor (#91). It points left (Back); Next turns it round. */
+const CHEVRON_PATH = 'M 8 16 L 0 8 L 8 0 L 9.42 1.42 L 2.84 8 L 9.42 14.58 Z';
 
 interface SlideChromeProps {
   /** The slide showing, from 0. */
@@ -77,7 +76,7 @@ export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
       {hasPrev && <SlideArrow buttonRef={prevRef} direction='prev' onClick={() => step(-1)} />}
       {hasNext && <SlideArrow buttonRef={nextRef} direction='next' onClick={() => step(1)} />}
       <div className='absolute inset-x-0 bottom-0 z-[1] flex justify-center p-4'>
-        <div className='flex overflow-hidden rounded-full bg-scrim/20 backdrop-blur-[2px]'>
+        <div className='flex overflow-hidden rounded-full bg-glass-dots inset-ring inset-ring-glass-border-bare shadow-glass glass-blur-nav'>
           {Array.from({ length: count }, (_, i) => (
             // The ring goes on the dot: the pill clips anything drawn outside the button.
             <button
@@ -93,7 +92,7 @@ export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
             >
               <div
                 className={cn(
-                  'size-2.5 rounded-[5px] bg-on-image group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-ring',
+                  'size-2.5 rounded-[5px] bg-glass-ink group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-ring',
                   i !== index && 'opacity-50',
                 )}
               />
@@ -113,13 +112,16 @@ const SlideArrow = ({ buttonRef, direction, onClick }: { buttonRef: React.Ref<HT
     onClick={onClick}
     aria-label={direction === 'next' ? 'Next slide' : 'Previous slide'}
     className={cn(
-      'absolute top-1/2 z-[1] flex h-[47px] w-14 -translate-y-1/2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-scrim/40 backdrop-blur-[2px]',
+      // The light hairline is an inset ring (transparent in dark), so the borderless dark pill keeps its exact geometry (#91).
+      'absolute top-1/2 z-[1] flex h-[47px] w-14 -translate-y-1/2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-glass-arrow text-glass-ink inset-ring inset-ring-glass-border-bare shadow-glass glass-blur-nav',
       'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
       direction === 'next' ? 'right-6' : 'left-6',
     )}
   >
     <div className={direction === 'next' ? 'pl-px' : 'pr-px'}>
-      <div className={cn('h-4 w-[10px] bg-[length:100%_100%] bg-no-repeat', direction === 'next' && 'rotate-180')} style={{ backgroundImage: CHEVRON }} />
+      <svg viewBox='0 0 9.42 16' aria-hidden='true' className={cn('h-4 w-[10px] fill-current', direction === 'next' && 'rotate-180')}>
+        <path d={CHEVRON_PATH} />
+      </svg>
     </div>
   </button>
 );
@@ -267,7 +269,7 @@ const Clip = ({ src, playing, loop, reducedMotion, className }: ClipProps) => {
           type='button'
           onClick={toggle}
           aria-label={paused ? 'Play video' : 'Pause video'}
-          className='absolute right-3 bottom-3 flex size-10 items-center justify-center rounded-full border border-border bg-foreground/15 text-foreground backdrop-blur-[7px] hover:bg-foreground/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
+          className='absolute right-3 bottom-3 flex size-10 items-center justify-center rounded-full border border-glass-border bg-glass-chrome text-glass-ink shadow-glass glass-blur-chrome hover:bg-glass-chrome-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
         >
           <svg viewBox='0 0 24 24' className='size-5' fill='currentColor' aria-hidden='true'>
             {paused ? <path d='M8 5v14l11-7z' /> : <path d='M6 5h4v14H6zM14 5h4v14h-4z' />}
