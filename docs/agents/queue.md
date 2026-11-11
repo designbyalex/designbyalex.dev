@@ -2,7 +2,7 @@
 
 The order the master follows when it starts the next writer, and the map of what blocks what. The master owns this file: on `DONE` it deletes the row, starts the next, and updates *Last reviewed*. Re-ordering happens only on Alex's call, noted on the PBI.
 
-**Last reviewed:** 2026-11-11 18:20 AEDT. AFK batch running (#91, #92 done; #93 building), shown in the watcher session afk-batch and the live dashboard at http://127.0.0.1:4789. A side worker is making the dashboard open with every batch. Hero lane: #108 rendering. Waiting on Alex: 1 (the list is below).
+**Last reviewed:** 2026-11-11 18:20 AEDT (triage). AFK batch: #91 and #92 done, #93 building (watcher afk-batch, dashboard http://127.0.0.1:4789). Hero lane: #108 re-rendering in hero-frames, preview READY, pilot waits on the renders. Off product: afk-dashboard and cutover-prep side workers running. Content lane idle until Alex's #100 assets. Dependabot after the batch. Waiting on Alex: 2 (the list is below).
 
 ## Priority
 
@@ -36,6 +36,7 @@ Standing calls:
 |---|---|---|
 | Hero piece #101 → #109 lead (Hero piece lane) | hero-piece-pilot `local_fe36df13-fb11-40de-8c45-c3a1221e4224` | adopted the setup (2026-11-11 18:15). #103 → #107 closed; #108 in progress; next: on Alex's yes, merge both #108 branches into `prototype/hero-piece`, re-run the harness, then Alex's checkpoint 2 in the hero; #109 after |
 | #108 animatic scene renders | hero-frames `local_1593e98f-c058-4e96-80bb-f82d6b0567ec` | Alex OK'd the gooey melt on CAM_anim_b ("Approved, render it"); re-rendering now; new setup queued for its next turn |
+| #15 cutover prep (Off product) | cutover-prep `local_0354504a-28b1-4123-a3ab-9f0451bb049d` | read-only: Framer URL inventory, redirect map, DNS records to keep, Alex's dashboard steps, rollback; `docs/cutover/runbook.md`, maybe new PBIs |
 | AFK dashboard autostart (Off product) | afk-dashboard `local_967ef96a-6e0b-456b-8ceb-541c86d6ac1d` | Alex, 2026-11-11: the dashboard should run with every AFK batch. Moving it into `scripts/afk/dashboard/`, started and opened by the loop; merges only after the current batch ends |
 | #108 animatic preview | hero-frames-preview `local_4ccc9c64-19ef-4a01-87fc-7afe68144153` | READY: d0057d1 on `claude/hero-piece-anim-preview` (98/98 contrast checks); waits for the pilot's merge into `prototype/hero-piece` |
 
@@ -45,7 +46,8 @@ The one live list of what only Alex can move, with rows as the `orchestrate` ski
 
 | # | Kind | Do | Min | Where |
 |---|---|---|---|---|
-| 1 | Yes | say yes to merge PR #117 (master's queue and the AFK watcher rule, docs only) | 2 | [PR #117](https://github.com/designbyalex/designbyalex.dev/pull/117) |
+| 1 | Admin | send the new case-study and MOS media for #100 when you have them (Content lane is idle until then) | 15 | [#100](https://github.com/designbyalex/designbyalex.dev/issues/100) |
+| 2 | Yes | say yes to merge PR #117 (master's queue and the AFK watcher rule, docs only) | 2 | [PR #117](https://github.com/designbyalex/designbyalex.dev/pull/117) |
 
 ## Waiting on the client
 
