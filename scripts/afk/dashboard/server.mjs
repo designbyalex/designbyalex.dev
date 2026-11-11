@@ -250,7 +250,15 @@ function status() {
             : tk.skipped
               ? 'skipped'
               : 'queued';
-    return { n, title: titleOf(n), state, skipped: tk.skipped ?? null, attempts: tk.attempts.length, cost: tk.cost, verify: tk.attempts.map((a) => a.verify).filter(Boolean) };
+    return {
+      n,
+      title: titleOf(n),
+      state,
+      skipped: tk.skipped ?? null,
+      attempts: tk.attempts.length,
+      cost: tk.cost,
+      verify: tk.attempts.map((a) => a.verify).filter(Boolean),
+    };
   });
   const cur = run.current && run.tickets[run.current]?.attempts.at(-1);
   const now = cur && ph.loopAlive ? activity(cur.transcript) : null;
