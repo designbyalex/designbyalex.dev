@@ -18,7 +18,7 @@ export const SKIP_EXIT = 10;
 export type GuardInput = {
   body: string;
   labels: string[];
-  /** Issue number → GitHub state ("OPEN" | "CLOSED"). A blocker missing here counts as open. */
+  /** Issue or merged-PR number → GitHub state ("OPEN" | "CLOSED" | "MERGED"). A blocker missing here counts as open. */
   issueStates: Record<number, string>;
   /** Tickets with an `afk(#N):` commit on the branch, finished earlier in this run. */
   finished: number[];
@@ -27,6 +27,8 @@ export type GuardInput = {
 export type GuardDecision = { run: true } | { run: false; reasons: string[] };
 
 const HITL_MARKER = /\*\*Type:\s*HITL\b/;
+/** A blocker in one of these states is done: a closed issue or a merged PR. */
+const DONE_STATES = ['CLOSED', 'MERGED'];
 
 /** Issue numbers referenced in the body's `## Blocked by` section, in order. */
 export function parseBlockedBy(body: string): number[] {
@@ -41,7 +43,7 @@ export function guardTicket({ body, labels, issueStates, finished }: GuardInput)
   if (HITL_MARKER.test(body)) reasons.push('HITL ticket (body says **Type: HITL**)');
   if (!labels.includes(READY_LABEL)) reasons.push(`missing the ${READY_LABEL} label`);
 
-  const outstanding = parseBlockedBy(body).filter((n) => issueStates[n] !== 'CLOSED' && !finished.includes(n));
+  const outstanding = parseBlockedBy(body).filter((n) => !DONE_STATES.includes(issueStates[n]) && !finished.includes(n));
   if (outstanding.length > 0) {
     reasons.push(`blocked by ${outstanding.map((n) => `#${n}`).join(', ')} (open, not finished this run)`);
   }

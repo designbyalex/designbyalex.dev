@@ -45,6 +45,10 @@ describe('guardTicket', () => {
     expect(guardTicket({ body: afkBody('- #51'), labels: ready, issueStates: { 51: 'CLOSED' }, finished: [] })).toEqual({ run: true });
   });
 
+  it('runs a ready AFK ticket whose blocker is a merged PR', () => {
+    expect(guardTicket({ body: afkBody('- #113'), labels: ready, issueStates: { 113: 'MERGED' }, finished: [] })).toEqual({ run: true });
+  });
+
   it('runs a ready AFK ticket with no blockers', () => {
     expect(guardTicket({ body: afkBody('None - can start immediately'), labels: ready, issueStates: {}, finished: [] })).toEqual({ run: true });
   });
