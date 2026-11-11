@@ -1,15 +1,10 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Layout from "@/components/layout/layout"
+import { type NotFoundProject, NotFoundStage, ProjectPreviews, ProjectRow } from "@/components/not-found/project-previews"
 import { DecodeText } from "@/components/motion-primitives/decode-text"
 import { TransitionLink } from "@/components/motion-primitives/route-transitions"
 import { ScrollReveal } from "@/components/motion-primitives/scroll-reveal"
-import { cn } from "@/lib/utils"
 import client from "@/tina/__generated__/client"
-
-interface NotFoundProject {
-  title: string
-  href: string
-}
 
 interface NotFoundProps {
   title?: string
@@ -21,7 +16,8 @@ interface NotFoundProps {
  * The brand mark (the MarkGlyph artwork, components/icon.tsx) as a large green
  * outline behind the text — inline SVG, its path split into three at the
  * ` Z M` boundaries so the pieces can assemble on mount ("404 mark assembly"
- * in styles.css). The section's `overflow-clip` crops it at the right edge.
+ * in styles.css). Large and whole in the right half (owner pick 2026-11-12); it
+ * fades out while a project row shows its preview there.
  */
 function AssemblingMark() {
   return (
@@ -31,7 +27,7 @@ function AssemblingMark() {
       fill="none"
       stroke="currentColor"
       strokeWidth={0.12}
-      className="pointer-events-none absolute -right-[90px] bottom-30 h-[341px] w-[360px] text-emphasis opacity-50 lg:-right-10 lg:bottom-10 lg:h-[607px] lg:w-[640px]"
+      className="pointer-events-none absolute top-28 right-6 h-[285px] w-[300px] text-emphasis opacity-50 transition-opacity duration-500 ease-hover-link lg:top-[calc(50%-280px)] lg:right-24 lg:h-[560px] lg:w-[590px] lg:group-data-previewing/nf:opacity-0"
     >
       <path
         className="not-found-piece-left"
@@ -62,11 +58,9 @@ export function NotFoundContent({
   projects = [],
 }: NotFoundProps) {
   return (
-    <div
-      data-section="not-found"
-      className="relative flex min-h-[calc(100svh-5.5rem)] flex-col overflow-clip px-6 py-8 lg:min-h-[calc(100svh-6rem)] lg:px-12 lg:py-16"
-    >
+    <NotFoundStage className="relative flex min-h-[calc(100svh-5.5rem)] flex-col overflow-clip px-6 py-8 lg:min-h-[calc(100svh-6rem)] lg:px-12 lg:py-16">
       <AssemblingMark />
+      <ProjectPreviews projects={projects} />
       {/* One column under lg; two equal columns above, sharing the hero's bottom-row geometry. */}
       <div className="relative z-[1] grid flex-1 grid-rows-[auto_1fr_auto] lg:grid-cols-2 lg:gap-x-10">
         <DecodeText
@@ -89,16 +83,7 @@ export function NotFoundContent({
             <ul>
               {projects.map((project, index) => (
                 <li key={project.href}>
-                  <TransitionLink
-                    href={project.href}
-                    className={cn(
-                      "flex items-center justify-between gap-4 border-t border-border py-3.5 text-body text-foreground transition-colors hover:text-emphasis",
-                      index === projects.length - 1 && "border-b"
-                    )}
-                  >
-                    <span>{project.title}</span>
-                    <ArrowUpRight strokeWidth={2} className="size-5 shrink-0 text-emphasis" />
-                  </TransitionLink>
+                  <ProjectRow project={project} last={index === projects.length - 1} />
                 </li>
               ))}
             </ul>
@@ -139,12 +124,13 @@ export function NotFoundContent({
           </ScrollReveal>
         </div>
       </div>
-    </div>
+    </NotFoundStage>
   )
 }
 
 /**
- * The home page's Selected projects as (title, href) rows, in order, skipping
+ * The home page's Selected projects as rows (title, href, status and the home
+ * thumbnail for the hover preview), in order, skipping
  * entries without an href — so adding a project to home.mdx adds a row here
  * with no code change.
  */
@@ -155,7 +141,13 @@ async function selectedProjects(): Promise<NotFoundProject[]> {
     for (const block of data.page.blocks ?? []) {
       if (block?.__typename !== "PageBlocksSelectedProjects") continue
       for (const project of block.projects ?? []) {
-        if (project?.title && project?.href) rows.push({ title: project.title, href: project.href })
+        if (!project?.title || !project?.href) continue
+        rows.push({
+          title: project.title,
+          href: project.href,
+          status: project.status ?? undefined,
+          image: project.image?.src ? { src: project.image.src, alt: project.image.alt ?? "" } : undefined,
+        })
       }
     }
     return rows

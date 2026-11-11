@@ -486,26 +486,28 @@
 /*
  * 404 mark assembly (#93), app/not-found.tsx. The brand mark's three pieces
  * slide and rotate into place on mount over the entrance curve (1.2s, staggered
- * 200/280/360ms). Pure CSS with no scripting gate: the animation ends at rest,
+ * 200/280/360ms), each travelling 20% of its own box so the whole assembly plays
+ * inside the section (owner pick 2026-11-12; it was 45%, which started the right
+ * piece past the clipped edge). Pure CSS with no scripting gate: the animation ends at rest,
  * so without JavaScript it simply plays, and under reduced motion this block
  * never applies — the mark is assembled from first paint.
  */
 @keyframes not-found-piece-left {
   from {
     opacity: 0;
-    transform: translateX(-45%) rotate(-18deg);
+    transform: translateX(-20%) rotate(-18deg);
   }
 }
 
 @keyframes not-found-piece-right {
   from {
-    transform: translateX(45%) rotate(18deg);
+    transform: translateX(20%) rotate(18deg);
   }
 }
 
 @keyframes not-found-piece-top {
   from {
-    transform: translateY(-45%) rotate(8deg);
+    transform: translateY(-20%) rotate(8deg);
   }
 }
 

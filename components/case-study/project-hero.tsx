@@ -18,7 +18,7 @@ export const statusLabels: Record<string, string> = {
 };
 
 // The pill's dot: the live site tags shipped work green and in-development work orange.
-const statusDotClasses: Record<string, string> = {
+export const statusDotClasses: Record<string, string> = {
   'in-development': 'bg-status-in-development',
 };
 
