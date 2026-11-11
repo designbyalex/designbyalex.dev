@@ -10,6 +10,7 @@ import {
   hoverMotion,
   lineRevealMotion,
   routeTransitionMotion,
+  scrollParallaxMotion,
   scrollRevealMotion,
   slideAppearMotion,
   textRevealMotion,
@@ -320,5 +321,21 @@ describe('slideAppearMotion', () => {
     expect(m.initial).toBe(false);
     expect(m.animate).toEqual({ opacity: 1, y: 0 });
     expect(m.transition.duration).toBe(0);
+  });
+});
+
+describe('scrollParallaxMotion', () => {
+  it("maps Framer's speed percentage to an extra translate per scrolled pixel", () => {
+    // The Reference's Scroll Overlay rides the "Mid" layer at speed 150: y = -scrollY × 0.5.
+    expect(scrollParallaxMotion(false, { speed: 150 }).factor).toBe(0.5);
+    expect(scrollParallaxMotion(false, { speed: 50 }).factor).toBe(-0.5);
+  });
+
+  it('defaults to speed 100 — scrolling with the page, no extra motion', () => {
+    expect(scrollParallaxMotion(false).factor).toBe(0);
+  });
+
+  it('reduced motion: the layer rests in its layout position at any speed', () => {
+    expect(scrollParallaxMotion(true, { speed: 150 }).factor).toBe(0);
   });
 });

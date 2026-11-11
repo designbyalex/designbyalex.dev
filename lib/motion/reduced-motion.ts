@@ -51,7 +51,8 @@ export type MotionCategory =
   | 'autoplay'
   | 'hide-on-scroll'
   | 'slide-appear'
-  | 'count-up';
+  | 'count-up'
+  | 'scroll-parallax';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -361,6 +362,45 @@ export function countUpMotion(prefersReducedMotion: boolean): CountUpMotion {
     animate: true,
     transition: { type: 'spring', duration: DURATION.countUp, bounce: 0, delay: 0 },
   };
+}
+
+// ─── scroll-parallax ──────────────────────────────────────────────────────────
+
+export interface ScrollParallaxOptions {
+  /**
+   * Scroll speed as a percentage of the page's, Framer's parallax unit: 100
+   * scrolls with the page (no extra motion), 150 moves 1.5× as fast, 50 lags
+   * at half speed. Default 100.
+   */
+  speed?: number;
+}
+
+export interface ScrollParallaxMotion {
+  /**
+   * The element's extra translateY per scrolled pixel: `y = -scrollY × factor`
+   * (Framer's page-effect transform for `adjustPosition: false`, `offset: 0`).
+   * 0 → the element rests in its layout position.
+   */
+  factor: number;
+}
+
+/**
+ * Decision for a layer that scrolls at its own speed (Framer's parallax page
+ * effect — on the Reference, the home hero's page-coloured "Scroll Overlay"
+ * wave rides it at speed 150, melting the hero into the projects).
+ * Reduced motion → factor 0, so the layer sits still in its layout position.
+ */
+export function scrollParallaxMotion(
+  prefersReducedMotion: boolean,
+  options: ScrollParallaxOptions = {}
+): ScrollParallaxMotion {
+  const { speed = 100 } = options;
+
+  if (prefersReducedMotion) {
+    return { factor: 0 };
+  }
+
+  return { factor: speed / 100 - 1 };
 }
 
 // ─── hide-on-scroll ───────────────────────────────────────────────────────────

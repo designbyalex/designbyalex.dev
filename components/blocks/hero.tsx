@@ -7,11 +7,9 @@ import { ArrowDown } from 'lucide-react';
 import { PageBlocksHero } from '../../tina/__generated__/types';
 import { EASE_APPEAR } from '../../lib/motion/reduced-motion';
 import { Section, sectionBlockSchemaField } from '../layout/section';
+import { ScrollParallax } from '../motion-primitives/scroll-parallax';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { TextReveal } from '../motion-primitives/text-reveal';
-
-/** The Reference's "Scroll Overlay": a page-coloured wave parked just under the fold (see below). */
-const SCROLL_OVERLAY = '/uploads/home/hero-scroll-overlay.svg';
 
 /**
  * Homepage hero, faithful to the Reference (`docs/parity-audit.md` H1–H6): a
@@ -152,15 +150,19 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
 
       {/*
        * Scroll Overlay: the Reference parks a page-coloured wave (3000×2575 at desktop, 1350×1159 at
-       * tablet, 1200×1030 on phones) 10px under the fold, clipped by the section, for its scroll
-       * choreography. Reproduced at rest so the Build's media inventory matches; the scroll motion is
-       * not reproduced.
+       * tablet, 1200×1030 on phones) 10px under the fold, clipped by the section, and scrolls it at
+       * 1.5× the page (the "Mid" parallax layer, `__framer__speed: 150`). Scrolling down, the wave's
+       * curved edge sweeps up over the hero faster than the hero leaves, melting the gradient into
+       * the page colour just as Selected projects arrives. The row is 1px tall and z-10 after the
+       * text wrapper, so the wave rides over everything in the hero, exactly as the Reference stacks
+       * it. At rest (and under reduced motion) nothing is visible and the media inventory matches.
+       * The wave's fill is the page background, and a file can't read the token, so each theme gets
+       * its own copy of the asset (#080808 dark, #ffffff light).
        */}
       <div aria-hidden className="relative z-10 flex h-px w-full shrink-0 justify-center">
-        <div
-          className="mt-2.5 h-[1030px] w-[1200px] shrink-0 lg:h-[1159px] lg:w-[1350px] xl:h-[2575px] xl:w-[3000px]"
-          style={{ backgroundImage: `url(${SCROLL_OVERLAY})`, backgroundSize: '100% 100%' }}
-        />
+        <ScrollParallax speed={150} className="flex shrink-0 justify-center pt-2.5">
+          <div className="h-[1030px] w-[1200px] shrink-0 bg-[length:100%_100%] bg-[url(/uploads/home/hero-scroll-overlay-light.svg)] lg:h-[1159px] lg:w-[1350px] xl:h-[2575px] xl:w-[3000px] dark:bg-[url(/uploads/home/hero-scroll-overlay.svg)]" />
+        </ScrollParallax>
       </div>
     </Section>
   );
