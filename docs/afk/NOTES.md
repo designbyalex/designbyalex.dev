@@ -1243,3 +1243,58 @@ Every page × dark/light, and each page once with `prefers-reduced-motion: reduc
 ## Batch fix (2026-11-12): #111 share cards on Vercel
 - The Vercel build of 6385412 failed prerendering `/og/acacia.jpg`: TinaCloud returns `coverImage` as an `assets.tina.io` URL (`…/__staging/<branch>/__file/projects/acacia/hero.png` on a branch), and `composeGround` joined it onto `public/`. The local datalayer returns `/uploads/...`, so `build-local` passed.
 - `publicMediaPath` in `lib/seo/share-card.ts` maps a site path or a TinaCloud media URL (branch or main shape) back to the committed file under `public/uploads/`; the build still reads the repo file, never the network. One unit test covers both shapes and that the file exists. This supersedes the *Absolute `coverImage` URLs would fail the build* finding above.
+
+## #122 P38: Header contrast over the home hero (scrim under the header)
+- Built: a top-anchored header scrim inside the home hero (`components/blocks/hero.tsx`), between the existing top-of-section comment block and the text scrims: `--scrim` (black in both themes) at 70% → 60% → transparent, in a 150px band (170px at `lg`), full-width, `z-[1]` — above the gradient and the mark (z-0), below the hero text (z-10), under the fixed header (z-20). It's a plain static div with `aria-hidden` and `pointer-events-none`, no motion wrapper, so it rests from first paint under reduced motion and never intercepts clicks. Inside the section it scrolls away with the hero, so the header past the hero and every other page are untouched — no change to `header.tsx` or `header-over-hero.ts`.
+- Decisions made without a human:
+  - The ticket gives three stops ("70% → 60% → 0 over 150/170px") without a middle-stop position, and the Hero piece prototype (branch `prototype/hero-piece`) isn't in this checkout to read the exact rule. Used the literal CSS reading: an unpositioned middle stop lands at 50% of the band (0 / 75px / 150px mobile; 0 / 85px / 170px desktop). The header is 88px tall (<lg) / 96px (lg+), so the whole header row sits in the ≥60% region either way.
+  - "Desktop" mapped to the `lg` breakpoint (1024px), matching the hero's own mobile/desktop switch and the header's height change — so 768 gets the 150px mobile band.
+  - Sized the band with `h-[150px] lg:h-[170px]` on the element and percentage stops in the gradient, instead of px stops in two full gradient strings; one height utility is the smaller diff.
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] "Let's talk", the mark and the nav text over the home hero ≥4.5:1 in dark and light at 1440, 768, 390 (the ticket's prototype-harness values measured 12.0+ for "Let's talk").
+  - [ ] Scrim only over the home hero: /acacia, /mosurban and 404 headers unchanged; on / the band scrolls away with the hero and the post-hero header is unchanged.
+  - [ ] Reduced motion: the band is there from first paint, no fade-in.
+  - [ ] Alex accepts the look of the hero top (the darkened top edge over the gradient and the mark's upper-right) at the batch review.
+
+## Final pass (#122)
+
+### What failed, and how it was fixed
+- **Nothing failed.** `scripts/afk/check.sh --full` was green on the first run (Tina schema + types, tsc, biome, `pnpm build-local`, vitest — 20 files / 211 tests, unchanged from the last batch). Log in `.afk/full-gate.log`.
+- **No stubs to fill.** #122 records "Stubbed: nothing". #9's curl-blocked stubs were filled by the first Final pass and re-verified on disk here: the eight PNGs plus `acacia-logo.svg` and `mission-grid.svg` in `public/uploads/projects/acacia/`, and the four Outcome counters (25 / 40 / 20 / 15) in `content/projects/acacia.mdx`. No other ticket's notes say curl was denied.
+- **No review fixes.** The whole branch diff is the one 12-line scrim in `components/blocks/hero.tsx` (plus these notes); reviewed by hand (the `mattpocock-skills:code-review` skill isn't installed in this session). Checked: `--scrim` exists in `styles.css` (`#000000`, theme-independent, matching the hero's render-identically-in-both-themes rule); z-order (gradient/mark at z-0 < scrim z-[1] < hero text z-10 < fixed header z-20); the band is a plain `aria-hidden` `pointer-events-none` div with no motion wrapper, so it rests from first paint and never blocks the header's controls; it sits inside the hero `Section`, and the hero block is used only by `content/pages/home.mdx`, so no other route renders it; no change to `header.tsx` or `header-over-hero.ts`.
+
+### Tests added
+None. The PRD's Testing Decisions (gh issue 3) require a colocated `*.test.ts` for every pure module added under `lib/` on the branch; this branch adds none (the diff touches only `components/blocks/hero.tsx` and these notes). The existing suite (20 files / 211 tests) runs in the gate and passes.
+
+### Acceptance criteria
+**#122 P38 — Header contrast over the home hero**
+- [x] Scrim values are exactly the ticket's harness-passed numbers (`--scrim` at 70% → 60% → 0 over 150px mobile / 170px at `lg`), which measured 12.0+ for "Let's talk" in the Hero piece prototype's harness — far above 4.5:1. The build doesn't re-measure contrast; the 1440/768/390 × dark/light sweep is visual → checklist. One literal reading made without a human: the ticket's three stops carry no middle-stop position, so the unpositioned middle stop lands at the CSS default of 50% of the band (75px / 85px); the header's text row sits well inside the darkened region at both heights.
+- [x] Scrim shows only over the home hero: it's a static child of the hero section (the only user of the hero block), so it scrolls away with the hero and `/acacia`, `/mosurban` and the 404 are untouched — their headers never changed files. Visual confirmation → checklist.
+- [x] Rests from first paint under reduced motion: no motion wrapper, no transition, no fade-in — the div is in the server-rendered HTML at its final values.
+- [ ] **Alex accepts the look of the hero top** (the darkened top edge over the gradient and the mark's upper-right) — pending the batch review, by design.
+
+### Review findings not fixed (and why)
+- **"Desktop" mapped to the `lg` breakpoint (1024px)**, so 768 gets the 150px mobile band. The ticket says only "mobile / desktop"; `lg` is where the hero and header already switch. If 768 was meant to take 170px, it's one utility (`lg:h-[170px]` → `md:`).
+- **The ticket note's claim that "the whole header row sits in the ≥60% region" is slightly generous**: with the middle stop at 50% of the band, the scrim is below 60% over the last ~13px of the header bar (75–88px mobile). The header's text and controls are vertically centred well above that, and the harness's 12.0+ headroom dwarfs the difference. Not worth inventing a stop position the ticket doesn't give.
+- Carried from earlier passes, unchanged: the three MOS Urban videos still stream from `framerusercontent.com` (re-host before DNS cutover); Safari backdrop-filter and the light-theme spot-checks from the #91–#111 checklist remain visual-only.
+
+### Open risks
+- The 4.5:1 criterion is met by the prototype harness's numbers, not re-measured on this build. If the hero gradient asset or header chrome changed since the harness ran, the margin (12.0+) would have to shrink by ~2.7× before failing — unlikely, but the visual sweep below is the backstop.
+- The darkened top band is a visible design change to the hero's first paint; it's the point of the ticket, but it's exactly the thing Alex must accept at the batch review.
+
+### Visual QA checklist (consolidated, #122)
+Every page × dark/light, and each page once with `prefers-reduced-motion: reduce` (everything at rest from first paint).
+
+**`/` (home) — dark · light · reduced motion, at 1440 / 768 / 390**
+- [ ] "Let's talk", the arrow circle, the theme toggle and the mark glyph over the hero read clearly in both themes at all three widths (ticket target ≥4.5:1; prototype harness measured 12.0+).
+- [ ] The darkened band hugs the top ~150px (170px at ≥1024) and fades cleanly into the gradient; no hard edge, no banding over the mark's upper-right.
+- [ ] Scroll down: the band leaves with the hero; the post-hero header (its own #89 treatment) is pixel-identical to before this batch.
+- [ ] Reduced motion: band present from first paint, no fade-in; hero otherwise at rest as before.
+- [ ] Alex accepts the look of the hero top (#122's owner gate).
+
+**`/acacia`, `/mosurban`, 404 — dark · light · reduced motion, at 1440 / 768 / 390**
+- [ ] Headers byte-identical to before this batch (no scrim anywhere off the home hero).
+
+**Deferred from this ticket**
+- [ ] None beyond the above — #122 deferred only its visual checks and the owner's acceptance.
