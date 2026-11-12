@@ -5,11 +5,11 @@ order: 3
 format: case-study
 tagline: Closing TinaCMS’s gap on its rivals, from pixels to pull requests.
 intro: |-
-  <mark>I led the UI/UX redesign of the TinaCMS v4 admin, end to end — from competitor research to a coded prototype and a Storybook design system that production is built from.</mark>
+  I led the UI/UX redesign of the TinaCMS admin for v4, end to end: competitor research, a coded prototype, and a Storybook design system that the new admin is built from.
 
-  TinaCMS was falling behind. Its rivals had moved on in feature parity, UX and cross-platform usability, and the new v4 admin shell had merged on a stock theme, <mark>with no reviewed design behind it.</mark> Editors couldn’t always tell whether their work was saved, which branch they were on, or why a save had failed.
+  TinaCMS has let teams edit their sites visually since 2019, with content kept in Git. Its admin grew one feature at a time for six years, and while the editing worked, the experience had fallen behind its rivals on feature parity, UX and cross-platform usability. v4 is a full rewrite of TinaCMS, and <mark>the moment to redesign the admin from the ground up.</mark>
 
-  I worked as a design engineer, <mark>directing AI agents through every stage while making every design decision myself.</mark> In six weeks that covered 11 surfaces of the admin, each one designed in code, reviewed and handed to the TinaCMS developer to build.
+  I worked as a design engineer, directing AI agents through every stage while making every design decision myself. In six weeks that covered 11 surfaces of the admin, each one designed in code, reviewed and handed to the TinaCMS developer to build.
 overviewStyle: relaxed
 typology:
   - Developer tools & CMS
@@ -35,18 +35,20 @@ thumbnailAlt: The TinaCMS v4 admin prototype, showing the document editor beside
 blocks:
   - _template: caseStudySection
     sectionId: problem
-    heading: Falling behind the pack
-    subheading: A shell with no design behind it
+    heading: Six years of patches
+    subheading: A mature admin, falling behind
     headingSize: heading
     blocks:
       - _template: body
         body: |-
-          TinaCMS lets teams edit their website visually while the content stays in Git. It’s a strong idea, but the editing experience hadn’t kept up with the rest of the market. Finding, editing and moving between content took more clicks than it should, and phones and tablets had barely been considered.\
+          TinaCMS is an open-source CMS with 13,000+ stars on GitHub and 250,000+ downloads a month, used by teams like Unity and Smashing Magazine. Its admin grew one feature at a time: a media manager, TinaCloud, visual editing, click-to-edit and an editorial workflow, each added on top of the last.\
           \
-          The v4 admin shell made the gap visible. It merged on the stock neutral theme, with no Tina orange, logo or type, and editor state looked different from one view to the next. With no owned design, every UI change reopened the same debate about what TinaCMS should look like.
+          Six years of patches showed. The maintainers called the admin dated, with branding that had drifted between views and layout choices that no longer matched how editors work. Saved or unsaved looked different from one view to the next, navigating away could silently discard work, and the branch workflow felt bolted on. In the code, blue outnumbered Tina orange nearly seven to one.\
+          \
+          v4 is a full rewrite of TinaCMS: easier to extend, customise and upgrade. A rewrite meant the admin could be redesigned properly instead of patched again.
       - _template: statement
-        text: 'To catch its rivals, TinaCMS needed '
-        emphasis: a product designed end to end.
+        text: 'The editing worked. The experience '
+        emphasis: had fallen behind its rivals.
         leadOnPhone: true
   - _template: caseStudySection
     sectionId: research
@@ -56,18 +58,18 @@ blocks:
     blocks:
       - _template: body
         body: |-
-          I started by taking apart the competition. I reviewed 180+ screens from 13 content platforms, including Storyblok, Sanity, Payload, Statamic, Strapi, Sveltia and Decap, and gave every screen a verdict: steal, reference, avoid, or a gap nobody had filled yet. Alongside it, I audited the shipped v4 shell for branding and consistency.\
+          I started by taking the competition apart. I reviewed 180+ screens from 13 content platforms, including Storyblok, Sanity, Payload, Statamic, Strapi, Sveltia and Decap, and gave every screen a verdict: steal, reference, avoid, or a gap nobody had filled yet.\
           \
-          The research turned a vague brief into 11 design PBIs, one per surface of the admin. It also surfaced Tina’s clearest opening: none of the Git-based CMSs we compared showed the active branch while you edit and let you switch it in place.
+          The research set two goals. Catch up where Tina had fallen behind, and go further where no one had a good answer. It also confirmed what to protect: click-to-edit on the live page is Tina’s clearest advantage, and the redesign had to keep it.
       - _template: insights
         label: What the research showed
         items:
-          - title: Navigation was the first argument
-            text: Open issues disagreed on how the sidebar should work. I prototyped three mental models (Admin first, Site first and Changes first) and walked each one through the same four tasks. Admin first won.
-          - title: Editors lost track of their work
-            text: Saved or not, which branch, and whether a save was running or had failed were all shown differently, or not at all.
-          - title: Branches were Tina’s edge
-            text: Content lives in Git, so branches are native to Tina. No rival made them visible while editing, so that became the opportunity.
+          - title: Click-to-edit is Tina’s edge
+            text: Editing straight on the live page was Tina’s clearest lead over all 13 platforms, so every surface was designed around it.
+          - title: Some problems nobody had solved
+            text: None of the 13 showed the active branch while you edit, explained a failed save, or said where a file was used before you deleted it. Each of those became an opportunity for Tina.
+          - title: Nothing editors rely on gets lost
+            text: Each surface recorded the current behaviour it had to keep, so v4 moves editors forward without taking anything away.
   - _template: caseStudySection
     sectionId: layout
     heading: Layout & navigation
@@ -76,12 +78,12 @@ blocks:
     blocks:
       - _template: body
         body: |-
-          The Admin first model, shaped on the best of Statamic and Outstatic, settled how the sidebar works: what earns an entry, how external links and pop-up targets behave, and how entries group alongside collections. It left room for a collection infobar, custom actions and a TinaCloud group without shifting the layout, and settled how breadcrumbs and Back behave.\
+          The admin’s layout and navigation had grown piece by piece, and they no longer matched how editors expect to work. I prototyped three mental models (Admin first, Site first and Changes first) and walked each one through the same four tasks. Admin first won, shaped on the best of Statamic and Outstatic.\
           \
-          The same model holds at every width. I defined three width tiers, a sheet model for phones and 40px touch targets, so the admin works on a phone as well as on a desktop.
+          The new model settles how the sidebar works, how plugin screens and external links appear, and how breadcrumbs and Back behave. It holds at every width, with three width tiers, a sheet model for phones and 40px touch targets.
       - _template: statement
         text: 'One navigation model across desktop, tablet and phone, '
-        emphasis: settling debates that had stalled the build.
+        emphasis: tested against the tasks editors actually do.
         leadOnPhone: true
   - _template: caseStudySection
     sectionId: editor-state
@@ -91,12 +93,12 @@ blocks:
     blocks:
       - _template: body
         body: |-
-          I designed a save model editors can read at a glance. The Save button shows saving, saved and failed states, with Retry when something goes wrong. The active branch shows in every view, and editors can switch it in place, save to a new branch, or discard and resume their unsaved work.\
+          In the current admin, editors couldn’t always tell where they stood. Unsaved changes looked different from view to view, the active branch dropped off some screens, and saving or switching branch could fail without a clear reason.\
           \
-          v4 already got three things right: dirty dots on changed fields, unsaved badges in lists, and a prompt to resume unsaved edits. I kept all three and built the rest of the model around them.
+          I designed a save model editors can read at a glance. The Save button shows saving, saved and failed states, with Retry when something goes wrong. The active branch shows in every view, and editors can switch it in place, save to a new branch, or discard and resume their unsaved work.
       - _template: statement
         text: 'The branch is visible in every view and switchable in place, '
-        emphasis: something none of the Git-based CMSs we compared offered.
+        emphasis: something none of the 13 rivals offered.
         leadOnPhone: true
   - _template: caseStudySection
     sectionId: errors
@@ -106,7 +108,9 @@ blocks:
     blocks:
       - _template: body
         body: |-
-          A failed save used to leave editors guessing. I grounded the new pattern in primary research from GOV.UK, the NHS and the Government of Canada design systems. Errors appear only after a Save attempt, never while someone is still typing. A blocked Save becomes “Resolve errors”, which opens a summary pane listing every problem, and count chips on collapsed groups show where the hidden ones are.
+          A failed save is one of the problems none of the 13 platforms had solved well. I grounded the new pattern in primary research from GOV.UK, the NHS and the Government of Canada design systems.\
+          \
+          Errors appear only after a Save attempt, never while someone is still typing. A blocked Save becomes “Resolve errors”, which opens a summary pane listing every problem, and count chips on collapsed groups show where the hidden ones are.
       - _template: statement
         text: 'Every error is named, counted and one click away, '
         emphasis: so a blocked Save turns into a clear next step.
@@ -119,9 +123,9 @@ blocks:
     blocks:
       - _template: body
         body: |-
-          v4’s Media screen worked, but it had shipped without a design. Picking an image opened a large modal that hid the form and the preview. Delete asked “Are you sure?” without saying where the file was used. Uploads showed a single busy state for every file.\
+          Before deleting a file, an editor needs to know where it’s used. The current admin hid that, and none of the 13 rivals showed it either.\
           \
-          I redesigned the library and its states, an upload card with progress for each file, delete that shows where a file is used, a picker that keeps the form in view, and the edge cases: permissions, protected branches and missing images. All of it works at desktop, tablet and phone widths, and I checked it against 60+ accessibility scenarios.
+          I redesigned the library and its states, an upload card with progress for each file, delete that shows where a file is used, a picker that keeps the form and preview in view, and the edge cases: permissions, protected branches and missing images. All of it works at desktop, tablet and phone widths, and I checked it against 60+ accessibility scenarios.
       - _template: statement
         text: 'Delete now shows where a file is used, '
         emphasis: so no page loses its image by surprise.
@@ -134,9 +138,9 @@ blocks:
     blocks:
       - _template: body
         body: |-
-          I built the design in code from the start. The TinaCMS design system is a React, Tailwind and Base UI package documented across 640+ Storybook entries, from tokens and type rules up to every field type the admin needs. One control height, one spinner and one set of type rules keep every screen consistent.\
+          I designed in code from the start. The TinaCMS design system is a React, Tailwind and Base UI package documented across 640+ Storybook entries, from tokens and type rules up to every field type the admin needs. It puts Tina orange back at the centre of the brand, with one control height, one spinner and one set of type rules across every screen.\
           \
-          The clickable v4 prototype is built from the same components, with 180+ deep-linkable states that reviewers and developers can open straight from an issue. The prototype replaced the static Figma reference the epic had asked for, so the design that reviewers approved is the design developers build from.
+          The clickable v4 prototype is built from the same components, with 180+ deep-linkable states that reviewers and developers can open straight from an issue. In place of the Figma file the epic asked for, the prototype became the reference: the design that reviewers approved is the design developers build from.
       - _template: statement
         text: 'A Storybook design system and a coded prototype, '
         emphasis: one source of truth for design and engineering.
@@ -172,17 +176,17 @@ blocks:
   - _template: caseStudySection
     sectionId: handoff
     heading: Handoff & build
-    subheading: From prototype to production
+    subheading: From prototype to the v4 codebase
     headingSize: heading
     blocks:
       - _template: body
         body: |-
           Each design PBI closed with a handoff for developers: the decisions, the open questions and a rebuild list, each linked to its story in Storybook and its state in the prototype. I filed the build epic and broke it into 20+ tickets, and the TinaCMS developer builds from them while I review the work.\
           \
-          30+ production PRs have merged into TinaCMS so far, from tokens, fonts and the new admin shell to Home, every field type, and the error summary that turns a blocked Save into “Resolve errors”.
+          30+ PRs have merged into v4 so far, from tokens, fonts and the new admin shell to Home, every field type, and the error summary that turns a blocked Save into “Resolve errors”.
       - _template: statement
         text: 'The prototype I designed is the spec, '
-        emphasis: and production is being built from it PR by PR.
+        emphasis: and v4 is being built from it PR by PR.
         leadOnPhone: true
   - _template: caseStudySection
     sectionId: outcome
@@ -192,11 +196,11 @@ blocks:
     blocks:
       - _template: body
         body: |-
-          In six weeks, the TinaCMS v4 admin went from an unreviewed scaffold to a researched, designed and documented product, with a design system and a coded prototype the whole team works from. Debates that used to stall every UI change are now settled by a decision log and a Storybook page.\
+          In six weeks, the next TinaCMS admin went from a rewrite with no design to a researched, designed and documented product, with a design system and a coded prototype the whole team works from. Debates that used to stall every UI change are now settled by a decision log and a Storybook page.\
           \
-          v4 isn’t released yet. The build continues ticket by ticket, with the Media pane, uploads, saving to a new branch and the Home dashboard next, and a full pass on the admin’s UX copy under way.
+          v4 isn’t released yet. It will ship as a new package alongside the current one, and the build continues ticket by ticket, with the Media pane, uploads, saving to a new branch and the Home dashboard next, and a full pass on the admin’s UX copy under way.
       - _template: statement
-        text: 'From a scaffold nobody designed to '
+        text: 'From six years of patches to '
         emphasis: a system the whole team builds on.
         leadOnPhone: true
   - _template: caseStudyCta
