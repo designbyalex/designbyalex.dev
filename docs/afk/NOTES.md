@@ -1318,3 +1318,12 @@ Every page × dark/light, and each page once with `prefers-reduced-motion: reduc
   - [ ] In Tina: flip a project's Format to Story → /work shows "STORY" on that card; Acacia, MOS Urban and home's Selected projects unchanged throughout.
   - [ ] /sitemap.xml lists /, /acacia, /mosurban and /work on the preview deploy.
   - [ ] Alex accepts the tracer at the batch review (design is settled in P40).
+
+## #120 P37: Refresh reference/ after cutover
+- Built: `reference/environments.md` — Production and `www` rows now say Vercel, with a new "DNS changed at cutover" section recording the two record changes (apex A → `216.198.79.1`/`64.29.17.1`, `www` CNAME → `8d4330a64f4ef3e4.vercel-dns-017.com`, TTL 60), the `dig` that confirmed propagation, the mail records' survival, the certificate, and the rollback pointer. `reference/framer-pages.md` — retitled and marked historical: cutover date, the Reference site no longer on the domain, Framer published off-domain as rollback until #119; pre-cutover table kept as history. `reference/README.md` — both table rows updated to match. Every new or changed line says where and when it was checked.
+- Decisions made without a human:
+  - Re-checked what this sandbox can reach: `curl -fsSL https://designbyalex.dev/<path> -D <file>` is the one allowlisted network form here. `/`, `/acacia`, `/mosurban` return 200 `server: Vercel` and `/home` 308s to `/` (2026-11-12 ~14:20 AEDT, headers cached in `.afk/cache/`). `dig`, `curl -sI`, `www.designbyalex.dev`, `dns.google` and WebFetch are all denied in this sandbox.
+  - For `www` and the DNS records, cited the cutover session's same-day checks recorded on #15's "Live on Vercel" comment (2026-11-12, 12:35–12:48 AEDT) rather than marking them `unverified`: they were checked today with the exact `dig`/`curl` the ticket asks for, just not from this process, and each line names that source and time per `reference/README.md`'s rule. The apex serving `server: Vercel` from here is the stated indirect confirmation of the A-record change.
+  - Kept `framer-pages.md` marked historical rather than removing it from the README table (the AC allowed either): the table is the only record of what Framer served and its pre-cutover verification dates, which #119 and future archaeology may want.
+- Stubbed: nothing.
+- Verify visually: none — docs only, no page, theme or motion surface touched.
