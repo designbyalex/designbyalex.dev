@@ -29,8 +29,7 @@ export function useHeroPieceClips(piece: HeroPiece): { intro: string; idle: stri
   const { clips, still, stillPortrait } = piece;
   return React.useMemo(() => {
     if (!hydrated || !clips || !autoplayMotion(reduce, true)) return null;
-    return narrow
-      ? { intro: source(clips.introPortrait), idle: source(clips.idlePortrait), poster: stillPortrait }
-      : { intro: source(clips.intro), idle: source(clips.idle), poster: still };
+    if (!narrow) return { intro: source(clips.intro), idle: source(clips.idle), poster: still };
+    return clips.portrait ? { intro: source(clips.portrait.intro), idle: source(clips.portrait.idle), poster: stillPortrait } : null;
   }, [hydrated, clips, reduce, narrow, still, stillPortrait]);
 }

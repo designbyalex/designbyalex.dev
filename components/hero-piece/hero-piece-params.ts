@@ -21,8 +21,8 @@ export type HeroPieceClip = { mp4: string; webm?: string };
 export type HeroPieceClips = {
   intro: HeroPieceClip;
   idle: HeroPieceClip;
-  introPortrait: HeroPieceClip;
-  idlePortrait: HeroPieceClip;
+  /** The narrow-screen pair. Without it, narrow screens keep the portrait still rather than crop the wide clips. */
+  portrait: { intro: HeroPieceClip; idle: HeroPieceClip } | null;
 };
 
 export type HeroPiece = {
@@ -36,7 +36,13 @@ export type HeroPiece = {
 export const HERO_PIECE: HeroPiece = {
   still: '/hero-piece/glass-edge.webp',
   stillPortrait: '/hero-piece/glass-edge-portrait.webp',
-  clips: null,
+  // Wide: 1440×900, 30 fps, H.264 CRF 20 (intro 2.1s / 463 KB, idle 7s / 1.01 MB). VP9 came out larger
+  // than H.264 at matching quality, so there's no WebM. Portrait clips are still rendering.
+  clips: {
+    intro: { mp4: '/hero-piece/glass-edge-intro.mp4' },
+    idle: { mp4: '/hero-piece/glass-edge-idle.mp4' },
+    portrait: null,
+  },
 };
 
 /** The hero's layout switches at Tailwind's `lg` (1024px); below it, the portrait files play. */
