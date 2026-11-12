@@ -6,6 +6,8 @@ import { tinaField } from 'tinacms/dist/react';
 import { ArrowDown } from 'lucide-react';
 import { PageBlocksHero } from '../../tina/__generated__/types';
 import { EASE_APPEAR } from '../../lib/motion/reduced-motion';
+import { HERO_PIECE } from '../hero-piece/hero-piece-params';
+import { HeroPieceVideo } from '../hero-piece/hero-piece-video';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollDrip } from '../motion-primitives/scroll-drip';
 import { ScrollParallax } from '../motion-primitives/scroll-parallax';
@@ -15,8 +17,8 @@ import { TextReveal } from '../motion-primitives/text-reveal';
 /**
  * Homepage hero, faithful to the Reference (`docs/parity-audit.md` H1–H6): a
  * full-viewport section with the teal→green gradient behind everything, the
- * chrome mark render overlay-blended onto it so it reads as green glass, the
- * headline top-left, the tagline bottom-left (desktop only) and "See Selected
+ * Hero piece (#146: the glass Brand mark rendered in Blender, full-bleed) over
+ * it in place of the Reference's overlay-blended chrome mark, the headline top-left, the tagline bottom-left (desktop only) and "See Selected
  * Projects ↓" as a text link on a hairline bottom-right. Under 1024px the
  * headline sits on top and the mark is large and cropped below it.
  *
@@ -61,26 +63,17 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         </ScrollReveal>
       )}
 
-      {/* Logo Image: 65% × 90% top-right at desktop; 840–1218px wide, cropped by the fold, below 1024. */}
-      {data.mark?.src && (
-        <ScrollReveal
-          y={0}
-          duration={1.5}
-          amount={0}
-          className="absolute -left-20 -right-[370px] top-[110px] z-0 h-[1055px] mix-blend-overlay lg:-right-[60px] lg:-top-[100px] lg:left-auto lg:h-[90vh] lg:w-[65%] xl:h-[90%]"
-        >
-          <div className="absolute inset-0" data-tina-field={tinaField(data.mark, 'src')}>
-            <Image
-              src={data.mark.src}
-              alt={data.mark.alt || ''}
-              fill
-              priority
-              sizes="(min-width: 1024px) 65vw, 1218px"
-              className="object-cover"
-            />
-          </div>
-        </ScrollReveal>
-      )}
+      {/*
+       * Hero piece (#146): Alex's Cycles glass Brand mark, full-bleed over the whole section, in place of
+       * the overlay-blended chrome mark crop (the Tina `mark` field is no longer rendered). An opaque render
+       * with its own grid and gradient, so it stays on a normal blend: overlay would tint it to the gradient
+       * underneath and flatten the glass Alex approved. It fades in over the gradient as the mark did, in CSS
+       * (`.hero-piece-in`, styles.css) so the server HTML is at rest: under reduced motion the still shows
+       * from first paint, before hydration, and HeroPieceVideo never mounts a video.
+       */}
+      <div className="hero-piece-in absolute inset-0 z-0">
+        <HeroPieceVideo piece={HERO_PIECE} />
+      </div>
 
       {/*
        * Header scrim (#122): the fixed header's white chrome sits on the bright gradient with nothing
@@ -104,6 +97,16 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(to_bottom,transparent_88px,color-mix(in_srgb,var(--scrim)_45%,transparent)_130px,color-mix(in_srgb,var(--scrim)_30%,transparent)_35%,transparent_60%)] lg:bg-[linear-gradient(to_right,color-mix(in_srgb,var(--scrim)_45%,transparent),color-mix(in_srgb,var(--scrim)_35%,transparent)_55%,transparent_80%)]"
       />
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-linear-to-t from-scrim/60 via-scrim/45 via-20% to-transparent to-45%" />
+      {/*
+       * Lift over the Hero piece (#146, the prototype's `heroScrim=soft` that Alex reviewed full-bleed): the
+       * same two shapes again at half strength, so the headline keeps 3:1 where it crosses the glass's
+       * highlights. On phones it ramps in from the top rather than starting hard at 88px, which stacked on
+       * the scrim above would read as a dark band across the render.
+       */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] opacity-50">
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--scrim)_15%,transparent),color-mix(in_srgb,var(--scrim)_40%,transparent)_150px,color-mix(in_srgb,var(--scrim)_25%,transparent)_40%,transparent_65%)] lg:bg-[linear-gradient(to_right,color-mix(in_srgb,var(--scrim)_45%,transparent),color-mix(in_srgb,var(--scrim)_35%,transparent)_55%,transparent_80%)]" />
+        <div className="absolute inset-0 bg-linear-to-t from-scrim/60 via-scrim/45 via-20% to-transparent to-45%" />
+      </div>
       {/* Text Wrapper → Container: headline at the top, the bottom row pushed to the fold. */}
       <div className="relative z-10 flex w-full max-w-[1920px] flex-1 flex-col items-center overflow-hidden px-4 pb-8 pt-30 lg:px-6 lg:pb-16 lg:pt-40 xl:px-16">
         <div className="flex w-full max-w-[1440px] flex-1 flex-col items-start justify-between">
