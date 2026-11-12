@@ -1,5 +1,4 @@
 'use client';
-import { useScroll, useSpring, useVelocity } from 'motion/react';
 import * as React from 'react';
 
 /**
@@ -13,9 +12,13 @@ import * as React from 'react';
  * The canvas covers the hero (the host positions it `absolute`, inside the
  * hero's clip, above the text) and all geometry is CSS px in hero coordinates,
  * y down from the hero's top — the hero tops the document, so `scrollY` is the
- * reference's `s` directly. Scroll and velocity come from Motion's `useScroll`
- * + `useVelocity`, smoothed by a light critically-damped `useSpring` at the
- * reference's 8/s rate.
+ * reference's `s` directly. Velocity is the prototype's own: the raw per-frame
+ * scroll delta over dt, smoothed first-order at 8/s. A critically damped spring
+ * lagged the flick, so blobs barely stretched on fast scrolls (#143 findings).
+ *
+ * The blob layout is the approved prototype's exactly: its Park–Miller generator,
+ * its seeds and draw order, and its 16-blob cap. On desktop that cap keeps the
+ * 14 medium blobs and only the first 2 droplets, which is what Alex signed off on.
  *
  * The render loop is on-demand: a frame schedules the next only while the hero
  * is on screen (IntersectionObserver), the tab is visible, and the drip is
@@ -26,8 +29,12 @@ import * as React from 'react';
  * context — reports `onFail` and the host falls back to the static SVG wave.
  */
 
-/** The uniform array's size. The reference text says 16, but Alex's picked counts (14 medium + 12 droplets on desktop) need 26, so the port sizes it to 32. */
-const MAX_BLOBS = 32;
+/**
+ * The uniform array's size, and the cap on blobs: 16, as in the prototype Alex
+ * approved. On desktop its 14 medium + 12 droplets are cut to the first 16
+ * (14 medium + 2 droplets); phones keep all 7 + 6.
+ */
+const MAX_BLOBS = 16;
 
 /** One full-screen triangle off `gl_VertexID` — no buffers, no attributes. */
 const VERT = `#version 300 es
@@ -37,8 +44,7 @@ void main() {
 }`;
 
 /**
- * The reference's fragment shader verbatim, except `uQ[16]` → `uQ[32]` (see
- * MAX_BLOBS) and the colour space note: `uCol` is the `--background` token's
+ * The reference's fragment shader verbatim, with one note on colour space: `uCol` is the `--background` token's
  * sRGB value normalised to 0–1, *not* linearised — the shader writes it out
  * unconverted, so sRGB in = sRGB out is what makes the fill match the page by
  * pixel. The gloss tints then mix in sRGB too, which is what Alex signed off.
@@ -50,7 +56,7 @@ uniform vec2 uRes;          // canvas size in device px
 uniform float uDpr, uT, uL, uP;
 uniform int uN, uDark;
 uniform vec3 uCol;          // the page colour, sRGB 0-1 from the background token
-uniform vec4 uQ[32];        // blob x, y, radius, stretch (CSS px)
+uniform vec4 uQ[16];        // blob x, y, radius, stretch (CSS px)
 
 float smin(float a, float b, float k) { float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0); return mix(b, a, h) - k * h * (1.0 - h); }
 
@@ -58,7 +64,7 @@ void main() {
   vec2 p = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr;
   float edge = uL + uP * (9.0 * sin(p.x * 0.007 + uT * 0.8) + 5.0 * sin(p.x * 0.019 - uT * 1.3));
   float s = edge - p.y;                                    // < 0 inside the colour
-  for (int i = 0; i < 32; i++) { if (i >= uN) break; vec4 q = uQ[i]; vec2 r = p - q.xy; r.y /= q.w;
+  for (int i = 0; i < 16; i++) { if (i >= uN) break; vec4 q = uQ[i]; vec2 r = p - q.xy; r.y /= q.w;
     s = smin(s, (length(r) - q.z) * min(1.0, q.w), 48.0); }
   float d = -s;                                            // ~ px into the colour
   float al = clamp(d / max(fwidth(d), 1e-3) + 0.5, 0.0, 1.0);
@@ -91,36 +97,38 @@ interface DripBlob {
   ph: number;
 }
 
-/** Deterministic PRNG so the layout is stable: same width → same blobs. */
-function mulberry32(seed: number): () => number {
-  let a = seed >>> 0;
+/** The approved prototype's PRNG (Park–Miller minimal standard), so its seeds give its exact layout. */
+function parkMiller(seed: number): () => number {
+  let s = seed;
   return () => {
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    s = (s * 16807) % 2147483647;
+    return (s - 1) / 2147483646;
   };
 }
 
-/** Seed the blob layout for a hero width, per the reference's counts and radii. */
+/**
+ * Seed the blob layout for a hero width: the prototype's own draws, in its order,
+ * so every width gets the layout Alex approved. The prototype seeded 7 on desktop
+ * and 11 on phones, and spent 5 draws on each of its Melt drips (11 on desktop,
+ * 5 on phones) before the blobs; those draws are burnt here to stay in step.
+ */
 function seedBlobs(width: number): DripBlob[] {
   const phone = width < 1024;
   const sizeScale = phone ? 0.65 : 1;
-  const rand = mulberry32(0x143c0a1e);
+  const rand = parkMiller(phone ? 11 : 7);
+  for (let i = 0; i < (phone ? 5 : 11) * 5; i++) rand();
   const sets = [
-    { count: phone ? 7 : 14, rMin: 26, rMax: 82, droplet: false },
-    { count: phone ? 6 : 12, rMin: 6, rMax: 18, droplet: true },
+    { count: phone ? 7 : 14, rMin: 26, rMax: 82, leadBoost: 1 },
+    { count: phone ? 6 : 12, rMin: 6, rMax: 18, leadBoost: 1.4 },
   ];
   const blobs: DripBlob[] = [];
   for (const set of sets) {
-    const slot = width / set.count;
     for (let i = 0; i < set.count; i++) {
-      const lead = 0.15 + rand() * 0.85;
       blobs.push({
-        x0: (i + 0.5) * slot + (rand() * 2 - 1) * 0.4 * slot,
+        x0: ((i + 0.5 + (rand() - 0.5) * 0.8) / set.count) * width,
         r: (set.rMin + rand() * (set.rMax - set.rMin)) * sizeScale,
-        lead: set.droplet ? Math.min(1.25, lead * 1.4) : lead,
-        ph: rand() * Math.PI * 2,
+        lead: Math.min(1.25, (0.15 + rand() * 0.85) * set.leadBoost),
+        ph: rand() * 6.28,
       });
     }
   }
@@ -145,10 +153,6 @@ export interface ScrollDripCanvasProps {
 
 export default function ScrollDripCanvas({ className, onActive, onFail }: ScrollDripCanvasProps) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
-  const { scrollY } = useScroll();
-  const rawVelocity = useVelocity(scrollY);
-  // Critically damped at ω = 8/s — Motion's native equivalent of the reference's `v += (raw − v)·min(1, 8·dt)`.
-  const velocity = useSpring(rawVelocity, { stiffness: 64, damping: 16 });
   // The host passes stable callbacks, but route them through a ref so the GL setup never re-runs.
   const hooks = React.useRef({ onActive, onFail });
   hooks.current = { onActive, onFail };
@@ -189,6 +193,9 @@ export default function ScrollDripCanvas({ className, onActive, onFail }: Scroll
     let last = 0;
     let t = 0;
     let stretch = 1;
+    // Scroll velocity in px/s, smoothed first-order at 8/s from the per-frame delta, as the prototype does.
+    let v = 0;
+    let sPrev = 0;
     let cssW = 0;
     let cssH = 0;
     let dpr = 1;
@@ -221,8 +228,10 @@ export default function ScrollDripCanvas({ className, onActive, onFail }: Scroll
       t += dt;
 
       // The reference's geometry, in hero CSS px: today's 1.5× mapping, lead "mid", viscosity "medium".
-      const s = scrollY.get();
-      const v = velocity.get();
+      const s = window.scrollY;
+      const raw = (s - sPrev) / dt;
+      sPrev = s;
+      v += (Math.abs(raw) > 20000 ? -v : raw - v) * Math.min(1, 8 * dt);
       const H = cssH;
       const L = H + 130 - 0.5 * s;
       const P = Math.min(1, Math.max(0, (0.5 * s - 60) / (0.55 * H)));
@@ -267,7 +276,10 @@ export default function ScrollDripCanvas({ className, onActive, onFail }: Scroll
     const wake = () => {
       if (running || !heroOnScreen || document.hidden) return;
       running = true;
+      // Start the delta from here: a stale position or speed from before the loop slept would read as a jolt.
       last = performance.now();
+      sPrev = window.scrollY;
+      v = 0;
       raf = requestAnimationFrame(frame);
     };
 
@@ -303,7 +315,7 @@ export default function ScrollDripCanvas({ className, onActive, onFail }: Scroll
     });
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    const unsubscribe = scrollY.on('change', wake);
+    window.addEventListener('scroll', wake, { passive: true });
 
     readTheme();
     resize();
@@ -312,7 +324,7 @@ export default function ScrollDripCanvas({ className, onActive, onFail }: Scroll
     return () => {
       running = false;
       cancelAnimationFrame(raf);
-      unsubscribe();
+      window.removeEventListener('scroll', wake);
       mo.disconnect();
       io.disconnect();
       ro.disconnect();
