@@ -1,6 +1,6 @@
 # Cutover runbook (#15)
 
-Moves designbyalex.dev from Framer (the Reference site) to Vercel (the Build), then retires Framer. It runs after the current AFK batch (#91, #92, #93, #110, #111) merges and Alex reviews it.
+Moves designbyalex.dev from Framer (the Reference site) to Vercel (the Build), then retires Framer. It ran on 2026-11-12, after the AFK batch (#91, #92, #93, #110, #111) merged.
 
 Every step on the domain, DNS, Vercel, Tina Cloud or Framer is **Alex's, in his own dashboards, on his explicit yes**. No agent changes any of them.
 
@@ -181,7 +181,7 @@ Filed as #119 (section 8).
 ## 5. After cutover (agent work)
 
 - `reference/framer-pages.md` goes stale and `reference/environments.md`'s Production row changes to Vercel. Filed as #120 (section 8).
-- `CONTEXT.md`'s Reference site entry ("until cutover") stays true as history; no change needed.
+- `CONTEXT.md`'s Reference site entry is now in the past tense ("until Cutover on 2026-11-12").
 - Domain renewal is due 2027-02-17 at Registrar.eu/Hostinger (RDAP). Not part of the cutover; noted so it isn't missed.
 
 ## 6. #15's Blocked by, today
@@ -224,7 +224,7 @@ Asked in one round; Alex answered in the cutover-prep session on 2026-11-11.
 
 ## 8. Tickets filed from this runbook
 
-Both are post-cutover, not `ready-for-agent`, and wait on #15.
+Both were post-cutover and waited on #15, which closed on 2026-11-12.
 
 | Ticket | Flag | Type | What |
 |---|---|---|---|

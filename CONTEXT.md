@@ -5,7 +5,7 @@ The move of Alexander Blum's portfolio from Framer to TinaCMS + Next.js on Verce
 ## Sites
 
 **Reference site**:
-The Framer-hosted portfolio at designbyalex.dev until cutover; the source of truth for what "faithful" means.
+The Framer-hosted portfolio served at designbyalex.dev until Cutover on 2026-11-12; the source of truth for what "faithful" means.
 _Avoid_: old site, live site, Framer site (after cutover "live" is ambiguous)
 
 **Build**:

@@ -43,9 +43,9 @@ A session touches no other lane's files. A side worker that settles a decision w
 
 - **The repo:** this folder, `designbyalex/designbyalex.dev` on GitHub, merging by GitHub PR into `main`.
 - **The product:** this repo, Next.js + TinaCMS on Vercel. Alex edits copy through Tina Cloud, which commits "TinaCMS content update" straight to `main`.
-- **Publish target:** the branch's Vercel preview (`designbyalexdev-git-<branch>-designbyalex.vercel.app`) or localhost. `main` deploys to designbyalexdev.vercel.app. Production is designbyalex.dev, which Framer serves until cutover (#15). Nothing goes there without Alex's explicit yes.
+- **Publish target:** the branch's Vercel preview (`designbyalexdev-git-<branch>-designbyalex.vercel.app`) or localhost. `main` deploys to designbyalexdev.vercel.app. Production is designbyalex.dev, which Vercel serves since cutover (2026-11-12, #15); Framer stays only as the rollback until #119. Nothing goes there without Alex's explicit yes.
 - **Worktrees:** every session that writes gets its own worktree. The AFK loop keeps its fixed checkout at `~/Freelance/Portfolio/afk-migration` on `afk/migration`. Copy env files into a worktree with `cp`, only after `git check-ignore -v .env.local` confirms the file is ignored.
-- **Cached facts:** `reference/` holds what a session would otherwise rediscover: the environment URLs, the Tina env var names (`NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN`, `NEXT_PUBLIC_TINA_BRANCH`), the Vercel project, the live Framer page URLs until cutover, where the hero piece sources live, and the port workaround. Credential names only, never values.
+- **Cached facts:** `reference/` holds what a session would otherwise rediscover: the environment URLs, the Tina env var names (`NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN`, `NEXT_PUBLIC_TINA_BRANCH`), the Vercel project, the archived Framer page URLs from before cutover, where the hero piece sources live, and the port workaround. Credential names only, never values.
 - **Before planning:** read `CONTEXT.md` and any ADR in `docs/adr/` the work touches.
 - **Before pushing:** merge `origin/main`, since Tina commits there on its own.
 - **Tina schema changes:** regenerate `tina/tina-lock.json` with `tinacms build` and commit it.
@@ -115,7 +115,7 @@ The automatic checks settle what code can show. Alex's eyes settle everything vi
 
 ## Human gates
 
-- **Explicit yes from Alex:** merging to `main`, anything on the domain or DNS (the cutover), Vercel, Tina Cloud or GitHub settings, cancelling Framer, deleting branches, issues or content, closing a PRD, and anything sent from Alex's accounts (email, socials). Alex gives the yes in the acting session, **or to the master**, which may relay it to that session quoting Alex's words and the date. Only the master may relay. A yes relayed by any other session, or a child passing one on, is never a substitute.
+- **Explicit yes from Alex:** merging to `main`, anything on the domain or DNS (the cutover), Vercel, Tina Cloud or GitHub settings, cancelling Framer, deleting branches, issues or content, closing a PRD, and anything sent from Alex's accounts (email, socials). Alex gives the yes in the acting session, **or to the master**, which may relay it to that session quoting Alex's words and the date. Only the master may relay. A yes relayed by any other session, or a child passing one on, is never a substitute. A session in auto mode may still refuse a relayed yes for a merge or push; then the master asks Alex to type the yes in that session, and never does the refused action itself.
 - **Taste calls:** design-picker rounds, batched so one page covers several decisions. Each decision is one question, with the current state as option `now` and a recommendation.
 
 ## House rules
