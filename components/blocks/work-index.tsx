@@ -8,19 +8,9 @@ import { PageBlocksWorkIndex } from '@/tina/__generated__/types';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { TransitionLink as Link } from '../motion-primitives/route-transitions';
+import { statusDotClasses, statusLabels } from '@/components/case-study/project-hero';
 import { buildWorkIndex, type WorkFormat, type WorkProjectRef } from '@/lib/case-study/work-index';
 import { cn } from '@/lib/utils';
-
-const statusLabels: Record<string, string> = {
-  shipped: 'Shipped',
-  'in-development': 'In-development',
-  concept: 'Concept',
-};
-
-// Status accent mirrors the case-study pages: green for shipped, orange for in-development.
-const statusDotClasses: Record<string, string> = {
-  'in-development': 'bg-status-in-development',
-};
 
 const formatLabels: Record<WorkFormat, string> = {
   'case-study': 'Case study',
@@ -48,12 +38,18 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
   const entries = buildWorkIndex(React.useContext(WorkProjectsContext));
 
   return (
-    <Section background={data.background!} sectionId='work-index' className='max-w-none p-0'>
+    // First block on the page: the top padding clears the fixed header (88/96px tall).
+    // It lives on the Section, not the heading, so the first row stays clear of the
+    // header even with the optional heading unset.
+    <Section
+      background={data.background!}
+      sectionId='work-index'
+      className='max-w-none p-0 pt-[150px] lg:pt-[180px]'
+    >
       {data.heading && (
-        // First block on the page: the top padding clears the fixed header (88/96px tall).
         <ScrollReveal
           sectionId='work-index-header'
-          className='mx-auto max-w-[1440px] px-4 pt-[150px] pb-16 lg:px-6 lg:pt-[180px] xl:px-12'
+          className='mx-auto max-w-[1440px] px-4 pb-16 lg:px-6 xl:px-12'
         >
           <h1 className='font-display text-heading' data-tina-field={tinaField(data, 'heading')}>
             {data.heading}

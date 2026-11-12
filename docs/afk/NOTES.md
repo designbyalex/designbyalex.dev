@@ -1327,3 +1327,60 @@ Every page × dark/light, and each page once with `prefers-reduced-motion: reduc
   - Kept `framer-pages.md` marked historical rather than removing it from the README table (the AC allowed either): the table is the only record of what Framer served and its pre-cutover verification dates, which #119 and future archaeology may want.
 - Stubbed: nothing.
 - Verify visually: none — docs only, no page, theme or motion surface touched.
+
+## Final pass (#125, #120)
+
+### What failed, and how it was fixed
+- Nothing failed. `scripts/afk/check.sh --full` was green on the first run: offline Tina + `next build` clean, Vitest 222/222 across 21 files. Every change below came from the review, not from a gate failure.
+- **No stubs to fill.** Both tickets record "Stubbed: nothing". #9's curl-blocked stubs were filled by the first Final pass and re-verified on disk here: the eight PNGs plus `acacia-logo.svg` and `mission-grid.svg` in `public/uploads/projects/acacia/`, and the four Outcome counters (25 / 40 / 20 / 15) in `content/projects/acacia.mdx`. No other ticket's notes say curl was denied.
+
+### Tests added
+- None needed beyond what #125 shipped. The only pure module added under `lib/` on this branch is `lib/case-study/work-index.ts`, and its colocated `work-index.test.ts` (10 tests: order, ties, missing order, format default, unknown formats, hrefs, missing slugs, empty list, card pass-through, `resolveWorkFormat`) landed with the ticket, as did the `/work` sitemap test in `lib/seo/sitemap.test.ts`. #120 is docs-only. This matches the PRD's Testing Decisions (behavior-only, no markup snapshots).
+
+### Review fixes (the whole diff against every AC; 8 finder angles + 1-vote verify)
+- **Catch-all route fetched projects only when the saved document already had a `workIndex` block** (`app/[...urlSegments]/page.tsx`): adding the block live in Tina's editor would preview as an empty list until save + revalidation (up to 5 min), and the route was coupled to the literal `PageBlocksWorkIndex` typename. Now fetches unconditionally, exactly like the project branch above it (which always fetches for the next-project card). Cost: one cached query on the only catch-all page, /work, which needed it anyway.
+- **`statusLabels`/`statusDotClasses` were a third private copy** (`components/blocks/work-index.tsx`): now imported from `components/case-study/project-hero`, which exports byte-identical maps that `not-found/project-previews.tsx` and `case-study-cta.tsx` already import. (`selected-projects.tsx`'s own copy predates this branch; left for P40.)
+- **Header clearance hung off the optional heading** (`components/blocks/work-index.tsx`): the only top padding clearing the fixed 88/96px header sat inside the `data.heading &&` conditional, so clearing the heading in Tina would put the first row under the header. The padding now sits on the Section itself, unconditionally; the heading keeps its own bottom spacing.
+
+### Acceptance criteria
+**#125 P39 — Work index**
+- [x] /work lists every Project document in `order`, ties by title, no-order sinks to the end — `buildWorkIndex` reuses `sortProjects`; unit-tested.
+- [x] Each entry marked case study or story; unset shows as case study — `resolveWorkFormat`, unit-tested (unknown values also normalise to case study).
+- [x] Every entry links to its page; entries with no slug are skipped — unit-tested.
+- [x] Alex can switch a Project between case study and story in Tina and /work updates — `format` options field on the Project collection; live in edit mode, ISR (300s) on the published page.
+- [x] Acacia, MOS Urban and home's Selected projects unchanged — no project document edited (the field is optional, no required default, so the MDX is byte-identical); `project-page.tsx` and `selected-projects.tsx` untouched.
+- [x] Work index helper has Vitest tests covering order, ties, missing order, default format, missing slugs, empty list.
+- [x] Sitemap test covers /work with home still served at `/`.
+- [x] `tina/tina-lock.json` regenerated and committed (in the #125 commit; schema unchanged since, fast gate re-verified).
+- [~] Works in both themes at 1440/768/390 and rests from first paint under reduced motion — code-met (theme tokens only; rows reveal via `ScrollReveal` → `scrollRevealMotion`, at rest under reduced motion); visual confirmation is the checklist below.
+- [ ] Alex accepts the tracer at the batch review — pending Alex, by design.
+
+**#120 P37 — Refresh reference/ after cutover**
+- [x] `environments.md` Production and `www` rows say Vercel, with date and the `curl` that checked them (apex checked from this sandbox 2026-11-12; `www` cites #15's same-day smoke since `www` isn't curl-allowlisted here).
+- [x] `framer-pages.md` marked historical with the cutover date and the Reference site's departure from the domain; README table updated.
+- [x] The two changed DNS records recorded with the `dig` that checked them (cutover session, 12:39 AEDT, named per line; `dig` is denied in this sandbox, which the file states, with the apex's `server: Vercel` as the indirect check from here).
+- [x] Every new or changed line says where and when it was checked, or is marked `unverified`.
+
+### Review findings not fixed (and why)
+- **A `workIndex` block added to the home document renders only its heading** — `app/page.tsx` doesn't fetch the project list. Confirmed real, but it's #125's recorded scope decision ("wiring home can ride along with P40"); home's document doesn't carry the block, so nothing is broken today.
+- **Card markup duplicated from `selected-projects.tsx`** — ticketed: #125 says the cards copy the Selected projects row verbatim and P40 restyles /work. Note for P40: consolidate both into one shared row component rather than restyling two copies.
+- **`app/sitemap.ts` runs its two connection walks sequentially, and the per-collection closures repeat across three files** — build/ISR-only path, one round-trip saved, judged not worth the churn in a final pass; fold into the next touch of `lib/tina/collect-breadcrumbs.ts`.
+- **`buildSitemap`'s two-array signature** and **`WorkProjectRef` as a narrowing extension of `ProjectCardRef`** — refuted as style: the former is the AC's stated shape, the latter correctly keeps `format` out of the next-project card's contract.
+- **Format vocabulary spelled in schema options, type and labels** — refuted as speculative: the ticket defines exactly two formats and unknown values are deliberately, testedly normalised to case study.
+
+### Open risks
+- The three MOS Urban videos still stream from `framerusercontent.com`; #119 retires Framer after the soak (earliest 2026-11-19) — re-host before then or they 404.
+- `/work` ships unstyled-by-design (tracer); if the batch review rejects the look wholesale, P40 absorbs it.
+- `reference/environments.md`'s `www` row and DNS table cite the cutover session's checks, not this sandbox's; if anything changed at Hostinger since 12:48 AEDT today, the file wouldn't know. First `dig`-capable session should re-verify.
+- `fetchAllProjects` pulls full `ProjectParts` per project (pre-existing: the generated connection query has no field selection); fine at 2 projects, worth a trimmed query if the collection grows.
+
+### Visual QA checklist (consolidated)
+Every page, dark and light, and each page once with `prefers-reduced-motion: reduce` (expect: at rest from first paint, nothing stuck at opacity 0, videos paused).
+- [ ] `/` — hero entrance, scroll mask into Selected projects, header dark-over-hero then themed, hovers.
+- [ ] `/acacia` — full case study: overview columns, pull-quotes, four deep-dives, 2×2 metrics counting up (25/40/20/15), CTA, next-project card.
+- [ ] `/mosurban` — orange In-development eyebrow (AA on white in light), three Framer-hosted videos click-to-play, galleries, next/previous links.
+- [ ] `/work` (new, #125) — at 1440/768/390: heading `pt` clears the header (now on the Section — re-check after this pass's change), Acacia then MOS Urban in home's order, CASE STUDY marker, status pill over thumbnail, hover grow + green arrow, keyboard focus does the same, header themed (non-hero) from first paint.
+- [ ] `/work` in Tina: flip a project's Format to Story → card label updates; add a Work index block to a *different* page in the editor → list now populates live (this pass's fix).
+- [ ] 404 page and `/styleguide` — both themes, reduced motion.
+- [ ] `/sitemap.xml` on the preview deploy lists `/`, `/acacia`, `/mosurban`, `/work`.
+- [ ] Deferred from earlier batches, still open at a batch review: Acacia quote-mark treatment on unattributed pull-statements (#9); share-card OG images render on Vercel (#111 batch fix); header scrim contrast over the home hero (#122).

@@ -111,8 +111,10 @@ export default async function Page({
 
   // The Work index block lists the Project collection, not the Page document,
   // so its data is fetched here and handed down (as the next-project card's is).
-  const hasWorkIndex = (data.data.page.blocks ?? []).some((block) => block?.__typename === 'PageBlocksWorkIndex');
-  const allProjects = hasWorkIndex ? await fetchAllProjects() : [];
+  // Fetched unconditionally, like the project branch above: gating on the saved
+  // document's block list would hand an empty list to a block added live in
+  // Tina's editor until the page revalidates.
+  const allProjects = await fetchAllProjects();
 
   return (
     <Layout rawPageData={data}>
