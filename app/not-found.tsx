@@ -17,7 +17,10 @@ interface NotFoundProps {
  * outline behind the text — inline SVG, its path split into three at the
  * ` Z M` boundaries so the pieces can assemble on mount ("404 mark assembly"
  * in styles.css). Large and whole in the right half (owner pick 2026-11-12); it
- * fades out while a project row shows its preview there.
+ * fades out while a project row shows its preview there. Nothing clips it: the
+ * SVG is overflow-visible (its own viewport would cut the pieces off as they travel
+ * in from outside the viewBox) and the section has no clip, so every piece is whole
+ * through the entrance (owner note 2026-11-12). <main> still clips x at the page edge.
  */
 function AssemblingMark() {
   return (
@@ -27,7 +30,7 @@ function AssemblingMark() {
       fill="none"
       stroke="currentColor"
       strokeWidth={0.12}
-      className="pointer-events-none absolute top-28 right-6 h-[285px] w-[300px] text-emphasis opacity-50 transition-opacity duration-500 ease-hover-link lg:top-[calc(50%-280px)] lg:right-24 lg:h-[560px] lg:w-[590px] lg:group-data-previewing/nf:opacity-0"
+      className="pointer-events-none absolute top-28 right-6 h-[285px] overflow-visible w-[300px] text-emphasis opacity-50 transition-opacity duration-500 ease-hover-link lg:top-[calc(50%-280px)] lg:right-24 lg:h-[560px] lg:w-[590px] lg:group-data-previewing/nf:opacity-0"
     >
       <path
         className="not-found-piece-left"
@@ -58,7 +61,7 @@ export function NotFoundContent({
   projects = [],
 }: NotFoundProps) {
   return (
-    <NotFoundStage className="relative flex min-h-[calc(100svh-5.5rem)] flex-col overflow-clip px-6 py-8 lg:min-h-[calc(100svh-6rem)] lg:px-12 lg:py-16">
+    <NotFoundStage className="relative flex min-h-[calc(100svh-5.5rem)] flex-col px-6 py-8 lg:min-h-[calc(100svh-6rem)] lg:px-12 lg:py-16">
       <AssemblingMark />
       <ProjectPreviews projects={projects} />
       {/* One column under lg; two equal columns above, sharing the hero's bottom-row geometry. */}
