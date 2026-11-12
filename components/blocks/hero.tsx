@@ -7,6 +7,7 @@ import { ArrowDown } from 'lucide-react';
 import { PageBlocksHero } from '../../tina/__generated__/types';
 import { EASE_APPEAR } from '../../lib/motion/reduced-motion';
 import { Section, sectionBlockSchemaField } from '../layout/section';
+import { ScrollDrip } from '../motion-primitives/scroll-drip';
 import { ScrollParallax } from '../motion-primitives/scroll-parallax';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { TextReveal } from '../motion-primitives/text-reveal';
@@ -156,20 +157,28 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
       </div>
 
       {/*
-       * Scroll Overlay: the Reference parks a page-coloured wave (3000×2575 at desktop, 1350×1159 at
-       * tablet, 1200×1030 on phones) 10px under the fold, clipped by the section, and scrolls it at
-       * 1.5× the page (the "Mid" parallax layer, `__framer__speed: 150`). Scrolling down, the wave's
-       * curved edge sweeps up over the hero faster than the hero leaves, melting the gradient into
-       * the page colour just as Selected projects arrives. The row is 1px tall and z-10 after the
-       * text wrapper, so the wave rides over everything in the hero, exactly as the Reference stacks
-       * it. At rest (and under reduced motion) nothing is visible and the media inventory matches.
-       * The wave's fill is the page background, and a file can't read the token, so each theme gets
-       * its own copy of the asset (#080808 dark, #ffffff light).
+       * Scroll Overlay → Coalesce drip (#143): scrolling down, the page colour sweeps up over the hero
+       * at 1.5× the page as blobs rise ahead of the edge, stretch with scroll speed and merge gooily
+       * into the sheet — Alex's signed-off picks, from `docs/research/home-drip-coalesce-reference.md`.
+       * `ScrollDrip` mounts the WebGL2 canvas client-only after first paint, reads its fill from the
+       * `--background` token live (one code path for both themes) and gates everything through
+       * `scrollDripMotion`. The row is 1px tall and z-10 after the text wrapper, so the drip rides over
+       * everything in the hero but under the fixed header, exactly as the Reference stacks its wave;
+       * the canvas hangs off the row's bottom edge (the hero's fold) and spans the hero, inside its clip.
+       * At rest nothing of either layer is visible, so first paint is unchanged.
+       *
+       * The fallback inside `ScrollDrip` is the Reference's own wave (3000×2575 at desktop, 1350×1159
+       * at tablet, 1200×1030 on phones), parked 10px under the fold on the same 1.5× parallax. It is
+       * what no-WebGL2, a lost context, no JavaScript and reduced motion see — under reduced motion no
+       * canvas mounts, no loop runs and the wave rests below the fold from first paint, as today. An
+       * SVG file can't read the token, so each theme keeps its own copy (#080808 dark, #ffffff light).
        */}
       <div aria-hidden className="relative z-10 flex h-px w-full shrink-0 justify-center">
-        <ScrollParallax speed={150} className="flex shrink-0 justify-center pt-2.5">
-          <div className="h-[1030px] w-[1200px] shrink-0 bg-[length:100%_100%] bg-[url(/uploads/home/hero-scroll-overlay-light.svg)] lg:h-[1159px] lg:w-[1350px] xl:h-[2575px] xl:w-[3000px] dark:bg-[url(/uploads/home/hero-scroll-overlay.svg)]" />
-        </ScrollParallax>
+        <ScrollDrip canvasClassName="pointer-events-none absolute bottom-0 left-0 h-svh w-full">
+          <ScrollParallax speed={150} className="flex shrink-0 justify-center pt-2.5">
+            <div className="h-[1030px] w-[1200px] shrink-0 bg-[length:100%_100%] bg-[url(/uploads/home/hero-scroll-overlay-light.svg)] lg:h-[1159px] lg:w-[1350px] xl:h-[2575px] xl:w-[3000px] dark:bg-[url(/uploads/home/hero-scroll-overlay.svg)]" />
+          </ScrollParallax>
+        </ScrollDrip>
       </div>
     </Section>
   );

@@ -53,6 +53,7 @@ export type MotionCategory =
   | 'slide-appear'
   | 'count-up'
   | 'scroll-parallax'
+  | 'scroll-drip'
   | 'scroll-hero'
   | 'decode-scramble';
 
@@ -421,6 +422,28 @@ export function scrollParallaxMotion(prefersReducedMotion: boolean, options: Scr
   }
 
   return { factor: speed / 100 - 1 };
+}
+
+// ─── scroll-drip ──────────────────────────────────────────────────────────────
+
+export interface ScrollDripMotion {
+  /**
+   * Whether the drip's WebGL canvas may mount and its render loop may run at
+   * all. False → only the static fallback renders (today's page-coloured wave
+   * on `ScrollParallax`, itself at rest under reduced motion), so the hero
+   * rests exactly as before from first paint: no canvas, no loop.
+   */
+  animate: boolean;
+}
+
+/**
+ * Decision for the home hero's Coalesce scroll drip (#143): a scroll-velocity-
+ * driven liquid mask that replaces the static Scroll Overlay wave when motion
+ * is allowed. The drip is pure motion with no informational content, so under
+ * reduced motion nothing of it may exist — not even a resting canvas.
+ */
+export function scrollDripMotion(prefersReducedMotion: boolean): ScrollDripMotion {
+  return { animate: !prefersReducedMotion };
 }
 
 // ─── scroll-hero ──────────────────────────────────────────────────────────────
