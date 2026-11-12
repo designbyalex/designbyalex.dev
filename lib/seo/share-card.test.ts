@@ -84,11 +84,11 @@ describe('renderShareCard', () => {
 
 describe('publicMediaPath', () => {
   it('resolves a site path and a TinaCloud media URL to the same committed file', () => {
-    const expected = 'public/uploads/projects/acacia/hero.png';
+    const expected = 'public/uploads/projects/acacia/hero.webp';
     const shapes = [
-      '/uploads/projects/acacia/hero.png',
-      'https://assets.tina.io/0a1b2c3d-client/__staging/afk/migration/__file/projects/acacia/hero.png',
-      'https://assets.tina.io/0a1b2c3d-client/projects/acacia/hero.png',
+      '/uploads/projects/acacia/hero.webp',
+      'https://assets.tina.io/0a1b2c3d-client/__staging/afk/migration/__file/projects/acacia/hero.webp',
+      'https://assets.tina.io/0a1b2c3d-client/projects/acacia/hero.webp',
     ];
     for (const src of shapes) expect(publicMediaPath(src)).toBe(expected);
     expect(existsSync(fileURLToPath(new URL(`../../${expected}`, import.meta.url)))).toBe(true);

@@ -99,6 +99,11 @@ fi
 
 if [[ $full == 1 ]]; then
   step "build-local (offline Tina + next build)"
+  # Next's data cache persists build-time fetches (force-static og route, revalidate pages) across
+  # builds keyed by URL + query body. The URL (localhost:$TINA_PORT) and queries rarely change, so
+  # after a content commit it replays GraphQL responses from the *old* content — e.g. /og/<slug>.jpg
+  # reading a cover image that no longer exists. The datalayer is local files; never cache it.
+  rm -rf .next/cache/fetch-cache
   pnpm build-local
   step "vitest"
   pnpm test

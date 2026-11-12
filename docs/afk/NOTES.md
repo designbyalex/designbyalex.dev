@@ -1384,3 +1384,88 @@ Every page, dark and light, and each page once with `prefers-reduced-motion: red
 - [ ] 404 page and `/styleguide` — both themes, reduced motion.
 - [ ] `/sitemap.xml` on the preview deploy lists `/`, `/acacia`, `/mosurban`, `/work`.
 - [ ] Deferred from earlier batches, still open at a batch review: Acacia quote-mark treatment on unattributed pull-statements (#9); share-card OG images render on Vercel (#111 batch fix); header scrim contrast over the home hero (#122).
+
+## #143 P51: Home drip: Coalesce scroll mask over the hero
+- Built: the Coalesce drip from `docs/research/home-drip-coalesce-reference.md`, ported number-for-number. `components/motion-primitives/scroll-drip.tsx` (the primitive: fallback host + dynamic `ssr: false` import, decision via the new pure `scrollDripMotion` in `lib/motion/reduced-motion.ts`, with colocated tests per the PRD's testing decisions) and `components/motion-primitives/scroll-drip-canvas.tsx` (the WebGL2 layer: reference fragment shader, CPU blob sim, Motion `useScroll` + `useVelocity` + critically-damped `useSpring` at the reference's 8/s rate, DPR capped 1.5, on-demand rAF loop gated by IntersectionObserver + `visibilitychange` + a settle check, `--background` re-read live via a MutationObserver on `<html>`'s class). `components/blocks/hero.tsx`'s Scroll Overlay row now wraps today's exact SVG-wave markup in `ScrollDrip`; the canvas hangs off the 1px row's bottom edge (`absolute bottom-0 h-svh w-full`), so it spans the hero inside its clip, above the text and under the header, with no layout change. No Tina schema change, no new dependency (Paper's ShaderMount not used — no boilerplate it would save here).
+- Decisions made without a human:
+  - **Blob-array size 32, not 16.** The reference says "at most 16 blobs, the shader's array size", but Alex's signed-off counts are 14 medium + 12 droplets = 26 on desktop. The counts are the pick; the 16 is an implementation note that contradicts them, so the port sizes `uQ` to 32 and keeps every count. Phone stays 7 + 6 = 13.
+  - **`uCol` is the token's sRGB value normalised 0–1, not linearised.** The reference's comment says "linear" but its shader writes `uCol` out unconverted; passing sRGB straight through is what makes the fill match `--background` by pixel. Shader comment updated; the gloss tints therefore mix in sRGB, which is what the picker showed Alex anyway.
+  - **Fallback swap is mount-until-active:** the server-rendered SVG wave stays until the canvas has a live context and its first frame (`onActive`), then unmounts; any failure (`onFail`: no WebGL2, compile/link failure, lost context) retires the canvas for good. No restore attempt on context loss — the ticket names the static wave as the destination.
+  - **Loop "visible or settling"** = `P > 0` (the edge and blobs wobble on time while any of it is on screen), or smoothed |velocity| ≥ 5 px/s, or stretch > 0.5% from rest; off-screen hero (IntersectionObserver) or hidden tab stops it cold, and scroll / resize / theme-change / re-entry wake it.
+  - **Velocity smoothing** uses `useSpring(stiffness 64, damping 16)` — critically damped at ω = 8/s, Motion's native equivalent of the reference's `v += (raw − v)·min(1, 8·dt)` — because the ticket names `useScroll` + `useVelocity` + a light `useSpring` as the source.
+  - Blob layout is seeded by a fixed-constant mulberry32 per width (reseed only when the hero's width changes), so the layout is stable across visits and themes.
+  - Under reduced motion the drip subtree is client-decided (`useReducedMotion` via `scrollDripMotion`), and the server HTML carries the resting SVG exactly as today; "rests exactly as today from first paint" holds because at rest nothing of either layer is visible.
+- Stubbed: nothing.
+- Perf budget accounting: new JS is two components + one pure selector, no new dependency; raw source 15.5 KB of which ~5 KB is comments — min+gzip estimated ~2.5–3 KB, inside the 6 KB budget. *Final pass measured:* the dynamic `scroll-drip-canvas` chunk (`.next/static/chunks/825.*.js`) is **7,038 B minified**; every gzip tool in this sandbox is denied (gzip, tar, perl), so min+gzip is estimated from the usual 2.5–3× ratio on minified JS at **~2.4–2.8 KB** — ≤3.5 KB even at a worst-case 2× — inside the 6 KB budget. Confirm the exact transfer size in DevTools on the preview deploy. DPR cap, loop gating and tab-hidden stop are in code; LCP/CLS: the canvas is absolutely positioned (no layout), its chunk loads post-hydration, and first paint is byte-identical server HTML — verify against `main` on the preview deploy.
+- Verify visually:
+  - [ ] Dark · light at 1440 / 768 / 390: scrolling from the hero into Selected projects shows Coalesce per the reference — blobs rise ahead of a gently moving edge, stretch and trail on a fast scroll, merge gooily; timing matches today's 1.5× mapping (the fallback wave and the canvas edge should land the same).
+  - [ ] Fill matches the page background exactly by pixel in Chrome **and Safari**, both themes; no seam at the hero's bottom edge; theme switch mid-scroll updates the colour live.
+  - [ ] Gloss: top-left-lit highlight in dark, soft inner shade in light, fading to plain page colour over the last 140 px above the hero's bottom edge.
+  - [ ] Top of page: nothing of the drip visible; first paint unchanged against `main` (LCP/CLS on the preview deploy).
+  - [ ] Reduced motion: no canvas in the DOM, no rAF loop, hero at rest as today from first paint.
+  - [ ] WebGL2 off (Safari "WebGL via Metal" off, or `about:config` webgl.disabled): today's static SVG wave rides `ScrollParallax` as before; same after a forced context loss.
+  - [ ] 390 on a mid-range phone: 7 medium blobs + 6 droplets at 0.65× size, smooth scroll.
+  - [ ] DevTools performance: rAF stops at page top after settle, with the tab hidden, and with the hero scrolled off; resumes on scroll back.
+  - [ ] Alex accepts it at the batch review.
+
+## Final pass (#143)
+
+Checked first: #9's curl-era stubs (Acacia images, the fourth deep-dive, the four outcome counters) were already resolved by the first final pass — verified on disk this pass (eight images in `public/uploads/projects/acacia/`, values 25 / 40 / 20 / 15 in `acacia.mdx`). No other ticket has an unresolved curl-denied stub.
+
+### What failed, and how it was fixed
+- **`build-local` failed prerendering `/og/<slug>.jpg`** ("Input file is missing: … hero.png"): Next's data cache (`.next/cache/fetch-cache`) held Tina GraphQL responses from Nov 10–11 — before `content(#100)` swapped the case-study covers to `.webp` — and the force-static og route replayed them, so `renderShareCard` looked for files that no longer exist. The cache key is URL + query body, which is why only unchanged queries were stale (`projectConnection`, whose shape changed recently, was fresh in the same build). Fixed in `scripts/afk/check.sh`: the full gate now removes `.next/cache/fetch-cache` before `pnpm build-local` — the datalayer is local files and must never be served from a previous build's cache. A stale Tina client query cache was also parked in `.afk/stale-tina-query-cache-2026-11-12` while diagnosing (it was not the cause; the client regenerates its cache dir per build).
+- **`lib/seo/share-card.test.ts` failed**: its `publicMediaPath` fixture hardcoded `public/uploads/projects/acacia/hero.png` and asserts the file exists; `content(#100)` renamed it to `hero.webp`. Updated the three URL shapes and the expected path to `.webp`.
+- **`scripts/afk/ports.sh` `listening()` hardened**: the `/dev/tcp` ::1 probe depends on the bash build, so a ::1-only listener (Tina's) could read as free. It now asks `lsof` (every bind, every address) and keeps `/dev/tcp` as the fallback. (Investigated as a cause of the stale builds; it wasn't — nothing was on 4100 — but the hole is real and the fix keeps sibling sessions off each other's ports.)
+- **Review fix in `scroll-drip-canvas.tsx`**: the effect cleanup called `WEBGL_lose_context.loseContext()`. React strict mode's dev-only remount re-runs the effect on the same canvas, `getContext` returns the same — now irrecoverably lost — context, program creation fails, and the drip retired to the static wave on every `next dev` / Tina-preview load (production builds were unaffected). The cleanup now only deletes the program and shaders; the context is reclaimed with the canvas element on a real unmount.
+
+### Tests added
+- None needed beyond the ticket's own: the only pure `lib/` addition on this branch is `scrollDripMotion` in `lib/motion/reduced-motion.ts`, which #143 already shipped with two colocated tests (animate when motion allowed; no canvas, no loop under reduced motion). The WebGL canvas and the host component are motion-primitive visual output, which the PRD's testing decisions explicitly leave to visual verification. Full suite: 224 tests, 21 files, green.
+
+### Acceptance criteria (#143)
+- [x] **Coalesce per the reference** — met in code: geometry (`L`, `P`, `e`, `R`), blob counts/radii/leads/jitter, stretch easing, smin `k = 48` and the fragment shader all match `home-drip-coalesce-reference.md` line for line (checked term by term in this pass; the two documented deviations — `uQ[32]` and sRGB `uCol` — are argued in the ticket notes). The look itself is visual QA below.
+- [x] **Fill matches the page background, live on theme switch** — met in code: `uCol` is read from `--background` (plain hex in both themes, parsed; fallback to the literal token values) and a MutationObserver on `<html>`'s class re-reads it. Pixel check in Chrome + Safari is visual QA.
+- [x] **Gloss edge** — met in code: shader verbatim (dark top-left-lit highlight, light inner shade, 140 px fade to plain colour).
+- [x] **Nothing visible at the top, first paint unchanged** — met: the canvas is client-only, dynamically imported post-hydration; server HTML is byte-identical (the same SVG-wave markup as before), and at `s = 0` both layers are below the fold.
+- [x] **Reduced motion: no canvas, no loop** — met and unit-tested: `scrollDripMotion(true)` → no mount; the server HTML is the resting wave.
+- [x] **No WebGL2 / lost context → static wave** — met in code: `onFail` on missing context, failed program link, and `webglcontextlost` (no restore attempt); the fallback stays mounted until the canvas's first real frame, so the swap has no gap.
+- [x] **Perf budget** — met: 7,038 B minified dynamic chunk (gzip ≈ 2.4–2.8 KB, est.; see the measurement note in the ticket section) against 6 KB; no new dependency; DPR capped 1.5; the loop runs only while the hero intersects, the tab is visible and the drip is visible or settling. LCP/CLS vs `main` is deferred to the preview deploy (QA below).
+- [x] **Phone counts** — met in code: width < 1024 → 7 + 6 at 0.65×. Smoothness on a real mid-range phone is QA below.
+- [x] **tsc, biome, `check.sh --full`** — green in this pass (after the fixes above).
+- [ ] **Alex accepts it on the batch review** — pending, by design.
+
+### Review findings not fixed (and why)
+- **The drip assumes the hero tops the document**: the shader's `s` is window `scrollY`, valid because the home hero is the first block and the section is exactly `h-svh`. If the hero block were ever reordered below another block in Tina, the edge would ride at the wrong height. The reference makes the same assumption ("the hero tops the document") and the old wave's 1.5× mapping shared it; left as is.
+- **One-frame overlap at the swap**: the fallback unmounts after the canvas's first rendered frame, so for one frame both layers paint. They cover the same area with the same colour; invisible in practice, and the alternative (swap before a frame exists) is a visible gap.
+- **"Unable to find record content/projects/work.mdx" in every build log**: the catch-all route tries the project collection before the page collection, so the `/work` *page* always logs this probe server-side before resolving. Harmless noise, pre-existing (#125), and silencing it would mean reordering the lookup for cosmetics.
+- **Exact gzip number unmeasurable here**: every compressor in the sandbox allowlist is denied; recorded the minified byte size and a bounded estimate instead.
+
+### Open risks
+- **Vercel's build cache has the same stale-fetch-cache disease the gate just fixed locally**: Vercel restores `.next/cache` across deploys, and the og route's build-time TinaCloud fetches are cacheable. A content-only commit that renames media could ship (or fail on) share cards rendered from the previous content state. Watch the first deploy after a content commit that moves media; if it bites, clear the build cache or add the same `rm -rf .next/cache/fetch-cache` to the Vercel build command.
+- **Drip performance on a real mid-range phone** is estimated (13 blobs at 0.65×, DPR ≤ 1.5, on-demand loop), not measured.
+- **WebGL2-off and forced context loss** are verified at the code level only; the Safari "WebGL via Metal" off case needs a hand check.
+- Pre-existing: the three MOS Urban videos still stream from `framerusercontent.com` (#10's note); re-host before the Framer project is deleted.
+
+### Visual QA checklist (consolidated)
+Every page, each in **dark and light**, and each **at rest from first paint under `prefers-reduced-motion: reduce`**:
+- [ ] `/` — hero, drip (below), selected projects, about, experience, contact; no starter content.
+- [ ] `/work` — every case study and story listed, thumbnails and status pills correct.
+- [ ] `/acacia` — full case study: images (#9's eight), four metric counters (25 / 40 / 20 / 15 %), deep-dives, CTA.
+- [ ] `/mosurban` — full case study: videos play on click (no autoplay), galleries, next/previous links.
+- [ ] `/styleguide` — tokens, motion primitives, TransitionLink demo.
+- [ ] Any bad URL → 404 — redesigned page, "Take me home" works.
+- [ ] `/admin` — Tina editor loads; Home, Work and both projects open and save.
+- [ ] `/og/acacia.jpg` and `/og/mosurban.jpg` — share cards render from the committed `.webp` covers.
+
+The #143 drip, on the preview deploy:
+- [ ] Dark · light at 1440 / 768 / 390: Coalesce per the reference — blobs rise ahead of a gently moving edge, stretch and trail on a fast scroll, merge gooily; timing matches today's 1.5× mapping.
+- [ ] Fill matches the page background by pixel in Chrome **and Safari**, both themes; no seam at the hero's bottom edge; theme switch mid-scroll updates the colour live.
+- [ ] Gloss: top-left-lit highlight in dark, soft inner shade in light, fading out over the last 140 px.
+- [ ] Top of page: nothing of the drip visible; LCP/CLS on `/` no worse than `main` (preview deploy comparison).
+- [ ] Reduced motion: no `<canvas>` in the DOM, no rAF loop.
+- [ ] WebGL2 off (Safari "WebGL via Metal" off) and a forced context loss: the static SVG wave on `ScrollParallax`, as today.
+- [ ] 390 on a mid-range phone: 7 + 6 blobs at 0.65×, smooth scroll.
+- [ ] DevTools performance: rAF stops at page top after settle, with the tab hidden, and with the hero scrolled off; resumes on scroll back. Dynamic chunk transfer size ≤ 6 KB gzip.
+- [ ] `next dev`: the drip mounts (the strict-mode fix) — not just the fallback wave.
+- [ ] Alex accepts it at the batch review.
+
+Deferred by earlier tickets, still open: quote-block curly quotes in light theme (pale `text-primary`, flip to `text-emphasis` if wrong, #13); header `backdrop-blur` during the 420 ms route transition (#12); Tina visual editor click-to-edit on each home block (#11).

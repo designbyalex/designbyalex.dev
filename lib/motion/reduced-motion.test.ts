@@ -11,6 +11,7 @@ import {
   hoverMotion,
   lineRevealMotion,
   routeTransitionMotion,
+  scrollDripMotion,
   scrollHeroPinMotion,
   scrollHeroZoomMotion,
   scrollParallaxMotion,
@@ -382,5 +383,15 @@ describe('scrollParallaxMotion', () => {
 
   it('reduced motion: the layer rests in its layout position at any speed', () => {
     expect(scrollParallaxMotion(true, { speed: 150 }).factor).toBe(0);
+  });
+});
+
+describe('scrollDripMotion', () => {
+  it('lets the drip canvas mount and run when motion is allowed', () => {
+    expect(scrollDripMotion(false)).toEqual({ animate: true });
+  });
+
+  it('reduced motion: no canvas mounts and no loop runs — the static fallback only', () => {
+    expect(scrollDripMotion(true)).toEqual({ animate: false });
   });
 });
