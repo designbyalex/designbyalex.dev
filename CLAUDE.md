@@ -2,7 +2,7 @@
 
 ## Agency workflow
 
-designbyalex.dev: Alexander Blum's design portfolio, moving from Framer to Next.js + TinaCMS on Vercel, for Alex himself. Alex directs and decides. A master session sequences the work with /orchestrate; every other session does, checks and merges its own. Work runs in parallel, batched and unattended, and Alex reviews everything at the end of each batch.
+designbyalex.dev: Alexander Blum's design portfolio, moved from Framer to Next.js + TinaCMS on Vercel (cutover 2026-11-12), for Alex himself. Alex directs and decides. A master session sequences the work with /orchestrate; every other session does, checks and merges its own. Work runs in parallel, batched and unattended, and Alex reviews everything at the end of each batch.
 
 - **Read first:** `docs/agents/orchestration.md` (roles, lanes, publish step, checks, gates, hand-backs), then `CONTEXT.md` and any ADR in `docs/adr/` the work touches.
 - **PBIs:** GitHub issues in this repo, with P- or H-numbered titles under a PRD, picked up by the AFK loop when labelled `ready-for-agent` with **Type: AFK** and nothing open under **Blocked by**. Shape and paths are in `docs/agents/issue-tracker.md`. File with `/pbi`, run with `/pbi-loop`, or batch AFK tickets through `scripts/afk-loop.sh`.
