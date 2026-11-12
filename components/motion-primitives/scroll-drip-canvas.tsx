@@ -320,7 +320,10 @@ export default function ScrollDripCanvas({ className, onActive, onFail }: Scroll
       canvas.removeEventListener('webglcontextlost', onLost);
       for (const shader of shaders) if (shader) gl.deleteShader(shader);
       gl.deleteProgram(program);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      // No loseContext() here: React strict mode's dev-only remount re-runs this effect on the *same*
+      // canvas, and getContext would hand it the same — by then irrecoverably lost — context, so the
+      // drip would retire to the fallback on every `next dev` / Tina-preview load. On a real unmount
+      // the canvas element leaves the DOM and the context is reclaimed with it.
     };
   }, []);
 
