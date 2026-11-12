@@ -8,11 +8,13 @@ function joinUrl(baseUrl: string, path: string): string {
 }
 
 /**
- * `/sitemap.xml` entries (#15): the homepage first, then one per project slug.
- * Framer's sitemap listed only `/`; this adds the case studies it never did.
+ * `/sitemap.xml` entries (#15, #125): the homepage first, then one per project
+ * slug and one per page slug other than home (the home document is served at
+ * `/`). Framer's sitemap listed only `/`; this adds the case studies — and now
+ * /work — it never did.
  */
-export function buildSitemap(baseUrl: string, projectSlugs: string[]): MetadataRoute.Sitemap {
-  const slugs = [...new Set(projectSlugs)].filter((slug) => slug && slug !== HOME_SLUG).sort();
+export function buildSitemap(baseUrl: string, projectSlugs: string[], pageSlugs: string[] = []): MetadataRoute.Sitemap {
+  const slugs = [...new Set([...projectSlugs, ...pageSlugs])].filter((slug) => slug && slug !== HOME_SLUG).sort();
   return [joinUrl(baseUrl, '/'), ...slugs.map((slug) => joinUrl(baseUrl, slug))].map((url) => ({ url }));
 }
 

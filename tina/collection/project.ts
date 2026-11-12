@@ -47,6 +47,16 @@ const Project: Collection = {
     },
     {
       type: 'string',
+      label: 'Format',
+      name: 'format',
+      description: 'How the /work index labels this project. Left unset it counts as a case study.',
+      options: [
+        { label: 'Case study', value: 'case-study' },
+        { label: 'Story', value: 'story' },
+      ],
+    },
+    {
+      type: 'string',
       label: 'Tagline',
       name: 'tagline',
       description: 'One-line summary shown beneath the title.',

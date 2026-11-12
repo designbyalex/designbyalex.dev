@@ -3,19 +3,18 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import client from '@/tina/__generated__/client';
 import Layout from '@/components/layout/layout';
-import { Section } from '@/components/layout/section';
 import PageClientPage from './client-page';
 import ProjectClientPage from './project-page';
 import { buildPageMetadata, buildProjectMetadata } from '@/lib/seo/metadata';
 import { siteDefaults } from '@/lib/seo/site';
-import type { ProjectCardRef } from '@/lib/case-study/next-project';
+import type { WorkProjectRef } from '@/lib/case-study/work-index';
 import { collectBreadcrumbs } from '@/lib/tina/collect-breadcrumbs';
 
 export const revalidate = 300;
 
-/** Collect every project's slug, title and order (for the next-project resolver) and what its card shows. */
-async function fetchAllProjects(): Promise<ProjectCardRef[]> {
-  const out: ProjectCardRef[] = [];
+/** Collect every project's slug, title and order (for the next-project and Work-index sorts) and what its card shows. */
+async function fetchAllProjects(): Promise<WorkProjectRef[]> {
+  const out: WorkProjectRef[] = [];
   let after: string | undefined;
   while (true) {
     const res = await client.queries.projectConnection({ after });
@@ -27,6 +26,7 @@ async function fetchAllProjects(): Promise<ProjectCardRef[]> {
           slug: node._sys.breadcrumbs.join('/'),
           title: node.title,
           order: node.order ?? null,
+          format: node.format ?? null,
           status: node.status ?? null,
           tagline: node.tagline ?? null,
           thumbnail: node.thumbnail ?? null,
@@ -109,11 +109,16 @@ export default async function Page({
     notFound();
   }
 
+  // The Work index block lists the Project collection, not the Page document,
+  // so its data is fetched here and handed down (as the next-project card's is).
+  // Fetched unconditionally, like the project branch above: gating on the saved
+  // document's block list would hand an empty list to a block added live in
+  // Tina's editor until the page revalidates.
+  const allProjects = await fetchAllProjects();
+
   return (
     <Layout rawPageData={data}>
-      <Section>
-        <PageClientPage {...data} />
-      </Section>
+      <PageClientPage {...data} allProjects={allProjects} />
     </Layout>
   );
 }
