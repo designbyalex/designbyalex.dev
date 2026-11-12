@@ -6,8 +6,9 @@
  * Every file lives in `public/hero-piece/`, rendered by the scene script (`hero-piece/` on the
  * prototype branches) and encoded for the web:
  *
- * - **Still**: the rest pose, wide (2880×1800) and portrait (1200×2600), WebP. It is the first paint,
- *   the loading state, the poster, and all that shows under `prefers-reduced-motion`.
+ * - **Still**: the rest pose, wide (2880×1800) and portrait (1200×2600), WebP. All that shows under
+ *   `prefers-reduced-motion` or without JavaScript, and the fallback if a clip can't play.
+ * - **Opening**: the intro's first frame, the first paint and poster wherever the clips play.
  * - **Clips**: the intro (plays once) and the idle (loops), each wide and portrait, H.264 MP4 and,
  *   where it came out smaller, VP9 WebM. Muted, no audio track.
  *
@@ -26,10 +27,16 @@ export type HeroPieceClips = {
 };
 
 export type HeroPiece = {
-  /** The wide still, shown at 1024px and up. */
+  /** The wide still (the formed A), shown at 1024px and up under reduced motion, without JavaScript, or if a clip fails. */
   still: string;
-  /** The portrait still, shown below 1024px. */
+  /** The portrait still, the same below 1024px. */
   stillPortrait: string;
+  /**
+   * The intro's own first frame (wide and portrait): the first paint and poster wherever the clips will
+   * play, so the intro takes over from it with no cut (Alex, 2026-11-13: "start immediately on load - no
+   * weird jump cuts"). `null` paints the still first.
+   */
+  opening: { wide: string; portrait: string } | null;
   clips: HeroPieceClips | null;
 };
 
@@ -37,6 +44,8 @@ export const HERO_PIECE: HeroPiece = {
   // Grid-free (Alex, 2026-11-12: the grid was only there to test the refraction).
   still: '/hero-piece/glass-clear.webp',
   stillPortrait: '/hero-piece/glass-clear-portrait.webp',
+  // Frame 0 of each intro, WebP (9 KB wide, 5 KB portrait): the empty gradient the blob grows out of.
+  opening: { wide: '/hero-piece/glass-clear-opening.webp', portrait: '/hero-piece/glass-clear-opening-portrait.webp' },
   // 30 fps, H.264 CRF 20 from the Cycles frames. Wide 1440×900: intro 2.1s / 242 KB, idle 7s / 553 KB.
   // Portrait 600×1300: intro 131 KB, idle 306 KB. VP9 came out larger than H.264 at matching quality,
   // so there's no WebM.
@@ -52,3 +61,9 @@ export const HERO_PIECE: HeroPiece = {
 
 /** The hero's layout switches at Tailwind's `lg` (1024px); below it, the portrait files play. */
 export const HERO_PIECE_NARROW = '(max-width: 1023px)';
+
+/**
+ * Where the clips play: JavaScript on and motion allowed. The first paint (CSS) and the player (JS) both
+ * test this one query, so they always agree; a browser without the `scripting` feature gets the still.
+ */
+export const HERO_PIECE_PLAYS = '(scripting: enabled) and (prefers-reduced-motion: no-preference)';

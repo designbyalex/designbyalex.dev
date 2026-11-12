@@ -488,10 +488,11 @@
 }
 
 /*
- * Home Hero piece fade-in (#146), components/blocks/hero.tsx: the still (and the clips over it) fade in
- * over the gradient in 1.5s, as the mark render did. CSS rather than ScrollReveal, whose server HTML
- * starts at opacity 0 until hydration: here the server HTML is the resting state, so without
- * JavaScript or under reduced motion the still is there from first paint.
+ * Home Hero piece fade-in (#146), components/blocks/hero.tsx: the intro's opening frame (and the clips
+ * over it) lifts off the dark ground in 0.4s. Short, because the intro is the entrance and starts
+ * playing from load (Alex, 2026-11-13); it only softens the first paint. CSS rather than ScrollReveal,
+ * whose server HTML starts at opacity 0 until hydration: here the server HTML is the resting state, so
+ * without JavaScript or under reduced motion the still is there from first paint.
  */
 @keyframes hero-piece-in {
   from {
@@ -501,7 +502,7 @@
 
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   .hero-piece-in {
-    animation: hero-piece-in 1.5s var(--motion-ease-entrance) both;
+    animation: hero-piece-in 0.4s var(--motion-ease-entrance) both;
   }
 }
 
