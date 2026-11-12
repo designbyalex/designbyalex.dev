@@ -30,7 +30,7 @@ function AssemblingMark() {
       fill="none"
       stroke="currentColor"
       strokeWidth={0.12}
-      className="pointer-events-none absolute top-28 right-6 h-[285px] overflow-visible w-[300px] text-emphasis opacity-50 transition-opacity duration-500 ease-hover-link lg:top-[calc(50%-280px)] lg:right-24 lg:h-[560px] lg:w-[590px] lg:group-data-previewing/nf:opacity-0"
+      className="pointer-events-none absolute top-28 right-12 h-[247px] overflow-visible w-[260px] text-emphasis opacity-50 transition-opacity duration-500 ease-hover-link lg:top-[calc(50%-280px)] lg:right-24 lg:h-[560px] lg:w-[590px] lg:group-data-previewing/nf:opacity-0"
     >
       <path
         className="not-found-piece-left"
