@@ -159,6 +159,17 @@ const Project: Collection = {
       ui: { component: 'textarea' },
     },
     {
+      type: 'number',
+      label: 'Share card zoom',
+      name: 'shareZoom',
+      description: 'How far the share card zooms into the cover image (1 = whole image, default 1.15).',
+      ui: {
+        validate: (value?: number) => {
+          if (value != null && (value < 1 || value > 2.5)) return 'Share card zoom must be between 1 and 2.5.';
+        },
+      },
+    },
+    {
       type: 'image',
       label: 'Thumbnail',
       name: 'thumbnail',

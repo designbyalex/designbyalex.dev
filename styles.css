@@ -21,8 +21,6 @@
    * monospace advance, as on the Reference, instead of a 137%-scaled Arial one.
    */
   --font-mono: "Space Mono", ui-monospace, Menlo, var(--font-space-mono), monospace;
-  /* Material Icons ligatures (#59): the CV link's "download" glyph, as on the Reference. No fallback: the word must never show. */
-  --font-icons: var(--font-material-icons);
 }
 
 /*
@@ -89,16 +87,6 @@
   --text-mono--line-height: 1;
   --text-mono--letter-spacing: 0em;
   --text-mono--font-weight: 400;
-  /* Material Icons glyphs set as text (`font-icons`): 16, as the Reference's download icon */
-  --text-icon: 1rem;
-  --text-icon--line-height: 1.2;
-  --text-icon--letter-spacing: 0em;
-  --text-icon--font-weight: 400;
-  /* The larger ligature glyph: 20 on a 24px line, as the Reference's "arrow_back" in the case-study Back pill (#62) */
-  --text-icon-lg: 1.25rem;
-  --text-icon-lg--line-height: 1.2;
-  --text-icon-lg--letter-spacing: 0em;
-  --text-icon-lg--font-weight: 400;
   /* The case-study carousel slide's caption: 32 on a 1.2 line, the heading tier's tracking (desktop only, #65) */
   --text-slide-heading: 2rem;
   --text-slide-heading--line-height: 1.2;
@@ -157,6 +145,21 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /*
+   * Glass chrome (#91): the translucent pills. Fills and inks switch with the
+   * theme; the backdrop filters live in the `glass-blur-*` utilities below.
+   */
+  --color-glass-chrome: var(--glass-chrome);
+  --color-glass-chrome-hover: var(--glass-chrome-hover);
+  --color-glass-arrow: var(--glass-arrow);
+  --color-glass-dots: var(--glass-dots);
+  --color-glass-border: var(--glass-border);
+  --color-glass-border-bare: var(--glass-border-bare);
+  --color-glass-ink: var(--glass-ink);
+  --shadow-glass: var(--glass-shadow);
+  --shadow-glass-photo: var(--glass-photo-shadow);
+  --color-grid-line: var(--grid-line);
+
+  /*
    * Hover motion, measured from the Reference's hover variants (#90).
    * Links and arrow circles (header, footer, CTA, CV) run Framer's
    * spring(stiffness 500, damping 60, mass 1): overdamped, ~500ms to rest —
@@ -204,9 +207,10 @@
   --foreground-soft: #1a1a1a;
   /* Text on translucent chrome pills (the case-study Back pill: the Reference's #ededed) */
   --foreground-dim: #262626;
-  /* Decorative large numerals on a card (the carousel slide's "01": the Reference's #474747 on #131313); 3.3:1 on white, AA for large text */
+  /* Decorative large numerals on a card (the carousel slide's "01": the Reference's #474747 on #131313); 3.02:1 on the #f7f7f7 card, above the 3:1 for large text (#91) */
   --foreground-faint: #8f8f8f;
-  --card: #ffffff;
+  /* Panel grey (#91, owner pick 2026-11-11): same as --muted. One token tints every bg-card surface — the footer band, metric cards, the carousel card, video slides, thumbnail and portrait grounds. */
+  --card: #f7f7f7;
   --card-foreground: #080808;
   --popover: #ffffff;
   --popover-foreground: #080808;
@@ -243,6 +247,31 @@
   --sidebar-accent-foreground: #080808;
   --sidebar-border: oklch(0 0 0 / 12%);
   --sidebar-ring: #3cda64;
+
+  /*
+   * Glass chrome (#91; owner picks 2026-11-11 and 2026-11-12, "Clear with a lit rim"): one
+   * fill, hairline, shadow and ink for every page pill, the carousel arrows and dots pill.
+   * The shadow carries the rim: a lit top edge and a soft inner shade inside the hairline,
+   * then a small drop. The fill is white at 50% so the near-black label keeps AA over a dark
+   * photo (it reads as clear on the white page). `-photo` is the status pill over
+   * photography: the same rim and blur in both themes (owner note 2026-11-12), on its own
+   * scrim fill so the white label keeps AA over a light photo (#67).
+   */
+  --glass-chrome: rgb(255 255 255 / 0.5);
+  --glass-chrome-hover: rgb(255 255 255 / 0.65);
+  --glass-arrow: var(--glass-chrome);
+  --glass-dots: var(--glass-chrome);
+  --glass-border: rgb(0 0 0 / 0.1);
+  --glass-border-bare: rgb(0 0 0 / 0.1);
+  --glass-ink: #080808;
+  --glass-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.95), inset 0 -3px 6px rgb(0 0 0 / 0.05), 0 2px 8px rgb(0 0 0 / 0.06);
+  --glass-blur-chrome: blur(6px) saturate(180%);
+  --glass-blur-status: blur(6px) saturate(180%);
+  --glass-blur-nav: blur(6px) saturate(180%);
+  --glass-blur-photo: blur(6px) saturate(180%);
+  --glass-photo-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.4), inset 0 -3px 8px rgb(0 0 0 / 0.35), 0 4px 14px rgb(0 0 0 / 0.4);
+  /* The Mission card grid lines (case-study-section.tsx LogoCard): the light brand green (owner pick 2026-11-12). */
+  --grid-line: #0f7a35;
 }
 
 .dark {
@@ -284,6 +313,54 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: oklch(1 0 0 / 15%);
   --sidebar-ring: #3cda64;
+
+  /*
+   * Glass chrome (#91) in dark, "Clear with a lit rim" (owner pick 2026-11-12): a faint white
+   * over a black base, so the white label keeps AA over a light photo while the pill reads as
+   * clear glass on the near-black page; a lit top edge, an inner shade and a drop shadow.
+   * The photo pill keeps its scrim fill and takes the same rim and blur.
+   */
+  --glass-chrome: rgb(29 29 29 / 0.53);
+  --glass-chrome-hover: rgb(56 56 56 / 0.56);
+  --glass-arrow: var(--glass-chrome);
+  --glass-dots: var(--glass-chrome);
+  --glass-border: rgb(255 255 255 / 0.13);
+  --glass-border-bare: rgb(255 255 255 / 0.13);
+  --glass-ink: #ffffff;
+  --glass-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.4), inset 0 -3px 8px rgb(0 0 0 / 0.35), 0 4px 14px rgb(0 0 0 / 0.4);
+  --glass-blur-chrome: blur(6px) saturate(180%);
+  --glass-blur-status: blur(6px) saturate(180%);
+  --glass-blur-nav: blur(6px) saturate(180%);
+  --glass-blur-photo: blur(6px) saturate(180%);
+  --glass-photo-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.4), inset 0 -3px 8px rgb(0 0 0 / 0.35), 0 4px 14px rgb(0 0 0 / 0.4);
+  /* The Mission card grid lines, as the live dark card draws them (the grid asset's own stroke colour). */
+  --grid-line: rgb(65 194 73);
+}
+
+/*
+ * The glass pills' backdrop filters (#91). Custom utilities rather than
+ * `backdrop-blur-*` because the whole filter list switches with the theme
+ * (light frosts with blur + saturate; dark keeps today's plain blurs, or
+ * none). Both prefixes, as Tailwind's own backdrop utilities emit.
+ */
+@utility glass-blur-chrome {
+  -webkit-backdrop-filter: var(--glass-blur-chrome);
+  backdrop-filter: var(--glass-blur-chrome);
+}
+
+@utility glass-blur-status {
+  -webkit-backdrop-filter: var(--glass-blur-status);
+  backdrop-filter: var(--glass-blur-status);
+}
+
+@utility glass-blur-nav {
+  -webkit-backdrop-filter: var(--glass-blur-nav);
+  backdrop-filter: var(--glass-blur-nav);
+}
+
+@utility glass-blur-photo {
+  -webkit-backdrop-filter: var(--glass-blur-photo);
+  backdrop-filter: var(--glass-blur-photo);
 }
 
 @layer base {
@@ -407,6 +484,60 @@
 
   [data-hero-ready] .hero-mask {
     animation: hero-mask-out var(--motion-duration-hero-mask) var(--motion-ease-hero-mask) 250ms both;
+  }
+}
+
+/*
+ * 404 mark assembly (#93), app/not-found.tsx. The brand mark's three pieces
+ * slide and rotate into place on mount over the entrance curve (1.2s, staggered
+ * 200/280/360ms), the left and top travelling 20% of their own box and the right
+ * one 12% with a 12° turn, so every piece stays whole on screen from the first
+ * frame (owner notes 2026-11-12; it was 45% and 18°, which started the right piece
+ * past the edge). Pure CSS with no scripting gate: the animation ends at rest,
+ * so without JavaScript it simply plays, and under reduced motion this block
+ * never applies — the mark is assembled from first paint.
+ */
+@keyframes not-found-piece-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20%) rotate(-18deg);
+  }
+}
+
+@keyframes not-found-piece-right {
+  from {
+    transform: translateX(12%) rotate(12deg);
+  }
+}
+
+@keyframes not-found-piece-top {
+  from {
+    transform: translateY(-20%) rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .not-found-piece-left,
+  .not-found-piece-right,
+  .not-found-piece-top {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: 1.2s var(--motion-ease-entrance) both;
+  }
+
+  .not-found-piece-left {
+    animation-name: not-found-piece-left;
+    animation-delay: 200ms;
+  }
+
+  .not-found-piece-right {
+    animation-name: not-found-piece-right;
+    animation-delay: 280ms;
+  }
+
+  .not-found-piece-top {
+    animation-name: not-found-piece-top;
+    animation-delay: 360ms;
   }
 }
 

@@ -787,7 +787,7 @@ Status at the final pass (2026-10-21, `parity/deviations.json` on `origin/main`)
 - **acacia · Section Solution · copy-extra · "Energy profile & insights" (now a live Gap, #61). — approved as `solution-fifth-key-feature`.** The Reference snapshot's key-feature list has four rows; the fifth, "Energy profile & insights", is in the live DOM (`.afk/cache/acacia.html`) but never finished its appear animation in the capture, so it has no text run. The Build shows all five, as the live site does. Until #61 it paired with the Profile heading page-wide; now that Section Profile has its own heading, the row is `copy-extra` in Section Solution at 390, 768 and 1440 and is the only failure in #61's Parity scope. Suggested entry: page `acacia`, section `Section Solution`, check `copy-extra`, anchor `Energy profile & insights`. With it, #61's scope is at 0 everywhere and the gate rewrites the Baseline (1028 → 762). (#60, #61)
 - **home · Project Overview · copy-extra · "download" and "DOWNLOAD FULL CV" (1440 only). — approved as `cv-link-capture-1440`.** The Reference snapshot captured the CV row before its Framer appear animation ran (opacity 0, translated 60px: the link is in the snapshot's `links` at y=2675 in the Section, 60px under its layout position, with no text runs), so the gate reads the Build's visible link as extra copy at 1440 while requiring it at 390 and 768. The live desktop site shows the link (docs/parity-audit.md H13). Suggested entry: page `home`, section `Project Overview`, check `copy-extra`, anchor [`download`, `DOWNLOAD FULL CV`]. With it, #59's Parity scope is at 0 everywhere. (#59)
 - **home · Project Overview · copy-extra · "About" (390 and 768).** Same cause: the Reference's "Sticky Wrapper" never became visible in the phone captures, so the heading is absent from the snapshot and the Build hides it under lg to match. If the owner wants the heading on phones (the live site most likely shows it), approve a Deviation for anchor `About` and drop `hidden lg:` from the heading column in `components/blocks/about.tsx` (the column's `pt-[84px]` then goes too). (#59)
-- **home · Project Overview · media-radius · image 1.** The Reference reads the portrait's radius as 0 while Framer rounds its wrapper by 20px; the Build rounds with `clip-path` to satisfy the check. A re-captured Reference would read 20px; then `rounded-[20px] overflow-hidden` is the plainer CSS. (#59)
+- **home · Project Overview · media-radius · image 1. — resolved without a Deviation (#92).** The Reference reads the portrait's radius as 0 while Framer rounds its wrapper by 20px; the Build rounded with `clip-path` to satisfy the check. The planned `portrait-radius-capture` Deviation became moot when ADR 0005 retired the gate and the Deviation list; #92 swapped the clip for `rounded-[20px] overflow-clip`. (#59, #92)
 - **mosurban · Section UX · media-missing · "image 2" — withdrawn (#64).** The first run of #64 proposed suppressing the carousel's Next arrow (a 10×16 white chevron drawn as a CSS background on a 56×47 pill in Framer's one-page "Carousel Wrapper", desktop only). The second run built the slide chrome as the video block's `slide` option (see #64's decisions), so the Gap is closed and no Deviation is needed. (#64)
 
 ## Final pass (#53–#66)
@@ -873,7 +873,6 @@ Legend as above: **met** = verified by build, tests or code reading; **visual** 
 
 ### Review findings not fixed (and why)
 Standards axis:
-- **Material Icons webfont** (`app/fonts/`, the About CV link and the Back pill) where `docs/design-audit.md` says to drop it for lucide. #59 chose it because the Fidelity gate reads the glyph's `font-family`; it needs an ADR or an audit amendment, which is attended work.
 - **`fill='white'` in the carousel chevron's data-URI SVG** (`video.tsx`): a data URI can't read a token. `--on-image` is `#ffffff` in both themes, so it is the token's value; drawing it as a CSS mask would drop it from the gate's media inventory (the Reference records it as a background) and reopen a Media Gap.
 - **Duplication** (refactors, not defects; the smallest-change rule kept them): status label/dot maps in `selected-projects.tsx`, `project-hero.tsx` and `case-study-cta.tsx`; the next-project card repeats the homepage card; the rolling-arrow / rolling-label hover appears in the header, footer, CTA, About, Back pill and hero; `isExternal` is defined three times (the header's also matches `mailto:` / `tel:`); the hairline `shadow-[0_-1px_0_0_var(--color-border)]` in four files; image-field schema helpers in `hero.tsx` and `case-study-section.tsx`; `typeTiers` in `lib/utils.ts` mirrors the `--text-*` list in `styles.css`. A `ProjectCard`, a `RollingArrow` primitive and a `lib/case-study/status.ts` are the obvious extractions.
 - **Dead paths kept**: the video block's `slide` / `desktopOnly` options (#64) are unused since #65 rebuilt the slide as `caseStudySection.carouselSlide`; the project-level `metrics` field renders nowhere since #62; the `image`, `gallery`, `text`, `quote`, `featureDeepDive`, `metrics` and `video` block templates are registered but unused by content; `.prose-case-study` (#53) serves those unused templates while the section body styles prose inline. Removing schema fields regenerates the lock and changes the Tina UI, a scope call for the owner.
@@ -891,7 +890,7 @@ Spec axis:
 - **Framer's unfired appear animations**: the Build shows five texts the live site hides for every visitor (Acacia's fifth key feature, the last row of three MOS lists, Outcome's "Coming Soon…"), with approved Deviations. If the owner ever wants the live behaviour instead, it is content, not code.
 - **`/styleguide` exists only in development**; the design-system milestone's styleguide has no production URL.
 - **The `tinacms build --local` indexing hang** (#55) did not recur in the full runs here; the fix on recurrence is still "rerun".
-- **Material Icons** loads with `display: block`; a throttled first load may show the CV and Back glyphs late. The footer's hearts depend on a monospace fallback (`ui-monospace, Menlo`) ahead of next/font's metric fallback.
+- The footer's hearts depend on a monospace fallback (`ui-monospace, Menlo`) ahead of next/font's metric fallback.
 - **`overviewStyle`** (Compact / Relaxed) is a manual per-project choice reproducing Framer's hand-tweaked MOS Overview; a third project needs the editor to pick one.
 - Carried forward from the earlier pass: view transitions on back/forward can't be exercised here; the Acacia counter values came from Framer's page module; the Tina Global icon picker's "Mark Glyph" entry is unverified in the admin UI.
 
@@ -901,7 +900,7 @@ Run each page in **dark** and **light** (header toggle), then once more with **`
 Every page × theme × motion:
 - [ ] Header: no bar, blur or border; the bare glyph top-left (white in dark, near-black in light), "Let's talk" (curly apostrophe) + green arrow circle flush right with the theme toggle just left of it; no hamburger, no name at any width. Hover: the circle grows and the arrow rolls out right while another rolls in; click opens the mail client in a new tab. Scroll down ≥8px past the header: it slides up; scroll up: it slides back; near the top it always shows; Tab from the skip link into a hidden header shows it. Under reduced motion it never hides and hover swaps instantly.
 - [ ] Footer: the #131313 band (white with a hairline in light), the glyph, "Let's talk / Get in touch ↗" (48px / 28px) with the arrow rolling on hover and the text turning green, Home / Linkedin / See full CV (new tabs for the two http links, Home with the route transition), the hairline, "2026 ALEXANDER BLUM" and "♥  MADE WITH LOVE  ♥" in Space Mono with small text-glyph hearts (macOS, Windows, Android). 515px tall under 1024, 278px at desktop.
-- [ ] Fonts: the Network tab loads one Inter variable file (with `opsz`), Space Mono and Material Icons; no Inter Tight. Headings read as Inter Display, body as Inter text; the ramp resizes between 768 and 1440.
+- [ ] Fonts: the Network tab loads one Inter variable file (with `opsz`) and Space Mono; no Inter Tight, no Material Icons (icons are inline lucide SVG since #110). Headings read as Inter Display, body as Inter text; the ramp resizes between 768 and 1440.
 - [ ] Copy: every apostrophe and quote is the curly glyph; no straight quote anywhere.
 - [ ] Nothing starts under the header; nothing is stuck at opacity 0 or scaled; under reduced motion every reveal is at rest from first paint, hover colours and roll effects swap instantly, no clip autoplays.
 - [ ] Tab order: skip link, header, (Back pill on case studies), then the page; every link and button shows the focus ring; the project cards' outline wraps the whole card and shows the arrow circle.
@@ -1023,3 +1022,224 @@ Alex reviewed the motion against live Framer and marked four items Needs work. F
 - **#68 first-visit reveal**: the motion/react tweens waited for hydration and stalled through a cold load's long tasks, so the band stayed black and then snapped. The entrance is now CSS keyframes (compositor), and the mask waits for the hero image to decode (`lib/motion/hero-entrance.ts`). Phones and tablets get the same band reveal; the 60px fade-rise is gone. This supersedes #68's "without JavaScript the headline and hero stay at their SSR initial states": the server HTML is now at rest, and the start state is gated on `@media (scripting: enabled)` and no reduced motion.
 - **#89 home hero**: no light-only layers (the top scrim is gone), and the hero has its own dark ground (`--hero-ground`), so light and dark render it identically. "Let's talk" over the gradient's bright top corner is 2.2–2.4:1 in both themes (dark always was): left for Alex to decide.
 - **#89 header**: the over-hero styling is the `data-over-hero` attribute. It is server-rendered `true` on `/`, kept right by an inline script until hydration, then written by the header's listener (`components/layout/nav/header-over-hero.ts`). This supersedes #89's "the pre-hydration server render uses theme styling".
+
+## #91 P28: Light-theme surfaces: card tint, footer, glass
+- Built: the owner's 2026-11-11 light-theme picks, as tokens in `styles.css` only — no per-component literals.
+  - **Card tint**: light `--card` is now `#f7f7f7` (same as `--muted`); dark stays `#131313`. One token flip tints every `bg-card` surface (footer band, metric cards, carousel card, video slide and plain video box, About portrait ground, thumbnail grounds, `ui/card.tsx`). The footer needed no edit of its own.
+  - **Glass tokens** (`--glass-*` in `:root`/`.dark`, colours exposed as `--color-glass-*` plus `--shadow-glass` in `@theme inline`): `-chrome` fill + `-chrome-hover`, `-arrow` and `-dots` fills, `-border` and `-border-bare`, `-ink`, `-shadow`, and four backdrop filters (`-chrome`, `-status`, `-nav`, `-photo`). Light is the ticket's frosted recipe (white 60% fill, white 70% hairline, `blur(16px) saturate(180%)`, the two-layer drop shadow, #080808 ink); every dark value is byte-for-byte what rendered before (white 15% / scrim 40% / scrim 20% fills, `--border` or no border, blurs 7px/2px/none, no shadow, white ink).
+  - **Switched to the tokens**: the case-study Back pill (`back-link.tsx`), the hero status pill (`project-hero.tsx`, gains `glass-blur-status` — `none` in dark, so dark is unchanged), the carousel arrows and dots pill and the reduced-motion play/pause button (`video.tsx`). The photo status pills (`selected-projects.tsx`, `case-study-cta.tsx`) keep `bg-scrim/60 border-on-image/25 text-on-image` and add `glass-blur-photo` (`blur(12px) saturate(160%)` in light, `none` in dark).
+  - The carousel chevron is now an inline SVG (`CHEVRON_PATH`) in `fill-current` taking `text-glass-ink`, replacing the white data-URI background; the dots moved `bg-on-image` → `bg-glass-ink`.
+- Decisions made without a human:
+  - Backdrop filters ship as four static `@utility glass-blur-*` classes in `styles.css` (emitting `-webkit-backdrop-filter` too, as Tailwind's own backdrop utilities do), because the whole filter list — not just a blur radius — switches with the theme and `@theme` has no backdrop-filter namespace. Colours still go through `@theme inline` as the ticket asks.
+  - The arrows' and dots' light hairline is an **inset ring** (`inset-ring inset-ring-glass-border-bare`, transparent in dark) rather than a real border: those pills are borderless in dark today, and a real border — even transparent — would grow the intrinsically-sized dots pill by 1px per side. This keeps dark geometry byte-identical.
+  - Dark `--glass-shadow` is `0 0 #0000` (Tailwind's composable no-shadow value) so `shadow-glass` composes with the inset ring in one `box-shadow` list.
+  - Play/pause hover: light `rgb(255 255 255 / 0.75)` (`--glass-chrome-hover`); the ticket doesn't specify a light hover, and dark keeps today's `foreground/25` (white 25%).
+  - `--foreground-faint` stays `#8f8f8f`: the "01" numeral now sits on the #f7f7f7 card at 3.02:1, which clears the 3:1 large-text line; the ticket's #878787 fallback applies only if a gate measures it under 3:1 (this gate doesn't measure contrast). Flip the light value to `#878787` if the fidelity gate ever flags it.
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] Light `/`, `/acacia`, `/mosurban`, 404: every `bg-card` surface is the #f7f7f7 panel grey (footer band full-bleed with the hairline over the bottom bar; metric cards; UX carousel card; video slide + plain video box; About portrait ground; thumbnail grounds).
+  - [ ] Light glass: Back pill, hero status pill, carousel Back/Next and dots, play/pause (reduced motion) read as frosted white glass with the hairline and soft shadow; chevrons/dots/icon are near-black; Back label and status label keep their existing inks.
+  - [ ] Light photo pills (thumbnails, next-project card): dark glass with the new blur over the imagery.
+  - [ ] **Dark on every page renders exactly as before this ticket** — pills, arrows, dots, footer, cards (Theme check); the hero status pill shows no new blur (it sits on the solid page).
+  - [ ] Carousel chevron and dots unchanged in dark (the SVG swap is geometry-identical); check Safari for the backdrop blurs (`-webkit-` prefix included).
+  - [ ] AA pass in light worst case: pill over a black backdrop (composite ≈ #999) — Back label 5.4:1, status label 7.0:1, inks 7.0:1; "01" numeral on the card ≥3:1.
+  - [ ] Owner accepts the light theme on `/`, `/acacia`, `/mosurban` and the 404.
+
+## #92 P31: Portrait corners in plain CSS
+- Built: the About portrait's wrapper (`components/blocks/about.tsx`) now rounds with `rounded-[20px] overflow-clip` (and keeps `bg-card`), replacing `[clip-path:inset(0_round_20px)]`. `overflow-clip` as the ticket specifies, not `overflow-hidden` (which the retired extractor scrolled). The explanatory comment above the wrapper is gone with the workaround it explained.
+- Decisions made without a human:
+  - **The ticket's second and third acceptance criteria are moot per ADR 0005** (adopted 2026-11-11, before this run). The `portrait-radius-capture` Deviation can't be added: `parity/deviations.json` and the whole `parity/` tree were removed with the gate, and ADR 0005 says tickets drop their Parity scope and Deviation steps — it names this very workaround as one that "can go as their tickets come up". Likewise "Fidelity gate passes" is now `scripts/afk/check.sh`, which is green. Annotated the open `media-radius` bullet under *Proposed deviations* as resolved.
+  - **Only the About portrait changed.** `gallery.tsx` and `case-study-section.tsx` still draw corners with `clip-path` for the same retired reason, but they're outside this ticket's scope (smallest change); ADR 0005 leaves them to their own tickets.
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] `/` · About portrait: 20px corners, image clipped to them, identical crop (aspect 0.890323) — same rendering as before the swap, in light and dark.
+  - [ ] No scrollbars or scroll-chaining on the portrait wrapper (the reason for `overflow-clip`).
+  - [ ] Reduced motion: the portrait rests in place from first paint (ScrollReveal unchanged).
+
+## #93 P32: 404 redesign
+- Built: the picked "Quiet type" 404 in `app/not-found.tsx` (`NotFoundContent`), chrome unchanged (`Layout`), `/about` and `/styleguide` still reach it through the catch-all's `notFound()`.
+  - **Layout**: `data-section="not-found"` section, `overflow-clip`, `min-h-[calc(100svh-5.5rem)]`/`lg:6rem` under the header, `px-6 py-8` / `lg:px-12 lg:py-16`. Inner grid `grid-rows-[auto_1fr_auto]`, two columns with `gap-x-10` from `lg`: headline spans both at `lg:w-[55%]` (`max-w-[450px]` below), project rows bottom-aligned in row 2 col 1 (`mb-8`), and the bottom hairline row (description `lg:w-[80%]` left, "Back to home" right, `border-b border-border` 19px below the text) — the home hero's bottom row without the image.
+  - **Copy**: Framer's three lines verbatim; the rows label "Or see a selected project" as per the ticket.
+  - **Call to action**: `TransitionLink` to `/` with the header's "Let's talk" classes verbatim (40px `bg-primary` circle, two `ArrowRight`s, scale-110 + roll hover).
+  - **Project rows**: `selectedProjects()` in the async `NotFound` reads `content/pages/home.mdx` through the Tina client and keeps `(title, href)` pairs in order, skipping entries without either — adding a project to home.mdx adds a row with no code change. Rows are `border-t` hairlines (last also `border-b`), title left, green `ArrowUpRight` right, `hover:text-emphasis`.
+  - **Mark**: the `MarkGlyph` path split into three `<path>`s at the ` Z M` boundaries (left, right, top) in an inline `aria-hidden` SVG — green outline (`stroke="currentColor" text-emphasis`, `strokeWidth 0.12`, `fill-none`, `opacity-50`), 360×341 at right −90/bottom 120 below `lg`, 640×607 at right −40/bottom 40 from `lg`, cropped by the section's `overflow-clip`.
+  - **Motion**: mark assembly as CSS keyframes in `styles.css` (`not-found-piece-*`: 1.2s on `--motion-ease-entrance`, delays 200/280/360ms, `transform-box: fill-box`), applied only under `prefers-reduced-motion: no-preference`. Headline decode scramble as a new motion primitive `components/motion-primitives/decode-text.tsx` + `decodeScrambleMotion` in `lib/motion/reduced-motion.ts` (45ms re-rolls, char *i* settles at 250 + i × 38 ms, `aria-label` while scrambling, timer cleared on unmount, plain server HTML). Rows/description/CTA rise in via `ScrollReveal` `y={24}`, 700ms, delays 740/500/620ms, all `staticUntilHydrated` so the page is whole without JavaScript.
+- Decisions made without a human:
+  - **The Deviation step is moot per ADR 0005** (same call as #92): no `parity/` tree exists on `origin/main` — `404-project-links` has nothing to be added to, and "Fidelity gate passes" is `scripts/afk/check.sh`, which is green.
+  - **Only the left mark piece fades from `opacity: 0`** — the ticket specifies opacity for the left piece alone, so the right and top pieces slide in visible (reads as pieces assembling); flip them to fade too if that's not the intent.
+  - The ticket's mobile rows `auto / 1fr / auto / auto` are built as `grid-rows-[auto_1fr_auto]` with the description and call to action sharing a row-3 wrapper that carries the full-width hairline (`border-b`, description `pb-6`, CTA `pb-[19px]` above it) — same geometry, one row template for both breakpoints, and the bottom row stays pinned to the fold even if home.mdx ever had no linked projects.
+  - The CTA duplicates the header's classes with a comment pointing at `header.tsx` rather than extracting a shared component — smallest change; extract if a third copy appears.
+  - After the scramble settles, the `<h1>` returns to the plain text node (identical to the server render), dropping the per-character spans.
+  - `selectedProjects()` catches a failed Tina query and renders the 404 without rows — a 404 must never 500 over content plumbing. Rows also require a `title` (nothing to label a row with otherwise).
+  - The old boilerplate `Illustration` SVG and the shadcn `Button` CTA were removed with the design they belonged to (`Illustration` had no other importers).
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] Dark + light at 1440, 768, 390: headline top-left, rows bottom-left above the hairline row, description left / "Back to home" right on the hairline, mark outline bottom-right cropped by the section edge (green #3cda64 dark / #0f7a35 light at 50%).
+  - [ ] On load with motion allowed: headline decodes (mono green glyphs settling left→right, ~0.75s), the three mark pieces slide/rotate together (left fades in), then description → CTA → rows rise in; nothing replays on scroll.
+  - [ ] Reduced motion: everything at rest from first paint — plain headline, assembled mark, no rises; view-source/no-JS shows the plain headline and full content.
+  - [ ] Production build: `/about`, `/styleguide` and a bad URL all show the new 404 with header/footer; project rows show Acacia → MOS in home.mdx order and the links navigate.
+  - [ ] Hover: "Back to home" matches the header's "Let's talk" exactly (circle to 110%, arrow roll); rows turn green with the arrow already green; Tab reaches rows and CTA with visible end states.
+  - [ ] Add a temporary third project to home.mdx locally: a third row appears, list stays tidy at 6+ rows (520px max width, hairlines).
+
+## #110 P34: Lucide for every icon
+- Built: every icon on the site is now `lucide-react` (the owner's pick, 2026-11-11: lucide, stroke 2 for the new icons, the existing 1.6 kept in the green circles; LoaderCircle and HousePlug for the two ambiguous picks). The brand artwork stays as it was (`MarkGlyph`, `Mark`, `Tina`, `app/icon.svg`, the 404's numerals, `AcaciaMark`).
+  - **CV link and Back pill**: `ArrowDownToLine` at `size-4` replaces the Material `download` ligature in `about.tsx`; `ArrowLeft` at `size-5` replaces `arrow_back` in `back-link.tsx`. Both rows keep their gaps (`gap-2` / `gap-[10px]`) and `items-center`, so the labels sit where they did; the hover rolls are untouched.
+  - **Material Icons webfont removed**: `fontIcons` and the `localFont` import out of `app/layout.tsx` (and its variable off `<html>`); `app/fonts/material-icons-400.woff2` and its OFL licence deleted; `--font-icons` and the `--text-icon` / `--text-icon-lg` tiers out of `styles.css`; `icon` / `icon-lg` out of `typeTiers` in `lib/utils.ts`. `grep -rn "font-icons|text-icon|material"` over app/components/lib/styles.css/tina finds nothing but updated comments.
+  - **Key features** (`components/blocks/case-study-icons.tsx`): the Iconify mix is now `LayoutPanelLeft` / `LoaderCircle` / `LockKeyhole` / `HousePlug` / `User`, all `size-5`, default stroke 2, `currentColor`. The `FeatureIconName` values are unchanged, so `content/projects/*.mdx` didn't move; `featureIconOptions` labels renamed ("Module (panels)", "Progress (loader circle)", "Lock", "House (plug)", "User") — schema text, so `tina-lock.json` regenerated and committed.
+  - **Carousel arrows** (`SlideArrow` in `video.tsx`): `ChevronLeft` / `ChevronRight` at `size-4` centred in the 56×47 pill, replacing Framer's chevron path. #91 had landed, so the glass-ink token stayed and only the drawing changed.
+  - **Reduced-motion play/pause** (`Clip` in `video.tsx`): lucide `Play` / `Pause` at `size-5` replace the inline Material paths.
+  - **`react-icons` removed**: `components/icon.tsx` keeps `MarkGlyph`, `Mark`, `Tina` first, then a curated lucide map (`ArrowRight`, `ArrowUpRight`, `ArrowDown`, `ArrowLeft`, `ArrowDownToLine`, `ChevronLeft`, `ChevronRight`, `LayoutPanelLeft`, `LoaderCircle`, `LockKeyhole`, `HousePlug`, `User`, `Play`, `Pause`, `Sun`, `Moon`, `X`, `Mail`, `Download`). Content references only `MarkGlyph` (checked `content/**`). `tina/fields/icon.tsx` uses `ChevronRight` / `CircleSlash`, and `parseIconName` now shows names whole ("Arrow Down To Line", "Mark Glyph" — the #14 note), instead of dropping the first camel-case word that used to be the react-icons prefix. `pnpm remove react-icons`.
+- Decisions made without a human:
+  - **Dropped `fill-current` from the Tina picker's two icon classes** (`tina/fields/icon.tsx`): lucide icons are stroke drawings on `fill="none"`, and a `fill-current` class overrides that attribute and fills the outlines solid.
+  - **Dropped the `pl-px`/`pr-px` optical nudge in `SlideArrow`**: it compensated for Framer's asymmetric 10×16 chevron path; lucide's chevrons are symmetric in their 24px box, so plain centring is the ticket's "centred in the pill".
+  - **`Play`/`Pause` are stroked outlines** where the old inline Material paths were filled; the ticket names the lucide components with the default stroke, so the outline style stands.
+  - **Updated the consolidated visual-QA font line** (§ #53–#66 checklist) so it no longer expects a Material Icons network request — one line beyond the two NOTES items the ticket listed, to keep the checklist from contradicting this ticket's acceptance criteria.
+  - `pnpm remove react-icons` also pruned two node_modules-only leftovers (`kill-port`, `playwright` — neither was in `package.json`) and re-resolved the lockfile's `@babel/core` peer pins (7.29.7 → 7.25.2); the gate is green on the result.
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] `/`: CV row — 16px down-to-line arrow before "DOWNLOAD FULL CV", label exactly where it was, hover roll intact; both themes at 1440 / 768 / 390.
+  - [ ] `/acacia`, `/mosurban`: Back pill — 20px left arrow before "Back", label position and hover roll unchanged; both themes, all three widths.
+  - [ ] `/acacia` Solution: the five key-feature rows show the new lucide drawings at 20px in the 30px column, near-white in dark / near-black in light; row indents unchanged.
+  - [ ] `/mosurban` UX carousel: chevrons centred in the Back/Next pills, glass ink in both themes; dots unchanged.
+  - [ ] Reduced motion: the play/pause button bottom-right of each clip shows the lucide outline Play, toggling to Pause.
+  - [ ] Network tab: no Material Icons font request on any page.
+  - [ ] Tina admin: the key-feature Icon select shows the five new labels; the Global icon picker lists whole names ("Mark Glyph" selected) and the curated lucide set renders in the grid.
+  - [ ] Owner accepts the icons on `/`, `/acacia`, `/mosurban` in both themes.
+
+## #111 P35: Case-study share cards (green duotone)
+- Built: each case study now has a build-time 1200×630 JPEG share card in the owner's picked design (Green duotone, giant title, round-2 refinement), served statically at `/og/<slug>.jpg`.
+  - **Renderer** (`lib/seo/share-card.ts`): `sharp` pre-composes the duotone ground — `public/uploads/home/hero-gradient.png` covered to 1200×630, the project's `coverImage` zoomed by `shareZoom` (default 1.15), centre-cropped, greyscaled, `linear(1.1, -12.8)`, brightness ×1.15, multiplied over the gradient — then `ImageResponse` (`next/og`) draws the wash, tagline (Inter 30), white `MarkGlyph` (42×40), the giant Inter Display title and the `designbyalex.dev/{slug}` line, and `sharp` converts to JPEG (quality 82, mozjpeg). Both cards land ~50KB, well under the 300KB budget.
+  - **Title never crops** (`lib/seo/font-metrics.ts`): a minimal TTF reader (head/hhea/hmtx/cmap formats 4+12) measures the one-line width; 144px when it fits 1128px, shrunk proportionally down to 96px, then wrapped to two bottom-anchored lines at 96px. Kerning is ignored, which only over-estimates — safe for never-crop.
+  - **Route** (`app/og/[file]/route.ts`): `force-static`, `dynamicParams = false`, `generateStaticParams` pages `projectConnection` via the existing `collectBreadcrumbs`; GET returns `image/jpeg`. A temporary local project (`temp-check.mdx`, deleted, never committed) confirmed a new Tina project gets `/og/temp-check.jpg` with no code change.
+  - **Fonts** (`lib/seo/fonts/`): `InterDisplay-Regular.ttf` converted once from `inter-ui@4.1.1`'s woff2 with `wawoff2` (installed as a temporary dev dep, removed after), `Inter-Regular.woff` from `@fontsource/inter@5.3.0`, OFL licence beside them — the site's own faces (ADR 0003). `sharp@0.35.5` added as a direct dependency.
+  - **Schema**: optional `shareZoom` number on the project collection (range 1–2.5 via `ui.validate`); Acacia `1.12`, MOS `1.75` set in content; `tina/tina-lock.json` regenerated and committed.
+  - **Metadata** (`lib/seo/metadata.ts`): `buildProjectMetadata` now points OG and Twitter at the absolute `/og/<slug>.jpg` with `width`/`height`/alt "<templated title>"; the site default image is the fallback only when there's no slug, and `coverImage` was removed from `ProjectSeoInput` (the card, not the raw hero, is now the share image). Page metadata and the home card are unchanged (dimension-less images still emit plain Twitter URLs). `assemble` now carries one image descriptor instead of url+alt pairs.
+  - **Tests**: `lib/seo/share-card.test.ts` renders both real projects from their committed frontmatter (JPEG, 1200×630, ≤300KB) plus a 42-char title that shrinks and wraps; `jpegDimensions` and `SHARE_IMAGE_MAX_BYTES` moved from `site.test.ts` into `lib/seo/jpeg.ts`, shared by both.
+- Decisions made without a human:
+  - **The picker side-by-side could not be run**: the artifact URL needs an authenticated browser and this run has no WebFetch permission. The card is built to the ticket's exact measures and the named constants (contrast 1.1 / offset −12.8 / brightness 1.15) untouched; the match is under *Verify visually* and the two knobs are one-line edits in `share-card.ts`.
+  - **Satori quirks worked around**: undefined style values crash Satori, so the title's wrap styles spread conditionally; and the wrapped title needs an explicit `width` (not `maxWidth`) or Satori measures the text unwrapped and the bottom anchoring breaks (the second line cropped out — the exact bug the round-2 refinement was about).
+  - The mark's path is duplicated in `share-card.ts` with a keep-in-sync comment: `components/icon.tsx` is `'use client'` and imports lucide-react, which doesn't belong in the OG bundle.
+  - A `pnpm og:preview` script stays in package.json: it re-renders the cards to `.afk/og/` for review (that's how the attached JPEGs were made and how they'll be remade when #100 swaps the heroes).
+  - The rendered cards are committed under `docs/review/share-cards-2026-11-11/` (motion-review precedent) so the PR can attach them and Alex can review without running anything.
+  - Fallbacks: a project with no `coverImage` still gets a card (gradient ground alone); a missing `tagline` just omits that layer.
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] `docs/review/share-cards-2026-11-11/{acacia,mosurban}.jpg` side by side with the picker frame ("Green duotone, giant title", round-2): duotone depth, green tinge mid-card, small-text legibility. Tune only `HERO_CONTRAST` / `HERO_BRIGHTNESS` in `lib/seo/share-card.ts` if it's off.
+  - [ ] Titles whole, taglines and `designbyalex.dev/<slug>` legible, white mark top-right, on both cards.
+  - [ ] Share `/acacia` and `/mosurban` in a validator (opengraph.xyz or a Slack/iMessage preview): card appears, 1.91:1, no crop surprise.
+  - [ ] Home page share still shows `uploads/home/og.jpg`.
+  - [ ] Tina admin: "Share card zoom" edits on a project, rejects 0.5 and 3.
+  - [ ] Owner accepts both cards.
+
+## Final pass (#91, #92, #93, #110, #111)
+
+### What failed, and how it was fixed
+- **Nothing failed.** `scripts/afk/check.sh --full` was green on the first run (Tina schema + types, tsc, biome, `pnpm build-local`, vitest — 18 files / 191 tests before this pass).
+- **No stubs to fill.** Every ticket in this batch records "Stubbed: nothing". #9's curl-blocked stubs were filled by the first Final pass and re-verified on disk here: the eight PNGs plus `acacia-logo.svg` and `mission-grid.svg` in `public/uploads/projects/acacia/`, and the four Outcome counters (25 / 40 / 20 / 15) in `content/projects/acacia.mdx`. No other ticket's notes say curl was denied.
+- **Two review fixes** (found by the review pass, confirmed against the code, gate re-run after):
+  - `components/motion-primitives/decode-text.tsx`: toggling OS reduced-motion on mid-scramble left the 404 headline frozen as random glyphs — the effect re-ran, returned early on `!animate`, and never cleared the frame. It now resets to the plain text, honouring "rests under reduced motion" at any time, not just on load.
+  - `lib/seo/share-card.ts`: `shareZoom` was only validated by the Tina editor's `ui.validate`; a hand-edited frontmatter value under 1 would hand sharp's `extract()` a negative offset and fail the whole build. `renderShareCard` now clamps to the field's own 1–2.5 range.
+
+### Tests added
+Per the PRD's Testing Decisions (colocated `*.test.ts` for every pure module under `lib/`), the two new modules this batch added without tests got them; `share-card.ts` already had `share-card.test.ts` and `decodeScrambleMotion` was already covered in `reduced-motion.test.ts`.
+- `lib/seo/font-metrics.test.ts`: a hand-built synthetic sfnt with known numbers exercises the format-4 cmap path (mapped chars, `.notdef` fallback, unitsPerEm, missing-table error), the committed Inter Display TTF sanity-checks real parsing (format 12), and `measureLineWidth` is checked for empty text, advance summing, between-glyphs-only letter spacing and linear scaling.
+- `lib/seo/jpeg.test.ts`: `jpegDimensions` against the two committed share cards (1200×630) and synthetic streams — baseline SOF0 after other segments, progressive SOF2, DHT (in the SOF marker range but not an SOF), 0xFF fill bytes, and the three error paths (not a JPEG, bad marker, no SOF).
+- `lib/seo/share-card.test.ts`: one more render test — an out-of-range `shareZoom` (0.5) clamps instead of failing the build.
+After this pass: 20 test files, 209 tests.
+
+### Acceptance criteria
+**#91 P28 — Light-theme surfaces**
+- [x] Owner picks the tint, footer and glass (2026-11-11, before the ticket ran).
+- [x] Light `--card` is `#f7f7f7`; every section-1 surface uses `bg-card`, so the one token covers them all (footer band, metric cards, carousel card, video slide + plain box, portrait ground, thumbnail grounds, `ui/card.tsx`). Visual sweep on the checklist.
+- [x] Glass built from tokens with the table's exact values; every dark value is byte-for-byte the pre-ticket literal (checked token-by-token against the removed classes). The dark "renders exactly as before" Theme check is visual → checklist.
+- [x] Fidelity gate: retired (ADR 0005); its replacement `scripts/afk/check.sh --full` is green. The AA figures are computed in the ticket notes; contrast is not machine-measured → checklist.
+- [ ] **Owner accepts the light theme** — pending the batch review (by design: Alex reviews at the end).
+
+**#92 P31 — Portrait corners**
+- [x] `rounded-[20px] overflow-clip`, no `clip-path`, on the About portrait.
+- [ ] `portrait-radius-capture` Deviation — **moot per ADR 0005**: `parity/deviations.json` and the whole `parity/` tree were removed with the gate before this batch; there is nothing to add the entry to.
+- [x] Fidelity gate → `check.sh` green (same ADR 0005 substitution).
+
+**#93 P32 — 404 redesign**
+- [x] Owner picks (2026-11-11, two rounds).
+- [x] Built as specified; `/about`, `/styleguide` and bad URLs still reach it through the catch-all's `notFound()` (unchanged). Verified in the production build's `_not-found.html`: headline, both rows, hairline row, three mark pieces. The three-width/both-theme sweep is visual → checklist.
+- [x] Project rows data-driven from `home.mdx`'s Selected projects (both rows present in the built HTML; adding a project adds a row with no code change).
+- [x] Decode scramble + mark assembly play on load and rest under reduced motion; the server HTML is the plain headline (verified: `<h1 …>Page not found</h1>` in the built page). Hardened this pass for a mid-scramble reduced-motion flip.
+- [x] Fidelity gate → `check.sh` green (ADR 0005).
+
+**#110 P34 — Lucide for every icon**
+- [x] Owner picks (lucide, stroke 2; LoaderCircle; HousePlug).
+- [x] Every icon in the ticket's table is the named lucide component at the given size; the CV and Back rows keep their gaps and `items-center`, so the labels sit where they did. Pixel check → checklist.
+- [x] No Material font: `grep -rn "font-icons\|text-icon\|material" app components lib styles.css tina` is empty, `app/fonts/material-icons*` deleted, `react-icons` out of `package.json`, no icon-font request in the built pages.
+- [x] Tina: key-feature select has the five new labels; `parseIconName` shows whole names; `tina-lock.json` regenerated and committed. Admin click-through → checklist.
+- [x] `check.sh --full` green.
+- [ ] **Owner accepts the icons** — pending the batch review.
+
+**#111 P35 — Share cards**
+- [x] Owner picks (Green duotone, giant title, round-2 refinement).
+- [x] `/og/acacia.jpg` (52.6KB) and `/og/mosurban.jpg` (46.2KB) built statically, 1200×630 JPEG, under 300KB (verified in `.next` output and asserted by tests).
+- [ ] **Cards match the picker frame side by side** — needs the owner's eyes (the picker artifact needs an authenticated browser, which the AFK loop doesn't have). The JPEGs are committed under `docs/review/share-cards-2026-11-11/` for the PR; the two tuning knobs are named constants in `share-card.ts`.
+- [x] `/acacia` and `/mosurban` emit `og:image`/`twitter:image` at the absolute card URL with width 1200, height 630 and alt "<title> · Alexander Blum"; home still uses `uploads/home/og.jpg` (all verified in the built HTML).
+- [x] A new Tina project gets a card on the next build with no code change (`generateStaticParams` pages `projectConnection`; confirmed with a temporary local project during the ticket, not committed).
+- [x] `shareZoom` editable in Tina (1–2.5 via `ui.validate`, now also clamped at render time); lock regenerated and committed.
+- [x] `check.sh --full` green.
+- [ ] **Owner accepts both cards** — pending the batch review.
+
+### Review findings not fixed (and why)
+The review ran eight angles (line-by-line, removed-behavior, cross-file, reuse, simplification, efficiency, altitude, conventions — the conventions angle found nothing); each surviving finding was verified against the code. Fixed: the two under *What failed*. Left, deliberately:
+- **OG route vs nested project slugs**: `app/og/[file]/route.ts` is a single dynamic segment, but a project filed in a subfolder of `content/projects/` would get a slug with a slash — `buildProjectMetadata` would emit `/og/a/b.jpg`, which the route can't serve under `dynamicParams = false`. Latent: both projects are flat, and Alex's Tina workflow creates flat ones. The fix (a `[...file]` catch-all) is a route restructure not worth doing unattended; flag it when the first nested project appears.
+- **ISR window for a brand-new project**: project pages revalidate every 5 minutes with open `dynamicParams`, but the card route is build-time only — a page served between a Tina content commit and the deploy finishing points at a card that doesn't exist yet. In practice every Tina save commits to git and triggers the rebuild, so the window is one deploy cycle.
+- **Absolute `coverImage` URLs would fail the build**: `composeGround` reads the cover from `public/`; a TinaCloud-media absolute URL would make sharp throw at build time. All covers are repo-hosted (`/uploads/...`) per the migration's convention, and failing loudly at build beats silently shipping a gradient-only card.
+- **Brand-mark path in three copies** (`icon.tsx`, `share-card.ts`, `not-found.tsx` — the last split in three for the assembly), each with keep-in-sync comments. A shared plain-data module would be better; left because it touches site chrome and is a refactor, not a defect. Worth a small ticket.
+- **`fitTitle` wrap branch doesn't re-measure**: a title needing more than two 1128px lines at 96px would grow upward into the tagline. Titles are owner-authored and short; the never-crop rule holds for anything near today's lengths.
+- **Build-time efficiency**: the Inter Display TTF is re-parsed and the gradient PNG re-decoded per card, and the hero pipeline round-trips through a compressed intermediate. Two cards per build today; negligible until the project count grows.
+- **Small duplications**: `useIsomorphicLayoutEffect` now exists in `header.tsx` and `decode-text.tsx`; the `projectConnection`-paging closure is verbatim in `sitemap.ts`, `[...urlSegments]/page.tsx` and the OG route. Both are two-to-three-line idioms; extracting them touches files outside this batch.
+- **Narrowed icon map**: content documents could in principle hold a react-icons name that now renders nothing; `content/global/index.json` (the only icon-field user) references only `MarkGlyph`, and the removal is the ticket's whole point.
+
+### Open risks
+- **All five tickets await the owner's visual acceptance** — that is the designed gate for this batch; nothing here verifies the light theme, icons or cards *look* right.
+- The share cards' match to the picker frame is unverified programmatically; if they're off, tune only `HERO_CONTRAST` / `HERO_BRIGHTNESS` in `lib/seo/share-card.ts`.
+- Backdrop blurs ship with `-webkit-` prefixes but no Safari run has confirmed them (the AFK loop has no browser).
+- Light-theme contrast figures (Back label 5.4:1, status 7.0:1, "01" numeral 3.02:1) are computed, not measured; the ticket's `#878787` fallback for `--foreground-faint` stands ready if the numeral reads muddy.
+- Pre-existing (carried from #10): the three MOS Urban videos still stream from `framerusercontent.com`; re-host before DNS cutover.
+
+### Visual QA checklist (consolidated, #91–#111)
+Every page × dark/light, and each page once with `prefers-reduced-motion: reduce` (everything must rest from first paint — no stuck opacity-0, no scramble, assembled mark, counters at their final values).
+
+**`/` (home) — dark · light · reduced motion, at 1440 / 768 / 390**
+- [ ] Light: footer is the full-bleed #f7f7f7 band with the hairline over the bottom bar; About portrait ground and both thumbnail grounds show the same panel grey (#91).
+- [ ] Dark: byte-identical to before this batch — pills, footer, cards, grounds (#91 Theme check).
+- [ ] About portrait: 20px corners, clipped image, identical crop to the clip-path version; no scrollbars or scroll-chaining on the wrapper (#92).
+- [ ] CV row: 16px `ArrowDownToLine` before "DOWNLOAD FULL CV", label exactly where it was, hover roll intact (#110).
+- [ ] Thumbnail status pills: dark glass with the new blur over the imagery in light; unchanged in dark (#91).
+
+**`/acacia` — dark · light · reduced motion, at 1440 / 768 / 390**
+- [ ] Back pill and hero status pill read as frosted white glass in light (hairline, soft shadow, existing inks); dark unchanged, and the status pill gains no blur in dark (#91).
+- [ ] Back pill: 20px `ArrowLeft` before "Back", label position and hover roll unchanged (#110).
+- [ ] Key-feature rows: the five lucide drawings at 20px in the 30px column, near-white dark / near-black light, indents unchanged (#110).
+- [ ] Metric cards on the panel grey in light (#91).
+
+**`/mosurban` — dark · light · reduced motion, at 1440 / 768 / 390**
+- [ ] UX carousel: chevrons centred in the Back/Next pills, glass ink both themes; dots unchanged in dark; light arrows/dots show the frosted fill + inset hairline (#91, #110).
+- [ ] Carousel card and video boxes on the panel grey in light (#91).
+- [ ] Reduced motion: play/pause button bottom-right of each clip shows the lucide outline Play, toggles to Pause, frosted in light (#91, #110).
+- [ ] Next-project card status pill: dark glass with blur in light (#91).
+
+**404 (a bad URL, `/about`, `/styleguide`) — dark · light · reduced motion, at 1440 / 768 / 390**
+- [ ] Layout: headline top-left, rows bottom-left above the hairline row (description left, "Back to home" right), green mark outline bottom-right cropped by the section edge (#3cda64 dark / #0f7a35 light at 50%) (#93).
+- [ ] Motion allowed: headline decodes (~0.75s, mono green glyphs settling left→right), three mark pieces assemble (left fades), then description → CTA → rows rise; nothing replays on scroll; toggling OS reduced-motion mid-scramble snaps to the plain headline (this pass's fix).
+- [ ] Reduced motion / view-source: plain headline, assembled mark, full content at rest.
+- [ ] Rows: Acacia → MOS in home.mdx order, links navigate; hover turns the row green (arrow already green); "Back to home" hover matches the header's "Let's talk" exactly; Tab reaches everything (#93).
+- [ ] Add a temporary third project to home.mdx locally: a third row appears, tidy at 6+ (#93).
+
+**Cross-cutting**
+- [ ] Safari: all four glass blurs render (`-webkit-backdrop-filter`) (#91).
+- [ ] Network tab on every page: no Material Icons font request (#110).
+- [ ] AA spot-checks in light: Back label on a pill over a black backdrop ≥4.5:1; carousel "01" numeral on the card ≥3:1 — flip light `--foreground-faint` to `#878787` if it fails (#91).
+- [ ] Tina admin: key-feature Icon select shows the five new labels; Global icon picker lists whole names ("Mark Glyph") and renders the curated lucide grid; "Share card zoom" edits, rejects 0.5 and 3 (#110, #111).
+- [ ] Share cards: `docs/review/share-cards-2026-11-11/*.jpg` side by side with the picker frame; share `/acacia` and `/mosurban` in a validator (1.91:1, no crop surprise); home share still `uploads/home/og.jpg` (#111).
+- [ ] Owner accepts: light theme (#91), icons (#110), both cards (#111).
+
+## Batch fix (2026-11-12): #111 share cards on Vercel
+- The Vercel build of 6385412 failed prerendering `/og/acacia.jpg`: TinaCloud returns `coverImage` as an `assets.tina.io` URL (`…/__staging/<branch>/__file/projects/acacia/hero.png` on a branch), and `composeGround` joined it onto `public/`. The local datalayer returns `/uploads/...`, so `build-local` passed.
+- `publicMediaPath` in `lib/seo/share-card.ts` maps a site path or a TinaCloud media URL (branch or main shape) back to the committed file under `public/uploads/`; the build still reads the repo file, never the network. One unit test covers both shapes and that the file exists. This supersedes the *Absolute `coverImage` URLs would fail the build* finding above.

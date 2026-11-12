@@ -1,4 +1,5 @@
 'use client';
+import { ArrowLeft } from 'lucide-react';
 import React from 'react';
 import { TransitionLink } from '../motion-primitives/route-transitions';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
@@ -8,8 +9,8 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
  * linking home. Top-left at desktop (46px in, 106px down: 10px under the 96px header),
  * top-right under 1024 (15px in, 86px down), as the Reference's phone variant.
  *
- * Box as Framer's "Link Secondary": 49px tall, 20px side padding, the 20px Material Icons
- * `arrow_back` ligature 10px before an 18px "Back", on a translucent blurred pill with a
+ * Box as Framer's "Link Secondary": 49px tall, 20px side padding, a 20px back arrow
+ * 10px before an 18px "Back", on a translucent blurred pill with a
  * hairline. Hover rolls the label up and a second copy in from below (Framer's text roll),
  * a CSS transition, so the sitewide reduced-motion rule makes it instant. The pill's own
  * entrance goes through `ScrollReveal`.
@@ -21,12 +22,10 @@ export const BackLink = () => (
     <TransitionLink
       href='/'
       data-section='back'
-      className='group flex h-[49px] items-center gap-[10px] rounded-full border border-border bg-foreground/15 px-5 text-foreground-dim backdrop-blur-[7px]'
+      className='group flex h-[49px] items-center gap-[10px] rounded-full border border-glass-border bg-glass-chrome px-5 text-foreground-dim shadow-glass glass-blur-chrome'
     >
-      {/* The Reference draws the arrow with the Material Icons ligature font, as the CV link's download glyph. */}
-      <span aria-hidden className='font-icons text-icon-lg'>
-        arrow_back
-      </span>
+      {/* lucide's ArrowLeft stands in for the Reference's 20px Material `arrow_back` ligature (#110). */}
+      <ArrowLeft aria-hidden className='size-5 shrink-0' />
       <span className='flex h-[25px] flex-col overflow-hidden text-body'>
         <span className='transition-transform duration-300 ease-hover-back group-hover:-translate-y-[25px] group-focus-visible:-translate-y-[25px]'>Back</span>
         <span aria-hidden className='transition-transform duration-300 ease-hover-back group-hover:-translate-y-[25px] group-focus-visible:-translate-y-[25px]'>

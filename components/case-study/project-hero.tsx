@@ -18,7 +18,7 @@ export const statusLabels: Record<string, string> = {
 };
 
 // The pill's dot: the live site tags shipped work green and in-development work orange.
-const statusDotClasses: Record<string, string> = {
+export const statusDotClasses: Record<string, string> = {
   'in-development': 'bg-status-in-development',
 };
 
@@ -76,9 +76,11 @@ export const ProjectHero = ({ project }: { project: Project }) => {
           <div className='mx-auto flex h-[450px] w-full flex-col justify-end px-6 pb-8 xl:h-[350px] xl:max-w-[1400px] xl:flex-row xl:items-end xl:px-12 xl:pb-10'>
             <div className='flex w-full flex-col items-start xl:min-w-0 xl:flex-1'>
               {status && (
-                <div className='overflow-clip pt-[7px]'>
+                // The rise's clip box, padded 16px past the pill and pulled back by the negative margins,
+                // so the glass shadow isn't cut off (#91).
+                <div className='-mx-4 -mt-1 -mb-4 overflow-clip px-4 pt-[11px] pb-4'>
                   <p
-                    className='hero-rise inline-flex h-[30px] items-center gap-2 rounded-full border border-border bg-foreground/15 px-[13px] font-mono text-mono uppercase text-foreground'
+                    className='hero-rise inline-flex h-[30px] items-center gap-2 rounded-full border border-glass-border bg-glass-chrome px-[13px] font-mono text-mono uppercase text-foreground shadow-glass glass-blur-status'
                     data-tina-field={tinaField(project, 'status')}
                   >
                     <span aria-hidden className={cn('size-2 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />

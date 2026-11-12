@@ -26,24 +26,17 @@ describe('buildProjectMetadata', () => {
     expect((meta.openGraph as { type?: string }).type).toBe('article');
   });
 
-  it('resolves a relative cover image to an absolute OG/Twitter image', () => {
-    const meta = buildProjectMetadata(
-      { title: 'Acacia', coverImage: '/uploads/projects/acacia.png', slug: 'acacia' },
-      defaults
-    );
-    const ogImages = meta.openGraph?.images as { url: string }[];
-    expect(ogImages[0].url).toBe('https://designbyalex.dev/uploads/projects/acacia.png');
-    expect(meta.twitter?.images).toEqual(['https://designbyalex.dev/uploads/projects/acacia.png']);
+  it('points OG and Twitter at the project’s generated share card, with size and alt', () => {
+    const meta = buildProjectMetadata({ title: 'Acacia', slug: 'acacia' }, defaults);
+    const card = {
+      url: 'https://designbyalex.dev/og/acacia.jpg',
+      alt: 'Acacia · Alexander Blum',
+      width: 1200,
+      height: 630,
+    };
+    expect(meta.openGraph?.images).toEqual([card]);
+    expect(meta.twitter?.images).toEqual([card]);
     expect(meta.alternates?.canonical).toBe('https://designbyalex.dev/acacia');
-  });
-
-  it('leaves absolute image URLs untouched', () => {
-    const meta = buildProjectMetadata(
-      { title: 'Acacia', coverImage: 'https://cdn.example.com/a.png' },
-      defaults
-    );
-    const ogImages = meta.openGraph?.images as { url: string }[];
-    expect(ogImages[0].url).toBe('https://cdn.example.com/a.png');
   });
 
   it('falls back to site defaults when fields are missing', () => {
@@ -62,10 +55,11 @@ describe('buildProjectMetadata', () => {
     expect(meta.alternates).toBeUndefined();
   });
 
-  it('uses the site share image when a project has no cover image', () => {
-    const meta = buildProjectMetadata({ title: 'Acacia', slug: 'acacia' }, withSiteImage);
+  it('falls back to the site share image only when there is no slug', () => {
+    const meta = buildProjectMetadata({ title: 'Acacia' }, withSiteImage);
     const ogImages = meta.openGraph?.images as { url: string }[];
     expect(ogImages[0].url).toBe('https://designbyalex.dev/uploads/home/og.jpg');
+    expect(meta.twitter?.images).toEqual(['https://designbyalex.dev/uploads/home/og.jpg']);
   });
 });
 

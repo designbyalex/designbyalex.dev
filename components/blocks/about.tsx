@@ -1,6 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils';
 import { PageBlocksAbout } from '@/tina/__generated__/types';
+import { ArrowDownToLine } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import type { Template } from 'tinacms';
@@ -15,7 +16,7 @@ import { ScrollReveal } from '../motion-primitives/scroll-reveal';
  * the statements, as on the live Framer site. Right column: the statements (green lead-in,
  * white continuation), the portrait, then the small green "Experience" label with one hairline row per
  * role (company / role / period stacked, a decorative "+" on the right) and "DOWNLOAD FULL CV" with
- * the Material Icons download glyph, right-aligned.
+ * a 16px download icon, right-aligned.
  *
  * Boxes are Framer's: the section is padded 48/16/100 on phones (<lg), 48/24/100 at lg and 48/48/150
  * at xl; the columns are 60px apart, the right one 60% wide at lg and 50% at xl, and both start 120px
@@ -66,8 +67,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
 
           {data.image?.src && (
             <ScrollReveal>
-              {/* Corners via clip-path, not border-radius: a leftover from the retired parity check (ADR 0005), which read the portrait's radius as 0. #92 swaps it for border-radius. */}
-              <div className='relative aspect-[0.890323] w-full bg-card [clip-path:inset(0_round_20px)]' data-tina-field={tinaField(data.image, 'src')}>
+              <div className='relative aspect-[0.890323] w-full overflow-clip rounded-[20px] bg-card' data-tina-field={tinaField(data.image, 'src')}>
                 <Image
                   src={data.image.src}
                   alt={data.image.alt || ''}
@@ -127,10 +127,8 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
                     className='group flex items-center gap-2 rounded-sm text-foreground'
                     data-tina-field={tinaField(cv, 'label')}
                   >
-                    {/* The Reference draws the icon with the Material Icons ligature font (docs/parity-audit.md H13). */}
-                    <span aria-hidden className='font-icons text-icon'>
-                      download
-                    </span>
+                    {/* lucide's ArrowDownToLine stands in for the Reference's 16px Material `download` ligature (#110). */}
+                    <ArrowDownToLine aria-hidden className='size-4 shrink-0' />
                     {/* Hover rolls the label up and a second copy in from below, as Framer's link variant does. */}
                     <span className='flex h-[22px] flex-col overflow-hidden text-caption'>
                       <span className='transition-transform duration-500 ease-hover-link group-hover:-translate-y-[22px] group-focus-visible:-translate-y-[22px]'>{cv.label}</span>
