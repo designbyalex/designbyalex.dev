@@ -1,6 +1,6 @@
 /**
  * The Hero piece on the homepage (#146): Alex's approved Cycles glass, "glass-edge" (2026-11-12),
- * full-bleed above the fold. Ported from the #106–#108 prototype's params without its review switches:
+ * rendered without the refraction-test grid ("glass-clear"), full-bleed above the fold. Ported from the #106–#108 prototype's params without its review switches:
  * there are no query params in production, only this one piece.
  *
  * Every file lives in `public/hero-piece/`, rendered by the scene script (`hero-piece/` on the
@@ -34,8 +34,9 @@ export type HeroPiece = {
 };
 
 export const HERO_PIECE: HeroPiece = {
-  still: '/hero-piece/glass-edge.webp',
-  stillPortrait: '/hero-piece/glass-edge-portrait.webp',
+  // Grid-free (Alex, 2026-11-12: the grid was only there to test the refraction).
+  still: '/hero-piece/glass-clear.webp',
+  stillPortrait: '/hero-piece/glass-clear-portrait.webp',
   clips: null,
 };
 
