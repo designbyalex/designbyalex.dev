@@ -26,13 +26,23 @@ const formatLabels: Record<WorkFormat, string> = {
 const WorkProjectsContext = React.createContext<WorkProjectRef[]>([]);
 export const WorkProjectsProvider = WorkProjectsContext.Provider;
 
+// Thumbnail `sizes` per format: the card's width at each breakpoint (see the row classes below).
+const thumbnailSizes: Record<WorkFormat, string> = {
+  'case-study': '(min-width: 1280px) calc((min(100vw, 1440px) - 144px) * 0.8), (min-width: 1024px) calc((100vw - 48px) * 0.9), calc(100vw - 32px)',
+  story: '(min-width: 1280px) calc((min(100vw, 1440px) - 144px) * 0.5), (min-width: 1024px) calc((100vw - 48px) * 0.6), calc(100vw - 32px)',
+};
+
 /**
  * The Work index (#125): every case study and story on the Build, in Alex's
- * `order` (the next-project resolver's sort), each marked as a case study or a
- * story and linking to its page. Cards reuse the Selected projects row style —
- * alternating full-width rows, status pill over the thumbnail, hover grow with
- * the green arrow — plus a mono format label over the title. The look is
- * settled in P40; this block is the tracer.
+ * `order` (the next-project resolver's sort), each linking to its page. Cards
+ * reuse the Selected projects row style: alternating full-width rows, status
+ * pill over the thumbnail, hover grow with the green arrow.
+ *
+ * P40 picks (Alex, 2026-11-12, #126): stories are the smaller card (50% of the
+ * row at xl and 60% at lg against a case study's 80% and 90%; 1.25:1 on phones
+ * against a square), so the two read apart without a label. The Case study /
+ * Story label is for screen readers only. The optional intro sits right of the
+ * heading from lg and stacks under it on phones. The header has no Work link.
  */
 export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
   const entries = buildWorkIndex(React.useContext(WorkProjectsContext));
@@ -41,19 +51,22 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
     // First block on the page: the top padding clears the fixed header (88/96px tall).
     // It lives on the Section, not the heading, so the first row stays clear of the
     // header even with the optional heading unset.
-    <Section
-      background={data.background!}
-      sectionId='work-index'
-      className='max-w-none p-0 pt-[150px] lg:pt-[180px]'
-    >
-      {data.heading && (
+    <Section background={data.background!} sectionId='work-index' className='max-w-none p-0 pt-[150px] lg:pt-[180px]'>
+      {(data.heading || data.intro) && (
         <ScrollReveal
           sectionId='work-index-header'
-          className='mx-auto max-w-[1440px] px-4 pb-16 lg:px-6 xl:px-12'
+          className='mx-auto flex max-w-[1440px] flex-col gap-4 px-4 pb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-10 lg:px-6 xl:px-12'
         >
-          <h1 className='font-display text-heading' data-tina-field={tinaField(data, 'heading')}>
-            {data.heading}
-          </h1>
+          {data.heading && (
+            <h1 className='font-display text-heading' data-tina-field={tinaField(data, 'heading')}>
+              {data.heading}
+            </h1>
+          )}
+          {data.intro && (
+            <p className='max-w-md text-body-lg text-muted-foreground lg:ml-auto lg:text-right' data-tina-field={tinaField(data, 'intro')}>
+              {data.intro}
+            </p>
+          )}
         </ScrollReveal>
       )}
 
@@ -61,6 +74,7 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
         {entries.map((entry, i) => {
           const status = entry.status ?? '';
           const last = i === entries.length - 1;
+          const story = entry.format === 'story';
           return (
             <li
               key={entry.slug}
@@ -72,10 +86,14 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
                 last ? 'pb-[150px]' : 'pb-[100px]'
               )}
             >
-              <ScrollReveal amount={0.2} scale={0.92} className='w-full lg:w-[90%] xl:w-[80%]'>
+              <ScrollReveal amount={0.2} scale={0.92} className={cn('w-full', story ? 'lg:w-[60%] xl:w-[50%]' : 'lg:w-[90%] xl:w-[80%]')}>
                 <Link
                   href={entry.href}
-                  className='group flex aspect-square w-full flex-col gap-[15px] rounded-[20px] lg:aspect-[1.50633] xl:aspect-[1.60627]'
+                  data-format={entry.format}
+                  className={cn(
+                    'group flex w-full flex-col gap-[15px] rounded-[20px] lg:aspect-[1.50633] xl:aspect-[1.60627]',
+                    story ? 'aspect-[1.25]' : 'aspect-square'
+                  )}
                 >
                   {/* Selected projects hover (#90): the whole thumbnail grows 2% as one box, a 200ms tween. */}
                   <div className='relative min-h-0 flex-1 rounded-[20px] transition-transform duration-200 ease-hover-card group-hover:scale-[1.02] group-focus-visible:scale-[1.02]'>
@@ -85,7 +103,7 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
                           src={entry.thumbnail}
                           alt={entry.thumbnailAlt || ''}
                           fill
-                          sizes='(min-width: 1280px) calc((min(100vw, 1440px) - 144px) * 0.8), (min-width: 1024px) calc((100vw - 48px) * 0.9), calc(100vw - 32px)'
+                          sizes={thumbnailSizes[entry.format]}
                           className='rounded-[20px] object-cover'
                         />
                       )}
@@ -110,7 +128,8 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
                   </div>
 
                   <div className='w-full pt-1'>
-                    <p className='font-mono text-mono uppercase text-muted-foreground'>{formatLabels[entry.format]}</p>
+                    {/* The card's size tells the formats apart (#126); the label stays for screen readers. */}
+                    <p className='sr-only'>{formatLabels[entry.format]}</p>
                     <h2 className='text-body text-foreground'>{entry.title}</h2>
                     {entry.tagline && <p className='text-body text-muted-foreground'>{entry.tagline}</p>}
                   </div>
@@ -138,6 +157,13 @@ export const workIndexBlockSchema: Template = {
       label: 'Heading',
       name: 'heading',
       description: 'Page heading over the list. The list itself comes from the Project documents — mark each one case study or story there.',
+    },
+    {
+      type: 'string',
+      label: 'Intro',
+      name: 'intro',
+      ui: { component: 'textarea' },
+      description: 'Optional line shown right of the heading (under it on phones). Leave empty for none.',
     },
   ],
 };
