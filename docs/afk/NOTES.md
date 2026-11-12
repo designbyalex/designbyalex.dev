@@ -1243,3 +1243,16 @@ Every page × dark/light, and each page once with `prefers-reduced-motion: reduc
 ## Batch fix (2026-11-12): #111 share cards on Vercel
 - The Vercel build of 6385412 failed prerendering `/og/acacia.jpg`: TinaCloud returns `coverImage` as an `assets.tina.io` URL (`…/__staging/<branch>/__file/projects/acacia/hero.png` on a branch), and `composeGround` joined it onto `public/`. The local datalayer returns `/uploads/...`, so `build-local` passed.
 - `publicMediaPath` in `lib/seo/share-card.ts` maps a site path or a TinaCloud media URL (branch or main shape) back to the committed file under `public/uploads/`; the build still reads the repo file, never the network. One unit test covers both shapes and that the file exists. This supersedes the *Absolute `coverImage` URLs would fail the build* finding above.
+
+## #122 P38: Header contrast over the home hero (scrim under the header)
+- Built: a top-anchored header scrim inside the home hero (`components/blocks/hero.tsx`), between the existing top-of-section comment block and the text scrims: `--scrim` (black in both themes) at 70% → 60% → transparent, in a 150px band (170px at `lg`), full-width, `z-[1]` — above the gradient and the mark (z-0), below the hero text (z-10), under the fixed header (z-20). It's a plain static div with `aria-hidden` and `pointer-events-none`, no motion wrapper, so it rests from first paint under reduced motion and never intercepts clicks. Inside the section it scrolls away with the hero, so the header past the hero and every other page are untouched — no change to `header.tsx` or `header-over-hero.ts`.
+- Decisions made without a human:
+  - The ticket gives three stops ("70% → 60% → 0 over 150/170px") without a middle-stop position, and the Hero piece prototype (branch `prototype/hero-piece`) isn't in this checkout to read the exact rule. Used the literal CSS reading: an unpositioned middle stop lands at 50% of the band (0 / 75px / 150px mobile; 0 / 85px / 170px desktop). The header is 88px tall (<lg) / 96px (lg+), so the whole header row sits in the ≥60% region either way.
+  - "Desktop" mapped to the `lg` breakpoint (1024px), matching the hero's own mobile/desktop switch and the header's height change — so 768 gets the 150px mobile band.
+  - Sized the band with `h-[150px] lg:h-[170px]` on the element and percentage stops in the gradient, instead of px stops in two full gradient strings; one height utility is the smaller diff.
+- Stubbed: nothing.
+- Verify visually:
+  - [ ] "Let's talk", the mark and the nav text over the home hero ≥4.5:1 in dark and light at 1440, 768, 390 (the ticket's prototype-harness values measured 12.0+ for "Let's talk").
+  - [ ] Scrim only over the home hero: /acacia, /mosurban and 404 headers unchanged; on / the band scrolls away with the hero and the post-hero header is unchanged.
+  - [ ] Reduced motion: the band is there from first paint, no fade-in.
+  - [ ] Alex accepts the look of the hero top (the darkened top edge over the gradient and the mark's upper-right) at the batch review.

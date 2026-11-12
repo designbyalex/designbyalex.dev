@@ -82,6 +82,18 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
       )}
 
       {/*
+       * Header scrim (#122): the fixed header's white chrome sits on the bright gradient with nothing
+       * under it (light theme 2.41:1 at 1440, 2.23:1 at 390, against 4.5 needed). A top-anchored band —
+       * `--scrim` at 70% → 60% → 0 over 150px (170px at lg), the values the Hero piece prototype's
+       * contrast harness passed at 12.0+ for "Let's talk" — darkens the gradient and the mark under the
+       * header in both themes. It lives inside the section, so it scrolls away with the hero and no
+       * other page sees it, and it's a static layer: at rest from first paint, reduced motion or not.
+       */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-[150px] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--scrim)_70%,transparent),color-mix(in_srgb,var(--scrim)_60%,transparent),transparent)] lg:h-[170px]"
+      />
+      {/*
        * Scrims under the text, not on the Reference: white on the bright gradient is about 1.7:1, so the
        * headline's side (on phones, the band under the header, which stays on the bright gradient) and the bottom row sit on darkened gradient, enough for WCAG AA
        * in both themes (#67: 3:1 for the headline, 4.5:1 for the tagline and the link).
