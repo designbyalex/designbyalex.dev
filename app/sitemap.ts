@@ -11,8 +11,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const res = await client.queries.projectConnection({ after });
     return res.data.projectConnection;
   });
+  const pageCrumbs = await collectBreadcrumbs(async (after) => {
+    const res = await client.queries.pageConnection({ after });
+    return res.data.pageConnection;
+  });
   return buildSitemap(
     siteDefaults.baseUrl,
-    projectCrumbs.map((crumbs) => crumbs.join('/'))
+    projectCrumbs.map((crumbs) => crumbs.join('/')),
+    pageCrumbs.map((crumbs) => crumbs.join('/'))
   );
 }

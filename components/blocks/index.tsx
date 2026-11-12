@@ -13,6 +13,7 @@ import { CaseStudySection } from "./case-study-section";
 import { CaseStudyCta } from "./case-study-cta";
 import { SelectedProjects } from "./selected-projects";
 import { About } from "./about";
+import { WorkIndex } from "./work-index";
 import { resolveBlockComponent } from "./resolve";
 
 /**
@@ -36,6 +37,7 @@ export const blockComponents: Record<string, ComponentType<{ data: any }>> = {
   // Homepage sections (registered on the `page` collection only).
   SelectedProjects,
   About,
+  WorkIndex,
 };
 
 type BlockData = {
