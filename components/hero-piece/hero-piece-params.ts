@@ -1,6 +1,6 @@
 /**
  * The Hero piece on the homepage (#146): Alex's approved Cycles glass, "glass-edge" (2026-11-12),
- * full-bleed above the fold. Ported from the #106–#108 prototype's params without its review switches:
+ * rendered without the refraction-test grid ("glass-clear"), full-bleed above the fold. Ported from the #106–#108 prototype's params without its review switches:
  * there are no query params in production, only this one piece.
  *
  * Every file lives in `public/hero-piece/`, rendered by the scene script (`hero-piece/` on the
@@ -9,7 +9,7 @@
  * - **Still**: the rest pose, wide (2880×1800) and portrait (1200×2600), WebP. It is the first paint,
  *   the loading state, the poster, and all that shows under `prefers-reduced-motion`.
  * - **Clips**: the intro (plays once) and the idle (loops), each wide and portrait, H.264 MP4 and,
- *   where it came out smaller, VP9 WebM. Muted, no audio track. `null` until the renders land.
+ *   where it came out smaller, VP9 WebM. Muted, no audio track.
  *
  * Size budget per clip file (the heavier of MP4 and WebM): intro ≤ 800 KB wide / 500 KB portrait,
  * idle ≤ 1.5 MB wide / 1 MB portrait. A render over budget is re-encoded, not shipped.
@@ -34,14 +34,19 @@ export type HeroPiece = {
 };
 
 export const HERO_PIECE: HeroPiece = {
-  still: '/hero-piece/glass-edge.webp',
-  stillPortrait: '/hero-piece/glass-edge-portrait.webp',
-  // Wide: 1440×900, 30 fps, H.264 CRF 20 (intro 2.1s / 463 KB, idle 7s / 1.01 MB). VP9 came out larger
-  // than H.264 at matching quality, so there's no WebM. Portrait clips are still rendering.
+  // Grid-free (Alex, 2026-11-12: the grid was only there to test the refraction).
+  still: '/hero-piece/glass-clear.webp',
+  stillPortrait: '/hero-piece/glass-clear-portrait.webp',
+  // 30 fps, H.264 CRF 20 from the Cycles frames. Wide 1440×900: intro 2.1s / 242 KB, idle 7s / 553 KB.
+  // Portrait 600×1300: intro 131 KB, idle 306 KB. VP9 came out larger than H.264 at matching quality,
+  // so there's no WebM.
   clips: {
-    intro: { mp4: '/hero-piece/glass-edge-intro.mp4' },
-    idle: { mp4: '/hero-piece/glass-edge-idle.mp4' },
-    portrait: null,
+    intro: { mp4: '/hero-piece/glass-clear-intro.mp4' },
+    idle: { mp4: '/hero-piece/glass-clear-idle.mp4' },
+    portrait: {
+      intro: { mp4: '/hero-piece/glass-clear-intro-portrait.mp4' },
+      idle: { mp4: '/hero-piece/glass-clear-idle-portrait.mp4' },
+    },
   },
 };
 
