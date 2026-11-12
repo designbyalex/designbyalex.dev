@@ -60,7 +60,7 @@ function PreviewCard({ project, image, on }: { project: NotFoundProject; image: 
     >
       <Image src={image.src} alt='' fill sizes='560px' className='object-cover' />
       {status && (
-        <span className='absolute top-4 left-4 z-10 inline-flex h-[30px] items-center gap-2 rounded-full border border-on-image/25 bg-scrim/60 px-[13px] font-mono text-mono text-on-image uppercase glass-blur-photo'>
+        <span className='absolute top-4 left-4 z-10 inline-flex h-[30px] items-center gap-2 rounded-full border border-on-image/15 bg-scrim/60 px-[13px] font-mono text-mono text-on-image uppercase shadow-glass-photo glass-blur-photo'>
           <span className={cn('size-2 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />
           {statusLabels[status] ?? status}
         </span>
