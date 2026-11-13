@@ -1,12 +1,24 @@
-import { HousePlug, LayoutPanelLeft, LoaderCircle, LockKeyhole, User } from 'lucide-react';
+import {
+  HousePlug,
+  LayoutDashboard,
+  LayoutPanelLeft,
+  LoaderCircle,
+  LockKeyhole,
+  MonitorPlay,
+  Pilcrow,
+  RectangleEllipsis,
+  TabletSmartphone,
+  User,
+} from 'lucide-react';
 
 /**
  * The key-feature icons of the case-study icon list (#61). The Reference drew them inline from an
  * Iconify mix; #110 redraws each one from lucide (the owner's pick, 2026-11-11) at 20px in the 30px
  * column, default stroke 2, `currentColor` so they follow the page foreground in both themes.
+ * The last five came with the TinaCMS case study (#127, the owner's set B pick, 2026-11-12).
  */
 
-export type FeatureIconName = 'module' | 'progress' | 'lock' | 'house' | 'user';
+export type FeatureIconName = 'module' | 'progress' | 'lock' | 'house' | 'user' | 'field' | 'dashboard' | 'preview' | 'richtext' | 'responsive';
 
 export const featureIconOptions: { label: string; value: FeatureIconName }[] = [
   { label: 'Module (panels)', value: 'module' },
@@ -14,6 +26,11 @@ export const featureIconOptions: { label: string; value: FeatureIconName }[] = [
   { label: 'Lock', value: 'lock' },
   { label: 'House (plug)', value: 'house' },
   { label: 'User', value: 'user' },
+  { label: 'Field (input with dots)', value: 'field' },
+  { label: 'Dashboard', value: 'dashboard' },
+  { label: 'Preview (monitor with play)', value: 'preview' },
+  { label: 'Rich text (pilcrow)', value: 'richtext' },
+  { label: 'Responsive (tablet and phone)', value: 'responsive' },
 ];
 
 const common = { 'aria-hidden': true, focusable: false, className: 'block size-5 shrink-0' } as const;
@@ -24,6 +41,11 @@ const ICONS: Record<FeatureIconName, () => React.JSX.Element> = {
   lock: () => <LockKeyhole {...common} />,
   house: () => <HousePlug {...common} />,
   user: () => <User {...common} />,
+  field: () => <RectangleEllipsis {...common} />,
+  dashboard: () => <LayoutDashboard {...common} />,
+  preview: () => <MonitorPlay {...common} />,
+  richtext: () => <Pilcrow {...common} />,
+  responsive: () => <TabletSmartphone {...common} />,
 };
 
 /** One key-feature icon by name; unknown names render nothing, so an empty slot keeps the row's indent. */
