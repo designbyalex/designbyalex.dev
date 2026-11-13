@@ -250,37 +250,105 @@ blocks:
         autoPlay: true
         loop: true
   - _template: caseStudySection
+    sectionId: motion
+    heading: Motion with restraint
+    subheading: One curve, built for speed
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          The site worked, but it barely moved. Most of its motion was lost in the rebuild, and what was left felt patchy. I set one rule for everything that moves: a single easing curve at 400–700 ms, with short fades and a small rise. Surfaces people use often, like the filter drawer, move quicker than the ones they see once a visit.
+
+          Page load was already the site’s weak spot, so I built the motion in GSAP and CSS, which the site already loaded, instead of adding another library. Nothing visible on load waits for JavaScript, and visitors who prefer reduced motion see every end state straight away.
+      - _template: statement
+        text: 'Motion that feels architectural — '
+        emphasis: calm, precise and never in the way of the content.
+        leadOnPhone: true
+  - _template: caseStudySection
+    sectionId: design-system
+    heading: A design system the team can own
+    subheading: Components built for editors, not just designers
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          Fast iteration had left the styling drifting: dozens of font sizes, stray colours and hundreds of unused classes. I audited every layer and rebuilt the site on one set of tokens, a type scale, a greyscale palette and a spacing scale, then turned the patterns that repeat into components: buttons, section headers, contact bands, download tiles, and the product and project cards.
+
+          The rules live in code as well as in the design. A check runs over the published site and fails if a value drifts off the system, so the site stays clean long after handover.
+      - _template: statement
+        text: 'Clean, lean and consistent — '
+        emphasis: so Mos Urban’s team can add products and projects without breaking the design.
+        leadOnPhone: true
+  - _template: caseStudySection
+    sectionId: projects-map
+    heading: Mapping the work
+    subheading: Every project, in place
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          Architects and contractors want proof that a manufacturer has delivered work like theirs, ideally somewhere they can go and see it. The original designs included a map view, so I built it: every completed project with a location appears as a pin across Australia, clustering as you zoom out. Each pin opens a card that links to the project, or straight to directions.
+
+          The map reads from the same CMS as the project pages, so a new project appears without any code, and the active filters carry across between grid and map. The map library only loads when someone opens the map, so the grid stays fast.
+      - _template: statement
+        text: 'Credibility you can visit — '
+        emphasis: turning a list of projects into evidence on the ground.
+        leadOnPhone: true
+  - _template: caseStudySection
+    sectionId: not-found
+    heading: Even the 404 is on brand
+    subheading: Look around the factory
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          The 404 started as Webflow’s default page, with no brand at all. I turned it into a small moment of delight using the illustrated factory scene from Mos Urban’s 2024 Christmas puzzle. On desktop, the scene fills the screen and you can drag around the factory floor. On phones, the message comes first, then a still detail of the scene. One button takes you home.
+      - _template: statement
+        text: 'A dead end became '
+        emphasis: a reason to stay a little longer.
+        leadOnPhone: true
+  - _template: caseStudySection
     sectionId: outcome
     heading: Outcome
     headingSize: heading
     rhythm: uniform
     blocks:
+      - _template: body
+        body: |-
+          Success is measured against the problems we set out to solve: specifiers who couldn’t find critical resources quickly, didn’t trust the brand’s credibility, and struggled to navigate the old site. The new site runs on Mos Urban’s existing analytics, so each of these can be compared before and after launch.
       - _template: statement
-        text: Coming Soon…
-        muted: true
+        text: 'Every measure ties back to a user problem — '
+        emphasis: finding, trusting and enquiring.
+        leadOnPhone: true
     metrics:
       - value: 100
         kind: percentage
-        label: '________________'
+        label: increase in product enquiries submitted
       - value: 100
         kind: percentage
-        label: '________________'
+        label: increase in projects explored per visit
       - value: 100
         kind: percentage
-        label: '________________'
+        label: reduction in time to find a product
       - value: 100
         kind: percentage
-        label: '________________'
+        label: increase in mobile engagement rate
   - _template: caseStudySection
     sectionId: whats-next
     heading: What’s next for Mos?
+    subheading: Measure, learn, refine
     headingSize: statement
     rhythm: uniform
     blocks:
-      - _template: statement
-        text: Coming Soon…
-        muted: true
-    placeholderPattern: /uploads/projects/mosurban/placeholder-hatch.svg
+      - _template: body
+        body: |-
+          Launch is the start of the next phase. Over the first few months, I’ll track these measures against the old site and use what we learn to refine the journeys that matter most to specifiers.
+
+          Next on the roadmap is a product sheet system that builds every technical sheet from the CMS, so Mos Urban’s team can keep more than a hundred products documented without redrawing a page. With a training video for each part of the CMS, the team can run the site day to day themselves.
   - _template: caseStudyCta
     heading: Want the full story?
     description: |-
