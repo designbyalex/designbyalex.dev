@@ -10,6 +10,7 @@ import "@/styles.css";
 import { TailwindIndicator } from "@/components/ui/breakpoint-indicator";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { RouteTransitions } from "@/components/motion-primitives/route-transitions";
+import { SmoothScroll } from "@/components/motion-primitives/smooth-scroll";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { siteDefaults } from "@/lib/seo/site";
 
@@ -68,6 +69,8 @@ export default function RootLayout({
               <VideoDialog />
             </VideoDialogProvider>
           </ThemeProvider>
+          {/* Sitewide smooth scrolling (#161), beside the page so it never wraps or remounts it. */}
+          <SmoothScroll />
           <TailwindIndicator />
           <Analytics />
         </body>

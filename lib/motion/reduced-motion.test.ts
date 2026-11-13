@@ -17,6 +17,7 @@ import {
   scrollParallaxMotion,
   scrollRevealMotion,
   slideAppearMotion,
+  smoothScrollMotion,
   textRevealMotion,
 } from './reduced-motion';
 
@@ -393,5 +394,33 @@ describe('scrollDripMotion', () => {
 
   it('reduced motion: no canvas mounts and no loop runs — the static fallback only', () => {
     expect(scrollDripMotion(true)).toEqual({ animate: false });
+  });
+});
+
+describe('smoothScrollMotion', () => {
+  it('motion allowed: Lenis runs with the Cinematic picks — 1.2 s expo out, wheel 1.2×, touch native', () => {
+    const m = smoothScrollMotion(false);
+    if (!m.enabled) throw new Error('expected smooth scrolling');
+    expect(m.options).toMatchObject({
+      duration: 1.2,
+      wheelMultiplier: 1.2,
+      smoothWheel: true,
+      syncTouch: false,
+      anchors: false,
+      autoRaf: false,
+    });
+  });
+
+  it('eases expo out: fast off the mark, landing exactly on 1', () => {
+    const m = smoothScrollMotion(false);
+    if (!m.enabled) throw new Error('expected smooth scrolling');
+    const { easing } = m.options;
+    expect(easing(0)).toBeCloseTo(0.001, 6);
+    expect(easing(0.1)).toBeGreaterThan(0.5);
+    expect(easing(1)).toBe(1);
+  });
+
+  it('reduced motion: no Lenis at all, so scrolling is native', () => {
+    expect(smoothScrollMotion(true)).toEqual({ enabled: false });
   });
 });
