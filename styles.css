@@ -444,6 +444,17 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /*
+   * ScrollReveal (#158): the server HTML carries the reveal's hidden starting
+   * style (it can't read this media query), and an element that mounted hidden
+   * only snaps to rest once it scrolls into view. Hold every reveal at rest
+   * from first paint instead, with or without JavaScript.
+   */
+  [data-scroll-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /*

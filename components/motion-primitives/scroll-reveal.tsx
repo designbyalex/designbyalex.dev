@@ -25,6 +25,14 @@ export type ScrollRevealProps = ScrollRevealOptions & {
  * Reveals its children as they scroll into view: a soft fade-and-rise.
  * Routes its motion through {@link scrollRevealMotion}, so with
  * `prefers-reduced-motion` it renders statically at its final position.
+ *
+ * The server can't read `prefers-reduced-motion`, so its HTML always carries
+ * the hidden starting style. The first client render feeds the selector that
+ * same "motion allowed" value until hydration ({@link useHydrated}, as
+ * `scroll-drip.tsx` does), so React finds matching attributes; the reduced
+ * props apply from the next render. Under reduced motion the
+ * `[data-scroll-reveal]` rule in `styles.css` keeps the element at rest from
+ * first paint, with or without JavaScript, whatever inline style it carries.
  */
 export function ScrollReveal({
   children,
@@ -42,7 +50,7 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const prefersReducedMotion = useReducedMotion() ?? false;
   const hydrated = useHydrated();
-  const { initial, whileInView, transition, viewport } = scrollRevealMotion(prefersReducedMotion, {
+  const { initial, whileInView, transition, viewport } = scrollRevealMotion(hydrated && prefersReducedMotion, {
     y,
     duration,
     delay,
@@ -64,7 +72,7 @@ export function ScrollReveal({
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
 
   return (
-    <MotionTag className={cn(className)} data-section={sectionId} initial={initial} whileInView={whileInView} viewport={viewport} transition={transition}>
+    <MotionTag className={cn(className)} data-section={sectionId} data-scroll-reveal="" initial={initial} whileInView={whileInView} viewport={viewport} transition={transition}>
       {children}
     </MotionTag>
   );

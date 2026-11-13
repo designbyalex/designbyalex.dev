@@ -92,21 +92,24 @@ export interface ScrollRevealMotion {
 /**
  * Props for an element that fades/rises into view on scroll.
  * Reduced motion → starts at its final state (`initial: false`) and snaps in.
+ * The reduced `whileInView` still names every property the hidden state sets
+ * (scale included), so an element that mounted hidden (server HTML, before
+ * hydration) settles fully at rest rather than keeping its starting scale.
  */
 export function scrollRevealMotion(prefersReducedMotion: boolean, options: ScrollRevealOptions = {}): ScrollRevealMotion {
   const { y = 24, duration = DURATION.entrance, delay = 0, once = true, amount = 0.3, scale = 1, ease = EASE_ENTRANCE } = options;
   const viewport = { once, amount };
+  const scaled = scale !== 1;
 
   if (prefersReducedMotion) {
     return {
       initial: false,
-      whileInView: { opacity: 1, y: 0 },
+      whileInView: { opacity: 1, y: 0, ...(scaled ? { scale: 1 } : {}) },
       transition: INSTANT,
       viewport,
     };
   }
 
-  const scaled = scale !== 1;
   return {
     initial: { opacity: 0, y, ...(scaled ? { scale } : {}) },
     whileInView: { opacity: 1, y: 0, ...(scaled ? { scale: 1 } : {}) },
