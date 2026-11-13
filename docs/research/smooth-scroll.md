@@ -65,6 +65,10 @@ Primary sources only, all accessed 2026-11-13. Sizes are min+gzip, measured by b
 - Check that `data-lenis-prevent` is unneeded for the case-study carousel (`overflow-clip`, not a scroller).
 - The Tina admin (`/admin`) is a separate app and gets no Lenis.
 
+## PBI
+
+- #161 P53: Smooth scrolling sitewide with Lenis (Cinematic). Site lane, complex-agent, filed 2026-11-13.
+
 ## Sources
 
 - npm registry and packages, via `npm view` and `npm pack`: `lenis@1.3.27` (`README.md`, `LICENSE`, `dist/lenis.mjs`, `dist/lenis-react.mjs`, `dist/lenis.css`), `lenis@1.3.17`, `gsap@3.15.1`, `locomotive-scroll@5.0.2`, `motion`, `@mdn/browser-compat-data@8.1.9`
