@@ -122,6 +122,7 @@ The automatic checks settle what code can show. Alex's eyes settle everything vi
 
 - **Credentials:** env var names only, never values. Copy env files with `cp` only after `git check-ignore`, never `git add -f` them, and keep them out of commits, PRs and logs.
 - **Content is Alex's:** use his copy and figures as given. A gap becomes `NEEDS ALEX`, never invented text. Case-study assets for Acacia and MOS Urban come only from Alex.
+- **Brand Foundation:** every Content-lane brief (case studies, stories, site copy) tells the writer to read `~/Freelance/Portfolio/brand/brand-foundation.md` before drafting or asking for copy, and to frame the work for the ideal client it describes. The file is private and lives outside this repo. Never copy it in or quote it on GitHub.
 - **Git:** never force-push, and never push to `main`; Tina's own content commits are the exception. The `~/Freelance/Portfolio/afk-migration` checkout belongs to the AFK loop. `prototype/hero-piece` never merges.
 - **Shared machine:** never stop another session's process. Use free ports.
 - **Testing:** fast checks per ticket, the full check once per batch, and Alex reviews at the end. No extra test steps.

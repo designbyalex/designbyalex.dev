@@ -11,6 +11,7 @@ designbyalex.dev: Alexander Blum's design portfolio, moved from Framer to Next.j
 - **House rules:**
   - Credentials: env var names only, never values. Copy env files with `cp` only after `git check-ignore -v .env.local`, never `git add -f` them, and keep them out of commits, PRs and logs.
   - Content is Alex's: use his copy and figures as given. A gap becomes `NEEDS ALEX`, never invented text. Case-study assets come only from Alex.
+  - Brand: every case-study, story and copy writer reads Alex's Brand Foundation first, at `~/Freelance/Portfolio/brand/brand-foundation.md` (purpose, mission, ideal client and audience). It is private: read it, never copy it into this repo or onto an issue or PR.
   - Git: never force-push, never push to `main` (Tina's content commits are the exception), and merge only on Alex's yes. Only the master may relay that yes. Merge `origin/main` before pushing.
   - The `~/Freelance/Portfolio/afk-migration` checkout belongs to the AFK loop. `prototype/hero-piece` never merges.
   - Shared machine: never stop another session's process. Run Tina with `--port <free> --datalayer-port <free>` and Next on a free port.
