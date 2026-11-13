@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
+import Image, { getImageProps } from 'next/image';
 import type { Template } from 'tinacms';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { tinaField } from 'tinacms/dist/react';
@@ -116,7 +116,22 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
 
       {slides.length > 0 && <CaseStudyCarousel slides={slides} label={data.heading || 'Carousel'} />}
 
-      {data.image?.src && (
+      {data.image?.src && data.image.phoneSrc && (
+        <ScrollReveal className='w-full'>
+          {/* With a phone image (#127): the phone art at its own ratio under 768px, the box below from 768px. */}
+          <div className={cardImage ? 'overflow-clip rounded-[20px]' : '[clip-path:inset(0_round_20px)]'} data-tina-field={tinaField(data.image, 'src')}>
+            <PhoneArtImage
+              src={data.image.src}
+              phoneSrc={data.image.phoneSrc}
+              alt={data.image.alt || ''}
+              sizes='(min-width: 1280px) min(100vw - 96px, 1344px), (min-width: 1024px) calc(100vw - 48px), min(100vw - 32px, 500px)'
+              className={cardImage ? 'md:aspect-[1.6729] lg:aspect-[1.78065]' : 'md:aspect-[1.78065]'}
+            />
+          </div>
+        </ScrollReveal>
+      )}
+
+      {data.image?.src && !data.image.phoneSrc && (
         <ScrollReveal className='w-full'>
           {/*
            * Framer's "Image Full". Wide (Acacia): the content width at a 1.78065 ratio at every width,
@@ -368,6 +383,22 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     if (!image.src) return null;
     const natural = image.ratio === 'natural';
     const tall = image.ratio === 'tall';
+    if (image.phoneSrc) {
+      // With a phone image (#127): the phone art at its own ratio under 768px, the chosen shape from 768px.
+      return (
+        <ScrollReveal delay={delay} className={cn('w-full', image.leadOnPhone && 'max-lg:-order-2')}>
+          <div className={tall ? 'overflow-clip rounded-[16px]' : '[clip-path:inset(0_round_20px)]'} data-tina-field={tinaField(image, 'src')}>
+            <PhoneArtImage
+              src={image.src}
+              phoneSrc={image.phoneSrc}
+              alt={image.alt || ''}
+              sizes='(min-width: 1024px) min(47vw, 532px), min(100vw - 32px, 500px)'
+              className={natural ? undefined : tall ? 'md:max-xl:h-[425px] xl:aspect-[0.855738]' : 'md:aspect-[0.837097]'}
+            />
+          </div>
+        </ScrollReveal>
+      );
+    }
     // Framer's "Image Right": the column's width at a 0.837097 ratio, cover, 20px corners (clip-path, a
     // leftover from the retired parity check, ADR 0005); the tall card (MOS Urban's pitch illustration) at a
     // 0.855738 ratio at xl and 425px tall under it, with 16px border-radius;
@@ -419,6 +450,24 @@ const ListLabel = ({ text, field }: { text: string; field: string }) => (
   </p>
 );
 
+/**
+ * An image with separate phone art (#127): a <picture> whose phone source takes over under 768px at its own
+ * ratio, falling back to the main image, which fills the shape `className` gives it from 768px. The width and
+ * height are only a layout hint; `sizes` picks the srcset entry.
+ */
+const PhoneArtImage = ({ src, phoneSrc, alt, sizes, className }: { src: string; phoneSrc: string; alt: string; sizes: string; className?: string }) => {
+  const common = { alt, sizes, quality: 85 };
+  const { props: desktop } = getImageProps({ ...common, src, width: 1600, height: 900 });
+  const { props: phone } = getImageProps({ ...common, src: phoneSrc, width: 800, height: 1600 });
+  return (
+    <picture>
+      <source media='(max-width: 767px)' srcSet={phone.srcSet} sizes={sizes} />
+      <source media='(min-width: 768px)' srcSet={desktop.srcSet} sizes={sizes} />
+      <img {...desktop} alt={alt} className={cn('block h-auto w-full md:object-cover', className)} loading='lazy' decoding='async' />
+    </picture>
+  );
+};
+
 const projectImageField = (name: string, label: string) => ({
   type: 'image' as const,
   name,
@@ -428,6 +477,12 @@ const projectImageField = (name: string, label: string) => ({
 });
 
 const altField = { type: 'string' as const, name: 'alt', label: 'Alt text', description: 'Describe the image for screen readers.' };
+
+/** Optional phone art (#127): shown under 768px at its own ratio instead of the image above. Optional everywhere it appears. */
+const phoneImageField = {
+  ...projectImageField('phoneSrc', 'Phone image'),
+  description: 'Optional. Shown under 768px at its own ratio instead of the image above, for art laid out for phones. The alt text covers both.',
+};
 
 const bodyTemplate: Template = {
   name: 'body',
@@ -545,6 +600,7 @@ const columnImageTemplate: Template = {
   ui: { itemProps: (item) => ({ label: item?.alt || 'Image' }), defaultItem: { ratio: 'portrait' } },
   fields: [
     projectImageField('src', 'Image'),
+    phoneImageField,
     altField,
     {
       type: 'string',
@@ -689,7 +745,7 @@ export const caseStudySectionBlockSchema: Template = {
       name: 'image',
       label: 'Full-width image',
       description: 'Runs the full content width below the columns, at a 16:9 ratio with 20px corners.',
-      fields: [projectImageField('src', 'Image'), altField],
+      fields: [projectImageField('src', 'Image'), phoneImageField, altField],
     },
     {
       type: 'string',
