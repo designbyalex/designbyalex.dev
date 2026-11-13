@@ -11,21 +11,31 @@ type VideoWithFrames = HTMLVideoElement & {
   requestVideoFrameCallback?: (cb: (now: number, meta: { mediaTime: number }) => void) => number;
 };
 
+/** How long the intro may take to show its first frame (while the page is visible) before the hero settles on the still. */
+const START_TIMEOUT = 4000;
+
 /**
- * The Hero piece (#146): the intro once, then the idle loop, over the still.
+ * The Hero piece (#146): the intro once, then the idle loop.
  *
- * The still sits on top until a video has presented a frame, so the hero is never blank: it is the
- * first paint, the loading state and, if a clip fails, what stays. Under `prefers-reduced-motion`, on
- * the server and before the clips exist, only the still renders and no video loads.
+ * Where the clips play, the first paint is the intro's own first frame (HeroPieceFrame), and the intro
+ * starts as soon as it can, so it takes over with no cut (Alex, 2026-11-13: "start immediately on load -
+ * no weird jump cuts"). Under `prefers-reduced-motion`, without JavaScript, on the server and before the
+ * clips exist, only the still (the formed A) renders and no video loads. If the intro can't play (an
+ * error, autoplay refused, or no frame within START_TIMEOUT of visible time), the player unmounts and the
+ * hero settles on the still, so it never sits on the empty opening frame.
  */
 export function HeroPieceVideo({ piece }: { piece: HeroPiece }) {
   const clips = useHeroPieceClips(piece);
+  const [failed, setFailed] = React.useState(false);
+  const playing = clips && !failed;
   return (
-    <div className="absolute inset-0" data-hero-piece={clips ? 'playing' : 'still'}>
+    <div className="absolute inset-0" data-hero-piece={playing ? 'playing' : 'still'}>
       <div className="absolute inset-0 z-[1]">
-        <HeroPieceFrame piece={piece} />
+        <HeroPieceFrame piece={piece} settled={failed} />
       </div>
-      {clips && <Player key={`${clips.intro} ${clips.idle}`} intro={clips.intro} idle={clips.idle} poster={clips.poster} />}
+      {playing && (
+        <Player key={`${clips.intro} ${clips.idle}`} intro={clips.intro} idle={clips.idle} poster={clips.poster} onFail={() => setFailed(true)} />
+      )}
     </div>
   );
 }
@@ -40,10 +50,13 @@ export function HeroPieceVideo({ piece }: { piece: HeroPiece }) {
  * and there's no seek, black frame or flash. The swap is one style change in one paint. Both cuts land
  * on the resting A at zero velocity (#105), so a duplicated frame there reads as the hold it already is.
  */
-function Player({ intro, idle, poster }: { intro: string; idle: string; poster: string }) {
+function Player({ intro, idle, poster, onFail }: { intro: string; idle: string; poster: string; onFail: () => void }) {
   const introRef = React.useRef<VideoWithFrames>(null);
   const idleARef = React.useRef<VideoWithFrames>(null);
   const idleBRef = React.useRef<VideoWithFrames>(null);
+  // The parent passes a fresh callback each render; read it through a ref so playback never restarts.
+  const onFailRef = React.useRef(onFail);
+  onFailRef.current = onFail;
 
   React.useEffect(() => {
     const clipIntro = introRef.current;
@@ -126,30 +139,39 @@ function Player({ intro, idle, poster }: { intro: string; idle: string; poster: 
       v.requestVideoFrameCallback((_, m) => tick(m));
     };
 
-    const begin = (v: VideoWithFrames) => {
-      onFirstFrame(v, () => {
-        if (disposed) return;
-        raise(v);
-        watch(v);
-      });
-      v.play().catch(() => {});
+    // The intro couldn't start: hand the hero back to the still (once, and only before anything showed).
+    const fail = () => {
+      if (!disposed && top === null) onFailRef.current();
     };
 
-    // Start the intro only once it can play through and the page has gone quiet (hydration, fonts, the
-    // headline reveal): started during page load it drops frames in its first half second. The still
-    // shows meanwhile, and a 1.5s cap keeps a busy page from holding it back for long.
-    const whenReady = (v: HTMLVideoElement, cb: () => void) => (v.readyState >= 4 ? cb() : v.addEventListener('canplaythrough', cb, { once: true }));
-    const whenIdle = (cb: () => void) => ('requestIdleCallback' in window ? window.requestIdleCallback(cb, { timeout: 1500 }) : setTimeout(cb, 300));
+    // Start the intro straight away: the page is already showing its first frame, so it plays from load.
+    onFirstFrame(clipIntro, () => {
+      if (disposed) return;
+      raise(clipIntro);
+      watch(clipIntro);
+    });
+    clipIntro.play().catch(fail);
+    clipIntro.addEventListener('error', fail);
 
-    // A failed intro skips straight to the idle; a failed idle leaves the still showing.
-    const onIntroError = () => {
-      if (top === null) whenReady(idle0, () => !disposed && top === null && begin(idle0));
-    };
-    clipIntro.addEventListener('error', onIntroError);
-    whenReady(clipIntro, () => whenIdle(() => !disposed && top === null && begin(clipIntro)));
+    // No frame within START_TIMEOUT of visible time (a stalled network, a throttled background tab that
+    // later comes forward): settle on the still rather than hold the empty opening frame.
+    let waited = 0;
+    let last = performance.now();
+    const clock = window.setInterval(() => {
+      const now = performance.now();
+      if (document.visibilityState === 'visible') waited += now - last;
+      last = now;
+      if (top !== null) window.clearInterval(clock);
+      else if (waited > START_TIMEOUT) {
+        window.clearInterval(clock);
+        fail();
+      }
+    }, 250);
+
     return () => {
       disposed = true;
-      clipIntro.removeEventListener('error', onIntroError);
+      window.clearInterval(clock);
+      clipIntro.removeEventListener('error', fail);
       for (const v of all) v.pause();
     };
   }, []);

@@ -75,10 +75,10 @@ describe('scrollRevealMotion', () => {
       expect(m.transition.ease).toBeUndefined();
     });
 
-    it('ignores motion overrides but keeps viewport options', () => {
+    it('ignores motion overrides but keeps viewport options, settling a scaled element at scale 1', () => {
       const o = scrollRevealMotion(true, { y: 80, duration: 1, once: false, scale: 1.2 });
       expect(o.initial).toBe(false);
-      expect(o.whileInView).toEqual({ opacity: 1, y: 0 });
+      expect(o.whileInView).toEqual({ opacity: 1, y: 0, scale: 1 });
       expect(o.transition.duration).toBe(0);
       expect(o.viewport.once).toBe(false);
     });
