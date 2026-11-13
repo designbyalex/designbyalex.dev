@@ -12,6 +12,7 @@ import { Section, sectionBlockSchemaField } from '../layout/section';
 import { ScrollDrip } from '../motion-primitives/scroll-drip';
 import { ScrollParallax } from '../motion-primitives/scroll-parallax';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
+import { useAnchorGlide } from '../motion-primitives/smooth-scroll';
 import { TextReveal } from '../motion-primitives/text-reveal';
 
 /**
@@ -43,6 +44,8 @@ import { TextReveal } from '../motion-primitives/text-reveal';
  */
 export const Hero = ({ data }: { data: PageBlocksHero }) => {
   const actions = (data.actions ?? []).filter((a): a is NonNullable<typeof a> & { link: string } => Boolean(a?.link));
+  // An in-page action ("See Selected Projects" → #works) glides there while smooth scrolling runs (#161).
+  const glide = useAnchorGlide();
 
   return (
     <Section
@@ -140,6 +143,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                   <a
                     key={action.link}
                     href={action.link}
+                    onClick={action.link.startsWith('#') ? glide : undefined}
                     className="group inline-flex items-center gap-2 text-body text-on-image"
                     data-tina-field={tinaField(action)}
                   >

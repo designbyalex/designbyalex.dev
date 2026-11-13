@@ -55,7 +55,8 @@ export type MotionCategory =
   | 'scroll-parallax'
   | 'scroll-drip'
   | 'scroll-hero'
-  | 'decode-scramble';
+  | 'decode-scramble'
+  | 'smooth-scroll';
 
 /** Shared transition used by every category's static fallback. */
 const INSTANT: Transition = { duration: 0 };
@@ -530,6 +531,69 @@ export function scrollHeroZoomMotion(prefersReducedMotion: boolean, options: Scr
   }
 
   return { from: 1, to: 1 / restZoom };
+}
+
+// ─── smooth-scroll ────────────────────────────────────────────────────────────
+
+/**
+ * Lenis' own expo-out curve, the easing of Alex's Cinematic pick (#161,
+ * `docs/research/smooth-scroll.md`): fast off the mark, a long soft landing.
+ */
+export const easeExpoOut = (t: number): number => Math.min(1, 1.001 - 2 ** (-10 * t));
+
+/** Seconds every wheel glide and the hero's `#works` glide take (Cinematic). */
+export const SMOOTH_SCROLL_DURATION = 1.2;
+
+/**
+ * The Lenis options Alex picked (Cinematic, wheel 1.2×), written out here so
+ * this module stays free of the library. Each wheel or trackpad event starts a
+ * fresh 1.2 s expo-out glide; touch keeps the device's own momentum; in-page
+ * anchors (the skip link) stay native; the frame loop drives Lenis, not its
+ * own `requestAnimationFrame`.
+ */
+export interface SmoothScrollOptions {
+  duration: number;
+  easing: (t: number) => number;
+  wheelMultiplier: number;
+  smoothWheel: boolean;
+  syncTouch: boolean;
+  anchors: boolean;
+  autoRaf: boolean;
+  stopInertiaOnNavigate: boolean;
+}
+
+export type SmoothScrollMotion =
+  | {
+      /** Lenis is created and drives the page's scroll. */
+      enabled: true;
+      options: SmoothScrollOptions;
+    }
+  | { enabled: false };
+
+/**
+ * Decision for sitewide smooth scrolling (#161). Reduced motion → no Lenis at
+ * all, so the wheel, the trackpad and every jump are the browser's own. Lenis'
+ * `respectReducedMotion` alone is not enough: it still routes the wheel
+ * through a short glide.
+ */
+export function smoothScrollMotion(prefersReducedMotion: boolean): SmoothScrollMotion {
+  if (prefersReducedMotion) {
+    return { enabled: false };
+  }
+
+  return {
+    enabled: true,
+    options: {
+      duration: SMOOTH_SCROLL_DURATION,
+      easing: easeExpoOut,
+      wheelMultiplier: 1.2,
+      smoothWheel: true,
+      syncTouch: false,
+      anchors: false,
+      autoRaf: false,
+      stopInertiaOnNavigate: true,
+    },
+  };
 }
 
 // ─── hide-on-scroll ───────────────────────────────────────────────────────────
