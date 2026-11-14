@@ -521,9 +521,10 @@
  * Line reveal (#87, #177), components/motion-primitives/line-reveal.tsx: every word is an inline-block
  * span carrying its rendered line's index (`--line`), and each line fades and rises into place in order
  * once the element is `data-line-reveal="play"`: from the first paint for the home headline, on entering
- * view elsewhere. CSS rather than motion/react so the server HTML is the animated markup: hydration never
- * swaps the text, and the painted headline stays the LCP candidate. Without JavaScript or under reduced
- * motion none of this applies and the text is simply there.
+ * view elsewhere (#167: case-study headings, statements and body paragraphs), ending `done` with no
+ * animation left on the words. CSS rather than motion/react so the server HTML is the animated markup:
+ * hydration never swaps the text, and the painted headline stays the LCP candidate. Without JavaScript or
+ * under reduced motion none of this applies and the text is simply there.
  */
 @keyframes line-rise {
   from {
@@ -537,14 +538,39 @@
 }
 
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  [data-line-reveal] .line-reveal-word {
+  [data-line-reveal=""] .line-reveal-word {
     opacity: 0;
   }
 
   [data-line-reveal="play"] .line-reveal-word {
     opacity: 1;
-    animation: line-rise var(--line-duration, 1s) var(--motion-ease-appear) both;
+    animation: line-rise var(--line-duration, 1s) var(--line-ease, var(--motion-ease-appear)) both;
     animation-delay: calc(var(--line-delay, 0s) + var(--line, 0) * var(--line-stagger, 0.25s));
+  }
+}
+
+/*
+ * Image settle (#167), components/motion-primitives/settle-reveal.tsx: on entering view, every
+ * `.settle-target` inside a `[data-settle]` box (case-study images, grids, the tall card, the carousel's
+ * clip) fades in while settling from 1.12 to 1 inside its clipped box, over 1s on the entrance curve
+ * (Alex's picker specimen). Transform and opacity only, so nothing shifts. Without JavaScript or under
+ * reduced motion none of this applies and the images are simply there.
+ */
+@keyframes settle-in {
+  from {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-settle=""] .settle-target {
+    opacity: 0;
+  }
+
+  [data-settle="play"] .settle-target {
+    opacity: 1;
+    animation: settle-in 1s var(--motion-ease-entrance) var(--settle-delay, 120ms) both;
   }
 }
 
