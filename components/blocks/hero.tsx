@@ -13,7 +13,7 @@ import { ScrollDrip } from '../motion-primitives/scroll-drip';
 import { ScrollParallax } from '../motion-primitives/scroll-parallax';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { useAnchorGlide } from '../motion-primitives/smooth-scroll';
-import { TextReveal } from '../motion-primitives/text-reveal';
+import { LineReveal } from '../motion-primitives/line-reveal';
 
 /**
  * Homepage hero, faithful to the Reference (`docs/parity-audit.md` H1–H6): a
@@ -115,9 +115,11 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
         <div className="flex w-full max-w-[1440px] flex-1 flex-col items-start justify-between">
           {data.headline && (
             <div className="w-full max-w-[450px] lg:w-[55%] lg:max-w-none" data-tina-field={tinaField(data, 'headline')}>
-              <TextReveal as="h1" per="line" className="font-display text-display text-on-image">
+              {/* Rises line by line from the first paint, in CSS (#177): the server HTML is the animated
+                  markup, so the painted headline is the LCP candidate rather than a post-hydration copy. */}
+              <LineReveal as="h1" trigger="load" className="font-display text-display text-on-image">
                 {data.headline}
-              </TextReveal>
+              </LineReveal>
             </div>
           )}
 

@@ -11,7 +11,7 @@ type VideoWithFrames = HTMLVideoElement & {
   requestVideoFrameCallback?: (cb: (now: number, meta: { mediaTime: number }) => void) => number;
 };
 
-/** How long the intro may take to show its first frame (while the page is visible) before the hero settles on the still. */
+/** How long the intro may take to show its first frame (while the page and the hero are visible) before the hero settles on the still. */
 const START_TIMEOUT = 4000;
 
 /**
@@ -144,6 +144,33 @@ function Player({ intro, idle, poster, onFail }: { intro: string; idle: string; 
       if (!disposed && top === null) onFailRef.current();
     };
 
+    // Off screen, the loop holds still (#177): leaving view pauses whatever is playing, coming back resumes
+    // exactly those, so a hand-off in flight picks up where it was. A clip that starts while out of view
+    // (a hand-off, or the intro on a load scrolled past the hero) is paused straight away and queued too.
+    let inView = true;
+    let held: VideoWithFrames[] = [];
+    const hold = (v: VideoWithFrames) => {
+      v.pause();
+      if (!held.includes(v)) held.push(v);
+    };
+    const onPlay = (event: Event) => {
+      if (!inView) hold(event.currentTarget as VideoWithFrames);
+    };
+    for (const v of all) v.addEventListener('play', onPlay);
+    const visibility = new IntersectionObserver(([entry]) => {
+      if (disposed || !entry) return;
+      if (!entry.isIntersecting) {
+        inView = false;
+        for (const v of all) if (!v.paused) hold(v);
+      } else if (!inView) {
+        inView = true;
+        const resume = held;
+        held = [];
+        for (const v of resume) v.play().catch(() => {});
+      }
+    });
+    visibility.observe(clipIntro);
+
     // Start the intro straight away: the page is already showing its first frame, so it plays from load.
     onFirstFrame(clipIntro, () => {
       if (disposed) return;
@@ -159,7 +186,7 @@ function Player({ intro, idle, poster, onFail }: { intro: string; idle: string; 
     let last = performance.now();
     const clock = window.setInterval(() => {
       const now = performance.now();
-      if (document.visibilityState === 'visible') waited += now - last;
+      if (document.visibilityState === 'visible' && inView) waited += now - last;
       last = now;
       if (top !== null) window.clearInterval(clock);
       else if (waited > START_TIMEOUT) {
@@ -171,8 +198,12 @@ function Player({ intro, idle, poster, onFail }: { intro: string; idle: string; 
     return () => {
       disposed = true;
       window.clearInterval(clock);
+      visibility.disconnect();
       clipIntro.removeEventListener('error', fail);
-      for (const v of all) v.pause();
+      for (const v of all) {
+        v.removeEventListener('play', onPlay);
+        v.pause();
+      }
     };
   }, []);
 
