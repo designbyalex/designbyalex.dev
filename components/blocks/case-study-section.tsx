@@ -20,7 +20,9 @@ import { metricFields } from '@/tina/fields/metric';
 import { components } from '../mdx-components';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { CountUp } from '../motion-primitives/count-up';
+import { LineReveal, LineWords } from '../motion-primitives/line-reveal';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
+import { SettleReveal } from '../motion-primitives/settle-reveal';
 import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
 import { PlainClip } from './video';
@@ -59,6 +61,23 @@ const COLUMN_GAP: Record<string, string> = {
   '16': 'gap-4',
 };
 
+/**
+ * Case-study text entrances (#167, Alex's picker specimen): headings, statements and body paragraphs rise
+ * line by line, 0.6em over 800ms on the entrance curve, 90ms apart, as they enter view.
+ */
+const CASE_LINES = { stagger: 0.09, duration: 0.8, y: '0.6em', ease: 'entrance' } as const;
+
+/** Body copy: every paragraph reveals its own lines; the `text` override splits each leaf (bold, links, highlights) into words in place. */
+const bodyComponents = {
+  ...components,
+  p: (props?: { children?: React.ReactNode }) => (
+    <LineReveal as='p' amount={0.2} {...CASE_LINES}>
+      {props?.children}
+    </LineReveal>
+  ),
+  text: LineWords,
+} as typeof components;
+
 /** The nested template name from a generated `__typename` (…BlocksStatement → Statement). */
 const kindOf = (block: { __typename?: string | null }) => block.__typename?.replace(/^.*Blocks/, '') ?? '';
 
@@ -89,9 +108,9 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
         )}
       >
         <div className='w-full pb-px lg:min-w-0 lg:flex-1'>
-          <ScrollReveal className='w-full xl:w-[80%]'>
+          <div className='w-full xl:w-[80%]'>
             {/* One heading element with the subheading after a break, as Framer's h3: white line, then the grey one. */}
-            <h2 className={cn('font-display', statementHeading ? 'text-statement' : 'text-heading')}>
+            <LineReveal as='h2' className={cn('font-display', statementHeading ? 'text-statement' : 'text-heading')} {...CASE_LINES}>
               <span data-tina-field={tinaField(data, 'heading')}>{data.heading}</span>
               {data.subheading && (
                 <>
@@ -101,8 +120,8 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
                   </span>
                 </>
               )}
-            </h2>
-          </ScrollReveal>
+            </LineReveal>
+          </div>
         </div>
 
         {blocks.length > 0 && (
@@ -117,7 +136,7 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
       {slides.length > 0 && <CaseStudyCarousel slides={slides} label={data.heading || 'Carousel'} />}
 
       {data.image?.src && (
-        <ScrollReveal className='w-full'>
+        <SettleReveal className='w-full'>
           {/*
            * Framer's "Image Full". Wide (Acacia): the content width at a 1.78065 ratio at every width,
            * corners via clip-path (a leftover from the retired parity check, ADR 0005, which read that
@@ -135,14 +154,14 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
               alt={data.image.alt || ''}
               fill
               sizes='(min-width: 1280px) min(100vw - 96px, 1344px), (min-width: 1024px) calc(100vw - 48px), min(100vw - 32px, 500px)'
-              className='object-cover'
+              className='settle-target object-cover'
             />
           </div>
-        </ScrollReveal>
+        </SettleReveal>
       )}
 
       {grid.length > 0 && cardGrid && (
-        <ScrollReveal className='w-full'>
+        <SettleReveal className='w-full'>
           {/*
            * Framer's "Image Grid" of cards (MOS Urban's typography pages): two 1.71613-ratio cards 8px apart
            * at lg+, stacked in order at 1.6729 under it; 20px corners on the card with the image at 101%
@@ -161,17 +180,17 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
                     alt={item.alt || ''}
                     fill
                     sizes='(min-width: 1280px) min(50vw - 52px, 668px), (min-width: 1024px) calc(50vw - 28px), min(100vw - 32px, 500px)'
-                    className='object-cover'
+                    className='settle-target object-cover'
                   />
                 </div>
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </SettleReveal>
       )}
 
       {grid.length > 0 && !cardGrid && (
-        <ScrollReveal className='w-full'>
+        <SettleReveal className='w-full'>
           {/*
            * Framer's "Image Grid" of phones (Acacia's onboarding): a 3.56129-ratio row of equal cards 8px
            * apart at desktop; on phones a 0.838408-ratio column with the second image on top (its wrappers
@@ -185,12 +204,12 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
                   alt={item.alt || ''}
                   fill
                   sizes='(min-width: 1280px) min(50vw - 52px, 668px), (min-width: 1024px) calc(50vw - 28px), min(100vw - 32px, 500px)'
-                  className='object-cover'
+                  className='settle-target object-cover'
                 />
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </SettleReveal>
       )}
 
       {metrics.length > 0 && (
@@ -255,14 +274,14 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     const body = block as ProjectBlocksCaseStudySectionBlocksBody;
     // The Reference's body copy: 14px grey, paragraphs 20px apart, bold runs near-white at weight 400.
     return (
-      <ScrollReveal delay={delay} className='w-full'>
+      <div className='w-full'>
         <div
           className='text-caption text-muted-foreground [&_a]:text-emphasis [&_a:hover]:underline [&_p+p]:mt-5 [&_strong]:font-normal [&_strong]:text-foreground-soft'
           data-tina-field={tinaField(body, 'body')}
         >
-          <TinaMarkdown content={body.body} components={components} />
+          <TinaMarkdown content={body.body} components={bodyComponents} />
         </div>
-      </ScrollReveal>
+      </div>
     );
   }
 
@@ -273,9 +292,10 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     // the space between the parts belongs to whichever string carries it, and a space that hangs at the
     // end of a line keeps its box.
     return (
-      <ScrollReveal
+      <LineReveal
         as='p'
         delay={delay}
+        {...CASE_LINES}
         className={cn(
           'w-full whitespace-pre-wrap font-display text-statement',
           statement.muted ? 'text-muted-foreground' : 'text-foreground',
@@ -287,7 +307,7 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
           {statement.text}
           {statement.emphasis && <span className='text-emphasis'>{statement.emphasis}</span>}
         </span>
-      </ScrollReveal>
+      </LineReveal>
     );
   }
 
@@ -373,7 +393,7 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     // 0.855738 ratio at xl and 425px tall under it, with 16px border-radius;
     // or the image at its own ratio. "Lead on phones" keeps it above a statement that leads there.
     return (
-      <ScrollReveal delay={delay} className={cn('w-full', image.leadOnPhone && 'max-lg:-order-2')}>
+      <SettleReveal delay={0.12 + delay} className={cn('w-full', image.leadOnPhone && 'max-lg:-order-2')}>
         <div
           className={cn(
             'relative w-full',
@@ -383,18 +403,18 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
           data-tina-field={tinaField(image, 'src')}
         >
           {natural ? (
-            <Image src={image.src} alt={image.alt || ''} width={1600} height={1200} className='h-auto w-full' />
+            <Image src={image.src} alt={image.alt || ''} width={1600} height={1200} className='settle-target h-auto w-full' />
           ) : (
             <Image
               src={image.src}
               alt={image.alt || ''}
               fill
               sizes='(min-width: 1024px) min(47vw, 532px), min(100vw - 32px, 500px)'
-              className='object-cover'
+              className='settle-target object-cover'
             />
           )}
         </div>
-      </ScrollReveal>
+      </SettleReveal>
     );
   }
 
