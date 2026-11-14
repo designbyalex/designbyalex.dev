@@ -12,6 +12,14 @@ import { collectBreadcrumbs } from '@/lib/tina/collect-breadcrumbs';
 
 export const revalidate = 300;
 
+// Only the slugs generateStaticParams lists render here; any other URL is unmatched, so Next serves the
+// prerendered app/not-found.tsx (/_not-found) inside the root layout with a 404 (#174). Rendering an
+// unknown slug on demand and calling notFound() from the page instead sent Next's empty error shell
+// (`<html id="__next_error__">`, no lang, empty body) and drew the 404 client-side: Next 15 only catches
+// a page's notFound() in the browser, never during SSR. Tina's content commits redeploy the site, so a
+// new page or project gets its route with that build.
+export const dynamicParams = false;
+
 /** Collect every project's slug, title and order (for the next-project and Work-index sorts) and what its card shows. */
 async function fetchAllProjects(): Promise<WorkProjectRef[]> {
   const out: WorkProjectRef[] = [];
