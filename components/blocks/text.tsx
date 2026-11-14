@@ -7,7 +7,6 @@ import type { Template } from 'tinacms';
 import { PageBlocksText } from '../../tina/__generated__/types';
 import { tinaField } from 'tinacms/dist/react';
 import { Section } from '../layout/section';
-import { Mermaid } from './mermaid';
 import { sectionBlockSchemaField } from '../layout/section';
 import { scriptCopyBlockSchema, ScriptCopyBtn } from '../magicui/script-copy-btn';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
@@ -20,7 +19,6 @@ export const Text = ({ data }: { data: PageBlocksText }) => {
           content={data.body}
           components={{
             ...components,
-            mermaid: (props: any) => <Mermaid {...props} />,
             scriptCopyBlock: (props: any) => <ScriptCopyBtn {...props} />,
           }}
         />
