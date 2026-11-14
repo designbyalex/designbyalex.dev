@@ -223,7 +223,7 @@ interface ClipProps {
   className?: string;
 }
 
-/** The <video> itself, driven from `playing`; under reduced motion a play/pause button sits over it. */
+/** The <video> itself, driven from `playing` and whether it's on screen; under reduced motion a play/pause button sits over it. */
 const Clip = ({ src, playing, loop, reducedMotion, className }: ClipProps) => {
   const ref = React.useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = React.useState(true);
@@ -233,8 +233,18 @@ const Clip = ({ src, playing, loop, reducedMotion, className }: ClipProps) => {
     if (!el) return;
     // React sets `muted` as a property, not an attribute, so make sure of it before asking to play.
     el.muted = true;
-    if (playing) el.play().catch(() => {});
-    else el.pause();
+    if (!playing) {
+      el.pause();
+      return;
+    }
+    // An autoplaying loop plays only while it is on screen (#177): it pauses on leaving view and resumes
+    // on coming back. Under reduced motion (`playing` false) the viewer's own play/pause button rules.
+    const visibility = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) el.play().catch(() => {});
+      else el.pause();
+    });
+    visibility.observe(el);
+    return () => visibility.disconnect();
   }, [playing]);
 
   const toggle = () => {

@@ -170,57 +170,6 @@ export function textRevealMotion(prefersReducedMotion: boolean, options: TextRev
   };
 }
 
-// ─── line-reveal ──────────────────────────────────────────────────────────────
-
-export interface LineRevealOptions {
-  /** Seconds between each line entering. Default 0.25. */
-  stagger?: number;
-  /** Delay before the first line, in seconds. Default 0. */
-  delay?: number;
-  /** Per-line animation duration in seconds. Default 1 (the Reference's headline appear). */
-  duration?: number;
-  /** Vertical offset (px) each line rises from. Default 60 (the Reference's appear distance). */
-  y?: number;
-}
-
-export interface LineRevealMotion {
-  /**
-   * Variants for each word span; `custom` is the word's rendered line index,
-   * so every word on a line shares one delay and the line moves as a unit.
-   */
-  item: Variants;
-  /** True when the text actually animates; false under reduced motion. */
-  animate: boolean;
-}
-
-/**
- * Variants for a line-by-line fade-up: each rendered line rises into place in
- * order (the Reference's appear settings: y 60 → 0, 1s, the appear curve).
- * The line index arrives per word via `custom`, measured from the rendered
- * wrap by the primitive. Reduced motion → identical hidden/visible states, so
- * the text renders fully visible and still.
- */
-export function lineRevealMotion(prefersReducedMotion: boolean, options: LineRevealOptions = {}): LineRevealMotion {
-  const { stagger = 0.25, delay = 0, duration = 1, y = 60 } = options;
-
-  if (prefersReducedMotion) {
-    const shown: TargetAndTransition = { opacity: 1, y: 0, transition: INSTANT };
-    return { item: { hidden: shown, visible: shown }, animate: false };
-  }
-
-  return {
-    item: {
-      hidden: { opacity: 0, y },
-      visible: (line: number = 0) => ({
-        opacity: 1,
-        y: 0,
-        transition: { duration, delay: delay + line * stagger, ease: EASE_APPEAR },
-      }),
-    },
-    animate: true,
-  };
-}
-
 // ─── hover ────────────────────────────────────────────────────────────────────
 
 export interface HoverOptions {
