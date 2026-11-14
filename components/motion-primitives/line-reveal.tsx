@@ -45,19 +45,23 @@ const WORD = 'line-reveal-word';
 
 /**
  * Groups the words of `el` into the lines the wrap produced at the current width, writing each word's line
- * index to its `--line`. Plain DOM so the same code runs inline in the server HTML (before first paint) and
- * from the component on the client; `offsetTop` ignores transforms, so it is safe mid-animation.
+ * index to its `--line`. Reads every position first and writes after, and only what changed, so a page of
+ * paragraphs costs one layout rather than one per word. `offsetTop` ignores transforms, so it is safe
+ * mid-animation.
  */
 function groupLines(el: HTMLElement) {
+  const words = Array.from(el.querySelectorAll<HTMLElement>(`.${WORD}`));
+  const tops = words.map((word) => word.offsetTop);
   let top: number | null = null;
   let line = -1;
-  for (const word of el.querySelectorAll<HTMLElement>(`.${WORD}`)) {
-    if (top === null || Math.abs(word.offsetTop - top) > 1) {
+  words.forEach((word, i) => {
+    if (top === null || Math.abs(tops[i] - top) > 1) {
       line += 1;
-      top = word.offsetTop;
+      top = tops[i];
     }
-    word.style.setProperty('--line', String(line));
-  }
+    const value = String(line);
+    if (word.style.getPropertyValue('--line') !== value) word.style.setProperty('--line', value);
+  });
 }
 
 /**
@@ -65,7 +69,7 @@ function groupLines(el: HTMLElement) {
  * just before it, so the lines are grouped before first paint. (Not `groupLines.toString()`: the bundler
  * renames what that closes over.)
  */
-const groupLinesScript = `(function(s){var el=s&&s.previousElementSibling;if(!el)return;var t=null,l=-1,w=el.querySelectorAll(".${WORD}");for(var i=0;i<w.length;i++){if(t===null||Math.abs(w[i].offsetTop-t)>1){l++;t=w[i].offsetTop}w[i].style.setProperty("--line",String(l))}})(document.currentScript)`;
+const groupLinesScript = `(function(s){var el=s&&s.previousElementSibling;if(!el)return;var w=el.querySelectorAll(".${WORD}"),o=[],t=null,l=-1,i;for(i=0;i<w.length;i++)o.push(w[i].offsetTop);for(i=0;i<w.length;i++){if(t===null||Math.abs(o[i]-t)>1){l++;t=o[i]}w[i].style.setProperty("--line",String(l))}})(document.currentScript)`;
 
 /** Wraps each word of every string in `node` in a word span, recursing into host elements (links, highlights). */
 function splitWords(node: ReactNode, key = 'w'): ReactNode {
