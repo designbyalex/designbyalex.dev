@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
@@ -27,6 +28,9 @@ import { SettleReveal } from '../motion-primitives/settle-reveal';
 import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
 import { PlainClip } from './video';
+
+// Only the MOS Urban design-system Section uses it, so its markup, styles and script load in their own chunk.
+const MosPlayground = dynamic(() => import('./mos-playground'));
 
 /**
  * One case-study section, as the Reference composes them (#60, docs/parity-audit.md §2.4): the heading
@@ -133,6 +137,12 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
           </div>
         )}
       </div>
+
+      {data.interactive === 'mos-playground' && (
+        <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
+          <MosPlayground />
+        </div>
+      )}
 
       {slides.length > 0 && <CaseStudyCarousel slides={slides} label={data.heading || 'Carousel'} />}
 
@@ -760,6 +770,14 @@ export const caseStudySectionBlockSchema: Template = {
       ...projectImageField('placeholderPattern', 'Placeholder pattern'),
       description:
         'A tile (an SVG, as the hatch in public/uploads/projects/mosurban/placeholder-hatch.svg) repeated at 64px across a full-width 16:9 panel with 20px corners below the columns: Framer’s "What’s next for Mos?" placeholder. Leave empty for no panel.',
+    },
+    {
+      type: 'string',
+      name: 'interactive',
+      label: 'Interactive piece',
+      description:
+        'A live piece below the columns, in place of an image. Mos Urban design-system playground: Mos’s own components, working, on a #131313 board that visitors drag and zoom (the MOS Urban design-system Section).',
+      options: [{ label: 'Mos Urban design-system playground', value: 'mos-playground' }],
     },
   ],
 };
