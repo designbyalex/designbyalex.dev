@@ -2,10 +2,8 @@ import { format } from 'date-fns';
 import React from 'react';
 import { Components, TinaMarkdown, TinaMarkdownContent } from 'tinacms/dist/rich-text';
 import Image from 'next/image';
-import { Prism } from 'tinacms/dist/rich-text/prism';
 import { Video } from './blocks/video';
 import { PageBlocksVideo } from '@/tina/__generated__/types';
-import { Mermaid } from './blocks/mermaid';
 
 export const components: Components<{
   BlockQuote: {
@@ -23,16 +21,17 @@ export const components: Components<{
   };
   video: PageBlocksVideo;
 }> = {
+  // No content has code blocks, so a plain <pre> replaces the starter's Prism highlighter and Mermaid
+  // renderer, which shipped prism-react-renderer and mermaid to every page (#176).
   code_block: (props) => {
     if (!props) {
       return <></>;
     }
-    
-    if (props.lang === 'mermaid') {
-      return <Mermaid value={props.value} />
-    }
-
-    return <Prism lang={props.lang} value={props.value} />;
+    return (
+      <pre>
+        <code>{props.value}</code>
+      </pre>
+    );
   },
   BlockQuote: (props: {
     children: TinaMarkdownContent;
@@ -115,7 +114,6 @@ export const components: Components<{
   highlight: (props: { children: React.ReactNode; color?: string } | undefined) => (
     <span className='text-emphasis'>{props?.children}</span>
   ),
-  mermaid: (props: any) => <Mermaid {...props} />,
   video: (props) => {
     return <Video data={props} />;
   },
