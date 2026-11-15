@@ -7,7 +7,7 @@ import { videoBlockSchema } from '@/components/blocks/video';
 import { featureDeepDiveBlockSchema } from '@/components/blocks/feature-deep-dive';
 import { metricsBlockSchema } from '@/components/blocks/metrics';
 import { quoteBlockSchema } from '@/components/blocks/quote';
-import { ctaBlockSchema } from '@/components/blocks/call-to-action';
+import { ctaBlockSchema } from '@/components/blocks/call-to-action.schema';
 import { selectedProjectsBlockSchema } from '@/components/blocks/selected-projects';
 import { aboutBlockSchema } from '@/components/blocks/about';
 import { workIndexBlockSchema } from '@/components/blocks/work-index';
