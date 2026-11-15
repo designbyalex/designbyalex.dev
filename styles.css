@@ -380,6 +380,15 @@
     outline: 2px solid var(--ring);
     outline-offset: 3px;
   }
+  /*
+   * Text selection in the brand emphasis green (#168, Alex's pick 2026-11-13): the theme's own green
+   * (#3cda64 dark, #0f7a35 light) with page-coloured text, so a selection reads in both themes and over
+   * the green highlights, which take the same pair while selected.
+   */
+  ::selection {
+    background-color: var(--emphasis);
+    color: var(--background);
+  }
 }
 
 /*
