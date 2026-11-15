@@ -16,6 +16,7 @@ import type {
 } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
 import { formatMetric, type MetricKind } from '@/lib/case-study/format';
+import { sameOriginMedia } from '@/lib/tina/same-origin-media';
 import { metricFields } from '@/tina/fields/metric';
 import { components } from '../mdx-components';
 import { Section, sectionBlockSchemaField } from '../layout/section';
@@ -339,7 +340,8 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     // The Mission card: a 435px bordered card with 16px corners clipping a 524×522 grid drawn from 43px
     // above its top edge (so the grid's frame line sits just inside the card), the logo centred over it.
     // The grid asset is a mask filled with the grid-line token: its own green in dark, #0f7a35 in light (#91);
-    // the border takes the emphasis green the same way.
+    // the border takes the emphasis green the same way. The mask reads the file from this site's origin: Tina
+    // Cloud's asset host sends no CORS header, and a cross-origin mask without one never paints (#173).
     return (
       <ScrollReveal delay={delay} className='w-full'>
         <div
@@ -353,7 +355,7 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
             <span
               aria-hidden
               className='absolute -top-[43px] -left-px block h-[522px] w-[524px] bg-grid-line'
-              style={{ maskImage: `url(${card.grid})`, maskSize: '100% 100%', maskRepeat: 'no-repeat' }}
+              style={{ maskImage: `url(${sameOriginMedia(card.grid)})`, maskSize: '100% 100%', maskRepeat: 'no-repeat' }}
             />
           )}
           {/* The foreground colour token: white on the dark theme, as live; near-black on light. */}
