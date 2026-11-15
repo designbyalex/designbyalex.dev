@@ -5,7 +5,7 @@ import type { ProjectBlocksCaseStudySectionCarouselSlides } from '@/tina/__gener
 import { motion, useReducedMotion } from 'motion/react';
 import React from 'react';
 import { tinaField } from 'tinacms/dist/react';
-import { ScrollReveal } from '../motion-primitives/scroll-reveal';
+import { SettleReveal } from '../motion-primitives/settle-reveal';
 import { FramedClip, SlideChrome } from './video';
 
 /**
@@ -38,7 +38,8 @@ export const CaseStudyCarousel = ({ slides, label }: { slides: CarouselSlide[]; 
   };
 
   return (
-    <ScrollReveal className='hidden w-full xl:block'>
+    // The slide's clip settles inside the card as it enters (#167); the card and its text are there already.
+    <SettleReveal className='hidden w-full xl:block'>
       <div role='region' aria-roledescription='carousel' aria-label={label} className='relative h-[720px] overflow-clip rounded-[20px] bg-card p-6'>
         {/* Persistent, so the new slide is announced when it replaces the old one. */}
         <div aria-live='polite' className='h-full'>
@@ -62,7 +63,7 @@ export const CaseStudyCarousel = ({ slides, label }: { slides: CarouselSlide[]; 
               <p className='whitespace-pre font-display text-slide-number text-foreground-faint' data-tina-field={tinaField(slide, 'number')}>
                 {slide.number}
               </p>
-              <div className='h-[453px] w-[780px] shrink-0'>
+              <div className='settle-target h-[453px] w-[780px] shrink-0'>
                 <FramedClip
                   src={slide.video!}
                   frame={slide.frame!}
@@ -77,6 +78,6 @@ export const CaseStudyCarousel = ({ slides, label }: { slides: CarouselSlide[]; 
         </div>
         <SlideChrome index={index} count={slides.length} onSelect={select} />
       </div>
-    </ScrollReveal>
+    </SettleReveal>
   );
 };
