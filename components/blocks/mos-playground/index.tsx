@@ -1,14 +1,10 @@
 'use client';
-import { Public_Sans } from 'next/font/google';
 import { useEffect, useMemo, useRef } from 'react';
 import { type Board, initBoard } from './board';
 import { initMosKit } from './kit.js';
 import { KIT_MARKUP } from './markup';
 import './kit.css';
 import './board.css';
-
-// Mos's typeface, 400 and 500 only (its design system's rule), loaded with the playground alone.
-const publicSans = Public_Sans({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-public-sans', display: 'swap' });
 
 /**
  * MOS Urban design-system playground (#172): Mos Urban's own components, live, on a #131313 board in the
@@ -44,7 +40,7 @@ export function MosPlayground() {
   }, []);
 
   return (
-    <div ref={ref} className={`mpg ${publicSans.variable}`} role='region' aria-label='Mos Urban components, live'>
+    <div ref={ref} className='mpg' role='region' aria-label='Mos Urban components, live'>
       <div className='mpg-zoom' role='group' aria-label='Zoom'>
         <button type='button' aria-label='Zoom out' onClick={() => board.current?.zoomBy(1 / 1.25)}>
           −
