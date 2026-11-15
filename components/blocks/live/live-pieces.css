@@ -22,3 +22,31 @@
     transform: none;
   }
 }
+
+/* The tuner's drip preview: the sheet bobs and the blobs wobble at the sliders' rates (custom properties). */
+@media (prefers-reduced-motion: no-preference) {
+  .live-drip .live-drip-sheet {
+    animation: live-drip-sheet var(--live-sheet, 3.5s) ease-in-out infinite;
+  }
+  .live-drip .live-drip-blob {
+    animation: live-drip-wobble var(--live-wobble, 2.6s) ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+}
+
+@keyframes live-drip-sheet {
+  0%,
+  100% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(14px);
+  }
+}
+
+@keyframes live-drip-wobble {
+  50% {
+    transform: translateY(6px) scale(1.08, 0.94);
+  }
+}
