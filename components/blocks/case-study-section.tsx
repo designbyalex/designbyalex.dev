@@ -13,6 +13,7 @@ import type {
   ProjectBlocksCaseStudySectionBlocksInsights,
   ProjectBlocksCaseStudySectionBlocksLogoCard,
   ProjectBlocksCaseStudySectionBlocksStatement,
+  ProjectBlocksCaseStudySectionBlocksStudioBoard,
   ProjectBlocksCaseStudySectionBlocksVideo,
 } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
@@ -28,6 +29,7 @@ import { SettleReveal } from '../motion-primitives/settle-reveal';
 import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
 import { PlainClip } from './video';
+import { StudioBoard, studioBoardTemplate } from './live/studio-board';
 
 // Only the MOS Urban design-system Section uses it, so its markup, styles and script load in their own chunk.
 const MosPlayground = dynamic(() => import('./mos-playground'));
@@ -395,6 +397,15 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     );
   }
 
+  if (kind === 'StudioBoard') {
+    // The AI-workflow story's studio board (#191): sessions in Working / Waiting / Blocked columns.
+    return (
+      <ScrollReveal delay={delay} className='w-full'>
+        <StudioBoard data={block as ProjectBlocksCaseStudySectionBlocksStudioBoard} />
+      </ScrollReveal>
+    );
+  }
+
   if (kind === 'Image') {
     const image = block as ProjectBlocksCaseStudySectionBlocksImage;
     if (!image.src) return null;
@@ -685,7 +696,16 @@ export const caseStudySectionBlockSchema: Template = {
       name: 'blocks',
       label: 'Right column',
       description: 'Body copy, statements, lists and media in the right column, in order.',
-      templates: [bodyTemplate, statementTemplate, insightsTemplate, iconListTemplate, logoCardTemplate, columnImageTemplate, columnVideoTemplate],
+      templates: [
+        bodyTemplate,
+        statementTemplate,
+        insightsTemplate,
+        iconListTemplate,
+        logoCardTemplate,
+        columnImageTemplate,
+        columnVideoTemplate,
+        studioBoardTemplate,
+      ],
     },
     {
       type: 'object',
