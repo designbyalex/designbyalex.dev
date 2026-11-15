@@ -27,11 +27,17 @@ const nextConfig: NextConfig = {
         value: "frame-ancestors 'self'",
       },
     ];
+    // Committed media (the Hero piece clips and stills, /uploads) was served `max-age=0, must-revalidate`,
+    // so every visit revalidated megabytes of video (#177). A day fresh, then a week served stale while it
+    // revalidates. Not `immutable`: the files aren't fingerprinted, and a re-render keeps its file name.
+    const mediaCache = [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }];
     return [
       {
         source: '/(.*)',
         headers,
       },
+      { source: '/hero-piece/:path*', headers: mediaCache },
+      { source: '/uploads/:path*', headers: mediaCache },
     ];
   },
   async redirects() {

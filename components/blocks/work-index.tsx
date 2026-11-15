@@ -44,6 +44,16 @@ const thumbnailSizes: Record<WorkFormat, string> = {
  * Story label is for screen readers only. The optional intro sits right of the
  * heading from lg and stacks under it on phones. The header has no Work link.
  */
+/** A row's entrance: CSS from the first paint for the first row (`.work-row-in` in styles.css), ScrollReveal for the rest. */
+function RowReveal({ first, className, children }: { first: boolean; className: string; children: React.ReactNode }) {
+  if (first) return <div className={cn('work-row-in', className)}>{children}</div>;
+  return (
+    <ScrollReveal amount={0.2} scale={0.92} className={className}>
+      {children}
+    </ScrollReveal>
+  );
+}
+
 export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
   const entries = buildWorkIndex(React.useContext(WorkProjectsContext));
 
@@ -86,7 +96,9 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
                 last ? 'pb-[150px]' : 'pb-[100px]'
               )}
             >
-              <ScrollReveal amount={0.2} scale={0.92} className={cn('w-full', story ? 'lg:w-[60%] xl:w-[50%]' : 'lg:w-[90%] xl:w-[80%]')}>
+              {/* The first row's image is the page's LCP element (#177): it enters in CSS from the first paint
+                  (`.work-row-in`, ScrollReveal's fade, rise and settle) and loads at high priority; the rest reveal on scroll. */}
+              <RowReveal first={i === 0} className={cn('w-full', story ? 'lg:w-[60%] xl:w-[50%]' : 'lg:w-[90%] xl:w-[80%]')}>
                 <Link
                   href={entry.href}
                   data-format={entry.format}
@@ -104,6 +116,7 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
                           alt={entry.thumbnailAlt || ''}
                           fill
                           sizes={thumbnailSizes[entry.format]}
+                          priority={i === 0}
                           className='rounded-[20px] object-cover'
                         />
                       )}
@@ -134,7 +147,7 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
                     {entry.tagline && <p className='text-body text-muted-foreground'>{entry.tagline}</p>}
                   </div>
                 </Link>
-              </ScrollReveal>
+              </RowReveal>
             </li>
           );
         })}
