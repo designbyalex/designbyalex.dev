@@ -86,7 +86,9 @@ export const Header = () => {
   }, [pathname]);
 
   return (
-    <HideOnScroll className="fixed inset-x-0 top-0 z-20">
+    // `site-header` names the header's own view-transition group (styles.css, "Route transitions"), so it
+    // holds still while the root snapshot cross-fades on a route change instead of fading with the page (#175).
+    <HideOnScroll className="site-header fixed inset-x-0 top-0 z-20">
       <header
         ref={headerRef}
         data-section="header"
