@@ -7,6 +7,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { tinaField } from 'tinacms/dist/react';
 import type {
   ProjectBlocksCaseStudySection,
+  ProjectBlocksCaseStudySectionBlocksBatchDashboard,
   ProjectBlocksCaseStudySectionBlocksBody,
   ProjectBlocksCaseStudySectionBlocksIconList,
   ProjectBlocksCaseStudySectionBlocksImage,
@@ -29,6 +30,7 @@ import { SettleReveal } from '../motion-primitives/settle-reveal';
 import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
 import { PlainClip } from './video';
+import { BatchDashboard, batchDashboardTemplate } from './live/batch-dashboard';
 import { StudioBoard, studioBoardTemplate } from './live/studio-board';
 
 // Only the MOS Urban design-system Section uses it, so its markup, styles and script load in their own chunk.
@@ -406,6 +408,15 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     );
   }
 
+  if (kind === 'BatchDashboard') {
+    // The AI-workflow story's batch dashboard (#191): an unattended batch's stats, running ticket and queue.
+    return (
+      <ScrollReveal delay={delay} className='w-full'>
+        <BatchDashboard data={block as ProjectBlocksCaseStudySectionBlocksBatchDashboard} />
+      </ScrollReveal>
+    );
+  }
+
   if (kind === 'Image') {
     const image = block as ProjectBlocksCaseStudySectionBlocksImage;
     if (!image.src) return null;
@@ -705,6 +716,7 @@ export const caseStudySectionBlockSchema: Template = {
         columnImageTemplate,
         columnVideoTemplate,
         studioBoardTemplate,
+        batchDashboardTemplate,
       ],
     },
     {

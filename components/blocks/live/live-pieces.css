@@ -1,0 +1,24 @@
+/*
+ * Motion for the AI-workflow story's live pieces (#191). Everything here runs only without a reduced-motion
+ * preference: the pieces render at rest from first paint, and these loops are the only thing that moves.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The dashboard's newest tool call arriving, on a loop, as the loop's own dashboard showed it. */
+  .live-call-in {
+    animation: live-call-in 3.2s ease-out infinite;
+  }
+}
+
+@keyframes live-call-in {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  24%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
