@@ -478,3 +478,10 @@
   .mos .home-hero_image { will-change: auto; }
   .mos .filters3_modal.is-open .filters3_panel > * { animation: none; }
 }
+
+/* Photo placeholders (#172): Mos's photos stay off the public repo, so each photo is a flat block on Mos's own grey
+   ramp, at the photo's size and with its alt text. Dark tones under the hero's white type, light ones on cards. */
+.mos .m-ph { display: block; background-color: #d8d8d8; }
+.mos .home-hero_image.m-ph, .mos .m-ground-img.m-ph { background-color: #4c4c4c; }
+.mos .home-hero_content-item:nth-child(even) .home-hero_image.m-ph { background-color: #7f7f7f; }
+.mos .colours_swatch-image.m-ph { background-color: #b2b2b2; }
