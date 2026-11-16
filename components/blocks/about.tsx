@@ -7,6 +7,7 @@ import React from 'react';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { Section, sectionBlockSchemaField } from '../layout/section';
+import { NewTabHint } from '../a11y/new-tab-hint';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 /**
@@ -136,6 +137,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
                         {cv.label}
                       </span>
                     </span>
+                    {cvIsExternal && <NewTabHint />}
                   </a>
                 </ScrollReveal>
               )}

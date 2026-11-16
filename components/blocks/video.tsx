@@ -125,6 +125,8 @@ interface ClipOptions {
   src: string;
   autoPlay?: boolean | null;
   loop?: boolean | null;
+  /** The clip's accessible name (#178): the block's description, else the section heading. */
+  label?: string | null;
 }
 
 /** Whether the clip plays on its own: the block's Auto Play through the reduced-motion selector. */
@@ -138,7 +140,7 @@ const usePlayback = (autoPlay?: boolean | null) => {
 };
 
 /** The case-study column's "Image Wrapper": a 20px-cornered box with the clip at 101% inside (so the clip carries no radius). */
-export const PlainClip = ({ src, autoPlay, loop, className, field }: ClipOptions & { className?: string; field?: string }) => {
+export const PlainClip = ({ src, autoPlay, loop, label, className, field }: ClipOptions & { className?: string; field?: string }) => {
   const { playing, reducedMotion } = usePlayback(autoPlay);
   return (
     <div className={cn('relative aspect-[1.6729] overflow-clip rounded-[20px] bg-card xl:aspect-[1.67419]', className)} data-tina-field={field}>
@@ -146,6 +148,7 @@ export const PlainClip = ({ src, autoPlay, loop, className, field }: ClipOptions
         src={src}
         playing={playing}
         loop={loop ?? true}
+        label={label}
         reducedMotion={reducedMotion}
         className='absolute top-[-0.5%] left-[-0.5%] h-[101%] w-[101%]'
       />
@@ -159,6 +162,7 @@ export const FramedClip = ({
   frame,
   autoPlay,
   loop,
+  label,
   frameField,
   urlField,
 }: ClipOptions & { frame: string; frameField?: string; urlField?: string }) => {
@@ -167,7 +171,7 @@ export const FramedClip = ({
     <div className='relative' data-tina-field={frameField}>
       <Image src={frame} alt='' width={2048} height={1570} sizes='(min-width: 1280px) 780px, 100vw' className='h-auto w-full' />
       <div className='absolute inset-x-[2.0513%] top-[2.6756%] aspect-[1.78351] overflow-clip' data-tina-field={urlField}>
-        <Clip src={src} playing={playing} loop={loop ?? true} reducedMotion={reducedMotion} className='h-full w-full' />
+        <Clip src={src} playing={playing} loop={loop ?? true} label={label} reducedMotion={reducedMotion} className='h-full w-full' />
       </div>
     </div>
   );
@@ -183,6 +187,7 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
       frame={data.frame}
       autoPlay={data.autoPlay}
       loop={data.loop}
+      label={data.description}
       frameField={tinaField(data, 'frame')}
       urlField={tinaField(data, 'url')}
     />
@@ -208,7 +213,7 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
         <ScrollReveal className='mx-auto w-full max-w-[780px]'>{framed}</ScrollReveal>
       ) : (
         <ScrollReveal className='mx-auto w-full max-w-[500px] xl:max-w-[532px]'>
-          <PlainClip src={data.url} autoPlay={data.autoPlay} loop={data.loop} field={tinaField(data, 'url')} />
+          <PlainClip src={data.url} autoPlay={data.autoPlay} loop={data.loop} label={data.description} field={tinaField(data, 'url')} />
         </ScrollReveal>
       )}
     </Section>
@@ -219,12 +224,13 @@ interface ClipProps {
   src: string;
   playing: boolean;
   loop: boolean;
+  label?: string | null;
   reducedMotion: boolean;
   className?: string;
 }
 
 /** The <video> itself, driven from `playing` and whether it's on screen; under reduced motion a play/pause button sits over it. */
-const Clip = ({ src, playing, loop, reducedMotion, className }: ClipProps) => {
+const Clip = ({ src, playing, loop, label, reducedMotion, className }: ClipProps) => {
   const ref = React.useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = React.useState(true);
 
@@ -264,6 +270,7 @@ const Clip = ({ src, playing, loop, reducedMotion, className }: ClipProps) => {
         playsInline
         autoPlay={playing}
         preload='metadata'
+        aria-label={label || undefined}
         onPlay={() => setPaused(false)}
         onPause={() => setPaused(true)}
         className={cn('block object-cover', className)}
@@ -312,6 +319,12 @@ export const videoBlockSchema: Template = {
       type: 'boolean',
       label: 'Loop',
       name: 'loop',
+    },
+    {
+      type: 'string',
+      label: 'Description',
+      name: 'description',
+      description: 'What the clip shows, read out by screen readers as its accessible name.',
     },
     {
       type: 'image',
