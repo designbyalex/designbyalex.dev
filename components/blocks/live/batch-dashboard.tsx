@@ -86,7 +86,9 @@ export const BatchDashboard = ({ data }: { data: Dashboard }) => {
                       data-tina-field={tinaField(call!)}
                     >
                       <span className='text-emphasis'>{call!.tool}</span>
-                      <span className='truncate'>{call!.target}</span>
+                      <span className='truncate' title={call!.target ?? undefined}>
+                        {call!.target}
+                      </span>
                     </li>
                   ))}
                 </ol>
