@@ -52,13 +52,13 @@ blocks:
       - _template: iconList
         label: My rules for the team
         items:
-          - icon: lock
+          - icon: approve
             text: Nothing goes live until I say yes.
-          - icon: module
+          - icon: options
             text: I see every design decision as real options on the page.
-          - icon: user
+          - icon: questions
             text: They save up their questions and ask me once, with what they’d pick.
-          - icon: progress
+          - icon: parallel
             text: Each agent owns its own part of the site.
       - _template: statement
         text: 'Write the rules first, '
@@ -68,6 +68,7 @@ blocks:
     heading: Taste stays with me
     subheading: Every visual call is mine
     headingSize: heading
+    interactive: story-picker
     blocks:
       - _template: body
         body: |-
@@ -88,6 +89,33 @@ blocks:
           On my busiest afternoon I had nine agents going at once. I’d check the sidebar the way you’d look around a studio: who’s working, who’s waiting, who’s stuck on me.
 
           When one reports back, it leads with a single line. Done, ready, stuck, or the one thing it wants from me. I answer and it carries on.
+      - _template: studioBoard
+        cards:
+          - title: designbyalex.dev master
+            role: Master
+            column: working
+          - title: 'pilot done #108 (ADR PR #156)'
+            column: working
+          - title: '#15 Cutover prep'
+            role: Side worker
+            column: working
+          - title: AFK dashboard autostart
+            role: Side worker
+            column: working
+          - title: '#124 Post-cutover case studies'
+            column: working
+          - title: '#108 Hero animatic'
+            role: Writer
+            column: waiting
+          - title: '#46 AFK polish batch'
+            role: Writer
+            column: waiting
+          - title: AFK checks and Tina ports
+            role: Side worker
+            column: blocked
+          - title: Reference cache
+            role: Side worker
+            column: blocked
       - _template: statement
         text: 'I check in, unblock, '
         emphasis: and get out of the way.
@@ -104,6 +132,41 @@ blocks:
           Seven batches, 36 tickets. I reviewed each batch once at the end, on one page with Accept or Needs work next to every change.
 
           Early on I had the agents build a gate that compared every page with my old Framer site. One batch took the differences from 4,269 down to 9. Once it got that close, I trusted my own eye more than the gate and switched it off.
+      - _template: batchDashboard
+        title: 'Batch #81'
+        status: Running
+        stats:
+          - value: 8 / 14
+            label: tickets done
+          - value: 34m
+            label: per ticket
+          - value: 3h 24m
+            label: left
+          - value: $128.72
+            label: agent cost
+        done: 8
+        total: 14
+        running: '#62 Case-study opening'
+        runningNote: attempt 2
+        calls:
+          - tool: Read
+            target: components/case-study/project-overview.tsx
+          - tool: Read
+            target: tina/collection/project.ts
+          - tool: Edit
+            target: tina/collection/project.ts
+          - tool: Edit
+            target: components/case-study/project-overview.tsx
+          - tool: Bash
+            target: scripts/afk/check.sh --ticket 62
+        queue:
+          - number: '#63'
+            title: Case-study ending
+          - number: '#64'
+            title: MOS videos + video block
+          - number: '#65'
+            title: MOS Urban body
+        queueMore: and 2 more
       - _template: statement
         text: 'Half the work happened '
         emphasis: while I was away.
@@ -112,6 +175,7 @@ blocks:
     heading: The Hero piece
     subheading: Directing, not doing
     headingSize: heading
+    interactive: tuner-panels
     blocks:
       - _template: body
         body: |-
