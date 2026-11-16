@@ -7,6 +7,8 @@ import PageClientPage from './client-page';
 import ProjectClientPage from './project-page';
 import { buildPageMetadata, buildProjectMetadata } from '@/lib/seo/metadata';
 import { siteDefaults } from '@/lib/seo/site';
+import { JsonLd } from '@/lib/seo/json-ld';
+import { buildProjectStructuredData } from '@/lib/seo/structured-data';
 import type { WorkProjectRef } from '@/lib/case-study/work-index';
 import { collectBreadcrumbs } from '@/lib/tina/collect-breadcrumbs';
 
@@ -96,8 +98,12 @@ export default async function Page({
       relativePath: `${filepath}.mdx`,
     });
     const allProjects = await fetchAllProjects();
+    const project = data.data.project;
     return (
       <Layout rawPageData={data}>
+        <JsonLd
+          graph={buildProjectStructuredData({ title: project.title, tagline: project.tagline, slug: filepath }, siteDefaults)}
+        />
         {/* Keyed by path: case study → case study must remount the client tree
             so the hero entrance (#68) replays — the App Router would otherwise
             keep client-component state across a same-route param change. */}

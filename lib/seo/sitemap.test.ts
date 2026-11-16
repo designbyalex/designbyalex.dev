@@ -64,3 +64,25 @@ describe('buildRobots', () => {
     );
   });
 });
+
+describe('buildSitemap lastmod (#179)', () => {
+  it('gives each URL its document’s date, home under the `home` slug', () => {
+    const entries = buildSitemap('https://designbyalex.dev', ['acacia'], ['home', 'work'], {
+      home: '2026-11-01T10:00:00+11:00',
+      acacia: '2026-11-02T10:00:00+11:00',
+      work: '2026-11-03T10:00:00+11:00',
+    });
+    expect(entries).toEqual([
+      { url: 'https://designbyalex.dev/', lastModified: '2026-11-01T10:00:00+11:00' },
+      { url: 'https://designbyalex.dev/acacia', lastModified: '2026-11-02T10:00:00+11:00' },
+      { url: 'https://designbyalex.dev/work', lastModified: '2026-11-03T10:00:00+11:00' },
+    ]);
+  });
+
+  it('leaves lastmod off a URL whose date is unknown', () => {
+    expect(buildSitemap('https://designbyalex.dev', ['acacia'], [], { acacia: undefined })).toEqual([
+      { url: 'https://designbyalex.dev/' },
+      { url: 'https://designbyalex.dev/acacia' },
+    ]);
+  });
+});

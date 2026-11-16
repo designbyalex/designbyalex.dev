@@ -9,7 +9,7 @@ import type { SiteSeoDefaults } from './metadata';
  */
 export const siteDefaults: SiteSeoDefaults & { baseUrl: string } = {
   siteName: 'Alexander Blum',
-  siteTitle: 'Alexander Blum | UX • Product Design',
+  siteTitle: 'Alexander Blum · UX • Product Design',
   titleTemplate: '%s · Alexander Blum',
   defaultDescription:
     'Alex is a Sydney-based product designer with 3+ years’ experience crafting human-centred products.',

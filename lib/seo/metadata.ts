@@ -28,7 +28,7 @@ export interface SiteSeoDefaults {
   siteName: string;
   /**
    * Full title for the homepage (and the <title> fallback), used verbatim
-   * without the template, e.g. "Alexander Blum | UX • Product Design".
+   * without the template, e.g. "Alexander Blum · UX • Product Design" (one "·" separator sitewide, #179).
    */
   siteTitle?: string;
   /** Title template using `%s` as the page-title placeholder, e.g. "%s · Alex". */
