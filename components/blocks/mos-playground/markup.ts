@@ -2,7 +2,8 @@
  * The eight Mos Urban components as shipped, rebuilt as static HTML (#172): Mos's own class names from the
  * Webflow site, real staging content (13 Nov 2026), each wrapped in the playground's selection label.
  * Rebuilt from the staging stylesheet and the embeds in the Mos repo (reference/custom-code); the behaviour
- * is in kit.js and the styles in kit.css, all scoped under `.mos`. Photos are served from /mos-playground/.
+ * is in kit.js and the styles in kit.css, all scoped under `.mos`. Photos are flat blocks on Mos's grey ramp
+ * (`.m-ph`, with the photo's size and alt text): Mos's photos stay off this public repo (Alex, 16 Nov 2026).
  * Server-rendered as is, so every component reads correctly before (or without) JavaScript.
  */
 export const KIT_MARKUP = String.raw`
@@ -50,7 +51,7 @@ export const KIT_MARKUP = String.raw`
       <a href="#" class="link_button is-full"><span class="link_button-icon"><span class="link_button-icon-bg is-outline is-bar"></span><span class="link_button-icon-arrow is-outline"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path fill="currentColor" d="M6 6v2h8.59L5 17.59L6.41 19L16 9.41V18h2V6z"/></svg></span></span><span class="text-style-allcaps">Enquire</span></a>
     </div>
     <div class="m-ground is-photo color-scheme-4">
-      <img class="m-ground-img" src="/mos-playground/hero-2-l.jpg" alt="" loading="lazy">
+      <span class="m-ground-img m-ph" aria-hidden="true"></span>
       <span class="home-hero_overlay" aria-hidden="true"></span>
       <a href="#" class="link_button"><span class="link_button-icon"><span class="link_button-icon-bg is-secondary"></span><span class="link_button-icon-arrow is-secondary"><svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path fill="currentColor" d="M6 6v2h8.59L5 17.59L6.41 19L16 9.41V18h2V6z"/></svg></span></span><span class="text-style-allcaps">See Case Study</span></a>
     </div>
@@ -95,8 +96,8 @@ export const KIT_MARKUP = String.raw`
       <div class="home-hero_content-item is-content-active" role="group" aria-roledescription="slide" aria-label="1 of 5: IGLU Summer Hill">
         <div class="home-hero_image-wrapper">
           <div class="home-hero_overlay"></div>
-          <img class="home-hero_image is-landscape" src="/mos-playground/hero-1-l.jpg" alt="IGLU Summer Hill" loading="eager">
-          <img class="home-hero_image is-portrait" src="/mos-playground/hero-1-p.jpg" alt="IGLU Summer Hill" loading="lazy">
+          <span class="home-hero_image is-landscape m-ph" role="img" aria-label="IGLU Summer Hill"></span>
+          <span class="home-hero_image is-portrait m-ph" role="img" aria-label="IGLU Summer Hill"></span>
         </div>
         <div class="home-hero_content-wrapper">
           <div class="max-width-large"><h2 class="heading-style-h2">Verge seating pods help shape this laid-back, village-style student accommodation.</h2></div>
@@ -108,8 +109,8 @@ export const KIT_MARKUP = String.raw`
       <div class="home-hero_content-item" role="group" aria-roledescription="slide" aria-label="2 of 5: Westmead Hospital">
         <div class="home-hero_image-wrapper">
           <div class="home-hero_overlay"></div>
-          <img class="home-hero_image is-landscape" src="/mos-playground/hero-2-l.jpg" alt="Westmead Hospital" loading="lazy">
-          <img class="home-hero_image is-portrait" src="/mos-playground/hero-2-p.jpg" alt="Westmead Hospital" loading="lazy">
+          <span class="home-hero_image is-landscape m-ph" role="img" aria-label="Westmead Hospital"></span>
+          <span class="home-hero_image is-portrait m-ph" role="img" aria-label="Westmead Hospital"></span>
         </div>
         <div class="home-hero_content-wrapper">
           <div class="max-width-large"><h2 class="heading-style-h2">Custom seating solutions unite people, place, and purpose across one of NSW’s most vital community hubs.</h2></div>
@@ -121,8 +122,8 @@ export const KIT_MARKUP = String.raw`
       <div class="home-hero_content-item" role="group" aria-roledescription="slide" aria-label="3 of 5: Footscray Hospital">
         <div class="home-hero_image-wrapper">
           <div class="home-hero_overlay"></div>
-          <img class="home-hero_image is-landscape" src="/mos-playground/hero-3-l.jpg" alt="Footscray Hospital" loading="lazy">
-          <img class="home-hero_image is-portrait" src="/mos-playground/hero-3-p.jpg" alt="Footscray Hospital" loading="lazy">
+          <span class="home-hero_image is-landscape m-ph" role="img" aria-label="Footscray Hospital"></span>
+          <span class="home-hero_image is-portrait m-ph" role="img" aria-label="Footscray Hospital"></span>
         </div>
         <div class="home-hero_content-wrapper">
           <div class="max-width-large"><h2 class="heading-style-h2">Sturt wall-top seats, benches and picnic sets, with Verge cafe furniture, across Footscray Hospital.</h2></div>
@@ -134,8 +135,8 @@ export const KIT_MARKUP = String.raw`
       <div class="home-hero_content-item" role="group" aria-roledescription="slide" aria-label="4 of 5: Eastwood Private Hospital">
         <div class="home-hero_image-wrapper">
           <div class="home-hero_overlay"></div>
-          <img class="home-hero_image is-landscape" src="/mos-playground/hero-4-l.jpg" alt="Eastwood Private Hospital" loading="lazy">
-          <img class="home-hero_image is-portrait" src="/mos-playground/hero-4-p.jpg" alt="Eastwood Private Hospital" loading="lazy">
+          <span class="home-hero_image is-landscape m-ph" role="img" aria-label="Eastwood Private Hospital"></span>
+          <span class="home-hero_image is-portrait m-ph" role="img" aria-label="Eastwood Private Hospital"></span>
         </div>
         <div class="home-hero_content-wrapper">
           <div class="max-width-large"><h2 class="heading-style-h2">Verge curved seats and benches, stools and cafe tables furnish the outdoor spaces at Eastwood Private Hospital.</h2></div>
@@ -147,8 +148,8 @@ export const KIT_MARKUP = String.raw`
       <div class="home-hero_content-item" role="group" aria-roledescription="slide" aria-label="5 of 5: Cathwest College – Loyola">
         <div class="home-hero_image-wrapper">
           <div class="home-hero_overlay"></div>
-          <img class="home-hero_image is-landscape" src="/mos-playground/hero-5-l.jpg" alt="Cathwest College – Loyola" loading="lazy">
-          <img class="home-hero_image is-portrait" src="/mos-playground/hero-5-p.jpg" alt="Cathwest College – Loyola" loading="lazy">
+          <span class="home-hero_image is-landscape m-ph" role="img" aria-label="Cathwest College – Loyola"></span>
+          <span class="home-hero_image is-portrait m-ph" role="img" aria-label="Cathwest College – Loyola"></span>
         </div>
         <div class="home-hero_content-wrapper">
           <div class="max-width-large"><h2 class="heading-style-h2">Oxley benches, seats and picnic sets give students at Cathwest College – Loyola places to gather outdoors.</h2></div>
@@ -181,31 +182,31 @@ export const KIT_MARKUP = String.raw`
         <div class="cms-slider_mask">
           <div class="cms-slider_slide" role="group" aria-roledescription="slide" aria-label="1 of 5">
             <a href="#" class="cms-slider_item-link">
-              <span class="cms-slider_image-wrapper"><img class="cms-slider_image" src="/mos-playground/gal-footscray.jpg" alt="" loading="lazy"></span>
+              <span class="cms-slider_image-wrapper"><span class="cms-slider_image m-ph" aria-hidden="true"></span></span>
               <span class="cms-slider_text-wrapper"><span class="text-size-regular">Footscray Hospital</span><span class="text-style-muted">Health &amp; Aged Care</span></span>
             </a>
           </div>
           <div class="cms-slider_slide" role="group" aria-roledescription="slide" aria-label="2 of 5">
             <a href="#" class="cms-slider_item-link">
-              <span class="cms-slider_image-wrapper"><img class="cms-slider_image" src="/mos-playground/gal-westbrook.jpg" alt="" loading="lazy"></span>
+              <span class="cms-slider_image-wrapper"><span class="cms-slider_image m-ph" aria-hidden="true"></span></span>
               <span class="cms-slider_text-wrapper"><span class="text-size-regular">Westbrook Estate</span><span class="text-style-muted">Urban Development</span></span>
             </a>
           </div>
           <div class="cms-slider_slide" role="group" aria-roledescription="slide" aria-label="3 of 5">
             <a href="#" class="cms-slider_item-link">
-              <span class="cms-slider_image-wrapper"><img class="cms-slider_image" src="/mos-playground/gal-shell-cove.jpg" alt="" loading="lazy"></span>
+              <span class="cms-slider_image-wrapper"><span class="cms-slider_image m-ph" aria-hidden="true"></span></span>
               <span class="cms-slider_text-wrapper"><span class="text-size-regular">Shell Cove – Marina</span><span class="text-style-muted">Urban Development</span></span>
             </a>
           </div>
           <div class="cms-slider_slide" role="group" aria-roledescription="slide" aria-label="4 of 5">
             <a href="#" class="cms-slider_item-link">
-              <span class="cms-slider_image-wrapper"><img class="cms-slider_image" src="/mos-playground/gal-rosenthal.jpg" alt="" loading="lazy"></span>
+              <span class="cms-slider_image-wrapper"><span class="cms-slider_image m-ph" aria-hidden="true"></span></span>
               <span class="cms-slider_text-wrapper"><span class="text-size-regular">Rosenthal Estate</span><span class="text-style-muted">Urban Development</span></span>
             </a>
           </div>
           <div class="cms-slider_slide" role="group" aria-roledescription="slide" aria-label="5 of 5">
             <a href="#" class="cms-slider_item-link">
-              <span class="cms-slider_image-wrapper"><img class="cms-slider_image" src="/mos-playground/gal-rosebery.jpg" alt="" loading="lazy"></span>
+              <span class="cms-slider_image-wrapper"><span class="cms-slider_image m-ph" aria-hidden="true"></span></span>
               <span class="cms-slider_text-wrapper"><span class="text-size-regular">Rosebery Engine Yard</span><span class="text-style-muted">Urban Development</span></span>
             </a>
           </div>
@@ -366,7 +367,7 @@ export const KIT_MARKUP = String.raw`
           <div class="accordion_answer is-last">
             <div class="accordion_answer-inner">
               <div class="colours_list">
-                <div class="colours_item"><div class="colours_swatch-wrapper"><div class="colours_swatch" style="background-color:#d4d4d4"><img class="colours_swatch-image" src="/mos-playground/swatch-natural.jpg" alt="" loading="lazy"></div></div><div class="materials_item"><div class="text-size-regular">Natural</div><div class="product_label is-tiny">Natural finished metal</div></div></div>
+                <div class="colours_item"><div class="colours_swatch-wrapper"><div class="colours_swatch" style="background-color:#d4d4d4"><span class="colours_swatch-image m-ph" aria-hidden="true"></span></div></div><div class="materials_item"><div class="text-size-regular">Natural</div><div class="product_label is-tiny">Natural finished metal</div></div></div>
                 <div class="colours_item"><div class="colours_swatch-wrapper"><div class="colours_swatch" style="background-color:#101010"></div></div><div class="materials_item"><div class="text-size-regular">Black</div><div class="product_label is-tiny">Powder coat</div></div></div>
                 <div class="colours_item"><div class="colours_swatch-wrapper"><div class="colours_swatch" style="background-color:#ffffff"></div></div><div class="materials_item"><div class="text-size-regular">White</div><div class="product_label is-tiny">Powder coat</div></div></div>
                 <div class="colours_item"><div class="colours_swatch-wrapper"><div class="colours_swatch" style="background-color:#454545"></div></div><div class="materials_item"><div class="text-size-regular">Monument</div><div class="product_label is-tiny">Powder coat</div></div></div>
@@ -392,42 +393,42 @@ export const KIT_MARKUP = String.raw`
       <div class="feed_list" role="list">
         <div class="feed_item" role="listitem" style="--fs-list-renderindex:0">
           <a href="#" class="card_component">
-            <span class="card_image-wrapper margin-bottom-xsmall"><img class="card_image" src="/mos-playground/card-wickham.jpg" alt="100 Wickham Street" loading="lazy"></span>
+            <span class="card_image-wrapper margin-bottom-xsmall"><span class="card_image m-ph" role="img" aria-label="100 Wickham Street"></span></span>
             <span class="projects_card-title"><span class="text-size-regular">100 Wickham Street</span></span>
             <span class="projects_card-typology"><span class="text-style-muted text-style-label">Commercial</span></span>
           </a>
         </div>
         <div class="feed_item" role="listitem" style="--fs-list-renderindex:1">
           <a href="#" class="card_component">
-            <span class="card_image-wrapper margin-bottom-xsmall"><img class="card_image" src="/mos-playground/card-kent.jpg" alt="309 Kent St" loading="lazy"></span>
+            <span class="card_image-wrapper margin-bottom-xsmall"><span class="card_image m-ph" role="img" aria-label="309 Kent St"></span></span>
             <span class="projects_card-title"><span class="text-size-regular">309 Kent St</span></span>
             <span class="projects_card-typology"><span class="text-style-muted text-style-label">Commercial</span></span>
           </a>
         </div>
         <div class="feed_item" role="listitem" style="--fs-list-renderindex:2">
           <a href="#" class="card_component">
-            <span class="card_image-wrapper margin-bottom-xsmall"><img class="card_image" src="/mos-playground/card-abbotsleigh.jpg" alt="Abbotsleigh" loading="lazy"></span>
+            <span class="card_image-wrapper margin-bottom-xsmall"><span class="card_image m-ph" role="img" aria-label="Abbotsleigh"></span></span>
             <span class="projects_card-title"><span class="text-size-regular">Abbotsleigh</span></span>
             <span class="projects_card-typology"><span class="text-style-muted text-style-label">Education &amp; Child Care</span></span>
           </a>
         </div>
         <div class="feed_item" role="listitem" style="--fs-list-renderindex:3">
           <a href="#" class="card_component">
-            <span class="card_image-wrapper margin-bottom-xsmall"><img class="card_image" src="/mos-playground/card-alira.jpg" alt="Alira Wetland" loading="lazy"></span>
+            <span class="card_image-wrapper margin-bottom-xsmall"><span class="card_image m-ph" role="img" aria-label="Alira Wetland"></span></span>
             <span class="projects_card-title"><span class="text-size-regular">Alira Wetland</span></span>
             <span class="projects_card-typology"><span class="text-style-muted text-style-label">Urban Development</span></span>
           </a>
         </div>
         <div class="feed_item" role="listitem" style="--fs-list-renderindex:4">
           <a href="#" class="card_component">
-            <span class="card_image-wrapper margin-bottom-xsmall"><img class="card_image" src="/mos-playground/card-amara.jpg" alt="Amara Apartments" loading="lazy"></span>
+            <span class="card_image-wrapper margin-bottom-xsmall"><span class="card_image m-ph" role="img" aria-label="Amara Apartments"></span></span>
             <span class="projects_card-title"><span class="text-size-regular">Amara Apartments</span></span>
             <span class="projects_card-typology"><span class="text-style-muted text-style-label">Residential Development</span></span>
           </a>
         </div>
         <div class="feed_item" role="listitem" style="--fs-list-renderindex:5">
           <a href="#" class="card_component">
-            <span class="card_image-wrapper margin-bottom-xsmall"><img class="card_image" src="/mos-playground/card-bay-pavilions.jpg" alt="Bay Pavilions" loading="lazy"></span>
+            <span class="card_image-wrapper margin-bottom-xsmall"><span class="card_image m-ph" role="img" aria-label="Bay Pavilions"></span></span>
             <span class="projects_card-title"><span class="text-size-regular">Bay Pavilions</span></span>
             <span class="projects_card-typology"><span class="text-style-muted text-style-label">Sports &amp; Entertainment</span></span>
           </a>
