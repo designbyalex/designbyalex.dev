@@ -1,0 +1,591 @@
+/*
+ * The live design picker (#191), Claude Design-style, from Alex's rounds 4–5 picks. Scoped under `.sp` and
+ * built on the site's colour tokens, so it follows the light and dark themes (round 6). The layout switches on
+ * the block's own width: a thread beside the board from 1024px, and under that the board fills the block and
+ * the thread is a bottom sheet.
+ */
+
+.sp-host {
+  container-type: inline-size;
+}
+
+.sp {
+  --sp-rule: var(--color-border);
+  position: relative;
+  height: 720px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  box-shadow: inset 0 0 0 1px var(--sp-rule);
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+
+.sp button {
+  cursor: pointer;
+}
+
+.sp-top {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--sp-rule);
+}
+.sp-top .sp-sub {
+  color: var(--color-muted-foreground);
+}
+.sp-top .sp-gap {
+  flex: 1;
+}
+
+.sp-chip {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-foreground-soft);
+  box-shadow: inset 0 0 0 1px var(--sp-rule);
+}
+.sp-chip[aria-pressed="true"] {
+  color: var(--color-foreground);
+  box-shadow: inset 0 0 0 1.5px var(--color-emphasis);
+}
+.sp-primary {
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--color-emphasis);
+  color: var(--color-background);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+
+/* Thread */
+.sp-thread {
+  grid-row: 2 / 4;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--sp-rule);
+  background: var(--color-card);
+}
+.sp-msgs {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 14px;
+  overscroll-behavior: contain;
+}
+.sp-msg {
+  max-width: 94%;
+  padding: 9px 12px;
+  border-radius: 14px;
+  background: var(--color-background);
+  color: var(--color-foreground-soft);
+  font-size: 12.5px;
+}
+.sp-msg .sp-who {
+  display: block;
+  font-size: 11px;
+  color: var(--color-muted-foreground);
+  margin-bottom: 2px;
+}
+.sp-msg.sp-me {
+  justify-self: end;
+  background: color-mix(in srgb, var(--color-emphasis) 12%, transparent);
+  color: var(--color-foreground);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-emphasis) 35%, transparent);
+}
+.sp-msg.sp-pin .sp-who::before {
+  content: "● ";
+  color: var(--color-emphasis);
+}
+.sp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-muted-foreground);
+  font-size: 12px;
+  padding: 2px 4px;
+}
+.sp-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--color-emphasis);
+  flex: none;
+}
+.sp-compose {
+  margin: 10px;
+  padding: 6px 6px 6px 4px;
+  border-radius: 20px;
+  background: var(--color-background);
+  box-shadow: inset 0 0 0 1px var(--sp-rule);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.sp-compose input {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  padding: 0 10px;
+  border: 0;
+  background: transparent;
+  color: var(--color-foreground);
+  font: inherit;
+  font-size: 12px;
+  outline: none;
+}
+.sp-compose input::placeholder {
+  color: var(--color-muted-foreground);
+}
+
+/* Tabs: numbered steps (round 5) */
+.sp-main {
+  grid-row: 2;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  position: relative;
+}
+.sp-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--sp-rule);
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sp-tab {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-muted-foreground);
+  white-space: nowrap;
+}
+.sp-tab .sp-n {
+  color: var(--color-foreground-faint);
+  font-variant-numeric: tabular-nums;
+}
+.sp-tab[data-done] .sp-n {
+  color: var(--color-emphasis);
+}
+.sp-tab[aria-selected="true"] {
+  color: var(--color-foreground);
+  box-shadow: inset 0 0 0 1.5px var(--color-emphasis);
+}
+.sp-nav {
+  margin-left: auto;
+  display: inline-flex;
+  gap: 4px;
+}
+
+/* Board */
+.sp-board {
+  position: relative;
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: none;
+  --sp-grid: color-mix(in srgb, var(--color-border) 45%, transparent);
+  background-image: linear-gradient(var(--sp-grid) 1px, transparent 1px), linear-gradient(90deg, var(--sp-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.sp-world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1400px;
+  height: 800px;
+  transform-origin: 0 0;
+  transform: translate(12px, 12px) scale(0.5);
+}
+.sp[data-ready] .sp-world {
+  transition: transform 650ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+.sp-frame {
+  position: absolute;
+  display: grid;
+  gap: 8px;
+  cursor: default;
+}
+.sp-frame > p {
+  font-size: 12px;
+  color: var(--color-muted-foreground);
+}
+.sp-frame[data-current] > p {
+  color: var(--color-foreground);
+}
+.sp-box {
+  position: relative;
+  border-radius: 10px;
+  background: var(--color-card);
+}
+.sp-frame:not([data-current]) .sp-box {
+  opacity: 0.55;
+}
+.sp-el {
+  position: absolute;
+}
+.sp-frame[data-current] .sp-el {
+  outline: 1px solid var(--color-emphasis);
+  outline-offset: 2px;
+  cursor: move;
+}
+.sp-handle {
+  display: none;
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--color-background);
+  border: 1.5px solid var(--color-emphasis);
+  cursor: nwse-resize;
+}
+.sp-readout {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: -26px;
+  font-size: 11px;
+  color: var(--color-background);
+  background: var(--color-emphasis);
+  border-radius: 6px;
+  padding: 2px 6px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.sp-frame[data-current] .sp-handle,
+.sp-frame[data-current] .sp-readout {
+  display: block;
+}
+.sp-pinmark {
+  position: absolute;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+  margin-top: -22px;
+  border-radius: 99px 99px 99px 3px;
+  background: var(--color-emphasis);
+  color: var(--color-background);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Specimens on the board */
+.sp-stage {
+  --len: 3.5s;
+  --mk: 1;
+  --glow: 0.35;
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: radial-gradient(90% 120% at 70% 40%, color-mix(in srgb, var(--color-emphasis) 45%, transparent) 0%, transparent 80%), var(--color-background);
+  display: grid;
+  place-items: center;
+}
+.sp-stage .sp-a {
+  width: calc(34% * var(--mk));
+  color: color-mix(in srgb, var(--color-emphasis) 70%, var(--color-foreground));
+  filter: drop-shadow(0 6px 18px color-mix(in srgb, var(--color-emphasis) calc(var(--glow) * 100%), transparent));
+  transform-origin: 50% 60%;
+}
+.sp-stage .sp-ball {
+  position: absolute;
+  width: 18%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--color-emphasis) 25%, white), var(--color-emphasis) 45%, color-mix(in srgb, var(--color-emphasis) 60%, black) 85%);
+  opacity: 0;
+}
+.sp-text {
+  position: absolute;
+  inset: 0;
+  padding: 22px;
+  display: grid;
+  align-content: center;
+  font-size: 22px;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground);
+}
+.sp-text .sp-em {
+  color: var(--color-emphasis);
+}
+.sp-text .sp-none {
+  color: var(--color-muted-foreground);
+}
+.sp-dash {
+  position: absolute;
+  inset: 0;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  align-content: center;
+}
+.sp-dash div {
+  border-radius: 12px;
+  background: var(--color-background);
+  padding: 12px;
+  display: grid;
+}
+.sp-dash b {
+  font-weight: 400;
+  font-size: 24px;
+}
+.sp-dash span {
+  color: var(--color-muted-foreground);
+  font-size: 11px;
+}
+.sp-dash[data-opt="panel"] {
+  grid-template-columns: 1fr;
+}
+.sp-dash[data-opt="panel"] div:not(:first-child) {
+  display: none;
+}
+.sp-dash[data-opt="timeline"] {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Strip: compact thumbnails (round 5), where you view and pick */
+.sp-strip {
+  grid-column: 2;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-top: 1px solid var(--sp-rule);
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sp-var {
+  display: grid;
+  gap: 4px;
+  width: 130px;
+  flex: none;
+  color: var(--color-muted-foreground);
+  font-size: 11px;
+  text-align: left;
+}
+.sp-var .sp-th {
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  background: var(--color-card);
+  box-shadow: inset 0 0 0 1px var(--sp-rule);
+}
+.sp-var .sp-th[data-stage] {
+  background: radial-gradient(90% 120% at 70% 40%, color-mix(in srgb, var(--color-emphasis) 45%, transparent), transparent 80%), var(--color-background);
+}
+.sp-var[aria-pressed="true"] {
+  color: var(--color-foreground);
+}
+.sp-var[aria-pressed="true"] .sp-th {
+  box-shadow: inset 0 0 0 1.5px var(--color-foreground-soft);
+}
+.sp-var[data-picked] .sp-th {
+  box-shadow: inset 0 0 0 2px var(--color-emphasis);
+}
+.sp-var .sp-sg {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--color-emphasis);
+  margin-right: 5px;
+  vertical-align: 1px;
+}
+.sp-strip .sp-primary {
+  margin-left: auto;
+}
+
+/* Fine-tune: steppers in a panel that slides in over the board (round 5) */
+.sp-side {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  width: 260px;
+  padding: 14px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  background: color-mix(in srgb, var(--color-card) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: -1px 0 0 var(--sp-rule);
+  transform: translateX(105%);
+  visibility: hidden;
+  transition: transform 300ms cubic-bezier(0.33, 1, 0.68, 1), visibility 0s 300ms;
+}
+.sp[data-tune] .sp-side {
+  transform: none;
+  visibility: visible;
+  transition: transform 300ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+.sp-side h4 {
+  font-weight: 400;
+  font-size: 13px;
+}
+.sp-step {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-foreground-soft);
+}
+.sp-step > div {
+  display: grid;
+  grid-template-columns: 30px 1fr 30px;
+  gap: 4px;
+}
+.sp-step button {
+  height: 30px;
+  border-radius: 8px;
+  background: var(--color-background);
+  display: grid;
+  place-items: center;
+  color: var(--color-foreground);
+}
+.sp-step output {
+  height: 30px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px var(--sp-rule);
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Phone and narrow columns: the board fills the block, the thread is a bottom sheet (round 4, answer 12) */
+@container (max-width: 1023px) {
+  .sp {
+    grid-template-columns: minmax(0, 1fr);
+    height: 760px;
+  }
+  .sp-thread {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+    height: 220px;
+    border-right: 0;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -1px 0 var(--sp-rule), 0 -12px 30px rgb(0 0 0 / 0.25);
+  }
+  .sp-thread::before {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--color-foreground-faint);
+    margin: 8px auto 0;
+  }
+  .sp-main {
+    grid-column: 1;
+    padding-bottom: 290px;
+  }
+  .sp-strip {
+    grid-column: 1;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 220px;
+    background: color-mix(in srgb, var(--color-background) 88%, transparent);
+  }
+  .sp-side {
+    width: 100%;
+  }
+  .sp-top .sp-sub {
+    display: none;
+  }
+}
+
+/* Motion: only without a reduced-motion preference. At rest, the idle loop shows its formed A. */
+@media (prefers-reduced-motion: no-preference) {
+  .sp-stage[data-opt="ripple"] .sp-a {
+    animation: sp-ripple 2.4s ease-in-out infinite;
+  }
+  .sp-stage[data-opt="melt7"] .sp-a,
+  .sp-stage[data-opt="melt10"] .sp-a {
+    animation: sp-melt var(--len) ease-in-out infinite;
+  }
+  .sp-stage[data-opt="melt7"] .sp-ball,
+  .sp-stage[data-opt="melt10"] .sp-ball {
+    animation: sp-ball var(--len) ease-in-out infinite;
+  }
+  .sp-status .sp-dot {
+    animation: sp-pulse 1.4s ease-in-out infinite;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sp[data-ready] .sp-world,
+  .sp-side,
+  .sp[data-tune] .sp-side {
+    transition: none;
+  }
+}
+
+@keyframes sp-ripple {
+  50% {
+    transform: scale(1.04, 0.96) rotate(-1deg);
+  }
+}
+@keyframes sp-melt {
+  0%,
+  15%,
+  85%,
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+  40%,
+  60% {
+    transform: scale(0.4, 0.3) translateY(30%);
+    opacity: 0;
+  }
+}
+@keyframes sp-ball {
+  0%,
+  25%,
+  75%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  40%,
+  60% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes sp-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}

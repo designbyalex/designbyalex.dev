@@ -7,12 +7,14 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { tinaField } from 'tinacms/dist/react';
 import type {
   ProjectBlocksCaseStudySection,
+  ProjectBlocksCaseStudySectionBlocksBatchDashboard,
   ProjectBlocksCaseStudySectionBlocksBody,
   ProjectBlocksCaseStudySectionBlocksIconList,
   ProjectBlocksCaseStudySectionBlocksImage,
   ProjectBlocksCaseStudySectionBlocksInsights,
   ProjectBlocksCaseStudySectionBlocksLogoCard,
   ProjectBlocksCaseStudySectionBlocksStatement,
+  ProjectBlocksCaseStudySectionBlocksStudioBoard,
   ProjectBlocksCaseStudySectionBlocksVideo,
 } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
@@ -28,9 +30,14 @@ import { SettleReveal } from '../motion-primitives/settle-reveal';
 import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
 import { PlainClip } from './video';
+import { BatchDashboard, batchDashboardTemplate } from './live/batch-dashboard';
+import { StudioBoard, studioBoardTemplate } from './live/studio-board';
 
 // Only the MOS Urban design-system Section uses it, so its markup, styles and script load in their own chunk.
 const MosPlayground = dynamic(() => import('./mos-playground'));
+// The AI-workflow story's full-width live pieces (#191), each in its own chunk for the same reason.
+const TunerPanels = dynamic(() => import('./live/tuner-panels'));
+const StoryPicker = dynamic(() => import('./live/story-picker'));
 
 /**
  * One case-study section, as the Reference composes them (#60, docs/parity-audit.md §2.4): the heading
@@ -141,6 +148,18 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
       {data.interactive === 'mos-playground' && (
         <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
           <MosPlayground />
+        </div>
+      )}
+
+      {data.interactive === 'story-picker' && (
+        <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
+          <StoryPicker />
+        </div>
+      )}
+
+      {data.interactive === 'tuner-panels' && (
+        <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
+          <TunerPanels />
         </div>
       )}
 
@@ -391,6 +410,24 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
           {/* The foreground colour token: white on the dark theme, as live; near-black on light. */}
           <AcaciaMark className='absolute top-[calc(50.1149%-55.5px)] left-[calc(50%-55.5px)] block size-[111px] text-foreground' />
         </div>
+      </ScrollReveal>
+    );
+  }
+
+  if (kind === 'StudioBoard') {
+    // The AI-workflow story's studio board (#191): sessions in Working / Waiting / Blocked columns.
+    return (
+      <ScrollReveal delay={delay} className='w-full'>
+        <StudioBoard data={block as ProjectBlocksCaseStudySectionBlocksStudioBoard} />
+      </ScrollReveal>
+    );
+  }
+
+  if (kind === 'BatchDashboard') {
+    // The AI-workflow story's batch dashboard (#191): an unattended batch's stats, running ticket and queue.
+    return (
+      <ScrollReveal delay={delay} className='w-full'>
+        <BatchDashboard data={block as ProjectBlocksCaseStudySectionBlocksBatchDashboard} />
       </ScrollReveal>
     );
   }
@@ -685,7 +722,17 @@ export const caseStudySectionBlockSchema: Template = {
       name: 'blocks',
       label: 'Right column',
       description: 'Body copy, statements, lists and media in the right column, in order.',
-      templates: [bodyTemplate, statementTemplate, insightsTemplate, iconListTemplate, logoCardTemplate, columnImageTemplate, columnVideoTemplate],
+      templates: [
+        bodyTemplate,
+        statementTemplate,
+        insightsTemplate,
+        iconListTemplate,
+        logoCardTemplate,
+        columnImageTemplate,
+        columnVideoTemplate,
+        studioBoardTemplate,
+        batchDashboardTemplate,
+      ],
     },
     {
       type: 'object',
@@ -776,8 +823,12 @@ export const caseStudySectionBlockSchema: Template = {
       name: 'interactive',
       label: 'Interactive piece',
       description:
-        'A live piece below the columns, in place of an image. Mos Urban design-system playground: Mos’s own components, working, on a #131313 board that visitors drag and zoom (the MOS Urban design-system Section).',
-      options: [{ label: 'Mos Urban design-system playground', value: 'mos-playground' }],
+        'A live piece across the full width below the columns, in place of an image. Mos Urban design-system playground: Mos’s own components, working, on a #131313 board that visitors drag and zoom (the MOS Urban design-system Section). Tuner panels and the design picker: the AI-workflow story’s live pieces (#191).',
+      options: [
+        { label: 'Mos Urban design-system playground', value: 'mos-playground' },
+        { label: 'Design picker, live (AI-workflow story)', value: 'story-picker' },
+        { label: 'Tuner panels: hero glass and home drip (AI-workflow story)', value: 'tuner-panels' },
+      ],
     },
   ],
 };
