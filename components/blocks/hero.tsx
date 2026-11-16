@@ -267,12 +267,5 @@ export const heroBlockSchema: Template = {
       description: 'Fills the whole viewport behind the hero (the teal → green gradient).',
       fields: imageFields('home') as any,
     },
-    {
-      type: 'object',
-      label: 'Mark',
-      name: 'mark',
-      description: 'The mark render, overlay-blended onto the background so chrome reads as green glass.',
-      fields: imageFields('home') as any,
-    },
   ],
 };
