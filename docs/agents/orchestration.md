@@ -8,8 +8,8 @@ Agency mode: a master sequences and briefs the work, and each session does, chec
 
 - **Alex, director.** Decides scope, taste and approvals. Every question reaches Alex batched, in one round, with a recommendation first.
 - **Master.** Sequences and unblocks, and does no hands-on work. It owns the queue, writes every brief, reads back every hand-back, and builds the end-of-batch review page. It is the only session that may relay Alex's decisions to other sessions (see *Human gates*).
-- **Writer.** Changes one lane end to end for one PBI or one batch: build, fast checks, push, merge on Alex's yes. One writer per lane at a time. The AFK loop (`scripts/afk-loop.sh`) counts as the Site writer while it runs. The master starts it in a terminal tab and, in the same turn, a **watcher** session for the batch, so Alex sees it in the sidebar: the watcher reads the loop's commits and logs (read-only, never touching the loop or its checkout), says one line per finished ticket, and hands back `BLOCKED` if the loop stops or `READY` once the draft PR is open. Every batch also opens a live dashboard in the browser (tickets done, the current ticket's tool calls, cost, time left), at http://127.0.0.1:4789 or the next free port, printed by the loop and kept in `.afk/dashboard.url`. It is read-only and keeps showing the final state after the run; stop it with `kill "$(cat .afk/dashboard.pid)"` in the loop's checkout, or start the loop with `AFK_DASHBOARD=0` to skip it.
-- **Held writer.** The next writer on a lane, started while the current one builds. It reads the PBI, puts every question to Alex in one round, sends `READY` and waits for `go`. It is read-only on the lane until then.
+- **Writer.** Changes one lane end to end for one PBI or one batch: build, fast checks, push, merge on Alex's yes. How many writers a lane takes at once is its writer rule (*Lanes*). The AFK loop (`scripts/afk-loop.sh`) counts as one Site writer while it runs, holding the fence *Lanes* gives it. The master starts it in a terminal tab and, in the same turn, a **watcher** session for the batch, so Alex sees it in the sidebar: the watcher reads the loop's commits and logs (read-only, never touching the loop or its checkout), says one line per finished ticket, and hands back `BLOCKED` if the loop stops or `READY` once the draft PR is open. Every batch also opens a live dashboard in the browser (tickets done, the current ticket's tool calls, cost, time left), at http://127.0.0.1:4789 or the next free port, printed by the loop and kept in `.afk/dashboard.url`. It is read-only and keeps showing the final state after the run; stop it with `kill "$(cat .afk/dashboard.pid)"` in the loop's checkout, or start the loop with `AFK_DASHBOARD=0` to skip it.
+- **Held writer.** A writer whose fence meets a running writer's fence or a held hotspot, and that does not stack (*Lanes* → **Overlaps**). It starts while the other one builds. It reads the PBI, puts every question to Alex in one round, sends `READY` and waits for `go`. It is read-only on the lane until then.
 - **Side worker.** Drafts tickets, scripts, docs and research. It reads the product, writes only its own new files and merges its own branch. Any number can run in parallel.
 - **Sweeper.** Not used separately: the AFK loop's final pass is the sweep (see *Sweep*).
 - **Picker.** A side worker that keeps one design-picker page per area and runs batched taste rounds on it.
@@ -20,7 +20,7 @@ On every wake, in addition to the `orchestrate` skill's own list:
 
 - `gh pr list` for open PRs, including Dependabot.
 - `gh issue list --label ready-for-agent --state open` for what the next AFK batch can take.
-- `pgrep -f afk-loop.sh` to see whether the AFK loop is running. While it runs, it holds the Site lane.
+- `pgrep -f afk-loop.sh` to see whether the AFK loop is running. While it runs, it holds its batch's fence and every hotspot (*Lanes* → **Exclusive checkouts**).
 
 ## Models
 
@@ -28,16 +28,23 @@ Every nested session runs on the strongest available model. Only Alex changes a 
 
 ## Lanes
 
-A lane is one part of the product that one session may write at a time. Writers overlap across lanes, never within one. The master names the lane in every brief.
+A lane is one part of the product with its own publish step and its own **writer rule**: how many writers it takes at once, and why. Writers in different lanes always run side by side. The master names the lane and the fence in every brief.
+
+This is a custom code build in a GitHub repo, unlike a hosted platform where one publish ships every unpublished change. Every writer here has its own worktree, branch and Vercel preview, and nothing reaches `main` until its PR merges on Alex's yes. So the Site and Content lanes are **fenced**: they run parallel writers, each inside its own **fence** (the paths it may change, named in its brief), with no two running fences sharing a path.
 
 | Lane | What it is | Publish step | Measured check | Writer rule |
 |---|---|---|---|---|
-| Site | `app/`, `components/`, `lib/`, `styles.css`, `tina/` schema | push the branch; Vercel builds a preview | per ticket: tsc and biome; once per batch: `scripts/afk/check.sh --full` (Tina, tsc, biome, build, vitest) in the final pass | one writer at a time; the AFK loop counts as the writer while it runs |
-| Content | `content/*.mdx`, `public/uploads/` | a Tina save commits to `main`; Vercel builds | the Vercel build passes | Alex in Tina, or one agent using Alex's copy as given |
-| Hero piece | Blender scene scripts and renders in `~/Freelance/Portfolio/site/logo/`, plus the `prototype/hero-piece` branch, which is never merged | a render plus a local review build | the renders exist; Alex's checkpoint in Blender | one scene writer plus one preview writer, on disjoint files |
+| Site | `app/`, `components/`, `lib/`, `styles.css`, `tina/` schema | push the branch; Vercel builds a preview | per ticket: tsc and biome; once per batch: `scripts/afk/check.sh --full` (Tina, tsc, biome, build, vitest) in the final pass | fenced: each writer has its own branch and preview; the AFK loop is one writer, with the fence below |
+| Content | `content/*.mdx`, `public/uploads/` | a Tina save commits to `main`; Vercel builds | the Vercel build passes | fenced, by file: Alex in Tina, or agents using Alex's copy as given, each on its own `.mdx` files and uploads |
+| Hero piece | Blender scene scripts and renders in `~/Freelance/Portfolio/site/logo/`, plus the `prototype/hero-piece` branch, which is never merged | a render plus a local review build | the renders exist; Alex's checkpoint in Blender | fenced: one scene writer and one preview writer, on disjoint files |
 | Off product | `scripts/`, `docs/`, `reference/`, tickets | merge | the script runs, or its dry run starts | any number of side workers |
 
-A session touches no other lane's files. A side worker that settles a decision writes it on the issue it settles; lasting ones become an ADR in `docs/adr/`.
+- **Hotspots:** `tina/tina-lock.json` and the Tina schema (`tina/config.tsx`, `tina/collection/`, `tina/fields/`), `styles.css`, `next.config.ts`, and `components/blocks/case-study-section.tsx`. Many tickets touch them, and the lock file is regenerated whole, so parallel edits conflict. A hotspot sits inside at most one running fence.
+- **Overlaps:** a ticket whose files meet a running fence or a held hotspot **stacks** when it builds on that writer's work: it branches from that writer's branch, says so in its PR body, and merges after that PR, merging `origin/main` first (#191 was built on #200's branch this way). Otherwise it waits as a held writer until that PR merges.
+- **Exclusive checkouts:** `~/Freelance/Portfolio/afk-migration` belongs to the AFK loop, and only the loop writes in it. While the loop runs, its fence is every file its batch's tickets name plus every hotspot, since it picks tickets as it goes.
+- **Tina commits to `main`:** a Tina save lands on `main` straight away, outside any PR. Every branch merges `origin/main` before it pushes (*Publish gate*), and a Content file Alex is editing in Tina sits in no agent's fence.
+
+What stays one at a time: the AFK loop's checkout, each hotspot, and each content file. A session touches no other lane's files, and no file outside its fence. A side worker that settles a decision writes it on the issue it settles; lasting ones become an ADR in `docs/adr/`.
 
 ## Where things live
 
@@ -80,8 +87,8 @@ Git is the backup for code and content. The hero scene scripts rebuild every ren
 
 Before every push:
 
-1. No other writer on this lane is mid-build (`list_sessions`, the queue, `pgrep -f afk-loop.sh`).
-2. The branch is up to date with `origin/main`.
+1. Every path in `git diff --name-only origin/main...HEAD` is inside your fence, and any hotspot among them is one you hold (`list_sessions`, the queue, `pgrep -f afk-loop.sh`).
+2. The branch has `origin/main` merged in (and, when stacked, the branch you stack on), since Tina commits to `main` on its own.
 3. The fast checks pass (tsc, biome). For the last push of a batch, `scripts/afk/check.sh --full` passes.
 4. Push to the branch's Vercel preview only. Done when the push lands; the preview is checked in the batch review, not per ticket.
 
@@ -151,11 +158,11 @@ The app relays only the first 400 characters of a session's turn, so the **first
 | First line | Means |
 |---|---|
 | `READY: #N <what>` | my part is complete, waiting on the next move |
-| `go` | (master to a held writer) the lane is yours |
+| `go` | (master to a held writer) your fence is clear |
 | `DONE: #N <what>, <PR or files>, sha <sha>` | finished, checked, merged, issue closed |
 | `NEEDS ALEX: <do this, where>, <N> min` | Alex has one exact action to take; the master relays it word for word |
 | `BLOCKED: <what>` | stuck on something the master can clear |
-| `HELD: #N <step reached>` | paused itself (offline, lane conflict) |
+| `HELD: #N <step reached>` | paused itself (offline, fence conflict) |
 
 - **State changes only.** A session with nothing new says nothing.
 - **One question round, at the start.** Every question for Alex goes before the first write. Mid-build, ask only about what the build turned up.
