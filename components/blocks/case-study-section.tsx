@@ -1,29 +1,43 @@
 'use client';
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { tinaField } from 'tinacms/dist/react';
 import type {
   ProjectBlocksCaseStudySection,
+  ProjectBlocksCaseStudySectionBlocksBatchDashboard,
   ProjectBlocksCaseStudySectionBlocksBody,
   ProjectBlocksCaseStudySectionBlocksIconList,
   ProjectBlocksCaseStudySectionBlocksImage,
   ProjectBlocksCaseStudySectionBlocksInsights,
   ProjectBlocksCaseStudySectionBlocksLogoCard,
   ProjectBlocksCaseStudySectionBlocksStatement,
+  ProjectBlocksCaseStudySectionBlocksStudioBoard,
   ProjectBlocksCaseStudySectionBlocksVideo,
 } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
 import { formatMetric, type MetricKind } from '@/lib/case-study/format';
+import { sameOriginMedia } from '@/lib/tina/same-origin-media';
 import { metricFields } from '@/tina/fields/metric';
 import { components } from '../mdx-components';
 import { Section, sectionBlockSchemaField } from '../layout/section';
 import { CountUp } from '../motion-primitives/count-up';
+import { LineReveal, LineWords } from '../motion-primitives/line-reveal';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
+import { SettleReveal } from '../motion-primitives/settle-reveal';
 import { AcaciaMark, FeatureIcon, featureIconOptions } from './case-study-icons';
 import { CaseStudyCarousel, type CarouselSlide } from './case-study-carousel';
 import { PlainClip } from './video';
+import { BatchDashboard, batchDashboardTemplate } from './live/batch-dashboard';
+import { StudioBoard, studioBoardTemplate } from './live/studio-board';
+
+// Only the MOS Urban design-system Section uses it, so its markup, styles and script load in their own chunk.
+const MosPlayground = dynamic(() => import('./mos-playground'));
+// The AI-workflow story's full-width live pieces (#191), each in its own chunk for the same reason.
+const TunerPanels = dynamic(() => import('./live/tuner-panels'));
+const StoryPicker = dynamic(() => import('./live/story-picker'));
 
 /**
  * One case-study section, as the Reference composes them (#60, docs/parity-audit.md §2.4): the heading
@@ -59,6 +73,23 @@ const COLUMN_GAP: Record<string, string> = {
   '16': 'gap-4',
 };
 
+/**
+ * Case-study text entrances (#167, Alex's picker specimen): headings, statements and body paragraphs rise
+ * line by line, 0.6em over 800ms on the entrance curve, 90ms apart, as they enter view.
+ */
+const CASE_LINES = { stagger: 0.09, duration: 0.8, y: '0.6em', ease: 'entrance' } as const;
+
+/** Body copy: every paragraph reveals its own lines; the `text` override splits each leaf (bold, links, highlights) into words in place. */
+const bodyComponents = {
+  ...components,
+  p: (props?: { children?: React.ReactNode }) => (
+    <LineReveal as='p' amount={0.2} {...CASE_LINES}>
+      {props?.children}
+    </LineReveal>
+  ),
+  text: LineWords,
+} as typeof components;
+
 /** The nested template name from a generated `__typename` (…BlocksStatement → Statement). */
 const kindOf = (block: { __typename?: string | null }) => block.__typename?.replace(/^.*Blocks/, '') ?? '';
 
@@ -89,9 +120,9 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
         )}
       >
         <div className='w-full pb-px lg:min-w-0 lg:flex-1'>
-          <ScrollReveal className='w-full xl:w-[80%]'>
+          <div className='w-full xl:w-[80%]'>
             {/* One heading element with the subheading after a break, as Framer's h3: white line, then the grey one. */}
-            <h2 className={cn('font-display', statementHeading ? 'text-statement' : 'text-heading')}>
+            <LineReveal as='h2' className={cn('font-display', statementHeading ? 'text-statement' : 'text-heading')} {...CASE_LINES}>
               <span data-tina-field={tinaField(data, 'heading')}>{data.heading}</span>
               {data.subheading && (
                 <>
@@ -101,8 +132,8 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
                   </span>
                 </>
               )}
-            </h2>
-          </ScrollReveal>
+            </LineReveal>
+          </div>
         </div>
 
         {blocks.length > 0 && (
@@ -114,10 +145,28 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
         )}
       </div>
 
+      {data.interactive === 'mos-playground' && (
+        <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
+          <MosPlayground />
+        </div>
+      )}
+
+      {data.interactive === 'story-picker' && (
+        <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
+          <StoryPicker />
+        </div>
+      )}
+
+      {data.interactive === 'tuner-panels' && (
+        <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
+          <TunerPanels />
+        </div>
+      )}
+
       {slides.length > 0 && <CaseStudyCarousel slides={slides} label={data.heading || 'Carousel'} />}
 
       {data.image?.src && (
-        <ScrollReveal className='w-full'>
+        <SettleReveal className='w-full'>
           {/*
            * Framer's "Image Full". Wide (Acacia): the content width at a 1.78065 ratio at every width,
            * corners via clip-path (a leftover from the retired parity check, ADR 0005, which read that
@@ -135,14 +184,14 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
               alt={data.image.alt || ''}
               fill
               sizes='(min-width: 1280px) min(100vw - 96px, 1344px), (min-width: 1024px) calc(100vw - 48px), min(100vw - 32px, 500px)'
-              className='object-cover'
+              className='settle-target object-cover'
             />
           </div>
-        </ScrollReveal>
+        </SettleReveal>
       )}
 
       {grid.length > 0 && cardGrid && (
-        <ScrollReveal className='w-full'>
+        <SettleReveal className='w-full'>
           {/*
            * Framer's "Image Grid" of cards (MOS Urban's typography pages): two 1.71613-ratio cards 8px apart
            * at lg+, stacked in order at 1.6729 under it; 20px corners on the card with the image at 101%
@@ -161,17 +210,17 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
                     alt={item.alt || ''}
                     fill
                     sizes='(min-width: 1280px) min(50vw - 52px, 668px), (min-width: 1024px) calc(50vw - 28px), min(100vw - 32px, 500px)'
-                    className='object-cover'
+                    className='settle-target object-cover'
                   />
                 </div>
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </SettleReveal>
       )}
 
       {grid.length > 0 && !cardGrid && (
-        <ScrollReveal className='w-full'>
+        <SettleReveal className='w-full'>
           {/*
            * Framer's "Image Grid" of phones (Acacia's onboarding): a 3.56129-ratio row of equal cards 8px
            * apart at desktop; on phones a 0.838408-ratio column with the second image on top (its wrappers
@@ -185,12 +234,12 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
                   alt={item.alt || ''}
                   fill
                   sizes='(min-width: 1280px) min(50vw - 52px, 668px), (min-width: 1024px) calc(50vw - 28px), min(100vw - 32px, 500px)'
-                  className='object-cover'
+                  className='settle-target object-cover'
                 />
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </SettleReveal>
       )}
 
       {metrics.length > 0 && (
@@ -255,14 +304,14 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     const body = block as ProjectBlocksCaseStudySectionBlocksBody;
     // The Reference's body copy: 14px grey, paragraphs 20px apart, bold runs near-white at weight 400.
     return (
-      <ScrollReveal delay={delay} className='w-full'>
+      <div className='w-full'>
         <div
           className='text-caption text-muted-foreground [&_a]:text-emphasis [&_a:hover]:underline [&_p+p]:mt-5 [&_strong]:font-normal [&_strong]:text-foreground-soft'
           data-tina-field={tinaField(body, 'body')}
         >
-          <TinaMarkdown content={body.body} components={components} />
+          <TinaMarkdown content={body.body} components={bodyComponents} />
         </div>
-      </ScrollReveal>
+      </div>
     );
   }
 
@@ -273,9 +322,10 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     // the space between the parts belongs to whichever string carries it, and a space that hangs at the
     // end of a line keeps its box.
     return (
-      <ScrollReveal
+      <LineReveal
         as='p'
         delay={delay}
+        {...CASE_LINES}
         className={cn(
           'w-full whitespace-pre-wrap font-display text-statement',
           statement.muted ? 'text-muted-foreground' : 'text-foreground',
@@ -287,7 +337,7 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
           {statement.text}
           {statement.emphasis && <span className='text-emphasis'>{statement.emphasis}</span>}
         </span>
-      </ScrollReveal>
+      </LineReveal>
     );
   }
 
@@ -339,7 +389,8 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     // The Mission card: a 435px bordered card with 16px corners clipping a 524×522 grid drawn from 43px
     // above its top edge (so the grid's frame line sits just inside the card), the logo centred over it.
     // The grid asset is a mask filled with the grid-line token: its own green in dark, #0f7a35 in light (#91);
-    // the border takes the emphasis green the same way.
+    // the border takes the emphasis green the same way. The mask reads the file from this site's origin: Tina
+    // Cloud's asset host sends no CORS header, and a cross-origin mask without one never paints (#173).
     return (
       <ScrollReveal delay={delay} className='w-full'>
         <div
@@ -353,12 +404,30 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
             <span
               aria-hidden
               className='absolute -top-[43px] -left-px block h-[522px] w-[524px] bg-grid-line'
-              style={{ maskImage: `url(${card.grid})`, maskSize: '100% 100%', maskRepeat: 'no-repeat' }}
+              style={{ maskImage: `url(${sameOriginMedia(card.grid)})`, maskSize: '100% 100%', maskRepeat: 'no-repeat' }}
             />
           )}
           {/* The foreground colour token: white on the dark theme, as live; near-black on light. */}
           <AcaciaMark className='absolute top-[calc(50.1149%-55.5px)] left-[calc(50%-55.5px)] block size-[111px] text-foreground' />
         </div>
+      </ScrollReveal>
+    );
+  }
+
+  if (kind === 'StudioBoard') {
+    // The AI-workflow story's studio board (#191): sessions in Working / Waiting / Blocked columns.
+    return (
+      <ScrollReveal delay={delay} className='w-full'>
+        <StudioBoard data={block as ProjectBlocksCaseStudySectionBlocksStudioBoard} />
+      </ScrollReveal>
+    );
+  }
+
+  if (kind === 'BatchDashboard') {
+    // The AI-workflow story's batch dashboard (#191): an unattended batch's stats, running ticket and queue.
+    return (
+      <ScrollReveal delay={delay} className='w-full'>
+        <BatchDashboard data={block as ProjectBlocksCaseStudySectionBlocksBatchDashboard} />
       </ScrollReveal>
     );
   }
@@ -373,7 +442,7 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     // 0.855738 ratio at xl and 425px tall under it, with 16px border-radius;
     // or the image at its own ratio. "Lead on phones" keeps it above a statement that leads there.
     return (
-      <ScrollReveal delay={delay} className={cn('w-full', image.leadOnPhone && 'max-lg:-order-2')}>
+      <SettleReveal delay={0.12 + delay} className={cn('w-full', image.leadOnPhone && 'max-lg:-order-2')}>
         <div
           className={cn(
             'relative w-full',
@@ -383,18 +452,18 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
           data-tina-field={tinaField(image, 'src')}
         >
           {natural ? (
-            <Image src={image.src} alt={image.alt || ''} width={1600} height={1200} className='h-auto w-full' />
+            <Image src={image.src} alt={image.alt || ''} width={1600} height={1200} className='settle-target h-auto w-full' />
           ) : (
             <Image
               src={image.src}
               alt={image.alt || ''}
               fill
               sizes='(min-width: 1024px) min(47vw, 532px), min(100vw - 32px, 500px)'
-              className='object-cover'
+              className='settle-target object-cover'
             />
           )}
         </div>
-      </ScrollReveal>
+      </SettleReveal>
     );
   }
 
@@ -653,7 +722,17 @@ export const caseStudySectionBlockSchema: Template = {
       name: 'blocks',
       label: 'Right column',
       description: 'Body copy, statements, lists and media in the right column, in order.',
-      templates: [bodyTemplate, statementTemplate, insightsTemplate, iconListTemplate, logoCardTemplate, columnImageTemplate, columnVideoTemplate],
+      templates: [
+        bodyTemplate,
+        statementTemplate,
+        insightsTemplate,
+        iconListTemplate,
+        logoCardTemplate,
+        columnImageTemplate,
+        columnVideoTemplate,
+        studioBoardTemplate,
+        batchDashboardTemplate,
+      ],
     },
     {
       type: 'object',
@@ -738,6 +817,18 @@ export const caseStudySectionBlockSchema: Template = {
       ...projectImageField('placeholderPattern', 'Placeholder pattern'),
       description:
         'A tile (an SVG, as the hatch in public/uploads/projects/mosurban/placeholder-hatch.svg) repeated at 64px across a full-width 16:9 panel with 20px corners below the columns: Framer’s "What’s next for Mos?" placeholder. Leave empty for no panel.',
+    },
+    {
+      type: 'string',
+      name: 'interactive',
+      label: 'Interactive piece',
+      description:
+        'A live piece across the full width below the columns, in place of an image. Mos Urban design-system playground: Mos’s own components, working, on a #131313 board that visitors drag and zoom (the MOS Urban design-system Section). Tuner panels and the design picker: the AI-workflow story’s live pieces (#191).',
+      options: [
+        { label: 'Mos Urban design-system playground', value: 'mos-playground' },
+        { label: 'Design picker, live (AI-workflow story)', value: 'story-picker' },
+        { label: 'Tuner panels: hero glass and home drip (AI-workflow story)', value: 'tuner-panels' },
+      ],
     },
   ],
 };

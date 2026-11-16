@@ -9,7 +9,6 @@ import {
   decodeScrambleMotion,
   hideOnScrollMotion,
   hoverMotion,
-  lineRevealMotion,
   routeTransitionMotion,
   scrollDripMotion,
   scrollHeroPinMotion,
@@ -134,48 +133,6 @@ describe('textRevealMotion', () => {
       const o = textRevealMotion(true, { stagger: 0.2, delay: 0.5 });
       const transition = (o.container.visible as { transition: { staggerChildren: number } }).transition;
       expect(transition.staggerChildren).toBe(0);
-    });
-  });
-});
-
-describe('lineRevealMotion', () => {
-  type VisibleFn = (line?: number) => { opacity: number; y: number; transition: { duration: number; delay: number; ease: unknown } };
-
-  describe('motion allowed', () => {
-    const m = lineRevealMotion(false);
-
-    it('flags the reveal as animating', () => {
-      expect(m.animate).toBe(true);
-    });
-
-    it("hides each word 60px below its place (the Reference's appear distance)", () => {
-      expect(m.item.hidden).toEqual({ opacity: 0, y: 60 });
-    });
-
-    it('delays each line by its index on the appear curve over 1s', () => {
-      const visible = m.item.visible as VisibleFn;
-      expect(visible(0)).toEqual({ opacity: 1, y: 0, transition: { duration: 1, delay: 0, ease: EASE_APPEAR } });
-      expect(visible(3).transition.delay).toBeCloseTo(0.75);
-    });
-
-    it('honours stagger, delay, duration and distance overrides', () => {
-      const o = lineRevealMotion(false, { stagger: 0.5, delay: 0.3, duration: 2, y: 40 });
-      expect(o.item.hidden).toEqual({ opacity: 0, y: 40 });
-      const visible = o.item.visible as VisibleFn;
-      expect(visible(2).transition).toEqual({ duration: 2, delay: 1.3, ease: EASE_APPEAR });
-    });
-  });
-
-  describe('reduced motion', () => {
-    const m = lineRevealMotion(true);
-
-    it('flags the reveal as not animating', () => {
-      expect(m.animate).toBe(false);
-    });
-
-    it('keeps hidden and visible states identical, fully shown and instant', () => {
-      expect(m.item.hidden).toEqual(m.item.visible);
-      expect(m.item.visible).toMatchObject({ opacity: 1, y: 0, transition: { duration: 0 } });
     });
   });
 });

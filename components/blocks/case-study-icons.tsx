@@ -1,12 +1,24 @@
-import { HousePlug, LayoutPanelLeft, LoaderCircle, LockKeyhole, User } from 'lucide-react';
+import {
+  GitBranch,
+  HousePlug,
+  LayoutPanelLeft,
+  LoaderCircle,
+  LockKeyhole,
+  MessageCircleQuestion,
+  SwatchBook,
+  ThumbsUp,
+  User,
+} from 'lucide-react';
 
 /**
  * The key-feature icons of the case-study icon list (#61). The Reference drew them inline from an
  * Iconify mix; #110 redraws each one from lucide (the owner's pick, 2026-11-11) at 20px in the 30px
- * column, default stroke 2, `currentColor` so they follow the page foreground in both themes.
+ * column, default stroke 2, `currentColor` so they follow the page foreground in both themes. The four
+ * rule icons (#191, Alex's round 6 picks) mark the AI-workflow story's house rules: approve, options,
+ * questions and parallel lanes.
  */
 
-export type FeatureIconName = 'module' | 'progress' | 'lock' | 'house' | 'user';
+export type FeatureIconName = 'module' | 'progress' | 'lock' | 'house' | 'user' | 'approve' | 'options' | 'questions' | 'parallel';
 
 export const featureIconOptions: { label: string; value: FeatureIconName }[] = [
   { label: 'Module (panels)', value: 'module' },
@@ -14,6 +26,10 @@ export const featureIconOptions: { label: string; value: FeatureIconName }[] = [
   { label: 'Lock', value: 'lock' },
   { label: 'House (plug)', value: 'house' },
   { label: 'User', value: 'user' },
+  { label: 'Approve (thumbs up)', value: 'approve' },
+  { label: 'Options (swatch book)', value: 'options' },
+  { label: 'Questions (question bubble)', value: 'questions' },
+  { label: 'Parallel (branch)', value: 'parallel' },
 ];
 
 const common = { 'aria-hidden': true, focusable: false, className: 'block size-5 shrink-0' } as const;
@@ -24,6 +40,10 @@ const ICONS: Record<FeatureIconName, () => React.JSX.Element> = {
   lock: () => <LockKeyhole {...common} />,
   house: () => <HousePlug {...common} />,
   user: () => <User {...common} />,
+  approve: () => <ThumbsUp {...common} />,
+  options: () => <SwatchBook {...common} />,
+  questions: () => <MessageCircleQuestion {...common} />,
+  parallel: () => <GitBranch {...common} />,
 };
 
 /** One key-feature icon by name; unknown names render nothing, so an empty slot keeps the row's indent. */

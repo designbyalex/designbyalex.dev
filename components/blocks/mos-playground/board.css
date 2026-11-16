@@ -1,0 +1,78 @@
+/* The playground's canvas (#172): the only designbyalex parts are the flat #131313 board, the Figma-style
+   selection labels (dashed outline + name tab, picker round 8) and the zoom control. Alex's layout picks
+   (round 1): Board, opening at Fit, with the zoom control. The canvas is #131313 in both themes. Mos's own
+   components are styled by kit.css under .mos. */
+.mpg {
+  --mpg-canvas: #131313;
+  --mpg-accent: #3cda64;
+  --mpg-ink: #0b0b0b;
+  --mpg-muted: #a6a6a6;
+  --mpg-chrome: #1f1f1f;
+  --mpg-ease: cubic-bezier(.83, 0, .17, 1);
+  --mpg-ease-out: cubic-bezier(.22, 1, .36, 1);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  border-radius: 20px;
+  background: var(--mpg-canvas);
+  color: #fff;
+  container-type: inline-size;
+}
+
+/* The window onto the board: 16:9, 4:5 on phones. Without JavaScript the components stack in a column
+   that scrolls inside it, so the server HTML reads as is and nothing shifts when the board takes over. */
+.mpg-view { position: relative; aspect-ratio: 16 / 9; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #333 transparent; }
+.mpg-view:focus-visible { outline: 2px solid var(--mpg-accent); outline-offset: -2px; }
+.mpg-world { display: grid; gap: 72px; padding: 72px 48px 48px; }
+.mpg-item { position: relative; margin: 0; min-width: 0; }
+.mpg-sel { position: relative; outline: 1.5px dashed rgb(60 218 100 / 0.7); outline-offset: 6px; }
+.mpg-tag {
+  position: absolute; left: -7px; top: -30px; z-index: 2;
+  padding: 5px 9px; border-radius: 4px 4px 4px 0;
+  background: var(--mpg-accent); color: var(--mpg-ink);
+  font: 500 11px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif); letter-spacing: 0; white-space: nowrap;
+}
+
+/* The board (board.ts packs the items into three columns and moves the camera). */
+.mpg[data-ready] .mpg-view { overflow: hidden; cursor: grab; touch-action: pan-y; }
+.mpg[data-ready][data-zoomed] .mpg-view { touch-action: none; }
+.mpg[data-ready] .mpg-view.is-panning { cursor: grabbing; }
+.mpg[data-ready] .mpg-world { position: absolute; left: 0; top: 0; display: block; padding: 0; transform-origin: 0 0; user-select: none; -webkit-user-select: none; }
+.mpg[data-ready] .mpg-item { position: absolute; }
+.mpg-world.is-gliding { transition: transform 500ms var(--mpg-ease); }
+@media (scripting: enabled) {
+  .mpg:not([data-ready]) .mpg-world { visibility: hidden; }
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .mpg[data-ready] .mpg-world > * { animation: mpg-in 500ms var(--mpg-ease-out) both; }
+}
+@keyframes mpg-in { from { opacity: 0; } }
+
+/* Zoom control, top right; the hint, bottom left. Only once the board is live. */
+.mpg-zoom, .mpg-hint { position: absolute; z-index: 5; display: none; }
+.mpg[data-ready] .mpg-zoom, .mpg[data-ready] .mpg-hint { display: flex; }
+.mpg-zoom {
+  top: 16px; right: 16px; align-items: center; gap: 2px; padding: 2px; border-radius: 6px;
+  background: var(--mpg-chrome); box-shadow: 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+.mpg-zoom button {
+  height: 28px; min-width: 28px; padding: 0 8px; border: 0; border-radius: 4px; background: transparent; color: #fff; cursor: pointer;
+  font: 500 12px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+}
+.mpg-zoom button:hover { background: rgb(255 255 255 / 0.08); }
+.mpg-zoom button:focus-visible { outline: 2px solid var(--mpg-accent); outline-offset: 1px; }
+.mpg-zoom output { min-width: 40px; text-align: center; color: var(--mpg-muted); font: 500 12px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif); font-variant-numeric: tabular-nums; }
+.mpg-hint {
+  left: 16px; bottom: 16px; margin: 0; padding: 8px 10px; border-radius: 6px; pointer-events: none;
+  background: var(--mpg-chrome); color: var(--mpg-muted); font: 500 12px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+}
+
+@container (max-width: 767px) {
+  .mpg-view { aspect-ratio: 4 / 5; }
+  .mpg-world { gap: 56px; padding: 56px 16px 32px; }
+  .mpg-zoom { top: 12px; right: 12px; }
+  .mpg-hint { left: 12px; bottom: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mpg-world.is-gliding { transition: none; }
+}
