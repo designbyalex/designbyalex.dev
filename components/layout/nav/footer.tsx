@@ -3,6 +3,7 @@ import React from "react";
 import { ArrowUpRight } from "lucide-react";
 import { tinaField } from "tinacms/dist/react";
 import { TransitionLink } from "../../motion-primitives/route-transitions";
+import { ScrollReveal } from "../../motion-primitives/scroll-reveal";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
 
@@ -31,7 +32,8 @@ export const Footer = () => {
 
   return (
     <footer data-section="footer" className="flex min-h-[515px] flex-col bg-card text-card-foreground lg:min-h-0">
-      <div className="mx-auto flex w-full max-w-[532px] flex-1 flex-col items-start px-6 py-16 lg:max-w-[1440px] lg:flex-row lg:justify-between lg:px-12">
+      {/* The same entrance as the blocks above it (#185): the top row fades and rises 24px on the entrance curve, the bottom bar follows. */}
+      <ScrollReveal className="mx-auto flex w-full max-w-[532px] flex-1 flex-col items-start px-6 py-16 lg:max-w-[1440px] lg:flex-row lg:justify-between lg:px-12">
         <TransitionLink
           href="/"
           aria-label="Homepage"
@@ -114,9 +116,9 @@ export const Footer = () => {
             </ul>
           )}
         </div>
-      </div>
+      </ScrollReveal>
 
-      <div className="mx-auto flex h-11 w-full max-w-[532px] items-center justify-between gap-4 px-6 font-mono text-mono uppercase text-muted-foreground shadow-[0_-1px_0_0_var(--color-border)] lg:max-w-[1440px]">
+      <ScrollReveal delay={0.06} className="mx-auto flex h-11 w-full max-w-[532px] items-center justify-between gap-4 px-6 font-mono text-mono uppercase text-muted-foreground shadow-[0_-1px_0_0_var(--color-border)] lg:max-w-[1440px]">
         {footer?.name && (
           <p className="whitespace-nowrap" data-tina-field={tinaField(footer, "name")}>
             {year} {footer.name}
@@ -128,7 +130,7 @@ export const Footer = () => {
             {footer.tagline}
           </p>
         )}
-      </div>
+      </ScrollReveal>
     </footer>
   );
 };
