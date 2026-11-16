@@ -1,5 +1,5 @@
 import React from "react";
-import { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { cn } from "@/lib/utils";
@@ -9,6 +9,7 @@ import VideoDialog from "@/components/ui/VideoDialog";
 import "@/styles.css";
 import { TailwindIndicator } from "@/components/ui/breakpoint-indicator";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { ThemeColorSync } from "@/components/theme/theme-color-sync";
 import { RouteTransitions } from "@/components/motion-primitives/route-transitions";
 import { SmoothScroll } from "@/components/motion-primitives/smooth-scroll";
 import { buildPageMetadata } from "@/lib/seo/metadata";
@@ -41,6 +42,18 @@ export const metadata: Metadata = {
   description,
   openGraph: { ...openGraph, url: undefined },
   twitter,
+  // Framer's home allowed large image previews in search (#179); every route inherits it from here.
+  robots: { "max-image-preview": "large" },
+};
+
+// Browser chrome follows the page background (#179): `--background` in styles.css, #080808 dark and
+// #ffffff light. These media-query values cover first paint and no-JS; ThemeColorSync then pins the
+// colour to the theme the visitor actually chose, which can differ from the OS preference.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#080808" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
 };
 
 export default function RootLayout({
@@ -64,6 +77,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <ThemeColorSync />
             <VideoDialogProvider>
               {children}
               <VideoDialog />
