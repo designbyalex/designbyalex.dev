@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { CaseStudySection } from '@/components/blocks/case-study-section';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { JumpToHash } from './jump-to-hash';
 
 export const metadata: Metadata = {
   title: 'AI-workflow live pieces preview — designbyalex.dev',
@@ -134,11 +135,22 @@ export default function LivePiecesPreview() {
   if (process.env.VERCEL_ENV === 'production') notFound();
   return (
     <main className='min-h-screen bg-background py-16 text-foreground'>
-      <div className='mx-auto flex max-w-[1440px] justify-end px-4 lg:px-6 xl:px-12'>
+      <JumpToHash />
+      <div className='mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 lg:px-6 xl:px-12'>
+        <nav aria-label='Pieces' className='flex flex-wrap gap-x-4 gap-y-1 text-caption text-muted-foreground'>
+          {SECTIONS.map((data) => (
+            <a key={data.sectionId} href={`#${data.sectionId}`} className='hover:text-foreground'>
+              {data.heading}
+            </a>
+          ))}
+        </nav>
         <ThemeToggle />
       </div>
+      {/* An anchor per Section, so review links can jump to each piece (#studio, #taste, #sessions, #batches, #hero-piece). */}
       {SECTIONS.map((data) => (
-        <CaseStudySection key={data.sectionId} data={data} />
+        <div key={data.sectionId} id={data.sectionId ?? undefined} className='scroll-mt-16'>
+          <CaseStudySection data={data} />
+        </div>
       ))}
     </main>
   );
