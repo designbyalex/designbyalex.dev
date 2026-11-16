@@ -142,40 +142,6 @@ const Global: Collection = {
             component: ColorPickerInput,
           },
         },
-        {
-          type: "string",
-          name: "font",
-          label: "Font Family",
-          options: [
-            {
-              label: "Inter (Sans)",
-              value: "sans",
-            },
-            {
-              label: "Space Mono",
-              value: "mono",
-            },
-          ],
-        },
-        {
-          type: "string",
-          name: "darkMode",
-          label: "Dark Mode",
-          options: [
-            {
-              label: "System",
-              value: "system",
-            },
-            {
-              label: "Light",
-              value: "light",
-            },
-            {
-              label: "Dark",
-              value: "dark",
-            },
-          ],
-        },
       ],
     },
   ],

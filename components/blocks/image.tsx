@@ -4,7 +4,7 @@ import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { PageBlocksImage } from '@/tina/__generated__/types';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { cn } from '@/lib/utils';
 
@@ -19,7 +19,7 @@ export const ImageBlock = ({ data }: { data: PageBlocksImage }) => {
   const width = data.width || 'wide';
 
   return (
-    <Section sectionId="image" background={data.background!}>
+    <Section sectionId="image">
       <ScrollReveal>
         <figure className={cn('mx-auto', widthClasses[width] ?? widthClasses.wide)}>
           {/* Framer's wide case-study images: 20px corners, cover, no border (docs/parity-audit.md §2.4). */}
@@ -60,7 +60,6 @@ export const imageBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     {
       type: 'image',
       label: 'Image',

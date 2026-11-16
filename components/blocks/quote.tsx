@@ -4,14 +4,14 @@ import Link from 'next/link';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { PageBlocksQuote } from '@/tina/__generated__/types';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 export const Quote = ({ data }: { data: PageBlocksQuote }) => {
   if (!data.quote) return null;
 
   return (
-    <Section sectionId="quote" background={data.background!}>
+    <Section sectionId="quote">
       <ScrollReveal as="figure" className="mx-auto max-w-3xl text-center">
         <blockquote
           className="font-display text-statement text-balance"
@@ -55,7 +55,6 @@ export const quoteBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     { type: 'string', label: 'Quote', name: 'quote', ui: { component: 'textarea' } },
     { type: 'string', label: 'Attribution', name: 'attribution' },
     { type: 'string', label: 'Role', name: 'role' },

@@ -80,7 +80,16 @@ export const ProjectOverview = ({ project }: { project: Project }) => {
                   {row.lines.map((line, j) => (
                     <Fragment key={j}>
                       {j > 0 && <br />}
-                      {line.text}
+                      {line.href ? (
+                        // Same link treatment as the case-study captions' links; the hidden suffix is #178's new-tab hint.
+                        <a href={line.href} target='_blank' rel='noopener' className='rounded-sm text-emphasis underline-offset-4 hover:underline'>
+                          {line.text}
+                          <span className='sr-only'> (opens in a new tab)</span>
+                        </a>
+                      ) : (
+                        line.text
+                      )}
+                      {line.after}
                       {line.note && (
                         <>
                           {' '}

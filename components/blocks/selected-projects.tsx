@@ -5,7 +5,7 @@ import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { ArrowRight } from 'lucide-react';
 import { PageBlocksSelectedProjects } from '@/tina/__generated__/types';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { TransitionLink as Link } from '../motion-primitives/route-transitions';
 import { cn } from '@/lib/utils';
@@ -43,7 +43,7 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
   );
 
   return (
-    <Section background={data.background!} id='works' className='max-w-none p-0 scroll-mt-20'>
+    <Section id='works' className='max-w-none p-0 scroll-mt-20'>
       {(data.heading || data.years) && (
         <ScrollReveal
           sectionId='works-header'
@@ -157,7 +157,6 @@ export const selectedProjectsBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     { type: 'string', label: 'Heading', name: 'heading' },
     {
       type: 'string',
