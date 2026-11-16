@@ -51,8 +51,8 @@ export function TunerPanels() {
   return (
     <div className='@container w-full'>
       <div className='grid grid-cols-1 gap-2 @[45rem]:grid-cols-2'>
-        <Panel id='glass' title='Hero glass' controls={GLASS} preview={(v) => <GlassPreview v={v} />} />
-        <Panel id='drip' title='Home drip' controls={DRIP} preview={(v) => <DripPreview v={v} />} />
+        <Panel id='live-tuner-glass' title='Hero glass' controls={GLASS} preview={(v) => <GlassPreview id='live-tuner-glass' v={v} />} />
+        <Panel id='live-tuner-drip' title='Home drip' controls={DRIP} preview={(v) => <DripPreview id='live-tuner-drip' v={v} />} />
       </div>
     </div>
   );
@@ -61,8 +61,10 @@ export function TunerPanels() {
 export default TunerPanels;
 
 /**
- * Ids are fixed strings, not `useId`: behind `next/dynamic` the server and client trees differ, so React's
- * ids don't match on hydration. The story shows the tuners once per page.
+ * Ids are fixed per-panel prefixes, not `useId`: behind `next/dynamic` the server and client trees differ, so
+ * React's ids don't match on hydration. The story shows the tuners once per page. Sliders end in
+ * `-input-<key>` and the previews' SVG defs in `-clip` and `-goo`, so no two meet (the drip's Gooiness slider
+ * once shared the goo filter's id).
  */
 function Panel({
   id,
@@ -84,7 +86,7 @@ function Panel({
       </div>
       <div className='grid gap-2.5'>
         {controls.map((c) => {
-          const inputId = `live-tuner-${id}-${c.key}`;
+          const inputId = `${id}-input-${c.key}`;
           const v = values[c.key];
           return (
             <div key={c.key} className='grid grid-cols-[1fr_auto] items-center gap-x-2.5 gap-y-1 text-[13px] text-foreground-soft'>
@@ -115,8 +117,8 @@ function Panel({
 }
 
 /** The glass A over a striped backdrop: the stripes bend inside the mark with IOR and soften with roughness. */
-function GlassPreview({ v }: { v: Record<string, number> }) {
-  const clip = 'live-tuner-glass-clip';
+function GlassPreview({ id, v }: { id: string; v: Record<string, number> }) {
+  const clip = `${id}-clip`;
   const stripes = Array.from({ length: 13 }, (_, i) => 16 + i * 24);
   const bend = 1 + (v.ior - 1) * 0.9;
   const blur = `blur(${(v.roughness * 14).toFixed(2)}px)`;
@@ -160,8 +162,8 @@ function GlassPreview({ v }: { v: Record<string, number> }) {
 }
 
 /** The drip's sheet and blobs, merged by a goo filter whose blur follows gooiness. */
-function DripPreview({ v }: { v: Record<string, number> }) {
-  const goo = 'live-tuner-drip-goo';
+function DripPreview({ id, v }: { id: string; v: Record<string, number> }) {
+  const goo = `${id}-goo`;
   const wobble = v.wobble > 0 ? `${(2.6 / v.wobble).toFixed(2)}s` : '0s';
   return (
     <svg
