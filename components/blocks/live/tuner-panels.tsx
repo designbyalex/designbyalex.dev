@@ -1,5 +1,5 @@
 'use client';
-import { useId, useState } from 'react';
+import { useState } from 'react';
 import { MARK_PATH } from './mark-path';
 import './live-pieces.css';
 
@@ -34,28 +34,25 @@ const DRIP: Control[] = [
   { key: 'sheet', label: 'Sheet speed', min: 0.1, max: 1, step: 0.05, value: 0.5, digits: 2 },
 ];
 
-/** React's ids carry colons, which an SVG `url(#…)` reference can't always resolve. */
-const svgId = (id: string) => `live${id.replace(/[^a-zA-Z0-9_-]/g, '')}`;
-
 const defaults = (controls: Control[]) => Object.fromEntries(controls.map((c) => [c.key, c.value])) as Record<string, number>;
 
 /** The drip's blobs under the sheet: x, y and radius in the preview's 320 × 180 box. */
 const BLOBS = [
-  [40, 70, 16],
-  [86, 82, 11],
-  [128, 66, 20],
-  [176, 88, 12],
-  [214, 72, 17],
-  [262, 84, 13],
-  [296, 68, 10],
+  [40, 44, 16],
+  [86, 52, 11],
+  [128, 40, 20],
+  [176, 54, 12],
+  [214, 46, 17],
+  [262, 50, 13],
+  [296, 42, 10],
 ] as const;
 
 export function TunerPanels() {
   return (
     <div className='@container w-full'>
       <div className='grid grid-cols-1 gap-2 @[45rem]:grid-cols-2'>
-        <Panel title='Hero glass' controls={GLASS} preview={(v) => <GlassPreview v={v} />} />
-        <Panel title='Home drip' controls={DRIP} preview={(v) => <DripPreview v={v} />} />
+        <Panel id='glass' title='Hero glass' controls={GLASS} preview={(v) => <GlassPreview v={v} />} />
+        <Panel id='drip' title='Home drip' controls={DRIP} preview={(v) => <DripPreview v={v} />} />
       </div>
     </div>
   );
@@ -63,9 +60,17 @@ export function TunerPanels() {
 
 export default TunerPanels;
 
-function Panel({ title, controls, preview }: { title: string; controls: Control[]; preview: (v: Record<string, number>) => React.ReactNode }) {
+/**
+ * Ids are fixed strings, not `useId`: behind `next/dynamic` the server and client trees differ, so React's
+ * ids don't match on hydration. The story shows the tuners once per page.
+ */
+function Panel({
+  id,
+  title,
+  controls,
+  preview,
+}: { id: string; title: string; controls: Control[]; preview: (v: Record<string, number>) => React.ReactNode }) {
   const [values, setValues] = useState(() => defaults(controls));
-  const id = useId();
   return (
     <section aria-label={title} className='grid content-start gap-3.5 rounded-[20px] bg-card p-[18px]'>
       <div className='flex items-baseline justify-between'>
@@ -79,7 +84,7 @@ function Panel({ title, controls, preview }: { title: string; controls: Control[
       </div>
       <div className='grid gap-2.5'>
         {controls.map((c) => {
-          const inputId = `${id}-${c.key}`;
+          const inputId = `live-tuner-${id}-${c.key}`;
           const v = values[c.key];
           return (
             <div key={c.key} className='grid grid-cols-[1fr_auto] items-center gap-x-2.5 gap-y-1 text-[13px] text-foreground-soft'>
@@ -111,7 +116,7 @@ function Panel({ title, controls, preview }: { title: string; controls: Control[
 
 /** The glass A over a striped backdrop: the stripes bend inside the mark with IOR and soften with roughness. */
 function GlassPreview({ v }: { v: Record<string, number> }) {
-  const clip = svgId(useId());
+  const clip = 'live-tuner-glass-clip';
   const stripes = Array.from({ length: 13 }, (_, i) => 16 + i * 24);
   const bend = 1 + (v.ior - 1) * 0.9;
   const blur = `blur(${(v.roughness * 14).toFixed(2)}px)`;
@@ -156,7 +161,7 @@ function GlassPreview({ v }: { v: Record<string, number> }) {
 
 /** The drip's sheet and blobs, merged by a goo filter whose blur follows gooiness. */
 function DripPreview({ v }: { v: Record<string, number> }) {
-  const goo = svgId(useId());
+  const goo = 'live-tuner-drip-goo';
   const wobble = v.wobble > 0 ? `${(2.6 / v.wobble).toFixed(2)}s` : '0s';
   return (
     <svg
