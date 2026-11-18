@@ -38,6 +38,8 @@ const MosPlayground = dynamic(() => import('./mos-playground'));
 // The AI-workflow story's full-width live pieces (#191), each in its own chunk for the same reason.
 const TunerPanels = dynamic(() => import('./live/tuner-panels'));
 const StoryPicker = dynamic(() => import('./live/story-picker'));
+// The FireBootCamp story's stacked layers (#133), in its own chunk for the same reason.
+const BuildLayers = dynamic(() => import('./live/build-layers'));
 
 /**
  * One case-study section, as the Reference composes them (#60, docs/parity-audit.md §2.4): the heading
@@ -159,6 +161,12 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
       {data.interactive === 'tuner-panels' && (
         <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
           <TunerPanels />
+        </div>
+      )}
+
+      {data.interactive === 'build-layers' && (
+        <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
+          <BuildLayers />
         </div>
       )}
 
@@ -833,11 +841,12 @@ export const caseStudySectionBlockSchema: Template = {
       name: 'interactive',
       label: 'Interactive piece',
       description:
-        'A live piece across the full width below the columns, in place of an image. Mos Urban design-system playground: Mos’s own components, working, on a #131313 board that visitors drag and zoom (the MOS Urban design-system Section). Tuner panels and the design picker: the AI-workflow story’s live pieces (#191).',
+        'A live piece across the full width below the columns, in place of an image. Mos Urban design-system playground: Mos’s own components, working, on a #131313 board that visitors drag and zoom (the MOS Urban design-system Section). Tuner panels and the design picker: the AI-workflow story’s live pieces (#191). Build layers: the FireBootCamp story’s wireframe under its finished design (#133).',
       options: [
         { label: 'Mos Urban design-system playground', value: 'mos-playground' },
         { label: 'Design picker, live (AI-workflow story)', value: 'story-picker' },
         { label: 'Tuner panels: hero glass and home drip (AI-workflow story)', value: 'tuner-panels' },
+        { label: 'Build layers: wireframe under the finished design (FireBootCamp story)', value: 'build-layers' },
       ],
     },
   ],
