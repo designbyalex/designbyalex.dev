@@ -32,7 +32,8 @@ export type ScrollRevealProps = ScrollRevealOptions & {
  * `scroll-drip.tsx` does), so React finds matching attributes; the reduced
  * props apply from the next render. Under reduced motion the
  * `[data-scroll-reveal]` rule in `styles.css` keeps the element at rest from
- * first paint, with or without JavaScript, whatever inline style it carries.
+ * first paint, with or without JavaScript, whatever inline style it carries;
+ * with JavaScript off (`scripting: none`) a second rule does the same (#178).
  */
 export function ScrollReveal({
   children,

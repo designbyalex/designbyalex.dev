@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { tinaField } from "tinacms/dist/react";
 import { TransitionLink } from "../../motion-primitives/route-transitions";
 import { ScrollReveal } from "../../motion-primitives/scroll-reveal";
+import { NewTabHint } from "../../a11y/new-tab-hint";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
 
@@ -99,7 +100,8 @@ export const Footer = () => {
                     <LinkTag
                       href={link!.href}
                       {...(external ? { target: "_blank", rel: "noopener" } : {})}
-                      className="group relative flex items-center rounded-sm whitespace-nowrap text-caption text-foreground"
+                      // `min-h-6`: a 24px-tall target (WCAG 2.5.8) inside the 27px row; the label stays centred, so nothing moves.
+                      className="group relative flex min-h-6 items-center rounded-sm whitespace-nowrap text-caption text-foreground"
                       data-tina-field={tinaField(link!, "label")}
                     >
                       <span
@@ -109,6 +111,7 @@ export const Footer = () => {
                       <span className="transition-transform duration-500 ease-hover-link group-hover:translate-x-[13px] group-focus-visible:translate-x-[13px]">
                         {link!.label}
                       </span>
+                      {external && <NewTabHint />}
                     </LinkTag>
                   </li>
                 );
