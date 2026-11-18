@@ -1,25 +1,12 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { ArrowRight } from 'lucide-react';
 import { PageBlocksSelectedProjects } from '@/tina/__generated__/types';
 import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
-import { TransitionLink as Link } from '../motion-primitives/route-transitions';
+import { ProjectCard } from './project-card';
 import { cn } from '@/lib/utils';
-
-const statusLabels: Record<string, string> = {
-  shipped: 'Shipped',
-  'in-development': 'In-development',
-  concept: 'Concept',
-};
-
-// Status accent mirrors the case-study pages: green for shipped, orange for in-development.
-const statusDotClasses: Record<string, string> = {
-  'in-development': 'bg-status-in-development',
-};
 
 /**
  * Curated project rows for the homepage, laid out as the Reference site does:
@@ -67,7 +54,6 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
 
       <ul>
         {projects.map((project, i) => {
-          const status = project!.status ?? '';
           const last = i === projects.length - 1;
           return (
             <li
@@ -82,61 +68,33 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
               )}
             >
               <ScrollReveal amount={0.2} scale={0.92} className='w-full lg:w-[90%] xl:w-[80%]'>
-                <Link
+                <ProjectCard
                   href={project.href}
-                  className='group flex aspect-square w-full flex-col gap-[15px] rounded-[20px] lg:aspect-[1.50633] xl:aspect-[1.60627]'
+                  className='aspect-square lg:aspect-[1.50633] xl:aspect-[1.60627]'
+                  image={
+                    project!.image?.src
+                      ? {
+                          src: project!.image.src,
+                          alt: project!.image.alt,
+                          sizes: '(min-width: 1280px) calc((min(100vw, 1440px) - 144px) * 0.8), (min-width: 1024px) calc((100vw - 48px) * 0.9), calc(100vw - 32px)',
+                          tinaField: tinaField(project!.image, 'src'),
+                        }
+                      : undefined
+                  }
+                  status={project!.status}
+                  statusTinaField={tinaField(project!, 'status')}
                 >
-                  {/* Reference hover (#90): the whole thumbnail — image, status pill and arrow — grows 2% as one box (Framer's Image Wrapper at 102%), a 200ms tween. */}
-                  <div className='relative min-h-0 flex-1 rounded-[20px] transition-transform duration-200 ease-hover-card group-hover:scale-[1.02] group-focus-visible:scale-[1.02]'>
-                    {project!.image?.src && (
-                      <div
-                        className='absolute inset-0 overflow-hidden rounded-[20px] bg-card'
-                        data-tina-field={tinaField(project!.image, 'src')}
-                      >
-                        <Image
-                          src={project!.image.src}
-                          alt={project!.image.alt || ''}
-                          fill
-                          sizes='(min-width: 1280px) calc((min(100vw, 1440px) - 144px) * 0.8), (min-width: 1024px) calc((100vw - 48px) * 0.9), calc(100vw - 32px)'
-                          className='rounded-[20px] object-cover'
-                        />
-                      </div>
-                    )}
-
-                    {status && (
-                      // Over the image in both themes, so it uses the on-image tokens rather than the page's. The dark fill
-                      // (Framer's is white at 15%) keeps the label at AA over a light photo (#67); the clear-glass rim and blur match the other pills (#91).
-                      <span
-                        className='absolute top-4 left-4 z-10 inline-flex h-[30px] items-center gap-2 rounded-full border border-on-image/15 bg-scrim/60 px-[13px] font-mono text-mono uppercase text-on-image shadow-glass-photo glass-blur-photo'
-                        data-tina-field={tinaField(project!, 'status')}
-                      >
-                        <span aria-hidden className={cn('size-2 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />
-                        {statusLabels[status] ?? status}
-                      </span>
-                    )}
-
-                    {/* The arrow (Reference: a black → on the brand green) fades in top-right and slides left to right, 48px in to 24px. */}
-                    <span
-                      aria-hidden
-                      className='absolute top-6 right-12 z-10 flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 transition-[opacity,translate] duration-200 ease-hover-card group-hover:translate-x-6 group-hover:opacity-100 group-focus-visible:translate-x-6 group-focus-visible:opacity-100'
-                    >
-                      <ArrowRight className='size-6' />
-                    </span>
-                  </div>
-
-                  <div className='w-full pt-1'>
-                    {project!.title && (
-                      <h3 className='text-body text-foreground' data-tina-field={tinaField(project!, 'title')}>
-                        {project!.title}
-                      </h3>
-                    )}
-                    {project!.tagline && (
-                      <p className='text-body text-muted-foreground' data-tina-field={tinaField(project!, 'tagline')}>
-                        {project!.tagline}
-                      </p>
-                    )}
-                  </div>
-                </Link>
+                  {project!.title && (
+                    <h3 className='text-body text-foreground' data-tina-field={tinaField(project!, 'title')}>
+                      {project!.title}
+                    </h3>
+                  )}
+                  {project!.tagline && (
+                    <p className='text-body text-muted-foreground' data-tina-field={tinaField(project!, 'tagline')}>
+                      {project!.tagline}
+                    </p>
+                  )}
+                </ProjectCard>
               </ScrollReveal>
             </li>
           );
