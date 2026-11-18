@@ -744,7 +744,7 @@ export const caseStudySectionBlockSchema: Template = {
       name: 'carouselSlides',
       label: 'Carousel slides',
       description:
-        'Desktop only (from 1280px): Framer’s carousel below the columns, a 720px card showing one slide at a time with its caption top-left, a large faint step numeral bottom-left and its clip inside the device frame bottom-right. Next and Back pills and a dot per slide change slide in place; the first slide has no Back, the last no Next.',
+        'From 1280px: Framer’s carousel below the columns, a 720px card showing one slide at a time with its caption top-left, a large faint step numeral bottom-left and its clip inside the device frame bottom-right. Next and Back pills and a dot per slide change slide in place; the first slide has no Back, the last no Next. Under 1280px: the same slides swipe sideways, each clip full-bleed without the frame or numeral, with its caption, a slide counter and Back and Next.',
       ui: {
         itemProps: (item) => ({ label: [item?.number, item?.quote].filter(Boolean).join(' · ') || 'Slide' }),
         defaultItem: { frame: '/uploads/projects/mosurban/studio-display.png', autoPlay: true },

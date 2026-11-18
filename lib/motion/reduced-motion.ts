@@ -399,6 +399,23 @@ export function scrollDripMotion(prefersReducedMotion: boolean): ScrollDripMotio
   return { animate: !prefersReducedMotion };
 }
 
+// ─── theme-boil ───────────────────────────────────────────────────────────────
+
+export interface ThemeBoilMotion {
+  /** Whether the theme switch animates at all; false → the theme swaps instantly. */
+  animate: boolean;
+  /** Milliseconds the circle takes to open across the page. 0 under reduced motion. */
+  durationMs: number;
+}
+
+/**
+ * Decision for the theme switch's boiling circle (#169). The circle is decoration on an instant state change,
+ * so reduced motion → the theme simply swaps.
+ */
+export function themeBoilMotion(prefersReducedMotion: boolean): ThemeBoilMotion {
+  return prefersReducedMotion ? { animate: false, durationMs: 0 } : { animate: true, durationMs: 900 };
+}
+
 // ─── scroll-hero ──────────────────────────────────────────────────────────────
 
 export interface ScrollHeroPinOptions {

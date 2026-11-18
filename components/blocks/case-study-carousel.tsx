@@ -6,10 +6,11 @@ import { motion, useReducedMotion } from 'motion/react';
 import React from 'react';
 import { tinaField } from 'tinacms/dist/react';
 import { SettleReveal } from '../motion-primitives/settle-reveal';
+import { CaseStudySwipeCarousel } from './case-study-carousel-swipe';
 import { FramedClip, SlideChrome } from './video';
 
 /**
- * Framer's "Carousel Wrapper" (desktop only), the case-study section's slides: a 720px card on the card
+ * Framer's "Carousel Wrapper" (from 1280px; `CaseStudySwipeCarousel` takes over under it), the case-study section's slides: a 720px card on the card
  * colour with 20px corners and 24px padding showing one slide at a time, the caption top-left in a
  * 10px-padded row at 70% width, the step numeral bottom-left and the 780×453 Studio Display box
  * bottom-right (the card clips the monitor's stand). `SlideChrome` changes slide: Next at the right,
@@ -38,47 +39,50 @@ export const CaseStudyCarousel = ({ slides, label }: { slides: CarouselSlide[]; 
   };
 
   return (
-    // The slide's clip settles inside the card as it enters (#167); the card and its text are there already.
-    <SettleReveal className='hidden w-full xl:block'>
-      <div role='region' aria-roledescription='carousel' aria-label={label} className='relative h-[720px] overflow-clip rounded-[20px] bg-card p-6'>
-        {/* Persistent, so the new slide is announced when it replaces the old one. */}
-        <div aria-live='polite' className='h-full'>
-          <motion.div
-            key={index}
-            role='group'
-            aria-roledescription='slide'
-            aria-label={`${index + 1} of ${slides.length}`}
-            initial={navigated ? appear.initial : false}
-            animate={appear.animate}
-            transition={appear.transition}
-            className='flex h-full flex-col justify-between'
-            data-tina-field={tinaField(slide)}
-          >
-            <div className='w-full p-2.5'>
-              <p className='w-[70%] whitespace-pre-wrap font-display text-slide-heading text-foreground' data-tina-field={tinaField(slide, 'quote')}>
-                {slide.quote}
-              </p>
-            </div>
-            <div className='flex min-h-0 w-full flex-1 items-end justify-between'>
-              <p className='whitespace-pre font-display text-slide-number text-foreground-faint' data-tina-field={tinaField(slide, 'number')}>
-                {slide.number}
-              </p>
-              <div className='settle-target h-[453px] w-[780px] shrink-0'>
-                <FramedClip
-                  src={slide.video!}
-                  frame={slide.frame!}
-                  autoPlay={slide.autoPlay}
-                  loop
-                  label={slide.description || label}
-                  frameField={tinaField(slide, 'frame')}
-                  urlField={tinaField(slide, 'video')}
-                />
+    <>
+      {/* The slide's clip settles inside the card as it enters (#167); the card and its text are there already. */}
+      <SettleReveal className='hidden w-full xl:block'>
+        <div role='region' aria-roledescription='carousel' aria-label={label} className='relative h-[720px] overflow-clip rounded-[20px] bg-card p-6'>
+          {/* Persistent, so the new slide is announced when it replaces the old one. */}
+          <div aria-live='polite' className='h-full'>
+            <motion.div
+              key={index}
+              role='group'
+              aria-roledescription='slide'
+              aria-label={`${index + 1} of ${slides.length}`}
+              initial={navigated ? appear.initial : false}
+              animate={appear.animate}
+              transition={appear.transition}
+              className='flex h-full flex-col justify-between'
+              data-tina-field={tinaField(slide)}
+            >
+              <div className='w-full p-2.5'>
+                <p className='w-[70%] whitespace-pre-wrap font-display text-slide-heading text-foreground' data-tina-field={tinaField(slide, 'quote')}>
+                  {slide.quote}
+                </p>
               </div>
-            </div>
-          </motion.div>
+              <div className='flex min-h-0 w-full flex-1 items-end justify-between'>
+                <p className='whitespace-pre font-display text-slide-number text-foreground-faint' data-tina-field={tinaField(slide, 'number')}>
+                  {slide.number}
+                </p>
+                <div className='settle-target h-[453px] w-[780px] shrink-0'>
+                  <FramedClip
+                    src={slide.video!}
+                    frame={slide.frame!}
+                    autoPlay={slide.autoPlay}
+                    loop
+                    label={slide.description || label}
+                    frameField={tinaField(slide, 'frame')}
+                    urlField={tinaField(slide, 'video')}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+          <SlideChrome index={index} count={slides.length} onSelect={select} />
         </div>
-        <SlideChrome index={index} count={slides.length} onSelect={select} />
-      </div>
-    </SettleReveal>
+      </SettleReveal>
+      <CaseStudySwipeCarousel slides={slides} label={label} />
+    </>
   );
 };
