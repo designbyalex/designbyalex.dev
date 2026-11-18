@@ -6,7 +6,8 @@ import { cn } from '@/lib/utils';
  * on the design's own 1440 x 1210 artboard, so they scale as one and follow the theme. From 700px of container
  * the planes tilt and overlap; below that they stack flat, wireframe first.
  *
- * The hero is a neutral block on purpose: the design's hero photo shows real people and stays out until SSW agrees.
+ * The hero is the design's photo, shown with SSW's OK. It sits under a dark scrim and keeps the dark tokens in
+ * both themes, so its text always reads.
  *
  * Static and server-rendered, so it is at rest from first paint with nothing for reduced motion to stop.
  */
@@ -112,7 +113,7 @@ const Mockup = () => (
   <svg
     viewBox='0 0 1440 1210'
     role='img'
-    aria-label='The finished FireBootCamp home page design, with a neutral block in place of the hero photo'
+    aria-label='The finished FireBootCamp home page design, with three developers working around a table in the hero'
     className='block h-auto w-full font-sans'
   >
     <rect width='1440' height='1210' className='fill-card' />
@@ -155,28 +156,30 @@ const Mockup = () => (
       <tspan textDecoration='underline'>Start your path</tspan>
     </text>
 
-    {/* Hero, on the neutral block that stands in for the photo */}
-    <rect y='310' width='1440' height='900' className='fill-accent' />
-    <rect y='310' width='1440' height='1' className='fill-border' />
-    <g fontSize={84} letterSpacing={-2} className='fill-foreground'>
-      <text x={65} y={512}>
-        {'<'}
-        <tspan className='fill-emphasis'>Code</tspan>
-        {'> your way to a'}
-      </text>
-      <text x={65} y={608}>
-        professional career in
-      </text>
-      <text x={65} y={704}>
-        software development
-      </text>
+    {/* Hero: the photo under a scrim, dark in both themes */}
+    <g className='dark'>
+      <image href='/uploads/firebootcamp/hero.webp' x={0} y={310} width={1440} height={900} preserveAspectRatio='xMidYMid slice' />
+      <rect y='310' width='1440' height='900' className='fill-black/55' />
+      <g fontSize={84} letterSpacing={-2} className='fill-foreground'>
+        <text x={65} y={512}>
+          {'<'}
+          <tspan className='fill-emphasis'>Code</tspan>
+          {'> your way to a'}
+        </text>
+        <text x={65} y={608}>
+          professional career in
+        </text>
+        <text x={65} y={704}>
+          software development
+        </text>
+      </g>
+      {HERO_BODY.map((line, i) => (
+        <text key={line} x={816} y={905 + i * 30} fontSize={21} className='fill-foreground-soft'>
+          {line}
+        </text>
+      ))}
+      <ApplyButton x={816} y={1035} height={47} />
     </g>
-    {HERO_BODY.map((line, i) => (
-      <text key={line} x={816} y={905 + i * 30} fontSize={21} className='fill-foreground-soft'>
-        {line}
-      </text>
-    ))}
-    <ApplyButton x={816} y={1035} height={47} />
   </svg>
 );
 
