@@ -7,6 +7,7 @@ import React from 'react';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { Section, sectionBlockSchemaField } from '../layout/section';
+import { NewTabHint } from '../a11y/new-tab-hint';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 /**
@@ -124,7 +125,8 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
                     href={cv.href!}
                     target={cvIsExternal ? '_blank' : undefined}
                     rel={cvIsExternal ? 'noopener' : undefined}
-                    className='group flex items-center gap-2 rounded-sm text-foreground'
+                    // `min-h-6`: a 24px-tall target (WCAG 2.5.8) in the 40px row; the content stays centred, so nothing moves.
+                    className='group flex min-h-6 items-center gap-2 rounded-sm text-foreground'
                     data-tina-field={tinaField(cv, 'label')}
                   >
                     {/* lucide's ArrowDownToLine stands in for the Reference's 16px Material `download` ligature (#110). */}
@@ -136,6 +138,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
                         {cv.label}
                       </span>
                     </span>
+                    {cvIsExternal && <NewTabHint />}
                   </a>
                 </ScrollReveal>
               )}

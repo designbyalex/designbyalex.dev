@@ -139,7 +139,7 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
         {blocks.length > 0 && (
           <div className={cn('flex w-full flex-col lg:w-[47%] lg:max-w-[532px] lg:shrink-0', COLUMN_GAP[data.columnGap ?? '60'] ?? COLUMN_GAP['60'])}>
             {blocks.map((block, i) => (
-              <ColumnBlockView key={i} block={block} index={i} />
+              <ColumnBlockView key={i} block={block} index={i} heading={data.heading} />
             ))}
           </div>
         )}
@@ -296,7 +296,7 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
   );
 };
 
-const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }) => {
+const ColumnBlockView = ({ block, index, heading }: { block: ColumnBlock; index: number; heading?: string | null }) => {
   const delay = Math.min(index, 4) * 0.06;
   const kind = kindOf(block);
 
@@ -473,7 +473,7 @@ const ColumnBlockView = ({ block, index }: { block: ColumnBlock; index: number }
     // Framer's column "Image Wrapper" with the muted loop inside (the Identity and Years clips).
     return (
       <ScrollReveal delay={delay} className='w-full'>
-        <PlainClip src={video.url} autoPlay={video.autoPlay} loop={video.loop} field={tinaField(video, 'url')} />
+        <PlainClip src={video.url} autoPlay={video.autoPlay} loop={video.loop} label={video.description || heading} field={tinaField(video, 'url')} />
       </ScrollReveal>
     );
   }
@@ -655,6 +655,12 @@ const columnVideoTemplate: Template = {
       description: 'Starts on its own. Under reduced motion it waits on its first frame with a play button instead.',
     },
     { type: 'boolean', name: 'loop', label: 'Loop' },
+    {
+      type: 'string',
+      name: 'description',
+      label: 'Description',
+      description: 'What the clip shows, read out by screen readers as its accessible name. Leave empty to use the section heading.',
+    },
   ],
 };
 
@@ -760,6 +766,12 @@ export const caseStudySectionBlockSchema: Template = {
           name: 'autoPlay',
           label: 'Auto play',
           description: 'Starts on its own. Under reduced motion it waits on its first frame with a play button instead.',
+        },
+        {
+          type: 'string',
+          name: 'description',
+          label: 'Description',
+          description: 'What the clip shows, read out by screen readers as its accessible name. Leave empty to use the section heading.',
         },
       ],
     },

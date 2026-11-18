@@ -467,6 +467,17 @@
 }
 
 /*
+ * ScrollReveal without JavaScript (#178): only motion/react lifts the hidden starting style the server
+ * HTML carries, so with scripting off hold every reveal at rest, as the CSS entrances below already are.
+ */
+@media (scripting: none) {
+  [data-scroll-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/*
  * Case-study hero entrance (#68), components/case-study/project-hero.tsx. The
  * pill, title and tagline (`.hero-rise`) rise out of their clipped boxes from
  * the first paint; the page-coloured `.hero-mask` covers the image until
