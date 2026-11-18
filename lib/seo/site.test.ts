@@ -21,7 +21,7 @@ describe('siteDefaults', () => {
   it('reproduces the live <head> title and description verbatim', async () => {
     const defaults = await loadSiteDefaults();
     // Values copied from designbyalex.dev's <title> / <meta name="description"> (curly apostrophe included).
-    expect(defaults.siteTitle).toBe('Alexander Blum | UX • Product Design');
+    expect(defaults.siteTitle).toBe('Alexander Blum · UX • Product Design');
     expect(defaults.defaultDescription).toBe(
       'Alex is a Sydney-based product designer with 3+ years’ experience crafting human-centred products.'
     );
@@ -63,7 +63,7 @@ describe('siteDefaults through the metadata builders', () => {
     const defaults = await loadSiteDefaults();
     const meta = buildPageMetadata({ title: 'Home', slug: 'home' }, defaults);
 
-    expect(meta.title).toBe('Alexander Blum | UX • Product Design');
+    expect(meta.title).toBe('Alexander Blum · UX • Product Design');
     expect(meta.alternates?.canonical).toBe('https://designbyalex.dev/');
     expect(meta.openGraph?.siteName).toBe('Alexander Blum');
     const ogImages = meta.openGraph?.images as { url: string }[];

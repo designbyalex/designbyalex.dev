@@ -1,12 +1,14 @@
 'use client';
 import { ArrowLeft } from 'lucide-react';
 import React from 'react';
-import { TransitionLink } from '../motion-primitives/route-transitions';
+import { backInSiteHistory, TransitionLink } from '../motion-primitives/route-transitions';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 /**
- * The case-study "← Back" pill (`docs/parity-audit.md` A1): fixed through the whole page,
- * linking home. Top-left at desktop (46px in, 106px down: 10px under the 96px header),
+ * The case-study "← Back" pill (`docs/parity-audit.md` A1): fixed through the whole page.
+ * A click goes back in history when the previous page in the tab is on this site, so /work or home
+ * comes back at its scroll position (#184); landing here directly, it goes home. The `href` stays `/`
+ * for no-JS visitors, middle-click and open-in-new-tab. Top-left at desktop (46px in, 106px down: 10px under the 96px header),
  * top-right under 1024 (15px in, 86px down), as the Reference's phone variant.
  *
  * Box as Framer's "Link Secondary": 49px tall, 20px side padding, a 20px back arrow
@@ -21,6 +23,7 @@ export const BackLink = () => (
   <ScrollReveal className='fixed top-[86px] right-[15px] z-10 lg:top-[106px] lg:right-auto lg:left-6 xl:left-[46px]'>
     <TransitionLink
       href='/'
+      onClick={backInSiteHistory}
       data-section='back'
       className='group flex h-[49px] items-center gap-[10px] rounded-full border border-glass-border bg-glass-chrome px-5 text-foreground-dim shadow-glass glass-blur-chrome'
     >
