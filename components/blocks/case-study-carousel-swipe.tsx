@@ -8,9 +8,9 @@ import type { CarouselSlide } from './case-study-carousel';
 import { GlassArrow, PlainClip, useSlideArrows } from './video';
 
 /**
- * The case-study carousel under 1280px (#171, Alex's picker pick "Full-bleed clip, counter and arrows"):
- * one slide at a time on a native scroll-snap track, the clip edge to edge at 16:10 with its quote below,
- * side by side from 768px. A "01 / 04" counter and `SlideChrome`'s glass arrows sit under the track.
+ * The case-study carousel under 1280px (#171, Alex's picker picks of 2026-11-18): one slide at a time on a
+ * native scroll-snap track, the clip edge to edge at 16:10 with its quote below, 24px on phones and 28px in
+ * three-quarters of the width from 768px. A "01 / 04" counter and `SlideChrome`'s glass arrows sit under the track.
  *
  * The section is a centred 532px column under 1024px, so the carousel breaks out of it to the viewport's
  * width; `<main>` clips the overflow a classic scrollbar would add.
@@ -123,12 +123,12 @@ export const CaseStudySwipeCarousel = ({ slides, label }: { slides: CarouselSlid
               role='group'
               aria-roledescription='slide'
               aria-label={`${i + 1} of ${count}`}
-              className='flex w-full shrink-0 snap-start snap-always flex-col gap-6 md:flex-row md:items-start md:gap-0'
+              className='flex w-full shrink-0 snap-start snap-always flex-col gap-6'
               data-tina-field={tinaField(slide)}
               // Spread because this project's React types predate the `inert` prop that Next's bundled React renders.
               {...(i === index ? {} : { inert: true })}
             >
-              <div className='aspect-[16/10] w-full overflow-clip bg-card md:w-[58%] md:shrink-0'>
+              <div className='aspect-[16/10] w-full overflow-clip bg-card'>
                 {belowXl && i <= furthest + 1 && (
                   <div className='settle-target'>
                     <PlainClip
@@ -144,7 +144,7 @@ export const CaseStudySwipeCarousel = ({ slides, label }: { slides: CarouselSlid
                 )}
               </div>
               <p
-                className='min-w-0 whitespace-pre-wrap px-4 font-display text-slide-heading text-foreground md:flex-1 md:px-6'
+                className='whitespace-pre-wrap px-4 font-display text-slide-heading text-foreground max-md:text-[1.5rem] md:max-w-[75%] md:px-6 md:text-[1.75rem]'
                 data-tina-field={tinaField(slide, 'quote')}
               >
                 {slide.quote}
