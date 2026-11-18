@@ -1,6 +1,6 @@
 'use client';
 import { motion, useReducedMotion } from 'motion/react';
-import type { ElementType } from 'react';
+import { useState, type ElementType } from 'react';
 import { cn } from '@/lib/utils';
 import { scrollRevealMotion, type ScrollRevealOptions } from '@/lib/motion/reduced-motion';
 import { useHydrated } from './use-hydrated';
@@ -50,6 +50,9 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const prefersReducedMotion = useReducedMotion() ?? false;
   const hydrated = useHydrated();
+  // Keyboard focus inside a reveal that hasn't entered view (a tall one whose focused link alone isn't
+  // `amount` of it, like the footer's top row at 390) would land on something invisible: reveal it at once (#178).
+  const [focused, setFocused] = useState(false);
   const { initial, whileInView, transition, viewport } = scrollRevealMotion(hydrated && prefersReducedMotion, {
     y,
     duration,
@@ -72,7 +75,17 @@ export function ScrollReveal({
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
 
   return (
-    <MotionTag className={cn(className)} data-section={sectionId} data-scroll-reveal="" initial={initial} whileInView={whileInView} viewport={viewport} transition={transition}>
+    <MotionTag
+      className={cn(className)}
+      data-section={sectionId}
+      data-scroll-reveal=""
+      initial={initial}
+      animate={focused ? whileInView : undefined}
+      whileInView={whileInView}
+      viewport={viewport}
+      transition={transition}
+      onFocus={focused ? undefined : () => setFocused(true)}
+    >
       {children}
     </MotionTag>
   );
