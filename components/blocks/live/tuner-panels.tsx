@@ -77,7 +77,12 @@ function Panel({
     <section aria-label={title} className='grid content-start gap-3.5 rounded-[20px] bg-card p-[18px]'>
       <div className='flex items-baseline justify-between'>
         <h3 className='text-base text-foreground'>{title}</h3>
-        <button type='button' className='text-[13px] text-emphasis hover:underline' onClick={() => setValues(defaults(controls))}>
+        {/* The padding takes the target to 24px (WCAG 2.5.8) and the matching negative margin keeps the row's layout. */}
+        <button
+          type='button'
+          className='-my-[2.25px] py-[2.25px] text-[13px] text-emphasis hover:underline'
+          onClick={() => setValues(defaults(controls))}
+        >
           Reset
         </button>
       </div>
