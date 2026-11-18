@@ -16,6 +16,10 @@ export interface OverviewLine {
   text: string;
   /** Trailing parenthetical set in the muted colour after the text (deliverables only). */
   note?: string;
+  /** Links the text, in a new tab (a collaborator's name). */
+  href?: string;
+  /** Plain text after the linked text, in the same colour (a linked collaborator's " (Role)"). */
+  after?: string;
 }
 
 export interface OverviewRow {
@@ -27,6 +31,7 @@ export interface OverviewRow {
 export interface OverviewCollaborator {
   name?: string | null;
   role?: string | null;
+  url?: string | null;
 }
 
 export interface OverviewInput {
@@ -66,11 +71,19 @@ export function roleSentence(roles: string[], description?: string | null): stri
   return `${role.replace(/\.$/, '')}. ${detail}`;
 }
 
-/** "Anil Sagaram (Founder & CEO)"; collaborators without a name are skipped. */
+/**
+ * "Anil Sagaram (Founder & CEO)"; collaborators without a name are skipped. With a url, the
+ * name alone is the link and " (Founder & CEO)" follows it as plain text.
+ */
 export function collaboratorLines(collaborators?: (OverviewCollaborator | null)[] | null): OverviewLine[] {
   return (collaborators ?? [])
     .filter((c): c is OverviewCollaborator => Boolean(c?.name?.trim()))
-    .map((c) => ({ text: c.role?.trim() ? `${c.name!.trim()} (${c.role!.trim()})` : c.name!.trim() }));
+    .map((c) => {
+      const name = c.name!.trim();
+      const role = c.role?.trim() ? ` (${c.role!.trim()})` : '';
+      const href = c.url?.trim();
+      return href ? { text: name, href, ...(role && { after: role }) } : { text: `${name}${role}` };
+    });
 }
 
 export function buildOverviewRows(project: OverviewInput): OverviewRow[] {

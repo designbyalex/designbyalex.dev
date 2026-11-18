@@ -5,6 +5,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import type { ProjectQuery } from '@/tina/__generated__/types';
 import { buildOverviewRows } from '@/lib/case-study/overview';
 import { cn } from '@/lib/utils';
+import { NewTabHint } from '../a11y/new-tab-hint';
 import { components } from '../mdx-components';
 import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
@@ -80,7 +81,16 @@ export const ProjectOverview = ({ project }: { project: Project }) => {
                   {row.lines.map((line, j) => (
                     <Fragment key={j}>
                       {j > 0 && <br />}
-                      {line.text}
+                      {line.href ? (
+                        // Same link treatment as the case-study captions' links.
+                        <a href={line.href} target='_blank' rel='noopener' className='rounded-sm text-emphasis underline-offset-4 hover:underline'>
+                          {line.text}
+                          <NewTabHint />
+                        </a>
+                      ) : (
+                        line.text
+                      )}
+                      {line.after}
                       {line.note && (
                         <>
                           {' '}

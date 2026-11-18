@@ -22,7 +22,7 @@ import { formatMetric, type MetricKind } from '@/lib/case-study/format';
 import { sameOriginMedia } from '@/lib/tina/same-origin-media';
 import { metricFields } from '@/tina/fields/metric';
 import { components } from '../mdx-components';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { CountUp } from '../motion-primitives/count-up';
 import { LineReveal, LineWords } from '../motion-primitives/line-reveal';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
@@ -106,7 +106,6 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
   return (
     <Section
       sectionId={data.sectionId || 'case-study-section'}
-      background={data.background!}
       rootClassName='mx-auto w-full max-w-[532px] lg:max-w-[1440px]'
       className={cn(
         'flex max-w-none flex-col gap-[60px] px-4 pt-8 pb-16 lg:px-6 lg:pt-6 xl:px-12 xl:pt-12 xl:pb-[100px]',
@@ -679,7 +678,6 @@ export const caseStudySectionBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     {
       type: 'string',
       name: 'sectionId',

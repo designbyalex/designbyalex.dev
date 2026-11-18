@@ -3,7 +3,7 @@ import React from 'react';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { PageBlocksMetrics } from '@/tina/__generated__/types';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { formatMetric, type MetricKind } from '@/lib/case-study/format';
 import { metricFields } from '@/tina/fields/metric';
@@ -13,7 +13,7 @@ export const Metrics = ({ data }: { data: PageBlocksMetrics }) => {
   const metrics = data.metrics?.filter(Boolean) ?? [];
 
   return (
-    <Section sectionId="metrics" background={data.background!}>
+    <Section sectionId="metrics">
       <div className="mx-auto max-w-5xl space-y-10">
         {(data.title || data.description) && (
           <ScrollReveal className="mx-auto max-w-2xl space-y-4 text-center">
@@ -84,7 +84,6 @@ export const metricsBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     { type: 'string', label: 'Title', name: 'title' },
     { type: 'string', label: 'Description', name: 'description' },
     {

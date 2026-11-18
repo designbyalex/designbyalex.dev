@@ -150,6 +150,12 @@
   font-size: 12px;
   outline: none;
 }
+/* The site's focus ring, pulled in to a 1px offset so it stays inside the composer's 4px left padding. */
+.sp-compose input:focus-visible {
+  border-radius: 14px;
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+}
 .sp-compose input::placeholder {
   color: var(--color-muted-foreground);
 }

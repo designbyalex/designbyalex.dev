@@ -6,7 +6,7 @@ import Image from 'next/image';
 import React from 'react';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { NewTabHint } from '../a11y/new-tab-hint';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
@@ -32,7 +32,7 @@ export const About = ({ data }: { data: PageBlocksAbout }) => {
   const cvIsExternal = cv ? /^https?:\/\//.test(cv.href!) : false;
 
   return (
-    <Section sectionId='about' background={data.background!} className='max-w-none p-0' aria-label={data.heading ?? undefined}>
+    <Section sectionId='about' className='max-w-none p-0' aria-label={data.heading ?? undefined}>
       <div className='mx-auto flex max-w-[1440px] flex-col px-4 pt-12 pb-[100px] lg:flex-row lg:items-start lg:gap-[60px] lg:px-6 xl:px-12 xl:pb-[150px]'>
         {data.heading && (
           // Sticky within the section, so it stays put while the right column scrolls past. Needs no
@@ -163,7 +163,6 @@ export const aboutBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     {
       type: 'string',
       label: 'Heading',

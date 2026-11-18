@@ -37,8 +37,6 @@
     "tagline": "♥  Made with love  ♥"
   },
   "theme": {
-    "color": "green",
-    "font": "sans",
-    "darkMode": "dark"
+    "color": "green"
   }
 }

@@ -5,7 +5,7 @@ import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { ArrowRight } from 'lucide-react';
 import { PageBlocksWorkIndex } from '@/tina/__generated__/types';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { TransitionLink as Link } from '../motion-primitives/route-transitions';
 import { statusDotClasses, statusLabels } from '@/components/case-study/project-hero';
@@ -61,7 +61,7 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
     // First block on the page: the top padding clears the fixed header (88/96px tall).
     // It lives on the Section, not the heading, so the first row stays clear of the
     // header even with the optional heading unset.
-    <Section background={data.background!} sectionId='work-index' className='max-w-none p-0 pt-[150px] lg:pt-[180px]'>
+    <Section sectionId='work-index' className='max-w-none p-0 pt-[150px] lg:pt-[180px]'>
       {(data.heading || data.intro) && (
         <ScrollReveal
           sectionId='work-index-header'
@@ -164,7 +164,6 @@ export const workIndexBlockSchema: Template = {
     defaultItem: { heading: 'Work' },
   },
   fields: [
-    sectionBlockSchemaField as any,
     {
       type: 'string',
       label: 'Heading',

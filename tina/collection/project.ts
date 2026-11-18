@@ -9,7 +9,6 @@ import { metricsBlockSchema } from '@/components/blocks/metrics';
 import { quoteBlockSchema } from '@/components/blocks/quote';
 import { caseStudySectionBlockSchema } from '@/components/blocks/case-study-section';
 import { caseStudyCtaBlockSchema } from '@/components/blocks/case-study-cta';
-import { metricFields } from '@/tina/fields/metric';
 
 const Project: Collection = {
   label: 'Projects',
@@ -124,7 +123,7 @@ const Project: Collection = {
       fields: [
         { type: 'string', label: 'Name', name: 'name' },
         { type: 'string', label: 'Role', name: 'role' },
-        { type: 'string', label: 'URL', name: 'url' },
+        { type: 'string', label: 'URL', name: 'url', description: 'Links the name in the Overview, in a new tab. Leave empty for plain text.' },
       ],
     },
     {
@@ -140,18 +139,6 @@ const Project: Collection = {
       name: 'deliverables',
       description: 'What was delivered, one item per entry. A trailing parenthetical, e.g. "(WCAG AA)", is set in grey after the item.',
       list: true,
-    },
-    {
-      type: 'object',
-      label: 'Metrics',
-      name: 'metrics',
-      description: 'Headline outcomes. The display string is derived from the value + kind.',
-      list: true,
-      ui: {
-        itemProps: (item) => ({ label: `${item?.value ?? ''} ${item?.label ?? ''}`.trim() }),
-        defaultItem: { value: 40, kind: 'delta', label: 'Adoption' },
-      },
-      fields: metricFields,
     },
     {
       type: 'image',

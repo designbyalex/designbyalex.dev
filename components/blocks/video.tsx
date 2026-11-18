@@ -9,7 +9,7 @@ import type { PageBlocksVideo } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
 import { autoplayMotion } from '@/lib/motion/reduced-motion';
 import { carouselNav } from '@/lib/case-study/carousel';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { useHydrated } from '../motion-primitives/use-hydrated';
 
@@ -196,7 +196,6 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
   return (
     <Section
       sectionId='video'
-      background={data.background!}
       rootClassName={cn(data.desktopOnly && 'hidden xl:block')}
       className='px-4 lg:px-6'
     >
@@ -301,7 +300,6 @@ export const videoBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     {
       type: 'string',
       label: 'Video file',
