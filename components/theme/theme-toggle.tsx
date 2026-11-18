@@ -45,28 +45,36 @@ export function ThemeToggle({ className }: { className?: string }) {
   // Before hydration the theme is unknown, so the label stays generic.
   const label = mounted ? `Switch to ${isDark ? 'light' : 'dark'} theme` : 'Toggle theme';
 
-  const switchTo = (next: 'dark' | 'light') => {
+  const switchTo = (next: 'dark' | 'light', origin: { x: number; y: number }) => {
     const started =
       motion.animate &&
       pourModule?.pourTheme({
         dark: next === 'dark',
-        motion,
-        onCovered: () => setTheme(next),
+        origin,
+        durationMs: motion.durationMs,
+        applyTheme: () => setTheme(next),
+        onToggleClick: () => {
+          queued = !queued;
+        },
         onDone: () => {
           pouring = false;
           if (!queued) return;
           queued = false;
-          switchTo(next === 'dark' ? 'light' : 'dark');
+          switchTo(next === 'dark' ? 'light' : 'dark', origin);
         },
       });
     if (started) pouring = true;
     else setTheme(next);
   };
 
-  const onClick = () => {
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // A click mid-pour lets the pour finish, then switches back. Another click cancels that.
-    if (pouring) queued = !queued;
-    else switchTo(isDark ? 'light' : 'dark');
+    if (pouring) {
+      queued = !queued;
+      return;
+    }
+    const rect = event.currentTarget.getBoundingClientRect();
+    switchTo(isDark ? 'light' : 'dark', { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
   };
 
   return (

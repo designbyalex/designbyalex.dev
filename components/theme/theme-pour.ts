@@ -1,21 +1,51 @@
-import { DRIP_POUR_FRAG, type DripMotion, MAX_BLOBS, createDripProgram, parseHexColor, seedBlobs, stepDrip } from '@/components/motion-primitives/drip-shader';
-import type { ThemePourMotion } from '@/lib/motion/reduced-motion';
+import {
+  DRIP_POUR_FRAG,
+  type DripBlob,
+  MAX_BLOBS,
+  createDripProgram,
+  nextStretch,
+  parseHexColor,
+  seedBlobs,
+  wobbleX,
+  wobbleY,
+} from '@/components/motion-primitives/drip-shader';
 
 /**
- * The theme switch's pour (#169): the home drip, reversed. The canvas is the hero's shader mirrored top to
- * bottom, so its rising sheet pours down the page with the same blobs, goo and glossy lip. It runs twice:
- * once laying the new theme's page colour over the page, and, once the theme has flipped under full cover,
- * again with the field inverted, so the same sheet shape drains the colour off the bottom and uncovers the
- * new content.
+ * The theme switch's pour (#169), built to Alex's pick on the Portfolio Refinement Picks page, "Pours down
+ * (drip, reversed)": one pass down the page with blobs leading the edge and a bloom at the toggle, the new
+ * theme's page showing through the goo behind it.
+ *
+ * A View Transition holds the old page as a snapshot while the new page goes live above it, clipped to the
+ * sheet. The clip is a vector path traced from the drip's own field each frame, a little inside the edge. The
+ * home drip's shader paints the glossy lip over that line at full resolution, so the path's steps never show.
  *
  * Everything is built on the click and torn down at the end, context included, so no loop or WebGL context
  * outlives a switch. This file is its own chunk, fetched after hydration.
  */
 
-/** How far past the bottom of the viewport the sheet's baseline runs, clear of its wobble. */
-const OVERRUN = 60;
-/** How much of the entrance curve a half uses. Its long tail is invisible here, so each half stops at this point. */
-const CURVE_USED = 0.32;
+/** How far ahead of the sheet the blobs run, in CSS px at full lead, easing back by 40% over the pour. */
+const BLOB_LEAD = 92;
+/** The bloom that swells at the toggle, as a radius in CSS px. */
+const BLOOM_RADIUS = 140;
+/** Where the sheet's edge starts above the viewport and ends below it. */
+const OVERRUN = 80;
+/** The new page shows from this far inside the edge, under the lip the shader paints. */
+const CLIP_INSET = 8;
+/** The grid the clip is traced on, in CSS px. Finer than the lip is deep. */
+const ROW = 6;
+const COLUMN = 8;
+/** The drip's goo, as in the shader. */
+const GOO = 85;
+
+/** How close to the toggle's centre a click counts as a click on it, in CSS px. */
+const TOGGLE_RADIUS = 24;
+
+const NAME = 'theme-pour';
+const easeOutCubic = (p: number) => 1 - (1 - p) ** 3;
+const smin = (a: number, b: number, k: number) => {
+  const h = Math.min(1, Math.max(0, 0.5 + (0.5 * (b - a)) / k));
+  return b + (a - b) * h - k * h * (1 - h);
+};
 
 /** The `--background` a theme declares, read from the stylesheet because the other theme isn't applied yet. */
 function themeBackground(dark: boolean): [number, number, number] {
@@ -43,33 +73,23 @@ function themeBackground(dark: boolean): [number, number, number] {
   return dark ? [8 / 255, 8 / 255, 8 / 255] : [1, 1, 1];
 }
 
-/** A CSS cubic-bezier as a function of progress, solved by bisection. */
-function cubicBezier([x1, y1, x2, y2]: ThemePourMotion['ease']): (x: number) => number {
-  const at = (a: number, b: number, t: number) => 3 * a * t * (1 - t) ** 2 + 3 * b * t ** 2 * (1 - t) + t ** 3;
-  return (x) => {
-    let low = 0;
-    let high = 1;
-    for (let i = 0; i < 20; i++) {
-      const mid = (low + high) / 2;
-      if (at(x1, x2, mid) < x) low = mid;
-      else high = mid;
-    }
-    return at(y1, y2, (low + high) / 2);
-  };
-}
-
 export interface PourThemeOptions {
   /** The theme being switched to. */
   dark: boolean;
-  motion: ThemePourMotion;
-  /** The page is fully covered: flip the theme now. Always called once, even if the pour fails part way. */
-  onCovered: () => void;
-  /** The canvas is gone. */
+  /** The centre of the toggle, in viewport px. */
+  origin: { x: number; y: number };
+  durationMs: number;
+  /** Flip the theme. Always called once when the pour starts. */
+  applyTheme: () => void;
+  /** The toggle was clicked mid-pour. The browser sends such clicks to the page root, past the button. */
+  onToggleClick: () => void;
+  /** The pour is over and everything it built is gone. */
   onDone: () => void;
 }
 
-/** Start a pour. False when WebGL2 or the shader isn't available, and the caller swaps the theme itself. */
-export function pourTheme({ dark, motion, onCovered, onDone }: PourThemeOptions): boolean {
+/** Start a pour. False when the browser can't run it, and the caller swaps the theme itself. */
+export function pourTheme({ dark, origin, durationMs, applyTheme, onToggleClick, onDone }: PourThemeOptions): boolean {
+  if (!document.startViewTransition || document.hidden) return false;
   const canvas = document.createElement('canvas');
   const gl = canvas.getContext('webgl2', { alpha: true, antialias: false, premultipliedAlpha: true, depth: false, stencil: false });
   if (!gl) return false;
@@ -80,42 +100,127 @@ export function pourTheme({ dark, motion, onCovered, onDone }: PourThemeOptions)
     return false;
   }
   const { loc } = drip;
+  const root = document.documentElement;
 
+  // The canvas rides above the snapshots as its own live layer, and the page stays clickable beneath them.
   canvas.setAttribute('aria-hidden', 'true');
-  // Above the header so it pours over everything, and click-through so the toggle stays usable.
-  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;z-index:60;pointer-events:none;transform:scaleY(-1)';
-  document.body.append(canvas);
+  canvas.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;pointer-events:none;view-transition-name:${NAME}`;
+  const style = document.createElement('style');
+  // Nothing else animates during the swap, or the new page's colours would still be fading as the sheet reveals them.
+  style.textContent = `*,*::before,*::after{transition:none!important}
+::view-transition,::view-transition-group(*),::view-transition-image-pair(*),::view-transition-old(*),::view-transition-new(*){pointer-events:none}
+::view-transition-old(root),::view-transition-new(root),::view-transition-group(${NAME}),::view-transition-new(${NAME}){animation:none;mix-blend-mode:normal}`;
+  document.head.append(style);
+  // The header joins the page's snapshot, so the sheet passes over it with everything else.
+  const header = document.querySelector<HTMLElement>('.site-header');
+  if (header) header.style.viewTransitionName = 'none';
 
-  const rect = canvas.getBoundingClientRect();
+  const W = window.innerWidth;
+  const H = Math.max(window.innerHeight, Math.round(window.visualViewport?.height ?? 0));
   const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-  const H = rect.height;
-  canvas.width = Math.max(1, Math.round(rect.width * dpr));
+  canvas.width = Math.max(1, Math.round(W * dpr));
   canvas.height = Math.max(1, Math.round(H * dpr));
   gl.viewport(0, 0, canvas.width, canvas.height);
 
-  const blobs = seedBlobs(rect.width);
+  // The tuner's layout, less one blob on phones to make room for the bloom.
+  const blobs: DripBlob[] = seedBlobs(W).slice(0, MAX_BLOBS - 1);
+  const count = blobs.length + 1;
   const q = new Float32Array(MAX_BLOBS * 4);
   const color = themeBackground(dark);
-  const curve = cubicBezier(motion.ease);
-  const ease = (u: number) => curve(u * CURVE_USED) / curve(CURVE_USED);
-  // About a viewport a second: the trail stays well inside the blobs' lead of up to 0.8 H.
-  const maxSpeed = H;
-  // The scroll that carries the sheet's baseline from below the fold to past the far edge.
-  const travel = 2 * (H + 40 + OVERRUN);
-  const state: DripMotion = { t: 0, stretch: 1, v: 0, sPrev: 0 };
 
-  let phase: 'cover' | 'flip' | 'drain' = 'cover';
-  let phaseStart = performance.now();
-  let last = phaseStart;
-  let flipFrames = 0;
-  let covered = false;
-  let finished = false;
+  let t = 0;
+  let v = 0;
+  let stretch = 1;
+  let edge = -OVERRUN;
+  let start = 0;
+  let last = 0;
   let raf = 0;
+  let applied = false;
+  let finished = false;
+  let clip: Animation | null = null;
 
-  const cover = () => {
-    if (covered) return;
-    covered = true;
-    onCovered();
+  /** Lay out the sheet's edge and blobs for progress `p`. Positions in `q` are mirrored for the shader. */
+  const place = (p: number, dt: number) => {
+    const next = easeOutCubic(p) * (H + 2 * OVERRUN) - OVERRUN;
+    v += ((next - edge) / dt - v) * Math.min(1, 8 * dt);
+    edge = next;
+    stretch = nextStretch(stretch, v, dt);
+    blobs.forEach((b, i) => {
+      q[i * 4] = b.x0 + wobbleX(b, t);
+      q[i * 4 + 1] = H - (edge + b.lead * BLOB_LEAD * (1 - 0.4 * p) + wobbleY(b, t));
+      q[i * 4 + 2] = b.r;
+      q[i * 4 + 3] = stretch;
+    });
+    const bloom = blobs.length * 4;
+    q[bloom] = origin.x;
+    q[bloom + 1] = H - origin.y;
+    q[bloom + 2] = easeOutCubic(Math.min(1, p * 2)) * BLOOM_RADIUS;
+    q[bloom + 3] = 1;
+  };
+
+  /** The drip's field at a screen point, from the blobs near this row: below zero is inside the goo. */
+  const field = (x: number, y: number, near: number[]) => {
+    let s = y - edge + 9 * Math.sin(x * 0.007 + t * 0.8) + 5 * Math.sin(x * 0.019 - t * 1.3);
+    for (const i of near) {
+      const w = q[i * 4 + 3];
+      const blob = (Math.hypot(x - q[i * 4], (H - y - q[i * 4 + 1]) / w) - q[i * 4 + 2]) * Math.min(1, w);
+      s = smin(s, blob, GOO);
+    }
+    return s + CLIP_INSET;
+  };
+
+  /** Trace the goo as rows of spans: a vector clip, so there is no image to encode each frame. */
+  const tracePath = () => {
+    let reach = edge;
+    for (let i = 0; i < count; i++) reach = Math.max(reach, H - q[i * 4 + 1] + q[i * 4 + 2] * q[i * 4 + 3]);
+    const top = Math.max(0, Math.min(H, Math.floor((edge - 24) / ROW) * ROW));
+    const bottom = Math.min(H, reach + GOO / 4 + ROW);
+    let path = top > 0 ? `M0 0H${W}V${top}H0Z` : '';
+    for (let y = top; y < bottom; y += ROW) {
+      const mid = y + ROW / 2;
+      const near: number[] = [];
+      for (let i = 0; i < count; i++) {
+        if (Math.abs(H - mid - q[i * 4 + 1]) / q[i * 4 + 3] - q[i * 4 + 2] < GOO + CLIP_INSET) near.push(i);
+      }
+      let previous = field(0, mid, near);
+      let from = previous < 0 ? 0 : -1;
+      for (let x = COLUMN; x < W + COLUMN; x += COLUMN) {
+        const at = Math.min(x, W);
+        const value = field(at, mid, near);
+        if (value < 0 !== previous < 0) {
+          const cross = Math.round(at - COLUMN + (COLUMN * previous) / (previous - value));
+          if (value < 0) from = cross;
+          else {
+            path += `M${from} ${y}H${cross}V${y + ROW}H${from}Z`;
+            from = -1;
+          }
+        }
+        previous = value;
+      }
+      if (from >= 0) path += `M${from} ${y}H${W}V${y + ROW}H${from}Z`;
+    }
+    return `path('${path || 'M0 0'}')`;
+  };
+
+  const draw = () => {
+    gl.uniform2f(loc.uRes, canvas.width, canvas.height);
+    gl.uniform1f(loc.uDpr, dpr);
+    gl.uniform1f(loc.uT, t);
+    gl.uniform1f(loc.uL, H - edge);
+    gl.uniform1f(loc.uP, 1);
+    gl.uniform1i(loc.uN, count);
+    gl.uniform1i(loc.uDark, dark ? 1 : 0);
+    gl.uniform3f(loc.uCol, color[0], color[1], color[2]);
+    gl.uniform4fv(loc.uQ, q);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+
+  const apply = () => {
+    if (applied) return;
+    applied = true;
+    applyTheme();
   };
 
   const finish = () => {
@@ -124,73 +229,64 @@ export function pourTheme({ dark, motion, onCovered, onDone }: PourThemeOptions)
     cancelAnimationFrame(raf);
     window.clearTimeout(watchdog);
     document.removeEventListener('visibilitychange', onVisibility);
-    canvas.removeEventListener('webglcontextlost', finish);
-    cover();
+    document.removeEventListener('click', onClick, true);
+    canvas.removeEventListener('webglcontextlost', skip);
+    apply();
+    clip?.cancel();
     canvas.remove();
+    style.remove();
+    if (header) header.style.viewTransitionName = '';
     release();
     onDone();
   };
 
+  const transition = document.startViewTransition(async () => {
+    document.body.append(canvas);
+    apply();
+    // next-themes swaps the class in an effect: the new snapshot waits for it.
+    const begun = performance.now();
+    while (root.classList.contains('dark') !== dark && performance.now() - begun < 300) {
+      await new Promise((resolve) => setTimeout(resolve, 8));
+    }
+  });
+  const skip = () => transition.skipTransition();
   const onVisibility = () => {
-    if (document.hidden) finish();
+    if (document.hidden) skip();
   };
 
-  const draw = (s: number, dt: number, invert: boolean) => {
-    const { L, P } = stepDrip(q, blobs, state, H, s, dt, maxSpeed);
-    gl.uniform2f(loc.uRes, canvas.width, canvas.height);
-    gl.uniform1f(loc.uDpr, dpr);
-    gl.uniform1f(loc.uT, state.t);
-    gl.uniform1f(loc.uL, L);
-    gl.uniform1f(loc.uP, P);
-    gl.uniform1i(loc.uN, blobs.length);
-    gl.uniform1i(loc.uDark, dark ? 1 : 0);
-    gl.uniform1i(loc.uInvert, invert ? 1 : 0);
-    gl.uniform3f(loc.uCol, color[0], color[1], color[2]);
-    gl.uniform4fv(loc.uQ, q);
-    gl.clearColor(0, 0, 0, 0);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  const onClick = (event: MouseEvent) => {
+    if (event.target === root && Math.hypot(event.clientX - origin.x, event.clientY - origin.y) <= TOGGLE_RADIUS) onToggleClick();
   };
 
   const frame = (now: number) => {
     const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
     last = now;
-    state.t += dt;
-
-    if (phase === 'cover') {
-      const u = Math.min(1, (now - phaseStart) / motion.coverMs);
-      draw(travel * ease(u), dt, false);
-      if (u >= 1) {
-        phase = 'flip';
-        phaseStart = now;
-        cover();
-      }
-    } else if (phase === 'flip') {
-      // Hold full cover until next-themes has swapped the class and the new theme has painted beneath it.
-      const swapped = document.documentElement.classList.contains('dark') === dark;
-      if (swapped) flipFrames++;
-      if (flipFrames >= 2 || now - phaseStart > 400) {
-        phase = 'drain';
-        phaseStart = now;
-        state.v = 0;
-        state.sPrev = 0;
-        state.stretch = 1;
-      }
-    } else {
-      const u = Math.min(1, (now - phaseStart) / motion.drainMs);
-      draw(travel * ease(u), dt, true);
-      if (u >= 1) {
-        finish();
-        return;
-      }
-    }
-    raf = requestAnimationFrame(frame);
+    t += dt;
+    const p = Math.min(1, (now - start) / durationMs);
+    place(p, dt);
+    draw();
+    const path = tracePath();
+    (clip?.effect as KeyframeEffect | null)?.setKeyframes({ clipPath: [path, path] });
+    if (p >= 1) skip();
+    else raf = requestAnimationFrame(frame);
   };
 
-  // A stalled tab or a lost context must never leave the page under the sheet.
-  const watchdog = window.setTimeout(finish, motion.coverMs + motion.drainMs + 1500);
+  transition.ready
+    .then(() => {
+      start = last = performance.now();
+      place(0, 1 / 60);
+      draw();
+      const path = tracePath();
+      clip = root.animate({ clipPath: [path, path] }, { duration: durationMs + 1500, fill: 'both', pseudoElement: '::view-transition-new(root)' });
+      raf = requestAnimationFrame(frame);
+    })
+    .catch(finish);
+  transition.finished.then(finish, finish);
+
+  // A stalled tab or a lost context must never leave the page frozen on its snapshot.
+  const watchdog = window.setTimeout(skip, durationMs + 1500);
   document.addEventListener('visibilitychange', onVisibility);
-  canvas.addEventListener('webglcontextlost', finish);
-  raf = requestAnimationFrame(frame);
+  document.addEventListener('click', onClick, true);
+  canvas.addEventListener('webglcontextlost', skip);
   return true;
 }

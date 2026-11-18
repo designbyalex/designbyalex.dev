@@ -26,32 +26,33 @@ void main() {
  * unconverted, so sRGB in = sRGB out is what makes the fill match the page by
  * pixel. The gloss tints then mix in sRGB too, which is what Alex signed off.
  *
- * The pour adds one uniform and one line: `uInvert` turns the field inside out, so the same rising sheet
- * uncovers the page instead of covering it. The hero's source has neither.
+ * The pour's variant mirrors the field top to bottom, so the rising sheet pours down with its glossy lip
+ * leading, and keeps only that lip: the colour melts away behind the edge, where the new theme's page shows
+ * through. The hero's source has none of this.
  */
 const dripFragment = (pour: boolean) => `#version 300 es
 precision highp float;
 out vec4 o;
 uniform vec2 uRes;          // canvas size in device px
 uniform float uDpr, uT, uL, uP;
-uniform int uN, uDark;${pour ? '\nuniform int uInvert;        // 1: the sheet clears the colour instead of laying it' : ''}
+uniform int uN, uDark;
 uniform vec3 uCol;          // the page colour, sRGB 0-1 from the background token
 uniform vec4 uQ[32];        // blob x, y, radius, stretch (CSS px)
 
 float smin(float a, float b, float k) { float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0); return mix(b, a, h) - k * h * (1.0 - h); }
 
 void main() {
-  vec2 p = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr;
+  vec2 p = ${pour ? 'gl_FragCoord.xy / uDpr' : 'vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr'};
   float edge = uL + uP * (9.0 * sin(p.x * 0.007 + uT * 0.8) + 5.0 * sin(p.x * 0.019 - uT * 1.3));
   float s = edge - p.y;                                    // < 0 inside the colour
   for (int i = 0; i < 32; i++) { if (i >= uN) break; vec4 q = uQ[i]; vec2 r = p - q.xy; r.y /= q.w;
-    s = smin(s, (length(r) - q.z) * min(1.0, q.w), 85.0); }${pour ? '\n  if (uInvert == 1) s = -s;' : ''}
+    s = smin(s, (length(r) - q.z) * min(1.0, q.w), 85.0); }
   float d = -s;                                            // ~ px into the colour
   float al = clamp(d / max(fwidth(d), 1e-3) + 0.5, 0.0, 1.0);
 
   // Gloss: lit from the top left. n points from the hero into the colour.
   vec3 col = uCol; bool dk = uDark == 1;
-  vec2 g = vec2(dFdx(d), -dFdy(d)); vec2 n = length(g) > 1e-4 ? normalize(g) : vec2(0.0, 1.0);
+  vec2 g = vec2(dFdx(d), ${pour ? 'dFdy(d)' : '-dFdy(d)'}); vec2 n = length(g) > 1e-4 ? normalize(g) : vec2(0.0, 1.0);
   vec2 lgt = normalize(vec2(-0.45, -1.0));
   float facing = max(dot(-n, lgt), 0.0);
   float band = smoothstep(0.0, 1.5, d) * (1.0 - smoothstep(2.0, 16.0, d));
@@ -61,17 +62,20 @@ void main() {
   if (dk) col += vec3(0.85, 1.0, 0.92) * spec * 0.35 + vec3(0.6, 0.9, 0.75) * body * 0.035;
   else col = mix(col, vec3(0.06, 0.2, 0.15), shade * 0.2 + body * 0.05);
 
-  float toBottom = smoothstep(0.0, 140.0, uRes.y / uDpr - p.y);
-  col = mix(uCol, col, toBottom);
+${
+  pour
+    ? '  al *= 1.0 - smoothstep(12.0, 26.0, d);                   // only the lip: the page shows through behind it'
+    : '  float toBottom = smoothstep(0.0, 140.0, uRes.y / uDpr - p.y);\n  col = mix(uCol, col, toBottom);'
+}
   o = vec4(clamp(col, 0.0, 1.0) * al, al);
 }`;
 
 /** The home hero's fragment shader. */
 export const DRIP_FRAG = dripFragment(false);
-/** The theme pour's: the hero's, plus `uInvert`. */
+/** The theme pour's: the hero's, mirrored, with only the glossy lip painted. */
 export const DRIP_POUR_FRAG = dripFragment(true);
 
-const UNIFORMS = ['uRes', 'uDpr', 'uT', 'uL', 'uP', 'uN', 'uDark', 'uInvert', 'uCol', 'uQ'] as const;
+const UNIFORMS = ['uRes', 'uDpr', 'uT', 'uL', 'uP', 'uN', 'uDark', 'uCol', 'uQ'] as const;
 
 export interface DripProgram {
   program: WebGLProgram;
@@ -167,38 +171,33 @@ export interface DripMotion {
   sPrev: number;
 }
 
+/** The tuner's blob wobble, in CSS px: 25 across and 35 down. */
+export const wobbleX = (b: DripBlob, t: number) => 25 * Math.sin(0.7 * t + b.ph);
+export const wobbleY = (b: DripBlob, t: number) => 35 * Math.sin(1.1 * t + 2 * b.ph);
+/** The tuner's stretch with speed: 0.00155 per px/s up to 1.8×, eased at 6/s. */
+export const nextStretch = (stretch: number, v: number, dt: number) => stretch + (1 + Math.min(0.8, Math.abs(v) * 0.00155) - stretch) * Math.min(1, 6 * dt);
+
 /**
  * Advance the drip one frame and write its blobs into `q`. The reference's geometry, in CSS px, with the
  * tuner preset's numbers: today's 1.5× mapping starting 40 px below the fold, blobs from the first pixel of
  * scroll, built up over 0.35 of the hero, lead 0.8, stretch 0.00155 per px/s, trail 0.2, wobble 25 × 35 px.
- * `s` is the scroll position, real on the hero and eased on the pour. `maxSpeed` caps the velocity the trail
- * and stretch see: the pour moves far faster than a scroll, and uncapped its trail would cancel the blobs' lead.
  * Returns the sheet's baseline and build-up.
  */
-export function stepDrip(
-  q: Float32Array,
-  blobs: DripBlob[],
-  motion: DripMotion,
-  H: number,
-  s: number,
-  dt: number,
-  maxSpeed = Number.POSITIVE_INFINITY
-): { L: number; P: number } {
+export function stepDrip(q: Float32Array, blobs: DripBlob[], motion: DripMotion, H: number, s: number, dt: number): { L: number; P: number } {
   const raw = (s - motion.sPrev) / dt;
   motion.sPrev = s;
   motion.v += (Math.abs(raw) > 20000 ? -motion.v : raw - motion.v) * Math.min(1, 8 * dt);
-  const { t } = motion;
-  const v = Math.min(motion.v, maxSpeed);
+  const { t, v } = motion;
   const L = H + 40 - 0.5 * s;
   const P = Math.min(1, Math.max(0, (0.5 * s) / (0.35 * H)));
   const e = Math.min(1, 4 * P);
   const R = P * H * 0.8;
-  motion.stretch += (1 + Math.min(0.8, Math.abs(v) * 0.00155) - motion.stretch) * Math.min(1, 6 * dt);
+  motion.stretch = nextStretch(motion.stretch, v, dt);
 
   for (let i = 0; i < blobs.length; i++) {
     const b = blobs[i];
-    q[i * 4] = b.x0 + 25 * e * Math.sin(0.7 * t + b.ph);
-    q[i * 4 + 1] = L + (b.r + 24) * (1 - e) - b.lead * R + 35 * e * Math.sin(1.1 * t + 2 * b.ph) + Math.max(0, v) * 0.2 * b.lead;
+    q[i * 4] = b.x0 + e * wobbleX(b, t);
+    q[i * 4 + 1] = L + (b.r + 24) * (1 - e) - b.lead * R + e * wobbleY(b, t) + Math.max(0, v) * 0.2 * b.lead;
     q[i * 4 + 2] = b.r;
     q[i * 4 + 3] = motion.stretch;
   }
