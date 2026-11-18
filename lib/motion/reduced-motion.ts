@@ -399,22 +399,21 @@ export function scrollDripMotion(prefersReducedMotion: boolean): ScrollDripMotio
   return { animate: !prefersReducedMotion };
 }
 
-// ─── theme-pour ───────────────────────────────────────────────────────────────
+// ─── theme-boil ───────────────────────────────────────────────────────────────
 
-export interface ThemePourMotion {
-  /** Whether the theme switch pours at all; false → the theme swaps instantly, with no canvas and no loop. */
+export interface ThemeBoilMotion {
+  /** Whether the theme switch animates at all; false → the theme swaps instantly. */
   animate: boolean;
-  /** Milliseconds the sheet takes to run down the page. 0 under reduced motion. */
+  /** Milliseconds the circle takes to open across the page. 0 under reduced motion. */
   durationMs: number;
 }
 
 /**
- * Decision for the theme switch pouring down the page with the home drip (#169): Alex's pick on the
- * Portfolio Refinement Picks page, one 1.1 s pass that reveals the new theme through the goo. The pour is
- * decoration on an instant state change, so reduced motion → the theme simply swaps.
+ * Decision for the theme switch's boiling circle (#169). The circle is decoration on an instant state change,
+ * so reduced motion → the theme simply swaps.
  */
-export function themePourMotion(prefersReducedMotion: boolean): ThemePourMotion {
-  return prefersReducedMotion ? { animate: false, durationMs: 0 } : { animate: true, durationMs: 1100 };
+export function themeBoilMotion(prefersReducedMotion: boolean): ThemeBoilMotion {
+  return prefersReducedMotion ? { animate: false, durationMs: 0 } : { animate: true, durationMs: 900 };
 }
 
 // ─── scroll-hero ──────────────────────────────────────────────────────────────

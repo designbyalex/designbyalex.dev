@@ -6,21 +6,21 @@ import { useTheme } from 'next-themes';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
-import { themePourMotion } from '@/lib/motion/reduced-motion';
+import { themeBoilMotion } from '@/lib/motion/reduced-motion';
 import { cn } from '@/lib/utils';
 
-type ThemePourModule = typeof import('./theme-pour');
+type ThemeBoilModule = typeof import('./theme-boil');
 
-// Outside the component, so a pour survives the header remounting on a route change.
-let pourModule: ThemePourModule | null = null;
-let pouring = false;
+// Outside the component, so a switch survives the header remounting on a route change.
+let boilModule: ThemeBoilModule | null = null;
+let switching = false;
 let queued = false;
 
-/** Fetch the pour once the page is idle. A click before it lands swaps the theme instantly, so nothing waits on it. */
-function preloadPour() {
+/** Fetch the animation once the page is idle. A click before it lands swaps the theme instantly, so nothing waits on it. */
+function preloadBoil() {
   const load = () => {
-    void import('./theme-pour').then((module) => {
-      pourModule = module;
+    void import('./theme-boil').then((module) => {
+      boilModule = module;
     });
   };
   if ('requestIdleCallback' in window) {
@@ -36,9 +36,9 @@ export function ThemeToggle({ className }: { className?: string }) {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
 
-  const motion = themePourMotion(useReducedMotion() ?? false);
+  const motion = themeBoilMotion(useReducedMotion() ?? false);
   React.useEffect(() => {
-    if (motion.animate) return preloadPour();
+    if (motion.animate) return preloadBoil();
   }, [motion.animate]);
 
   const isDark = resolvedTheme === 'dark';
@@ -48,7 +48,7 @@ export function ThemeToggle({ className }: { className?: string }) {
   const switchTo = (next: 'dark' | 'light', origin: { x: number; y: number }) => {
     const started =
       motion.animate &&
-      pourModule?.pourTheme({
+      boilModule?.boilTheme({
         dark: next === 'dark',
         origin,
         durationMs: motion.durationMs,
@@ -57,19 +57,19 @@ export function ThemeToggle({ className }: { className?: string }) {
           queued = !queued;
         },
         onDone: () => {
-          pouring = false;
+          switching = false;
           if (!queued) return;
           queued = false;
           switchTo(next === 'dark' ? 'light' : 'dark', origin);
         },
       });
-    if (started) pouring = true;
+    if (started) switching = true;
     else setTheme(next);
   };
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // A click mid-pour lets the pour finish, then switches back. Another click cancels that.
-    if (pouring) {
+    // A click mid-switch lets the circle finish, then switches back. Another click cancels that.
+    if (switching) {
       queued = !queued;
       return;
     }
