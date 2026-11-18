@@ -7,6 +7,7 @@ import { tinaField } from "tinacms/dist/react";
 import { cn } from "@/lib/utils";
 import { TransitionLink } from "../../motion-primitives/route-transitions";
 import { HideOnScroll } from "../../motion-primitives/hide-on-scroll";
+import { ShyMark } from "../../motion-primitives/shy-mark";
 import { NewTabHint } from "../../a11y/new-tab-hint";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
@@ -104,11 +105,13 @@ export const Header = () => {
           className="flex size-12 shrink-0 items-center justify-center rounded-md"
         >
           {/* The mark follows the page foreground — white in dark (as live), near-black in light — except over the home hero, where it stays white. */}
-          <Icon
-            parentColor={header.color!}
-            data={{ name: header.icon!.name, color: header.icon!.color, style: header.icon!.style, size: "custom" }}
-            className={cn("h-[33px] w-[35px] opacity-100 transition-colors duration-300", overHeroText)}
-          />
+          <ShyMark>
+            <Icon
+              parentColor={header.color!}
+              data={{ name: header.icon!.name, color: header.icon!.color, style: header.icon!.style, size: "custom" }}
+              className={cn("h-[33px] w-[35px] opacity-100 transition-colors duration-300", overHeroText)}
+            />
+          </ShyMark>
         </TransitionLink>
 
         <div className="flex items-center gap-6">
