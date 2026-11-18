@@ -7,13 +7,12 @@ import type { Template } from 'tinacms';
 import { PageBlocksText } from '../../tina/__generated__/types';
 import { tinaField } from 'tinacms/dist/react';
 import { Section } from '../layout/section';
-import { sectionBlockSchemaField } from '../layout/section';
 import { scriptCopyBlockSchema, ScriptCopyBtn } from '../magicui/script-copy-btn';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 
 export const Text = ({ data }: { data: PageBlocksText }) => {
   return (
-    <Section sectionId="text" background={data.background!} className="prose prose-case-study" data-tina-field={tinaField(data, 'body')}>
+    <Section sectionId="text" className="prose prose-case-study" data-tina-field={tinaField(data, 'body')}>
       <ScrollReveal>
         <TinaMarkdown
           content={data.body}
@@ -37,7 +36,6 @@ export const textBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     {
       type: 'rich-text',
       label: 'Body',

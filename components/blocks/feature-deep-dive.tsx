@@ -6,7 +6,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import { tinaField } from 'tinacms/dist/react';
 import { PageBlocksFeatureDeepDive } from '@/tina/__generated__/types';
 import { components } from '../mdx-components';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { cn } from '@/lib/utils';
 
@@ -15,7 +15,7 @@ export const FeatureDeepDive = ({ data }: { data: PageBlocksFeatureDeepDive }) =
   const hasImage = Boolean(data.image?.src);
 
   return (
-    <Section sectionId="feature-deep-dive" background={data.background!}>
+    <Section sectionId="feature-deep-dive">
       <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-16">
         <ScrollReveal
           className={cn(
@@ -84,7 +84,6 @@ export const featureDeepDiveBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     { type: 'string', label: 'Eyebrow', name: 'eyebrow' },
     { type: 'string', label: 'Heading', name: 'heading' },
     { type: 'rich-text', label: 'Body', name: 'body' },

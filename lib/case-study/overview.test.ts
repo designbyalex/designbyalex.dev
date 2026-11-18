@@ -48,6 +48,20 @@ describe('collaboratorLines', () => {
       ])
     ).toEqual([{ text: 'Anil Sagaram (Founder & CEO)' }, { text: 'Pat Abadilla (Software Engineer)' }, { text: 'Solo' }]);
   });
+
+  it('links the name alone when there is a url, and ignores a blank url', () => {
+    expect(
+      collaboratorLines([
+        { name: 'Anil Sagaram', role: 'Founder & CEO', url: ' https://example.com/anil ' },
+        { name: 'Solo', url: 'https://example.com/solo' },
+        { name: 'Pat Abadilla', role: 'Software Engineer', url: '  ' },
+      ])
+    ).toEqual([
+      { text: 'Anil Sagaram', href: 'https://example.com/anil', after: ' (Founder & CEO)' },
+      { text: 'Solo', href: 'https://example.com/solo' },
+      { text: 'Pat Abadilla (Software Engineer)' },
+    ]);
+  });
 });
 
 describe('buildOverviewRows', () => {

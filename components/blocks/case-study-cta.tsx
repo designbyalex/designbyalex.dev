@@ -6,7 +6,7 @@ import { tinaField } from 'tinacms/dist/react';
 import { ArrowRight } from 'lucide-react';
 import type { ProjectBlocksCaseStudyCta } from '@/tina/__generated__/types';
 import { cn } from '@/lib/utils';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { TransitionLink } from '../motion-primitives/route-transitions';
 import { useNextProject } from '../case-study/next-project-context';
@@ -51,7 +51,6 @@ export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
   return (
     <Section
       sectionId='cta'
-      background={data.background!}
       rootClassName='mx-auto w-full max-w-[532px] lg:max-w-[1440px]'
       className='flex min-h-[605px] max-w-none flex-col px-4 pt-8 pb-16 lg:px-6 lg:pt-6 xl:px-12 xl:pt-12 xl:pb-[100px]'
     >
@@ -171,7 +170,6 @@ export const caseStudyCtaBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     { type: 'string', name: 'heading', label: 'Heading' },
     {
       type: 'string',

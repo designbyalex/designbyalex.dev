@@ -8,7 +8,7 @@ import { PageBlocksHero } from '../../tina/__generated__/types';
 import { EASE_APPEAR } from '../../lib/motion/reduced-motion';
 import { HERO_PIECE } from '../hero-piece/hero-piece-params';
 import { HeroPieceVideo } from '../hero-piece/hero-piece-video';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollDrip } from '../motion-primitives/scroll-drip';
 import { ScrollParallax } from '../motion-primitives/scroll-parallax';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
@@ -50,7 +50,6 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
   return (
     <Section
       sectionId="hero"
-      background={data.background!}
       // The header overlays the hero as on the Reference: pull the block up by `main`'s header offset (layout.tsx).
       rootClassName="-mt-22 lg:-mt-24"
       // `bg-hero-ground`: the hero is the same in both themes (owner's #89 review). The gradient sits on
@@ -221,7 +220,6 @@ export const heroBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     {
       type: 'string',
       label: 'Headline',
@@ -267,13 +265,6 @@ export const heroBlockSchema: Template = {
       label: 'Background',
       name: 'gradient',
       description: 'Fills the whole viewport behind the hero (the teal → green gradient).',
-      fields: imageFields('home') as any,
-    },
-    {
-      type: 'object',
-      label: 'Mark',
-      name: 'mark',
-      description: 'The mark render, overlay-blended onto the background so chrome reads as green glass.',
       fields: imageFields('home') as any,
     },
   ],

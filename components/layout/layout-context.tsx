@@ -20,7 +20,6 @@ export const useLayout = () => {
     context || {
       theme: {
         color: "blue",
-        darkMode: "default",
       },
       globalSettings: undefined,
       pageData: undefined,

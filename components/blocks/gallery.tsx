@@ -4,7 +4,7 @@ import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { PageBlocksGallery } from '@/tina/__generated__/types';
-import { Section, sectionBlockSchemaField } from '../layout/section';
+import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { cn } from '@/lib/utils';
 
@@ -19,7 +19,7 @@ export const Gallery = ({ data }: { data: PageBlocksGallery }) => {
   const columns = data.columns || '2';
 
   return (
-    <Section sectionId="gallery" background={data.background!}>
+    <Section sectionId="gallery">
       <div className="mx-auto max-w-6xl space-y-8">
         {data.title && (
           <h2
@@ -77,7 +77,6 @@ export const galleryBlockSchema: Template = {
     },
   },
   fields: [
-    sectionBlockSchemaField as any,
     {
       type: 'string',
       label: 'Title',
