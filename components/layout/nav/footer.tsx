@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { tinaField } from "tinacms/dist/react";
 import { TransitionLink } from "../../motion-primitives/route-transitions";
 import { ScrollReveal } from "../../motion-primitives/scroll-reveal";
+import { ShyMark } from "../../motion-primitives/shy-mark";
 import { NewTabHint } from "../../a11y/new-tab-hint";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
@@ -41,11 +42,13 @@ export const Footer = () => {
           className="flex shrink-0 items-center justify-center rounded-md lg:size-14"
         >
           {/* The mark follows the page foreground: white in dark (as live), near-black in light. */}
-          <Icon
-            parentColor={header!.color!}
-            data={{ name: header!.icon!.name, color: header!.icon!.color, style: header!.icon!.style, size: "custom" }}
-            className="h-[33px] w-[35px] text-foreground opacity-100"
-          />
+          <ShyMark>
+            <Icon
+              parentColor={header!.color!}
+              data={{ name: header!.icon!.name, color: header!.icon!.color, style: header!.icon!.style, size: "custom" }}
+              className="h-[33px] w-[35px] text-foreground opacity-100"
+            />
+          </ShyMark>
         </TransitionLink>
 
         <div className="flex w-full flex-1 flex-col justify-around lg:flex-row lg:items-start">

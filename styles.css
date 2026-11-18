@@ -667,6 +667,34 @@
 }
 
 /*
+ * Brand mark (#170), components/motion-primitives/shy-mark.tsx. The pieces travel past the
+ * SVG's box, so it doesn't clip them. Keyboard focus parts them a little as its cue beside
+ * the focus ring. That part uses `translate`, which adds to the `transform` the cursor
+ * spring writes, and under reduced motion the mark stays assembled.
+ */
+.brand-mark svg {
+  overflow: visible;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brand-mark [data-mark-piece] {
+    transition: translate 300ms var(--motion-ease-micro);
+  }
+
+  a:focus-visible .brand-mark [data-mark-piece="left"] {
+    translate: -2.5px 1px;
+  }
+
+  a:focus-visible .brand-mark [data-mark-piece="right"] {
+    translate: 2.5px 1px;
+  }
+
+  a:focus-visible .brand-mark [data-mark-piece="top"] {
+    translate: 0 -2.5px;
+  }
+}
+
+/*
  * Route transitions (S8 / #12, choreography #68) — View Transitions API.
  * Started by components/motion-primitives/route-transitions.tsx (TransitionLink +
  * the RouteTransitions provider). The old page fades out on the micro curve over
