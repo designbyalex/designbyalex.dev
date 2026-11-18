@@ -399,6 +399,31 @@ export function scrollDripMotion(prefersReducedMotion: boolean): ScrollDripMotio
   return { animate: !prefersReducedMotion };
 }
 
+// ─── theme-pour ───────────────────────────────────────────────────────────────
+
+export interface ThemePourMotion {
+  /** Whether the theme switch pours at all; false → the theme swaps instantly, with no canvas and no loop. */
+  animate: boolean;
+  /** Milliseconds the sheet takes to cover the page in the new page colour. 0 under reduced motion. */
+  coverMs: number;
+  /** Milliseconds the sheet takes to drain off the bottom and uncover the new theme. 0 under reduced motion. */
+  drainMs: number;
+  /** Each half's easing: the entrance curve. */
+  ease: CubicBezier;
+}
+
+/**
+ * Decision for the theme switch pouring down the page with the home drip (#169), about 1.1 s in all. The
+ * pour is decoration on an instant state change, so reduced motion → the theme simply swaps.
+ */
+export function themePourMotion(prefersReducedMotion: boolean): ThemePourMotion {
+  if (prefersReducedMotion) {
+    return { animate: false, coverMs: 0, drainMs: 0, ease: EASE_ENTRANCE };
+  }
+
+  return { animate: true, coverMs: 520, drainMs: 560, ease: EASE_ENTRANCE };
+}
+
 // ─── scroll-hero ──────────────────────────────────────────────────────────────
 
 export interface ScrollHeroPinOptions {
