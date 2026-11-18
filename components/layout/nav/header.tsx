@@ -64,11 +64,12 @@ export const Header = () => {
       setOverHero(false);
       return;
     }
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let heroBottom = 0;
     let frame = 0;
     const sample = () => {
       frame = 0;
-      setOverHero(isOverHero(window.scrollY, header.offsetHeight, heroBottom));
+      setOverHero(isOverHero(window.scrollY, header.offsetHeight, heroBottom, reducedMotion.matches));
     };
     const measure = () => {
       heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
@@ -80,9 +81,11 @@ export const Header = () => {
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", measure);
+    reducedMotion.addEventListener("change", sample);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", measure);
+      reducedMotion.removeEventListener("change", sample);
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, [pathname]);
