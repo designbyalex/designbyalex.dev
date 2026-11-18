@@ -7,6 +7,7 @@ import { tinaField } from "tinacms/dist/react";
 import { cn } from "@/lib/utils";
 import { TransitionLink } from "../../motion-primitives/route-transitions";
 import { HideOnScroll } from "../../motion-primitives/hide-on-scroll";
+import { NewTabHint } from "../../a11y/new-tab-hint";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
 import { ThemeToggle } from "../../theme/theme-toggle";
@@ -127,6 +128,7 @@ export const Header = () => {
                       data-tina-field={tinaField(item!, "label")}
                     >
                       <span>{item!.label}</span>
+                      {external && <NewTabHint />}
                       {/* Reference hover: the circle grows 40→44px and the arrow rolls out to the right as a second one enters from the left. */}
                       {/* The arrow is black on the green circle in both themes (#89 sign-off; the Reference's white is a deliberate departure). */}
                       <span

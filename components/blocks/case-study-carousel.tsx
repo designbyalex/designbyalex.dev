@@ -69,6 +69,7 @@ export const CaseStudyCarousel = ({ slides, label }: { slides: CarouselSlide[]; 
                   frame={slide.frame!}
                   autoPlay={slide.autoPlay}
                   loop
+                  label={slide.description || label}
                   frameField={tinaField(slide, 'frame')}
                   urlField={tinaField(slide, 'video')}
                 />
