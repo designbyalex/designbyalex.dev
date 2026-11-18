@@ -43,8 +43,8 @@ interface SlideChromeProps {
   onSelect: (index: number) => void;
 }
 
-/** The carousel's Back and Next pills and its pagination, positioned over the slide. Nothing for a single slide. */
-export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
+/** Back and Next for a carousel at `index`: which show, their refs, and a step that keeps keyboard focus on the carousel. */
+export const useSlideArrows = (index: number, count: number, onSelect: (index: number) => void) => {
   const { hasPrev, hasNext } = carouselNav(index, count);
   const prevRef = React.useRef<HTMLButtonElement>(null);
   const nextRef = React.useRef<HTMLButtonElement>(null);
@@ -58,16 +58,23 @@ export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
     target?.focus();
   }, [index]);
 
-  if (count < 2) {
-    return null;
-  }
-
   const step = (delta: 1 | -1) => {
     const target = index + delta;
     if (delta > 0 && target >= count - 1) refocus.current = 'prev';
     if (delta < 0 && target <= 0) refocus.current = 'next';
     onSelect(target);
   };
+
+  return { hasPrev, hasNext, prevRef, nextRef, step };
+};
+
+/** The carousel's Back and Next pills and its pagination, positioned over the slide. Nothing for a single slide. */
+export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
+  const { hasPrev, hasNext, prevRef, nextRef, step } = useSlideArrows(index, count, onSelect);
+
+  if (count < 2) {
+    return null;
+  }
 
   return (
     <>
@@ -102,8 +109,15 @@ export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
   );
 };
 
-/** One 47px circle, vertically centred 24px in from its edge. */
-const SlideArrow = ({ buttonRef, direction, onClick }: { buttonRef: React.Ref<HTMLButtonElement>; direction: 'prev' | 'next'; onClick: () => void }) => (
+interface GlassArrowProps {
+  buttonRef: React.Ref<HTMLButtonElement>;
+  direction: 'prev' | 'next';
+  onClick: () => void;
+  className?: string;
+}
+
+/** The carousel's 47px glass circle with its 16px chevron. */
+export const GlassArrow = ({ buttonRef, direction, onClick, className }: GlassArrowProps) => (
   <button
     ref={buttonRef}
     type='button'
@@ -111,14 +125,19 @@ const SlideArrow = ({ buttonRef, direction, onClick }: { buttonRef: React.Ref<HT
     aria-label={direction === 'next' ? 'Next slide' : 'Previous slide'}
     className={cn(
       // The light hairline is an inset ring (transparent in dark), so the borderless dark pill keeps its exact geometry (#91).
-      'absolute top-1/2 z-[1] flex size-[47px] -translate-y-1/2 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-glass-arrow text-glass-ink inset-ring inset-ring-glass-border-bare shadow-glass glass-blur-nav',
+      'flex size-[47px] cursor-pointer items-center justify-center overflow-hidden rounded-full bg-glass-arrow text-glass-ink inset-ring inset-ring-glass-border-bare shadow-glass glass-blur-nav',
       'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
-      direction === 'next' ? 'right-6' : 'left-6',
+      className,
     )}
   >
     {/* lucide's chevron in place of Framer's data-URI drawing (#110); it takes the glass ink via currentColor (#91). */}
     {direction === 'next' ? <ChevronRight aria-hidden className='size-4 shrink-0' /> : <ChevronLeft aria-hidden className='size-4 shrink-0' />}
   </button>
+);
+
+/** The glass circle over a slide, vertically centred 24px in from its edge. */
+const SlideArrow = (props: Omit<GlassArrowProps, 'className'>) => (
+  <GlassArrow {...props} className={cn('absolute top-1/2 z-[1] -translate-y-1/2', props.direction === 'next' ? 'right-6' : 'left-6')} />
 );
 
 interface ClipOptions {
@@ -140,13 +159,27 @@ const usePlayback = (autoPlay?: boolean | null) => {
 };
 
 /** The case-study column's "Image Wrapper": a 20px-cornered box with the clip at 101% inside (so the clip carries no radius). */
-export const PlainClip = ({ src, autoPlay, loop, label, className, field }: ClipOptions & { className?: string; field?: string }) => {
+export const PlainClip = ({
+  src,
+  autoPlay,
+  loop,
+  label,
+  active,
+  className,
+  field,
+}: ClipOptions & {
+  /** False holds the clip paused: a swipe carousel's slide that isn't the one showing (#171). */
+  active?: boolean;
+  className?: string;
+  field?: string;
+}) => {
   const { playing, reducedMotion } = usePlayback(autoPlay);
   return (
     <div className={cn('relative aspect-[1.6729] overflow-clip rounded-[20px] bg-card xl:aspect-[1.67419]', className)} data-tina-field={field}>
       <Clip
         src={src}
         playing={playing}
+        active={active}
         loop={loop ?? true}
         label={label}
         reducedMotion={reducedMotion}
@@ -222,6 +255,8 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
 interface ClipProps {
   src: string;
   playing: boolean;
+  /** False pauses the clip whatever else says. A neighbouring slide touches the viewport, so visibility alone can't. */
+  active?: boolean;
   loop: boolean;
   label?: string | null;
   reducedMotion: boolean;
@@ -229,7 +264,7 @@ interface ClipProps {
 }
 
 /** The <video> itself, driven from `playing` and whether it's on screen; under reduced motion a play/pause button sits over it. */
-const Clip = ({ src, playing, loop, label, reducedMotion, className }: ClipProps) => {
+const Clip = ({ src, playing, active = true, loop, label, reducedMotion, className }: ClipProps) => {
   const ref = React.useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = React.useState(true);
 
@@ -238,7 +273,7 @@ const Clip = ({ src, playing, loop, label, reducedMotion, className }: ClipProps
     if (!el) return;
     // React sets `muted` as a property, not an attribute, so make sure of it before asking to play.
     el.muted = true;
-    if (!playing) {
+    if (!playing || !active) {
       el.pause();
       return;
     }
@@ -250,7 +285,7 @@ const Clip = ({ src, playing, loop, label, reducedMotion, className }: ClipProps
     });
     visibility.observe(el);
     return () => visibility.disconnect();
-  }, [playing]);
+  }, [playing, active]);
 
   const toggle = () => {
     const el = ref.current;
@@ -267,7 +302,7 @@ const Clip = ({ src, playing, loop, label, reducedMotion, className }: ClipProps
         muted
         loop={loop}
         playsInline
-        autoPlay={playing}
+        autoPlay={playing && active}
         preload='metadata'
         aria-label={label || undefined}
         onPlay={() => setPaused(false)}

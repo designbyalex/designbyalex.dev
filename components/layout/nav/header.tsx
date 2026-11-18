@@ -7,6 +7,7 @@ import { tinaField } from "tinacms/dist/react";
 import { cn } from "@/lib/utils";
 import { TransitionLink } from "../../motion-primitives/route-transitions";
 import { HideOnScroll } from "../../motion-primitives/hide-on-scroll";
+import { ShyMark } from "../../motion-primitives/shy-mark";
 import { NewTabHint } from "../../a11y/new-tab-hint";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
@@ -63,11 +64,12 @@ export const Header = () => {
       setOverHero(false);
       return;
     }
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let heroBottom = 0;
     let frame = 0;
     const sample = () => {
       frame = 0;
-      setOverHero(isOverHero(window.scrollY, header.offsetHeight, heroBottom));
+      setOverHero(isOverHero(window.scrollY, header.offsetHeight, heroBottom, reducedMotion.matches));
     };
     const measure = () => {
       heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
@@ -79,9 +81,11 @@ export const Header = () => {
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", measure);
+    reducedMotion.addEventListener("change", sample);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", measure);
+      reducedMotion.removeEventListener("change", sample);
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, [pathname]);
@@ -104,11 +108,13 @@ export const Header = () => {
           className="flex size-12 shrink-0 items-center justify-center rounded-md"
         >
           {/* The mark follows the page foreground — white in dark (as live), near-black in light — except over the home hero, where it stays white. */}
-          <Icon
-            parentColor={header.color!}
-            data={{ name: header.icon!.name, color: header.icon!.color, style: header.icon!.style, size: "custom" }}
-            className={cn("h-[33px] w-[35px] opacity-100 transition-colors duration-300", overHeroText)}
-          />
+          <ShyMark>
+            <Icon
+              parentColor={header.color!}
+              data={{ name: header.icon!.name, color: header.icon!.color, style: header.icon!.style, size: "custom" }}
+              className={cn("h-[33px] w-[35px] opacity-100 transition-colors duration-300", overHeroText)}
+            />
+          </ShyMark>
         </TransitionLink>
 
         <div className="flex items-center gap-6">

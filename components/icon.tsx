@@ -25,16 +25,17 @@ import {
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useLayout } from './layout/layout-context';
+import { BRAND_MARK_PIECES, BRAND_MARK_VIEWBOX } from './motion-primitives/brand-mark-pieces';
 
 export const IconOptions = {
   // The bare brand glyph as the Reference header and footer draw it (35×33, no
-  // tile), in the current text colour so the theme colour classes apply.
+  // tile), in the current text colour so the theme colour classes apply. Its three
+  // pieces are separate paths so `ShyMark` can move them apart.
   MarkGlyph: (props: any) => (
-    <svg {...props} viewBox='0 0 35 33.2' fill='none' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
-      <path
-        fill='currentColor'
-        d='M 15.132 16.922 L 1.322 2.39 C 0.836 1.876 0 2.242 0 2.967 L 0 32.034 C 0 32.758 0.835 33.124 1.323 32.612 L 15.132 18.078 C 15.433 17.752 15.433 17.248 15.132 16.922 Z M 19.869 18.078 L 33.677 32.612 C 34.165 33.125 35 32.758 35 32.034 L 35 2.967 C 35 2.242 34.165 1.876 33.677 2.388 L 19.87 16.922 C 19.569 17.248 19.569 17.752 19.87 18.078 Z M 18.21 15.92 L 32.025 1.393 C 32.51 0.879 32.163 0 31.474 0 L 3.848 0 C 3.16 0 2.812 0.88 3.3 1.392 L 17.112 15.92 C 17.254 16.072 17.453 16.158 17.661 16.158 C 17.87 16.158 18.069 16.072 18.211 15.92 Z'
-      />
+    <svg {...props} viewBox={BRAND_MARK_VIEWBOX} fill='none' xmlns='http://www.w3.org/2000/svg' aria-hidden='true'>
+      {Object.entries(BRAND_MARK_PIECES).map(([piece, d]) => (
+        <path key={piece} data-mark-piece={piece} fill='currentColor' d={d} />
+      ))}
     </svg>
   ),
   // The designbyalex.dev brand mark on its green tile (same artwork as app/icon.svg). It
