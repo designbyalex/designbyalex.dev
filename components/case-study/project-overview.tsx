@@ -5,6 +5,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text';
 import type { ProjectQuery } from '@/tina/__generated__/types';
 import { buildOverviewRows } from '@/lib/case-study/overview';
 import { cn } from '@/lib/utils';
+import { NewTabHint } from '../a11y/new-tab-hint';
 import { components } from '../mdx-components';
 import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
@@ -81,10 +82,10 @@ export const ProjectOverview = ({ project }: { project: Project }) => {
                     <Fragment key={j}>
                       {j > 0 && <br />}
                       {line.href ? (
-                        // Same link treatment as the case-study captions' links; the hidden suffix is #178's new-tab hint.
+                        // Same link treatment as the case-study captions' links.
                         <a href={line.href} target='_blank' rel='noopener' className='rounded-sm text-emphasis underline-offset-4 hover:underline'>
                           {line.text}
-                          <span className='sr-only'> (opens in a new tab)</span>
+                          <NewTabHint />
                         </a>
                       ) : (
                         line.text

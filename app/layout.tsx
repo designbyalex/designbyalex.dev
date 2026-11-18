@@ -3,8 +3,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { cn } from "@/lib/utils";
-import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
-import VideoDialog from "@/components/ui/VideoDialog";
 
 import "@/styles.css";
 import { TailwindIndicator } from "@/components/ui/breakpoint-indicator";
@@ -78,10 +76,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <ThemeColorSync />
-            <VideoDialogProvider>
-              {children}
-              <VideoDialog />
-            </VideoDialogProvider>
+            {children}
           </ThemeProvider>
           {/* Sitewide smooth scrolling (#161), beside the page so it never wraps or remounts it. */}
           <SmoothScroll />
