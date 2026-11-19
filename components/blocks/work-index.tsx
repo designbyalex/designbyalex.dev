@@ -1,14 +1,11 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { ArrowRight } from 'lucide-react';
 import { PageBlocksWorkIndex } from '@/tina/__generated__/types';
 import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
-import { TransitionLink as Link } from '../motion-primitives/route-transitions';
-import { statusDotClasses, statusLabels } from '@/components/case-study/project-hero';
+import { ProjectCard } from './project-card';
 import { buildWorkIndex, type WorkFormat, type WorkProjectRef } from '@/lib/case-study/work-index';
 import { cn } from '@/lib/utils';
 
@@ -82,7 +79,6 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
 
       <ul>
         {entries.map((entry, i) => {
-          const status = entry.status ?? '';
           const last = i === entries.length - 1;
           const story = entry.format === 'story';
           return (
@@ -99,54 +95,19 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
               {/* The first row's image is the page's LCP element (#177): it enters in CSS from the first paint
                   (`.work-row-in`, ScrollReveal's fade, rise and settle) and loads at high priority; the rest reveal on scroll. */}
               <RowReveal first={i === 0} className={cn('w-full', story ? 'lg:w-[60%] xl:w-[50%]' : 'lg:w-[90%] xl:w-[80%]')}>
-                <Link
+                <ProjectCard
                   href={entry.href}
                   data-format={entry.format}
-                  className={cn(
-                    'group flex w-full flex-col gap-[15px] rounded-[20px] lg:aspect-[1.50633] xl:aspect-[1.60627]',
-                    story ? 'aspect-[1.25]' : 'aspect-square'
-                  )}
+                  className={cn('lg:aspect-[1.50633] xl:aspect-[1.60627]', story ? 'aspect-[1.25]' : 'aspect-square')}
+                  image={{ src: entry.thumbnail, alt: entry.thumbnailAlt, sizes: thumbnailSizes[entry.format], priority: i === 0 }}
+                  showEmptyImagePanel
+                  status={entry.status}
                 >
-                  {/* Selected projects hover (#90): the whole thumbnail grows 2% as one box, a 200ms tween. */}
-                  <div className='relative min-h-0 flex-1 rounded-[20px] transition-transform duration-200 ease-hover-card group-hover:scale-[1.02] group-focus-visible:scale-[1.02]'>
-                    <div className='absolute inset-0 overflow-hidden rounded-[20px] bg-card'>
-                      {entry.thumbnail && (
-                        <Image
-                          src={entry.thumbnail}
-                          alt={entry.thumbnailAlt || ''}
-                          fill
-                          sizes={thumbnailSizes[entry.format]}
-                          priority={i === 0}
-                          className='rounded-[20px] object-cover'
-                        />
-                      )}
-                    </div>
-
-                    {status && (
-                      // Over the image in both themes, so it uses the on-image tokens rather than the
-                      // page's — the same pill as the Selected projects rows (#67, #91).
-                      <span className='absolute top-4 left-4 z-10 inline-flex h-[30px] items-center gap-2 rounded-full border border-on-image/15 bg-scrim/60 px-[13px] font-mono text-mono uppercase text-on-image shadow-glass-photo glass-blur-photo'>
-                        <span aria-hidden className={cn('size-2 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />
-                        {statusLabels[status] ?? status}
-                      </span>
-                    )}
-
-                    {/* The green arrow circle fades in top-right and slides left to right on hover. */}
-                    <span
-                      aria-hidden
-                      className='absolute top-6 right-12 z-10 flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 transition-[opacity,translate] duration-200 ease-hover-card group-hover:translate-x-6 group-hover:opacity-100 group-focus-visible:translate-x-6 group-focus-visible:opacity-100'
-                    >
-                      <ArrowRight className='size-6' />
-                    </span>
-                  </div>
-
-                  <div className='w-full pt-1'>
-                    {/* The card's size tells the formats apart (#126); the label stays for screen readers. */}
-                    <p className='sr-only'>{formatLabels[entry.format]}</p>
-                    <h2 className='text-body text-foreground'>{entry.title}</h2>
-                    {entry.tagline && <p className='text-body text-muted-foreground'>{entry.tagline}</p>}
-                  </div>
-                </Link>
+                  {/* The card's size tells the formats apart (#126); the label stays for screen readers. */}
+                  <p className='sr-only'>{formatLabels[entry.format]}</p>
+                  <h2 className='text-body text-foreground'>{entry.title}</h2>
+                  {entry.tagline && <p className='text-body text-muted-foreground'>{entry.tagline}</p>}
+                </ProjectCard>
               </RowReveal>
             </li>
           );
