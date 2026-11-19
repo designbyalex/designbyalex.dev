@@ -15,12 +15,22 @@ typology:
 role:
   - Full-Stack Designer
 roleDescription: Leading end-to-end strategy, design, development, and stakeholder management. Including management of a freelance Junior Graphic Designer.
-timeline: Q3 2024 – Q4 2025
+timeline: Q2 2024 – Q4 2026
 tools:
   - Figma
   - Webflow CMS
   - Adobe Suite
   - Airtable & AI-workflows
+  - Claude Code
+  - Custom AI skills & workflows
+  - AI image generation
+  - GSAP
+  - Finsweet Attributes
+  - MapLibre
+  - Memberstack
+  - INHAABIT configurator
+  - Playwright
+  - Remotion
 deliverables:
   - Brand strategy platform (purpose, values, tone of voice)
   - Visual identity system (typography, palette, imagery direction)
@@ -89,7 +99,7 @@ blocks:
         label: Some user considerations
         items:
           - title: Delivering results without data
-            text: By combining insights from stakeholders, comparative analysis, and a heuristic review of Mos Urban’s existing website, I could make education assumptions on the user needs and pain points.
+            text: By combining insights from stakeholders, comparative analysis, and a heuristic review of Mos Urban’s existing website, I could make educated assumptions on the user needs and pain points.
           - title: Uncovering the genuine needs
             text: The decision-makers who ultimately specify furniture products into projects. These professionals often struggle to find manufacturers who are transparent, cooperative, and flexible, and they tend to return to those they trust. They look for evidence of credibility and experience, and as a secondary priority, evidence of environmental management plans.
           - title: Putting our users at the centre
@@ -240,37 +250,121 @@ blocks:
         autoPlay: true
         loop: true
   - _template: caseStudySection
+    sectionId: motion
+    heading: Motion with restraint
+    subheading: One curve, built for speed
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          The site worked, but it barely moved. Most of its motion was lost in the rebuild, and what was left felt patchy. I set one rule for everything that moves: a single easing curve at 400–700 ms, with short fades and a small rise. Surfaces people use often, like the filter drawer, move quicker than the ones they see once a visit.
+
+          Page load was already the site’s weak spot, so I built the motion in GSAP and CSS, which the site already loaded, instead of adding another library. Nothing visible on load waits for JavaScript, and visitors who prefer reduced motion see every end state straight away.
+      - _template: statement
+        text: 'Motion that feels architectural — '
+        emphasis: calm, precise and never in the way of the content.
+        leadOnPhone: true
+    image:
+      src: /uploads/projects/mosurban/motion.webp
+      alt: The Mos Urban motion system - one easing curve, cubic-bezier(.83, 0, .17, 1), plotted beside its rules - 400–700 ms, an 8–16 px rise, and nothing starting hidden.
+    imageStyle: card
+  - _template: caseStudySection
+    sectionId: design-system
+    heading: A design system the team can own
+    subheading: Components built for editors, not just designers
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          Fast iteration had left the styling drifting: dozens of font sizes, stray colours and hundreds of unused classes. I audited every layer and rebuilt the site on one set of tokens, a type scale, a greyscale palette and a spacing scale, then turned the patterns that repeat into components: buttons, section headers, contact bands, download tiles, and the product and project cards.
+
+          The rules live in code as well as in the design. A check runs over the published site and fails if a value drifts off the system, so the site stays clean long after handover.
+      - _template: statement
+        text: 'Clean, lean and consistent — '
+        emphasis: so Mos Urban’s team can add products and projects without breaking the design.
+        leadOnPhone: true
+  - _template: caseStudySection
+    sectionId: projects-map
+    heading: Mapping the work
+    subheading: Every project, in place
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          Architects and contractors want proof that a manufacturer has delivered work like theirs, ideally somewhere they can go and see it. The original designs included a map view, so I built it: every completed project with a location appears as a pin across Australia, clustering as you zoom out. Each pin opens a card that links to the project, or straight to directions.
+
+          The map reads from the same CMS as the project pages, so a new project appears without any code, and the active filters carry across between grid and map. The map library only loads when someone opens the map, so the grid stays fast.
+      - _template: statement
+        text: 'Credibility you can visit — '
+        emphasis: turning a list of projects into evidence on the ground.
+        leadOnPhone: true
+    image:
+      src: /uploads/projects/mosurban/projects-map.webp
+      alt: The Mos Urban projects map on a phone and a desktop - clustered pins, a project card for Eastwood Private Hospital with directions, and callouts noting that pins cluster, filters carry across grid and map, and the map loads only when opened.
+    imageStyle: card
+  - _template: caseStudySection
+    sectionId: not-found
+    heading: Even the 404 is on brand
+    subheading: Look around the factory
+    headingSize: statement
+    rhythm: uniform
+    blocks:
+      - _template: body
+        body: |-
+          On the old site, a broken link led to a blank page with nothing but a footer. I turned it into a small moment of delight using the illustrated factory scene from Mos Urban’s 2024 Christmas puzzle. On desktop, the scene fills the screen and you can drag around the factory floor. On phones, the message comes first, then a still detail of the scene. One button takes you home.
+      - _template: statement
+        text: 'A dead end became '
+        emphasis: a reason to stay a little longer.
+        leadOnPhone: true
+    image:
+      src: /uploads/projects/mosurban/not-found.webp
+      alt: Two browser windows - the old site’s 404, a blank grey page with only a footer, behind the new 404, a black “Page not found” card with a Go home button over the illustrated Mos factory.
+    imageStyle: card
+  - _template: caseStudySection
     sectionId: outcome
     heading: Outcome
     headingSize: heading
     rhythm: uniform
     blocks:
+      - _template: body
+        body: |-
+          Success is measured against the problems we set out to solve: specifiers who couldn’t find critical resources quickly, didn’t trust the brand’s credibility, and struggled to navigate the old site. The new site runs on Mos Urban’s existing analytics, so each of these can be compared before and after launch.
       - _template: statement
-        text: Coming Soon…
-        muted: true
+        text: 'Every measure ties back to a user problem — '
+        emphasis: finding, trusting and enquiring.
+        leadOnPhone: true
+    image:
+      src: /uploads/projects/mosurban/old-vs-new.webp
+      alt: The old and new Mos Urban home pages on desktop and phone - the old site opens on a sidebar menu beside a full-bleed photo; the new one opens on a project story, Verge seating pods at Iglu Summer Hill, with a See case study button.
+    imageStyle: card
     metrics:
-      - value: 100
+      - value: 30
         kind: percentage
-        label: '________________'
-      - value: 100
+        label: projected rise in product enquiries
+      - value: 45
         kind: percentage
-        label: '________________'
-      - value: 100
+        label: projected rise in projects explored per visit
+      - value: 35
         kind: percentage
-        label: '________________'
-      - value: 100
+        label: estimated drop in time to find a product
+      - value: 20
         kind: percentage
-        label: '________________'
+        label: projected rise in mobile engagement
   - _template: caseStudySection
     sectionId: whats-next
     heading: What’s next for Mos?
+    subheading: Measure, learn, refine
     headingSize: statement
     rhythm: uniform
     blocks:
-      - _template: statement
-        text: Coming Soon…
-        muted: true
-    placeholderPattern: /uploads/projects/mosurban/placeholder-hatch.svg
+      - _template: body
+        body: |-
+          Launch is the start of the next phase. Over the first few months, I’ll track these measures against the old site and use what we learn to refine the journeys that matter most to specifiers.
+
+          Next on the roadmap is a product sheet system that builds every technical sheet from the CMS, so Mos Urban’s team can keep more than a hundred products documented without redrawing a page. With a training video for each part of the CMS, the team can run the site day to day themselves.
   - _template: caseStudyCta
     heading: Want the full story?
     description: |-
