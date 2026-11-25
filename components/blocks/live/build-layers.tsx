@@ -1,13 +1,12 @@
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 /**
- * The build layers (#133, FireBootCamp's "The build"): the home page as two stacked planes, a block wireframe
- * under the finished design, as Alex signed it off (picker round 4). Both layers are drawn in the site's tokens
- * on the design's own 1440 x 1210 artboard, so they scale as one and follow the theme. From 700px of container
- * the planes tilt and overlap; below that they stack flat, wireframe first.
- *
- * The hero is the design's photo, shown with SSW's OK. It sits under a dark scrim and keeps the dark tokens in
- * both themes, so its text always reads.
+ * The build layers (#133, FireBootCamp's second Section): the home page as two stacked planes, a block wireframe
+ * under the live site, as Alex signed it off (picker round 4) and then picked the real page for the upper layer
+ * (round 3 of the FireBootCamp picks). The wireframe is drawn in the site's tokens, so it follows the theme; the
+ * live site is a capture of firebootcamp.com on the same 1440 x 1210 artboard. From 700px of container the
+ * planes tilt and overlap; below that they stack flat, wireframe first.
  *
  * Static and server-rendered, so it is at rest from first paint with nothing for reduced motion to stop.
  */
@@ -79,108 +78,16 @@ const Wireframe = () => (
   </svg>
 );
 
-const NAV_LINKS = [
-  { label: 'Program', x: 555 },
-  { label: 'Pricing', x: 660 },
-  { label: 'FAQs', x: 751 },
-  { label: 'Courses & Events', x: 827 },
-];
-
-const COURSES = [
-  { x: 66, title: '1-Day Dev Superpowers', lines: ['One day seminars where you', 'watch our developers build an app', 'live.'] },
-  { x: 402, title: '2-Day Workshops', lines: ['Two day workshops where you get', 'your hands dirty and build an app.'] },
-  { x: 738, title: 'SSW Internship', lines: ['We’ll cover your fee for SSW’s', 'FireBootCamp completely.'] },
-  { x: 1074, title: 'Something Else?', lines: ['Explore our full list of courses and', 'events at SSW.'] },
-];
-
-const HERO_BODY = [
-  'After 12-weeks of intense training you will emerge as a',
-  'professional fullstack developer. Master enterprise-grade',
-  'technologies and transform your potential into a powerful',
-  'technical skill set, ready for real-world challenges.',
-];
-
-const ApplyButton = ({ x, y, height }: { x: number; y: number; height: number }) => (
-  <>
-    <rect x={x} y={y} width={133} height={height} rx={10} className='fill-emphasis' />
-    <text x={x + 66.5} y={y + height / 2 + 7} textAnchor='middle' fontSize={19} fontWeight={500} className='fill-background'>
-      Apply now
-    </text>
-  </>
-);
-
-const Mockup = () => (
-  <svg
-    viewBox='0 0 1440 1210'
-    role='img'
-    aria-label='The finished FireBootCamp home page design, with three developers working around a table in the hero'
-    className='block h-auto w-full font-sans'
-  >
-    <rect width='1440' height='1210' className='fill-card' />
-
-    {/* Nav */}
-    <text x={65} y={48} fontSize={25} letterSpacing={-0.5} className='fill-foreground'>
-      <tspan fontWeight={600} className='fill-emphasis'>
-        SSW
-      </tspan>
-      FireBootCamp
-    </text>
-    {NAV_LINKS.map((link) => (
-      <text key={link.label} x={link.x} y={47} fontSize={19} className='fill-foreground-soft'>
-        {link.label}
-      </text>
-    ))}
-    <path d='M987 36 L993 42 L999 36' fill='none' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='stroke-foreground-soft' />
-    <ApplyButton x={1244} y={14} height={44} />
-
-    {/* Four course links */}
-    {COURSES.map((course) => (
-      <g key={course.title}>
-        <rect x={course.x} y={115} width={20} height={20} rx={5} fill='none' strokeWidth='2' className='stroke-foreground-soft' />
-        <text x={course.x + 34} y={132} fontSize={19} fontWeight={500} className='fill-foreground'>
-          {course.title}
-        </text>
-        {course.lines.map((line, i) => (
-          <text key={line} x={course.x + 34} y={158 + i * 24} fontSize={17} className='fill-muted-foreground'>
-            {line}
-          </text>
-        ))}
-      </g>
-    ))}
-
-    {/* Announcement strip */}
-    <rect y='251' width='1440' height='59' className='fill-muted' />
-    <rect y='251' width='1440' height='1' className='fill-border' />
-    <text x={720} y={287} textAnchor='middle' fontSize={19} className='fill-foreground-soft'>
-      Transform your tech career now{'  '}
-      <tspan textDecoration='underline'>Start your path</tspan>
-    </text>
-
-    {/* Hero: the photo under a scrim, dark in both themes */}
-    <g className='dark'>
-      <image href='/uploads/firebootcamp/hero.webp' x={0} y={310} width={1440} height={900} preserveAspectRatio='xMidYMid slice' />
-      <rect y='310' width='1440' height='900' className='fill-black/55' />
-      <g fontSize={84} letterSpacing={-2} className='fill-foreground'>
-        <text x={65} y={512}>
-          {'<'}
-          <tspan className='fill-emphasis'>Code</tspan>
-          {'> your way to a'}
-        </text>
-        <text x={65} y={608}>
-          professional career in
-        </text>
-        <text x={65} y={704}>
-          software development
-        </text>
-      </g>
-      {HERO_BODY.map((line, i) => (
-        <text key={line} x={816} y={905 + i * 30} fontSize={21} className='fill-foreground-soft'>
-          {line}
-        </text>
-      ))}
-      <ApplyButton x={816} y={1035} height={47} />
-    </g>
-  </svg>
+/** The upper layer: the live home page at firebootcamp.com, captured at 1440 wide and cropped to the wireframe's artboard. */
+const LiveSite = () => (
+  <Image
+    src='/uploads/firebootcamp/final-home.webp'
+    alt='The FireBootCamp home page as it looks live, with its headline over a dark photo of developers at a table'
+    width={2850}
+    height={2394}
+    sizes='(min-width: 1024px) 560px, 100vw'
+    className='block h-auto w-full'
+  />
 );
 
 const CHIP = 'inline-flex h-6 items-center rounded-full px-2.5 font-mono text-[11px] leading-none uppercase';
@@ -204,14 +111,14 @@ const BuildLayers = () => (
         </div>
         <div className={cn(PLANE, '@[43.75rem]:[transform:translate3d(calc(215*var(--u)),calc(-50*var(--u)),0)_rotateX(50deg)_rotateZ(-30deg)]')}>
           <div className={cn(LAYER, 'bg-card')}>
-            <Mockup />
+            <LiveSite />
           </div>
         </div>
       </div>
       <figcaption className='relative z-10 flex items-center gap-2.5 text-caption text-muted-foreground'>
         <span className={cn(CHIP, 'shadow-[inset_0_0_0_1px_var(--color-border)]')}>Wireframe</span>
         <span aria-hidden>→</span>
-        <span className={cn(CHIP, 'bg-emphasis text-background')}>Mockup</span>
+        <span className={cn(CHIP, 'bg-emphasis text-background')}>Live site</span>
       </figcaption>
     </figure>
   </div>
