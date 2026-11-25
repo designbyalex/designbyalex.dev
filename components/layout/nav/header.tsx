@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { tinaField } from "tinacms/dist/react";
 import { cn } from "@/lib/utils";
@@ -9,6 +8,7 @@ import { TransitionLink } from "../../motion-primitives/route-transitions";
 import { HideOnScroll } from "../../motion-primitives/hide-on-scroll";
 import { ShyMark } from "../../motion-primitives/shy-mark";
 import { NewTabHint } from "../../a11y/new-tab-hint";
+import { ArrowCircle } from "../../blocks/arrow-circle";
 import { Icon } from "../../icon";
 import { useLayout } from "../layout-context";
 import { ThemeToggle } from "../../theme/theme-toggle";
@@ -135,21 +135,7 @@ export const Header = () => {
                     >
                       <span>{item!.label}</span>
                       {external && <NewTabHint />}
-                      {/* Reference hover: the circle grows 40→44px and the arrow rolls out to the right as a second one enters from the left. */}
-                      {/* The arrow is black on the green circle in both themes (#89 sign-off; the Reference's white is a deliberate departure). */}
-                      <span
-                        aria-hidden
-                        className="relative size-10 shrink-0 overflow-hidden rounded-full bg-primary text-primary-foreground transition-transform duration-500 ease-hover-link group-hover:scale-110 group-focus-visible:scale-110"
-                      >
-                        <ArrowRight
-                          strokeWidth={1.6}
-                          className="absolute inset-0 m-auto size-6 transition-transform duration-500 ease-hover-link group-hover:translate-x-10 group-focus-visible:translate-x-10"
-                        />
-                        <ArrowRight
-                          strokeWidth={1.6}
-                          className="absolute inset-0 m-auto size-6 -translate-x-10 transition-transform duration-500 ease-hover-link group-hover:translate-x-0 group-focus-visible:translate-x-0"
-                        />
-                      </span>
+                      <ArrowCircle />
                     </LinkTag>
                   </li>
                 );
