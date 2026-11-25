@@ -1,21 +1,13 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { ArrowRight } from 'lucide-react';
 import type { ProjectBlocksCaseStudyCta } from '@/tina/__generated__/types';
-import { cn } from '@/lib/utils';
 import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
-import { TransitionLink } from '../motion-primitives/route-transitions';
 import { useNextProject } from '../case-study/next-project-context';
-import { statusLabels } from '../case-study/project-hero';
-
-// The pill's dot: green for shipped work, orange for in-development, as the case-study hero's.
-const statusDotClasses: Record<string, string> = {
-  'in-development': 'bg-status-in-development',
-};
+import { ArrowCircle } from './arrow-circle';
+import { ProjectCard } from './project-card';
 
 /** A textarea's line breaks as `<br>`s, so the text stays one run with Framer's `<br>` inside it. */
 const withBreaks = (text: string) =>
@@ -46,7 +38,6 @@ const withBreaks = (text: string) =>
  */
 export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
   const next = useNextProject();
-  const status = next?.status ?? '';
 
   return (
     <Section
@@ -81,19 +72,7 @@ export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
             // Same tab, as the Reference's link (no target); `noopener` as it sets.
             <a href={data.linkHref} rel='noopener' className='group flex items-center gap-3 rounded-full' data-tina-field={tinaField(data, 'linkLabel')}>
               <span className='whitespace-nowrap text-body-lg text-foreground'>{data.linkLabel}</span>
-              <span
-                aria-hidden
-                className='relative size-10 shrink-0 overflow-hidden rounded-full bg-primary text-primary-foreground transition-transform duration-500 ease-hover-link group-hover:scale-110 group-focus-visible:scale-110'
-              >
-                <ArrowRight
-                  strokeWidth={1.6}
-                  className='absolute inset-0 m-auto size-6 transition-transform duration-500 ease-hover-link group-hover:translate-x-10 group-focus-visible:translate-x-10'
-                />
-                <ArrowRight
-                  strokeWidth={1.6}
-                  className='absolute inset-0 m-auto size-6 -translate-x-10 transition-transform duration-500 ease-hover-link group-hover:translate-x-0 group-focus-visible:translate-x-0'
-                />
-              </span>
+              <ArrowCircle />
             </a>
           )}
         </ScrollReveal>
@@ -106,47 +85,19 @@ export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
           )}
 
           {next && (
-            <TransitionLink
+            <ProjectCard
               href={`/${next.slug}`}
-              className='group flex aspect-[0.842353] w-full flex-col justify-end gap-[15px] rounded-[20px] lg:aspect-[1.79294] xl:aspect-[1.37647]'
+              className='aspect-[0.842353] justify-end lg:aspect-[1.79294] xl:aspect-[1.37647]'
+              image={{
+                src: next.thumbnail,
+                alt: next.thumbnailAlt,
+                sizes: '(min-width: 1280px) calc(min(100vw, 1440px) - 628px), (min-width: 1024px) calc(100vw - 48px), min(100vw - 32px, 500px)',
+              }}
+              status={next.status}
             >
-              {/* Reference hover (#90): the whole thumbnail — image, status pill and arrow — grows 2% as one box (Framer's Image Wrapper at 102%), a 200ms tween. */}
-              <div className='relative min-h-0 w-full flex-1 rounded-[20px] transition-transform duration-200 ease-hover-card group-hover:scale-[1.02] group-focus-visible:scale-[1.02]'>
-                {next.thumbnail && (
-                  <div className='absolute inset-0 overflow-hidden rounded-[20px] bg-card'>
-                    <Image
-                      src={next.thumbnail}
-                      alt={next.thumbnailAlt || ''}
-                      fill
-                      sizes='(min-width: 1280px) calc(min(100vw, 1440px) - 628px), (min-width: 1024px) calc(100vw - 48px), min(100vw - 32px, 500px)'
-                      className='rounded-[20px] object-cover'
-                    />
-                  </div>
-                )}
-
-                {status && (
-                  // Over the image in both themes, so it uses the on-image tokens rather than the page's. The dark fill
-                  // (Framer's is white at 15%) keeps the label at AA over a light photo (#67); the clear-glass rim and blur match the other pills (#91).
-                  <span className='absolute top-4 left-4 z-10 inline-flex h-[30px] items-center gap-2 rounded-full border border-on-image/15 bg-scrim/60 px-[13px] font-mono text-mono uppercase text-on-image shadow-glass-photo glass-blur-photo'>
-                    <span aria-hidden className={cn('size-2 rounded-full', statusDotClasses[status] ?? 'bg-primary')} />
-                    {statusLabels[status] ?? status}
-                  </span>
-                )}
-
-                {/* The arrow (Reference: a black → on the brand green) fades in top-right and slides left to right, 48px in to 24px. */}
-                <span
-                  aria-hidden
-                  className='absolute top-6 right-12 z-10 flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 transition-[opacity,translate] duration-200 ease-hover-card group-hover:translate-x-6 group-hover:opacity-100 group-focus-visible:translate-x-6 group-focus-visible:opacity-100'
-                >
-                  <ArrowRight className='size-6' />
-                </span>
-              </div>
-
-              <div className='w-full pt-1'>
-                <p className='text-body text-foreground'>{next.title}</p>
-                {next.tagline && <p className='text-body text-muted-foreground'>{next.tagline}</p>}
-              </div>
-            </TransitionLink>
+              <p className='text-body text-foreground'>{next.title}</p>
+              {next.tagline && <p className='text-body text-muted-foreground'>{next.tagline}</p>}
+            </ProjectCard>
           )}
         </ScrollReveal>
       </div>

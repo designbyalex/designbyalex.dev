@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowCircle } from "@/components/blocks/arrow-circle"
 import Layout from "@/components/layout/layout"
 import { type NotFoundProject, NotFoundStage, ProjectPreviews, ProjectRow } from "@/components/not-found/project-previews"
 import { BRAND_MARK_PIECES, BRAND_MARK_VIEWBOX } from "@/components/motion-primitives/brand-mark-pieces"
@@ -97,24 +97,10 @@ export function NotFoundContent({
             staticUntilHydrated
             className="self-end pb-[19px] lg:self-auto lg:justify-self-end lg:pb-0"
           >
-            {/* Styled exactly like the header's "Let's talk" (components/layout/nav/header.tsx): the
-                40px green circle grows to 110% on hover while the arrow rolls out right and a second
-                rolls in from the left. The sitewide reduced-motion rule makes both instant. */}
+            {/* Styled exactly like the header's "Let's talk" (components/layout/nav/header.tsx). */}
             <TransitionLink href="/" className="group flex items-center gap-3 text-body-lg text-foreground">
               <span>Back to home</span>
-              <span
-                aria-hidden
-                className="relative size-10 shrink-0 overflow-hidden rounded-full bg-primary text-primary-foreground transition-transform duration-500 ease-hover-link group-hover:scale-110 group-focus-visible:scale-110"
-              >
-                <ArrowRight
-                  strokeWidth={1.6}
-                  className="absolute inset-0 m-auto size-6 transition-transform duration-500 ease-hover-link group-hover:translate-x-10 group-focus-visible:translate-x-10"
-                />
-                <ArrowRight
-                  strokeWidth={1.6}
-                  className="absolute inset-0 m-auto size-6 -translate-x-10 transition-transform duration-500 ease-hover-link group-hover:translate-x-0 group-focus-visible:translate-x-0"
-                />
-              </span>
+              <ArrowCircle />
             </TransitionLink>
           </ScrollReveal>
         </div>
