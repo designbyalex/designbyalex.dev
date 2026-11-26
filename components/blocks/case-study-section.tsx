@@ -42,6 +42,8 @@ const StoryPicker = dynamic(() => import('./live/story-picker'));
 const BuildLayers = dynamic(() => import('./live/build-layers'));
 // The SSW homepage story's pitch board (#134), in its own chunk for the same reason.
 const PitchBoard = dynamic(() => import('./live/pitch-board'));
+// Acacia's Savings at a glance in What's next (#136), in its own chunk for the same reason.
+const SavingsGlance = dynamic(() => import('./live/savings-glance'));
 
 /**
  * One case-study section, as the Reference composes them (#60, docs/parity-audit.md §2.4): the heading
@@ -203,6 +205,13 @@ export const CaseStudySection = ({ data }: { data: SectionData }) => {
             />
           </div>
         </SettleReveal>
+      )}
+
+      {/* Acacia's Savings at a glance sits under the section's image, as signed off (#136). */}
+      {data.interactive === 'savings-glance' && (
+        <div className='w-full' data-tina-field={tinaField(data, 'interactive')}>
+          <SavingsGlance />
+        </div>
       )}
 
       {grid.length > 0 && cardGrid && (
@@ -849,13 +858,14 @@ export const caseStudySectionBlockSchema: Template = {
       name: 'interactive',
       label: 'Interactive piece',
       description:
-        'A live piece across the full width below the columns, in place of an image. Mos Urban design-system playground: Mos’s own components, working, on a #131313 board that visitors drag and zoom (the MOS Urban design-system Section). Tuner panels and the design picker: the AI-workflow story’s live pieces (#191). Build layers: the FireBootCamp story’s wireframe under its finished design (#133). Pitch board: the SSW homepage story’s annotated Before and After wireframes (#134).',
+        'A live piece across the full width below the columns, in place of an image. Mos Urban design-system playground: Mos’s own components, working, on a #131313 board that visitors drag and zoom (the MOS Urban design-system Section). Tuner panels and the design picker: the AI-workflow story’s live pieces (#191). Build layers: the FireBootCamp story’s wireframe under its finished design (#133). Pitch board: the SSW homepage story’s annotated Before and After wireframes (#134). Savings at a glance: Acacia’s dashboard cards, assembling as they scroll in, under the section’s image (#136).',
       options: [
         { label: 'Mos Urban design-system playground', value: 'mos-playground' },
         { label: 'Design picker, live (AI-workflow story)', value: 'story-picker' },
         { label: 'Tuner panels: hero glass and home drip (AI-workflow story)', value: 'tuner-panels' },
         { label: 'Build layers: wireframe under the finished design (FireBootCamp story)', value: 'build-layers' },
         { label: 'Pitch board: Before and After with notes (SSW homepage story)', value: 'pitch-board' },
+        { label: 'Savings at a glance: Acacia’s dashboard cards (Acacia What’s next)', value: 'savings-glance' },
       ],
     },
   ],
