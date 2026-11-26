@@ -16,7 +16,7 @@
 }
 
 .sg {
-  /* Stand-in for the product's dusk photo (#136, NEEDS ALEX). To use the photo, set --sg-sky to its url() here. */
+  /* The dusk sky, a CSS gradient Alex approved over the product photo (#136, 26 Nov 2026). A photo would go in --sg-sky as a url(). */
   --sg-sky: radial-gradient(120% 60% at 50% 112%, rgb(232 150 98 / 0.75), rgb(232 150 98 / 0) 60%),
     radial-gradient(80% 50% at 15% 100%, rgb(120 110 140 / 0.55), transparent 70%),
     linear-gradient(180deg, #050d26 0%, #0b1f52 34%, #1b3d78 60%, #3b4f78 78%, #8a7d86 92%, #c58f6a 100%);
