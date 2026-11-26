@@ -1,0 +1,315 @@
+/*
+ * The pitch board (#134), from Alex's signed-off picker board. Scoped under `.pb` and built on the site's tokens,
+ * so it follows the light and dark themes. The layout switches on the block's own width: the wireframe beside its
+ * notes from 701px, and the notes under the wireframe below that.
+ */
+
+.pb-host {
+  container-type: inline-size;
+}
+
+.pb {
+  /* The wireframe's fills sit on the card: a step darker than it in light, where --muted equals --card. */
+  --pb-fill: var(--color-accent);
+  position: relative;
+  display: grid;
+  gap: 16px;
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  letter-spacing: var(--text-caption--letter-spacing);
+  color: var(--color-foreground);
+}
+.dark .pb {
+  --pb-fill: var(--color-muted);
+}
+
+.pb button {
+  cursor: pointer;
+  text-align: left;
+}
+.pb button:focus-visible {
+  outline-offset: 2px;
+}
+.pb [hidden] {
+  display: none;
+}
+
+/* Before and After */
+.pb-switch {
+  display: inline-flex;
+  justify-self: start;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+.pb-switch button {
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 999px;
+  color: var(--color-muted-foreground);
+}
+.pb-switch button[aria-pressed="true"] {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.pb-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+/* The wireframe */
+.pb-page {
+  position: relative;
+  display: grid;
+  padding: 12px 16px;
+  border-radius: 20px;
+  background: var(--color-card);
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.pb-section {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: 10px;
+  color: var(--color-foreground-soft);
+  box-shadow: 0 1px 0 0 var(--color-border);
+  cursor: pointer;
+}
+.pb-section > p {
+  max-width: 78%;
+}
+.pb-page > .pb-section:last-child,
+.pb-split .pb-section {
+  box-shadow: none;
+}
+.pb-split {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 12px;
+  box-shadow: 0 1px 0 0 var(--color-border);
+}
+.pb-page .pb-hero,
+.pb-page .pb-band {
+  margin: 4px 0 10px;
+  padding: 14px 12px;
+  align-content: center;
+  background: var(--pb-fill);
+  font-size: 14px;
+  box-shadow: none;
+}
+.pb-hero {
+  min-height: 92px;
+}
+.pb-page .pb-round {
+  border-radius: 16px;
+  background: radial-gradient(100% 120% at 90% 0, color-mix(in oklch, var(--color-emphasis) 28%, transparent), transparent 65%), var(--pb-fill);
+}
+.pb-band {
+  min-height: 76px;
+  justify-items: center;
+  text-align: center;
+}
+@media (hover: hover) {
+  .pb-page .pb-section:not([data-on]):hover {
+    box-shadow: inset 0 0 0 1px var(--color-muted-foreground);
+  }
+}
+.pb-page .pb-section[data-on] {
+  box-shadow: inset 0 0 0 1.5px var(--color-emphasis);
+}
+
+/* The highlight on its way between two sections */
+.pb-ring {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1.5px var(--color-emphasis);
+  pointer-events: none;
+}
+.pb-page[data-gliding] > .pb-ring {
+  display: block;
+}
+.pb-page[data-gliding] .pb-section[data-on] {
+  box-shadow: none;
+}
+
+/* Numbers */
+.pb-pins {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 1;
+  display: flex;
+  gap: 3px;
+}
+.pb-n,
+.pb .pb-pin {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--pb-fill);
+  color: var(--color-foreground-soft);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+/* The pins sit straight on their section, with a 24px target around the 22px circle. */
+.pb .pb-pin {
+  position: relative;
+  background: transparent;
+  letter-spacing: inherit;
+}
+.pb-pin::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+}
+.pb .pb-pin[data-on],
+.pb-note[data-on] .pb-n {
+  background: var(--color-emphasis);
+  color: var(--color-background);
+  box-shadow: none;
+}
+
+/* Wireframe parts */
+.pb-dots {
+  display: flex;
+  gap: 3px;
+}
+.pb-dots i {
+  width: 9px;
+  height: 5px;
+  background: var(--color-foreground-faint);
+}
+.pb-dots i:first-child {
+  background: var(--color-emphasis);
+}
+.pb-cells {
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: 4px;
+}
+.pb-cells span {
+  min-height: 34px;
+  padding: 6px;
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+  background: var(--pb-fill);
+  /* A touch stronger than the muted grey, to hold AA on the light fill. */
+  color: color-mix(in srgb, var(--color-muted-foreground) 90%, var(--color-foreground));
+  font-size: 9.5px;
+  line-height: 1.25;
+}
+.pb-lines,
+.pb-rows {
+  display: grid;
+  gap: 4px;
+}
+.pb-lines i {
+  display: block;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--color-foreground-faint);
+}
+.pb-lines i:last-child {
+  width: 62%;
+}
+.pb-rows i {
+  display: block;
+  height: 13px;
+  border-radius: 4px;
+  background: var(--pb-fill);
+}
+.pb-feature {
+  display: block;
+  height: 44px;
+  border-radius: 6px;
+  background: var(--pb-fill);
+}
+.pb-faces {
+  display: flex;
+  gap: 6px;
+}
+.pb-faces i {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pb-fill);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+/* The notes */
+.pb-notes {
+  display: grid;
+}
+.pb-note {
+  position: relative;
+  box-shadow: 0 1px 0 0 var(--color-border);
+}
+.pb-note button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 4px;
+  border-radius: 8px;
+}
+.pb-note b {
+  display: block;
+  font-weight: 400;
+  color: var(--color-foreground);
+}
+.pb-note[data-on] b {
+  color: var(--color-emphasis);
+}
+.pb-note > p {
+  display: none;
+  overflow: hidden;
+  padding: 0 4px 16px 38px;
+  color: var(--color-muted-foreground);
+}
+.pb-note[data-on] > p,
+.pb-note[data-closing] > p {
+  display: block;
+}
+
+/* The old page while it clears */
+.pb-fly {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.pb-fly .pb-page {
+  background: none;
+}
+
+@container (max-width: 700px) {
+  .pb-grid,
+  .pb-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pb-n,
+  .pb .pb-pin,
+  .pb-note b {
+    transition: background-color 180ms var(--motion-ease-micro), color 180ms var(--motion-ease-micro);
+  }
+}
