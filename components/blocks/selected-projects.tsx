@@ -70,6 +70,8 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
               <ScrollReveal amount={0.2} scale={0.92} className='w-full lg:w-[90%] xl:w-[80%]'>
                 <ProjectCard
                   href={project.href}
+                  // The block's rows carry no format; they are case studies (#211).
+                  title={project.title ?? ''}
                   className='aspect-square lg:aspect-[1.50633] xl:aspect-[1.60627]'
                   image={
                     project!.image?.src
@@ -83,16 +85,13 @@ export const SelectedProjects = ({ data }: { data: PageBlocksSelectedProjects })
                   }
                   status={project!.status}
                   statusTinaField={tinaField(project!, 'status')}
+                  tagline={project!.tagline}
+                  taglineTinaField={tinaField(project!, 'tagline')}
                 >
                   {project!.title && (
                     <h3 className='text-body text-foreground' data-tina-field={tinaField(project!, 'title')}>
                       {project!.title}
                     </h3>
-                  )}
-                  {project!.tagline && (
-                    <p className='text-body text-muted-foreground' data-tina-field={tinaField(project!, 'tagline')}>
-                      {project!.tagline}
-                    </p>
                   )}
                 </ProjectCard>
               </ScrollReveal>

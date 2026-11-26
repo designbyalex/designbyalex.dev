@@ -83,7 +83,8 @@ export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
       <div className='absolute inset-x-0 bottom-0 z-[1] flex justify-center p-4'>
         <div className='flex overflow-hidden rounded-full bg-glass-dots inset-ring inset-ring-glass-border-bare shadow-glass glass-blur-nav'>
           {Array.from({ length: count }, (_, i) => (
-            // The ring goes on the dot: the pill clips anything drawn outside the button.
+            // The ring goes on the dot: the pill clips anything drawn outside the button. 7px either side of the
+            // 10px dot gives each button a 24×30 target, at least WCAG 2.2's 24×24 (owner pick 2026-11-26, #211).
             <button
               key={i}
               type='button'
@@ -92,7 +93,7 @@ export const SlideChrome = ({ index, count, onSelect }: SlideChromeProps) => {
               aria-current={i === index ? 'true' : undefined}
               className={cn(
                 'group cursor-pointer py-2.5 outline-none',
-                i === 0 ? 'pr-[5px] pl-2.5' : i === count - 1 ? 'pr-2.5 pl-[5px]' : 'px-[5px]',
+                i === 0 ? 'pr-[7px] pl-2.5' : i === count - 1 ? 'pr-2.5 pl-[7px]' : 'px-[7px]',
               )}
             >
               <div

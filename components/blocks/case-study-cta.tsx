@@ -7,6 +7,7 @@ import { Section } from '../layout/section';
 import { ScrollReveal } from '../motion-primitives/scroll-reveal';
 import { useNextProject } from '../case-study/next-project-context';
 import { ArrowCircle } from './arrow-circle';
+import { resolveWorkFormat } from '@/lib/case-study/work-index';
 import { ProjectCard } from './project-card';
 
 /** A textarea's line breaks as `<br>`s, so the text stays one run with Framer's `<br>` inside it. */
@@ -38,6 +39,8 @@ const withBreaks = (text: string) =>
  */
 export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
   const next = useNextProject();
+  // The route hands over each project with its Tina format (the /work refs), so a story is named as one (#211).
+  const nextFormat = resolveWorkFormat(next && 'format' in next && typeof next.format === 'string' ? next.format : null);
 
   return (
     <Section
@@ -87,6 +90,8 @@ export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
           {next && (
             <ProjectCard
               href={`/${next.slug}`}
+              title={next.title}
+              format={nextFormat}
               className='aspect-[0.842353] justify-end lg:aspect-[1.79294] xl:aspect-[1.37647]'
               image={{
                 src: next.thumbnail,
@@ -94,9 +99,9 @@ export const CaseStudyCta = ({ data }: { data: ProjectBlocksCaseStudyCta }) => {
                 sizes: '(min-width: 1280px) calc(min(100vw, 1440px) - 628px), (min-width: 1024px) calc(100vw - 48px), min(100vw - 32px, 500px)',
               }}
               status={next.status}
+              tagline={next.tagline}
             >
               <p className='text-body text-foreground'>{next.title}</p>
-              {next.tagline && <p className='text-body text-muted-foreground'>{next.tagline}</p>}
             </ProjectCard>
           )}
         </ScrollReveal>

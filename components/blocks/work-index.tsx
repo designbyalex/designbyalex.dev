@@ -9,11 +9,6 @@ import { ProjectCard } from './project-card';
 import { buildWorkIndex, type WorkFormat, type WorkProjectRef } from '@/lib/case-study/work-index';
 import { cn } from '@/lib/utils';
 
-const formatLabels: Record<WorkFormat, string> = {
-  'case-study': 'Case study',
-  story: 'Story',
-};
-
 /**
  * The /work route's projects, fetched server-side (the block's list comes from
  * the Project collection, not the Page document) and provided to {@link WorkIndex}
@@ -97,16 +92,17 @@ export const WorkIndex = ({ data }: { data: PageBlocksWorkIndex }) => {
               <RowReveal first={i === 0} className={cn('w-full', story ? 'lg:w-[60%] xl:w-[50%]' : 'lg:w-[90%] xl:w-[80%]')}>
                 <ProjectCard
                   href={entry.href}
+                  title={entry.title}
+                  format={entry.format}
                   data-format={entry.format}
                   className={cn('lg:aspect-[1.50633] xl:aspect-[1.60627]', story ? 'aspect-[1.25]' : 'aspect-square')}
                   image={{ src: entry.thumbnail, alt: entry.thumbnailAlt, sizes: thumbnailSizes[entry.format], priority: i === 0 }}
                   showEmptyImagePanel
                   status={entry.status}
+                  tagline={entry.tagline}
                 >
-                  {/* The card's size tells the formats apart (#126); the label stays for screen readers. */}
-                  <p className='sr-only'>{formatLabels[entry.format]}</p>
+                  {/* The card's size tells the formats apart (#126); screen readers hear the format in the link's name (#211). */}
                   <h2 className='text-body text-foreground'>{entry.title}</h2>
-                  {entry.tagline && <p className='text-body text-muted-foreground'>{entry.tagline}</p>}
                 </ProjectCard>
               </RowReveal>
             </li>
